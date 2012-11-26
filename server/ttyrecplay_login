@@ -1,0 +1,104 @@
+#!/bin/bash --login
+
+export LESSSECURE=1
+
+command=""
+
+until [ "$command" = "end" ]
+do
+        clear
+
+	echo "Welcome to the record player menu on the Ancardia ADOM server!"
+	echo ""
+	echo "You can here view any of the games played and recorded by ttyrec"
+	echo "on the server."
+	echo ""
+	echo "To play a recording, you should use one of the listing commands"
+	echo "to provide a list of available recordings. Then choose \"Start\""
+	echo "playback\" and enter the recording you wish to play."
+	echo ""
+	echo "PROTIP: Use the less-program's '/' command in the record listings"
+	echo "to perform a search (eg., for a username)!"
+	echo ""
+	echo "BROTIP: Your operating system/window manager/... probably has a"
+	echo "clipboard. Use it."
+	echo ""
+
+	python /var/lib/adom/server/check_term.py --silent
+	ret="$?"
+
+	if [ "$ret" == "1" ]; then
+	    echo "Warning: your terminal size appears to be something else than 80x25"
+	    echo "characters. In case it is smaller, you will not be able to view"
+	    echo "the games correctly."
+	    echo ""
+	fi
+
+	echo "What do yo wish to do?"
+	echo ""
+	echo "  0 - Display ttyplay manpage (RECOMMENDED!)"
+	echo "  1 - List all demos in alphabetical order"
+	echo "  2 - List all demos sorted by file size"
+	echo "  3 - List all demos sorted by modification time"
+	echo "  4 - Start playback"
+	echo "  5 - Display termplay manpage"
+	echo "  6 - Start playback using termplay (EXPERIMENTAL)"
+	echo "  7 - Quit"
+
+	printf "> "
+
+	read command
+	case $command in
+	    0)
+		less /var/lib/adom/server/ttyplay_info
+		continue
+		;;
+
+	    1)
+		less /var/lib/adom/server/ttyrec_lists/alphasorted
+		continue
+		;;
+	    
+	    2)
+		less /var/lib/adom/server/ttyrec_lists/sizesorted
+		continue
+		;;
+	    
+	    3)
+		less /var/lib/adom/server/ttyrec_lists/mtimesorted
+                continue
+                ;;
+
+	    4)
+		clear
+		python /var/lib/adom/server/start_ttyplay.py
+		sleep 1
+		reset
+		continue
+		;;
+
+	    5)
+		less /var/lib/adom/server/termplay_info
+		continue
+		;;
+
+	    6)
+		clear
+		python /var/lib/adom/server/start_ttyplay.py --termplay
+		sleep 1
+		reset
+		continue
+		;;
+
+	    7)
+		exit
+		;;
+
+	    *)
+		echo "Erroneous selection!"
+		sleep 1
+		continue
+		;;
+	    
+	esac
+done

@@ -1,0 +1,40 @@
+#!/bin/bash
+
+clear
+
+python /var/lib/adom/server/registration_check.py --checkonly
+ret="$?"
+
+if [ "$ret" == "1" ]; then
+  sleep 60
+  exit
+fi
+
+echo "Welcome to the ADOM player account creation script on the Ancardia"
+echo "ADOM server. Follow the instructions to create your account, then"
+echo "use your SSH client again and log in with your newly created account!"
+echo ""
+echo "IMPORTANT NOTICE: only three registrations per IP allowed every day!"
+echo ""
+echo "Please enter your desired username or press control-C to abort."
+echo "-- ONLY LOWERCASE LETTERS ALLOWED! --"
+echo ""
+printf "> "
+
+NAME=""
+USERS=`wc -l < /etc/passwd`
+
+if (( $USERS < 5000 )); then
+    until [ ! $NAME == "" ]; do
+            read NAME
+            id "$NAME" > /dev/null 2>&1 && echo "Username already taken, choose another one." && NAME=""
+    done
+    
+    /var/lib/adom/server/adom_adduser.sh "$NAME"
+    python /var/lib/adom/server/registration_check.py
+    sleep 60    
+
+else
+    echo "Sorry, user limit reached. No new users may be created!"
+    sleep 30
+fi

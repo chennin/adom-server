@@ -1,0 +1,52 @@
+#!/bin/bash
+
+export LESSSECURE=1
+
+while true
+do
+
+# Only show people who have a login session and are playing
+PLAYERS=$(comm -1 -2 <(ls /var/lib/adom/sockets) \
+                     <(who | sed 's/ .*//' | sort))
+clear
+
+echo "Welcome to the spectator menu on the Ancardia ADOM server!"
+echo ""
+
+python /var/lib/adom/server/check_term.py --silent
+ret="$?"
+
+if [ "$ret" == "1" ]; then
+    echo "Warning: your terminal size appears to be something else than 80x25"
+    echo "characters. In case it is smaller, you will not be able to view"
+    echo "the ongoing games correctly."
+    echo ""
+fi
+
+python /var/lib/adom/server/list_spectators.py
+
+cat /var/lib/adom/server/idletimes
+echo
+
+if [ ! "$PLAYERS" = "" ]; then
+
+     	echo "Please select someone to spectate, or choose an invalid option to"
+	echo "refresh the list. To escape the spectating mode, press CTRL-C-D."
+	echo "To log out now, press CTRL-C."
+	echo ""
+	echo "It is possible to send messages to users being spectated.  The"
+	echo "option to do this is in the menu for logged-in users."
+	echo ""
+
+	select TGT in $PLAYERS;
+	do
+		screen -x -c /var/lib/adom/server/spectator-screen -r $TGT/adom
+		break
+	done
+else
+	echo "Unfortunately, there are no screens to spectate right now!"
+	echo "This means no-one is playing ADOM on the server at the moment."
+	sleep 5
+fi
+
+done

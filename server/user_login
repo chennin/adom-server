@@ -1,0 +1,272 @@
+#!/bin/bash --login
+
+export LESSSECURE=1
+
+EXPECTED_ARGS=0
+
+if [ $# -ne $EXPECTED_ARGS ]; then
+	exit
+fi
+
+command=""
+sage=$(cat ${HOME}/sage_status)
+adom_ver=$(cat ${HOME}/adom_ver)
+
+if [ ! -e "${HOME}/.adom.data" ]; then
+	ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+fi
+
+until [ "$command" = "end" ]
+do
+	sage=$(cat ${HOME}/sage_status)
+	adom_ver=$(cat ${HOME}/adom_ver)
+
+	tput reset
+	clear
+
+	echo "Welcome to the Ancardia ADoM server! All games are recorded! View the"
+	echo "readme before playing; solutions to most problems can be found there."
+
+	echo ""
+
+	python /var/lib/adom/server/check_term.py
+	res="$?"
+
+	if [ "$res" == "1" ]; then
+		echo ""
+	fi
+
+	printf "You're about to play ADoM"
+	if [ "$adom_ver" = "111" ]; then
+		echo " version 1.1.1, normal mode"
+	elif [ "$adom_ver" = "100" ]; then
+		echo " version 1.0.0, normal mode"
+	elif [ "$adom_ver" = "etr" ]; then
+		echo " version 1.1.1, eternium man challenge mode"
+	elif [ "$adom_ver" = "swp" ]; then
+		echo " version 1.1.1, swapgame mode"
+	fi
+
+	if [ -e ${HOME}/silence ]; then
+		printf "without spectator messages"
+	else
+		printf "with spectator messages"
+	fi
+
+	echo " and ADoM Sage $sage."
+
+	echo ""
+	echo "h - view the readme (press 'q' to return)"
+	echo ""
+	echo "a - launch ADoM, start or resume a single-player game"
+	echo "j - join current user's running ADoM session (aka. co-op)"
+	echo "s - spectate other users' games"
+	echo "q - quit"
+	echo ""
+	echo "mn, ma, me, ms - enable 1.1.1, 1.0.0, Eternium Challenge or Swapgame"
+	echo "                 mode, respectively"
+	echo ""
+	echo "t - send messages to another user"
+	if [ -e ${HOME}/silence ]; then
+		echo -n "m - enable"
+	else
+		echo -n "m - disable"
+	fi
+	echo " receiving messages sent by other users"
+
+	if [ -e "/var/www/adom_users/${USER}" ]; then
+		printf "d - disable"
+	else
+		printf "d - enable"
+	fi
+	echo " user directory access at http://ancardia.ath.cx/adom_users/${USER}"
+	echo "x - toggle ADoM Sage"
+	echo "c - edit ADoM, ADoM Sage and SSH key (RSA/DSA) configurations"
+	echo "kp - kill all user processes (if stuck) and give debug info"
+	echo "pw - change your password"
+
+	printf "> "
+
+	read command
+	case $command in
+	'h')
+		less /var/www/adom_server_info.txt
+		continue
+		;;
+
+	'a')
+		clear
+
+		python /var/lib/adom/server/check_term.py
+		res="$?"
+
+		if [ "$res" == "1" ]; then
+			echo ""
+			echo "Press enter to return to the main menu."
+			read junk
+			continue
+		fi
+
+		export sage
+		export adom_ver
+		touch /var/lib/adom/sockets/$USER
+
+		if [ -e "${HOME}/.adom.data/.adom.cnt" ]; then
+			/var/lib/adom/server/modify_cnt "${HOME}/.adom.data/.adom.cnt"
+		fi
+
+		screen -DR -c /var/lib/adom/server/user-screen -S adom -s \
+		"/var/lib/adom/server/adom_wrapper"
+		rm -f /var/lib/adom/sockets/$USER
+		continue
+		;;
+
+	"mn")
+		if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
+			echo "Cannot change version; ADoM is running!"
+			sleep 2
+			continue
+		fi
+
+		rm -f ${HOME}/.adom.data
+		adom_ver="111"
+		echo "$adom_ver" > ${HOME}/adom_ver
+		ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+		continue
+		;;
+
+	"ma")
+				if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
+			echo "Cannot change version; ADoM is running!"
+			sleep 2
+			continue
+		fi
+
+		rm -f ${HOME}/.adom.data
+		adom_ver="100"
+		echo "$adom_ver" > ${HOME}/adom_ver
+				ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+		continue
+				;;
+
+	"me")
+				if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
+			echo "Cannot change version; ADoM is running!"
+			sleep 2
+			continue
+		fi
+
+		rm -f ${HOME}/.adom.data
+		adom_ver="etr"
+		echo "$adom_ver" > ${HOME}/adom_ver
+				ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+		continue
+				;;
+
+	"ms")
+				if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
+					echo "Cannot change version; ADoM is running!"
+					sleep 2
+					continue
+				fi
+
+				rm -f ${HOME}/.adom.data
+				adom_ver="swp"
+				echo "$adom_ver" > ${HOME}/adom_ver
+				ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+				continue
+				;;
+
+	'm')
+		if [ -e ${HOME}/silence ]; then
+			rm ${HOME}/silence
+		else
+			> ${HOME}/silence
+		fi
+		continue
+		;;
+
+	'x')
+		if [ "$sage" = "disabled" ]; then
+			echo "enabled" > ${HOME}/sage_status
+		else
+			echo "disabled" > ${HOME}/sage_status
+		fi
+		continue
+		;;
+
+	'c')
+		/var/lib/adom/server/conf_adom
+		echo
+		sleep 1
+		continue
+		;;
+
+	'pw')
+		passwd
+		sleep 1
+		continue
+		;;
+
+	'kp')
+		clear
+		rm -f /var/lib/adom/sockets/$USER
+		python -u /var/lib/adom/server/irc_msg_kill.py
+		continue
+		;;
+
+	'd')
+		if [ -e "/var/www/adom_users/${USER}" ]; then
+			rm "/var/www/adom_users/${USER}"
+			echo "Directory link removed."
+		else
+			ln -s "${HOME}" "/var/www/adom_users/${USER}"
+			echo "Directory link created."
+		fi
+
+		sleep 1
+		continue
+		;;
+
+	'q')
+		exit
+		;;
+
+	'e')
+		exit
+		;;
+
+	'j')
+		clear
+
+		python /var/lib/adom/server/check_term.py
+		res="$?"
+
+		if [ "$res" == "1" ]; then
+			echo ""
+			echo "Press enter to return to the main menu."
+			read junk
+			continue
+		fi
+
+		screen -x -c /var/lib/adom/server/user-screen
+		continue
+		;;
+
+	's')
+		ssh -o "StrictHostKeyChecking no" spectator@localhost
+		continue
+		;;
+
+	't')
+		/var/lib/adom/server/talk_at
+		continue
+		;;
+
+	*)
+		echo "Erroneous selection!"
+		sleep 1
+		continue
+		;;
+	esac
+done
