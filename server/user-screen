@@ -1,0 +1,20 @@
+vbell off
+bell_msg ""
+multiuser on
+defwritelock on
+nonblock on
+escape "^Cc"
+
+# try our hardest to disable XOFF; it messes with users badly
+bind s
+bind ^S
+defflow off
+bindkey "\023" eval ""
+
+# allow spectator
+# disallow all commands
+
+aclchg spectator +r "#"
+aclchg spectator -x "?"
+aclchg $USER -x colon,screen,kill,monitor,suspend,login,log
+aclchg spectator +x detach
