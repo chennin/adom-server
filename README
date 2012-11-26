@@ -1,0 +1,7 @@
+Public ADOM Server scripts
+
+I. Install
+
+A Debian or Ubuntu-based system
+
+1. apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl libncurses5-dev
