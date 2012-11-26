@@ -1,0 +1,6 @@
+# m h  dom mon dow   command
+0 0 * * * rm -rf /var/lib/adom/server/registered_ips && touch /var/lib/adom/server/registered_ips && chown adom:adomusers /var/lib/adom/server/registered_ips && chmod u=rwx,go-rwx /var/lib/adom/server/registered_ips
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * python /var/lib/adom/server/update_idletimes.py 5
+
+0 0  *   *   *     python /var/lib/adom/server/ttyreclister.py
+
