@@ -1,0 +1,10 @@
+iProtocol 2
+PermitRootLogin no
+PermitEmptyPasswords no
+PasswordAuthentication yes
+X11Forwarding no
+AllowAgentForwarding no
+AllowTcpForwarding no
+PrintMotd no
+TCPKeepAlive yes
+MaxStartups 10:30:60
