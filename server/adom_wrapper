@@ -1,0 +1,143 @@
+#!/bin/bash
+
+# $sage = enabled/disabled -- whether sage should be used
+# $adom_ver = 100/111/etr/swp -- adom version
+
+ulimit -c unlimited
+
+python /var/lib/adom/server/ttyrecord.py
+res="$?"
+
+if (( "$res" == "1" )); then
+	exit
+fi
+
+mkdir -p ${HOME}/backup-$adom_ver
+
+python /var/lib/adom/server/check_term.py
+
+touch /var/lib/adom/sockets/$USER
+umask 013
+
+if [ -e ${HOME}/adom_dirty ]; then
+    echo "Your last ADOM run ended abnormally."
+    
+    FILES=`ls ${HOME}/backup-$adom_ver/`
+#    if [ -e "/var/lib/adom/users/${USER}/cryopid_image" ]; then
+#	clear
+#	
+#	echo "IMPORTANT - READ CAREFULLY!"
+#	echo
+#	echo "It looks like ADOM just crashed. However, a cryopid image has been"
+#	echo "taken of your ADOM process in the previous 10 minutes. This image"
+#	echo "will now be restored."
+#	echo
+#	echo "NOTE: when your game is restored, SAVE it and reload the game"
+#	echo "from the saved file. It is likely that the restored ADOM image"
+#	echo "is already corrupted, and will crash again any time soon!"
+#	echo
+#	echo "This is also required for snapping further backups from your"
+#	echo "game."
+#	echo
+#	echo "When the game is restored, the screen will likely display"
+#	echo "something weird. Issue some safe commands (try ctrl-r first, which"
+#	echo "is supposed to redraw the screen) and it should be"
+#	echo "normal once again (hopefully the snapsot wasn't taken when"
+#	echo "you were telling what to wish for, for instance!)"
+#	echo
+#	echo "Press enter to continue."
+#	read
+#	
+#	${HOME}/cryopid_image
+#	
+#	rm -f ${HOME}/cryopid_image
+#
+#	rm -f ${HOME}/backup-${adom_ver}/*
+#	FILES=`ls ${HOME}/.adom.data/savedg/`
+#	for file in $FILES
+#	do
+#           cp ${HOME}/.adom.data/savedg/$file ${HOME}/backup-${adom_ver}/
+#	done
+#
+#	clear
+#	echo "Your backed-up ADOM image just exited and was removed. Hopefully you"
+#	echo "just saved the game for further playing!"
+#	echo "Press enter to continue."
+#	read
+#	
+#   else
+	if [ "$FILES" = "" ]; then
+	    echo "You don't have backups to restore."
+	    sleep 2
+	else
+	    echo "You have backups of the following files:"
+	    for save in $FILES
+	    do
+		echo "$save"
+	    done
+	    
+	    echo	
+	    
+	    while true
+	    do
+		read -p "Do you wish to restore last backups (Y/N)? " ANS
+	    
+		case $ANS in
+		    Y | y) 
+			echo "Restoring backup."
+			cp ${HOME}/backup-${adom_ver}/* ${HOME}/.adom.data/savedg/
+			echo "Done!"
+			sleep 2
+			break
+			;;
+		    
+		    N | n)
+			echo "Backups not restored!"
+			sleep 2 
+			break
+			;;
+		    
+		    *)
+			continue
+			;;
+		    
+		esac
+	    done
+#	fi
+    fi
+fi
+
+res="0"
+> ${HOME}/adom_dirty
+if [ "$sage" = "enabled" ]; then
+	/usr/games/adom-$adom_ver --enable-sage
+else
+	/usr/games/adom-$adom_ver
+fi
+
+res="$?"
+
+if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
+    echo "Damnit! It seems ADOM has exited with an abnormal exit code $res"
+    echo "Backups may exist; re-launch for details"
+
+else
+    rm ${HOME}/adom_dirty
+#    rm -f ${HOME}/cryopid_image
+    svdir=${HOME}/.adom.data/savedg
+    bkdir=${HOME}/backup-${adom_ver}
+    SAVES=`ls ${svdir}`
+    for stale in `comm -2 -3 <(ls ${bkdir}) <(ls ${svdir})`; do
+	rm ${bkdir}/${stale}
+    done
+
+    for file in $SAVES
+    do	
+        [ "${svdir}/$file" -nt "${bkdir}/$file" ] &&
+	    cp ${svdir}/$file ${bkdir}/
+    done
+fi
+
+rm -f /var/lib/adom/sockets/$USER
+rm -f /var/lib/adom/${adom_ver}/ADOM_HS.LCK /var/lib/adom/${adom_ver}/adom.err
+rm -f $HOME/.adom.data/.adom.prc
