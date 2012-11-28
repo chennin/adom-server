@@ -10,6 +10,7 @@ int main(int argc, char **argv) {
 	}
 	else {
 		perror("Unable to modify cnt");
+		return 1;
 	}
 	return 0;
 }
