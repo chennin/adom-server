@@ -1,0 +1,6 @@
+core
+users_fusecompressed
+*~
+*bak
+*.o
+*.swp
