@@ -32,5 +32,5 @@ while :; do
         read PHRASE
 
 	echo "`date` `whoami` $TARGET $PHRASE" >> /tmp/messages_sent
-	/var/lib/adom/server/message_dispatch "$TARGET" "$PHRASE"
+	/var/lib/adom/server/bin/message_dispatch "$TARGET" "$PHRASE"
 done
