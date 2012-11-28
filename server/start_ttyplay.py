@@ -10,7 +10,7 @@ raw_ttyrec = raw_input("> ");
 if len(sys.argv) == 2 and sys.argv[1] == "--termplay":
     player = "/usr/local/bin/termplay"
 else:
-    player = "/var/lib/adom/server/ttyplay"
+    player = "ttyplay"
 
 if len(raw_ttyrec.split(" - ")) != 2:
     print "Invalid input!"
