@@ -1,0 +1,29 @@
+#!/bin/bash
+
+mkdir -p ${HOME}/.adom.data/
+
+if [ "x$1" != "x--reset" ]; then
+
+    echo -n "Whose configs do you want `whoami` to follow? "
+    read -r NAME
+
+    # read should ensure a lack of newlines
+    if echo "$NAME" | grep -q '[^a-z0-9_]'; then
+        echo "That's a lousy username!"
+        exit 1
+    fi
+
+    if [ ! -e "/var/lib/adom/users/$NAME/.adom.data" ]; then
+        echo "No such user."
+	exit 1
+    fi
+else
+    NAME=leaguedefault
+fi
+
+for FILE in .adom.kbd .adom.cfg sage.cfg sage.kbd sage.msg; do
+    rm -f $HOME/.adom.data/$FILE
+    ln -s /var/lib/adom/users/$NAME/.adom.data/$FILE $HOME/.adom.data/$FILE
+done
+
+echo "Done."
