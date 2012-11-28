@@ -4,7 +4,7 @@ cd /var/lib/adom/server
 
 update()
 {
-    /usr/games/adom-$1-bin -S
+    /var/lib/adom/bin/adom-$1-bin -S
 
     if ! cmp hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_$2.txt
     then

@@ -54,7 +54,7 @@ def poll_hiscore(hiscore_100, hiscore_111, hiscore_etr):
             cur_players.append(s)
         
     for player in cur_players:
-        ps_lines = os.popen("ps -fu " + player + " |grep /usr/games/adom-111-bin").readlines()
+        ps_lines = os.popen("ps -fu " + player + " |grep /var/lib/adom/bin/adom-111-bin").readlines()
 
         if len(ps_lines) < 1:
             continue
