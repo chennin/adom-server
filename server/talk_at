@@ -1,0 +1,36 @@
+#! /bin/bash
+
+echo -n "Talk to what user? "
+
+read TARGET
+
+echo ""
+echo "Enter your statements one per line.  You will want to spectate that user"
+echo "so that you can see their responses!"
+echo ""
+echo "End with control-C."
+echo ""
+
+trap 'exit' INT
+
+while :; do
+
+	if ! comm -1 -2 <(ls /var/lib/adom/sockets) \
+			<(who | sed 's/ .*//' | sort) | grep -q -F -x -e "$TARGET"; then
+		echo "$TARGET does not seem to be playing now."
+		sleep 3
+		exit
+	fi
+
+	if [ -e /var/lib/adom/users/"$TARGET"/silence ]; then
+		echo "$TARGET has denied messages."
+		sleep 3
+		exit
+	fi
+
+	echo -n "--> "
+        read PHRASE
+
+	echo "`date` `whoami` $TARGET $PHRASE" >> /tmp/messages_sent
+	/var/lib/adom/server/message_dispatch "$TARGET" "$PHRASE"
+done
