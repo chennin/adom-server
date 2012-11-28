@@ -1,0 +1,745 @@
+dagger
+club
+short sword
+hand axe
+long sword
+battle axe
+quarterstaff
+mace
+robe
+clothes
+leather armor
+scale mail
+chain mail
+plate mail
+bracers of defense/silver bracers
+bracers of protection/copper bracers
+small shield
+medium shield
+large shield
+tower shield
+broadsword
+iron ration
+piece of raw meat
+thieves picks
+heavy club
+thick furs
+horned helmet
+heavy boots
+leather cap
+light furs
+light boots
+gauntlets
+gloves
+hand crossbow
+dark elven quarrel/tiny quarrel
+elven chain mail
+scimitar
+gold piece
+leather cloak
+light cloak
+leather boots
+gnomish boots
+warhammer
+studded leather armor
+ring of protection/silver ring
+ring of defense/golden ring
+ring of fire resistance/wooden ring
+ring of luck/copper ring
+ring of searching/bronze ring
+potion of extra healing/blue potion
+short bow
+arrow
+sling
+rock
+metal cap
+apple
+loaf of elven bread
+spider bread
+iron boots
+everburning torch/torch
+spear
+potion of healing/swirly potion
+scalpel
+potion of poison/oily potion
+potion of booze/black potion
+stethoscope
+thick gauntlets
+light crossbow
+quarrel
+drakish scurgar
+large hammer
+leather apron
+anvil
+iron ingot/metal ingot
+mithril ingot/metal ingot
+hooded cloak
+long bow
+heavy crossbow
+throwing club
+hood
+sandals
+lute
+harp
+tamborine
+mandoline
+fiddle
+flute
+glockenspiel
+spellbook/tome
+scroll of identify/scroll labeled \KLATHA DATHA NY'ARYATHA\
+wand of digging/oak wand
+holy symbol
+flail
+scroll of amnesia/scroll labeled \ECNETOPINMO\
+scroll of magic mapping/scroll labeled \IDNUM AIROLG TISNART CIS\
+scroll of power/scroll labeled \Carpe Diem\
+potion of water/watery potion
+hat
+potion of carrot juice/orange potion
+wand of knocking/pine wand
+wand of magic missiles/tin wand
+wand of lightning/brass wand
+potion of invisibility/clear potion
+corpse
+potion of balance/gray potion
+potion of exchange/golden potion
+potion of gain attributes/glowing potion
+boomerang/strange stick
+girdle of carrying/thick girdle
+metal girdle
+girdle of giant strength/bulky girdle
+girdle of weight/strange metal girdle
+leather girdle
+mithril dagger/dagger
+mithril long sword/long sword
+mithril battle axe/battle axe
+mithril mace/mace
+mithril scale mail/scale mail
+mithril chain mail/chain mail
+mithril plate mail/plate mail
+small mithril shield/small shield
+medium mithril shield/medium shield
+large mithril shield/large shield
+tower mithril shield/tower shield
+mithril broadsword/broadsword
+mithril scimitar/scimitar
+mithril warhammer/warhammer
+mithril cap/metal cap
+mithril boots/metal boots
+mithril spear/spear
+mithril quarrel/quarrel
+large mithril hammer/large hammer
+mithril flail/flail
+mithril girdle/metal girdle
+adamantium dagger/dagger
+adamantium long sword/long sword
+adamantium battle axe/battle axe
+adamantium mace/mace
+adamantium scale mail/scale mail
+adamantium chain mail/chain mail
+adamantium plate mail/plate mail
+small adamantium shield/small shield
+medium adamantium shield/medium shield
+large adamantium shield/large shield
+tower adamantium shield/tower shield
+adamantium broadsword/broadsword
+adamantium scimitar/scimitar
+adamantium warhammer/warhammer
+adamantium cap/metal cap
+adamantium boots/metal boots
+adamantium spear/spear
+adamantium quarrel/quarrel
+large adamantium hammer/large hammer
+adamantium flail/flail
+adamantium girdle/metal girdle
+sword of sharpness/long sword
+adamantium ingot/metal ingot
+wand of trap creation/ivory wand
+wand of monster creation/ironwood wand
+si/strange item
+lump of bee wax
+lump of gelee royal
+ring of djinni summoning/ordinary ring
+wedding ring/nograin ring
+brass ring
+scroll of familiar summoning/scroll labeled \mead ni najap\
+amulet of greed/platinum amulet
+amulet of protection/silver amulet
+amulet of defense/iron amulet
+wand of wonder/teak wand
+amulet of life saving/steel amulet
+wand of teleportation/iron wand
+wand of light/steel wand
+necklace of rapid healing/coral necklace
+amulet of protection from undead/bone amulet
+amulet of protection from constructs/onyx amulet
+girdle of greed/copper-hewn girdle
+stomafillia herb/strange herb
+burb root/strange herb
+curaria mancox herb/strange herb
+stomacemptia herb/strange herb
+devil's rose/strange herb
+pepper petal/strange herb
+alraunia antidote/strange herb
+demon daisy/strange herb
+scroll of monster detection/scroll labeled \KTTdLwrgt\
+scroll of gold detection/scroll labeled \MKMNFST\
+scroll of item detection/scroll labeled \ABABILA\
+scroll of monster aggravation/scroll labeled \RambaZamba\
+great axe
+two-handed sword
+fortune cookie
+spenseweed/strange herb
+moss of mareilon/strange herb
+morgia root/strange herb
+pick axe
+dwarven rune axe
+necklace of rabies resistance/pearl necklace
+scroll of balance/scroll labeled \SutsI\
+scythe of corruption/ancient scythe
+IBM guild manual/scroll labeled \irk gleknow mizk\
+fluff ball
+amulet of chaos/obsidian amulet
+amulet of order/marble amulet
+ring of the master cat/cats eye ring
+scroll of uncursing/scroll labeled \ACME\
+amulet of teleport control/copper amulet
+ring of damage/onyx ring
+eternium dagger/dagger
+eternium long sword/long sword
+eternium battle axe/battle axe
+eternium mace/mace
+eternium scale mail/scale mail
+eternium chain mail/chain mail
+eternium plate mail/plate mail
+small eternium shield/small shield
+medium eternium shield/medium shield
+large eternium shield/large shield
+tower eternium shield/tower shield
+eternium broadsword/broadsword
+eternium scimitar/scimitar
+eternium warhammer/warhammer
+eternium cap/metal cap
+eternium boots/metal boots
+eternium spear/spear
+eternium quarrel/quarrel
+large eternium hammer/large hammer
+eternium flail/flail
+eternium girdle/metal girdle
+wand of stunning/willow wand
+wand of paralyzation/bone wand
+wand of death/copper wand
+wand of poison/obsidian wand
+ring of fire/adamantium ring
+ring of ice/mithril ring
+necklace of the eye/splendid necklace
+wand of webbing/softwood wand
+potion of literacy/sulphuric potion
+dwarven sausage
+hurthling cake
+loaf of hurthling bread
+loaf of bread
+potion of strength/bubbly potion
+potion of learning/misty potion
+potion of willpower/pink potion
+potion of dexterity/muddy potion
+potion of toughness/sandy potion
+potion of charisma/murky potion
+potion of beauty/silvery potion
+potion of mana/blazing potion
+amulet of health/leather amulet
+wand of fireballs/marble wand
+golden gladius
+dwarven shield/ancient dwarven shield
+fried bat
+cooked lizard
+fat worm
+rat tail
+cooked roach
+potion of youth/milky potion
+potion of longevity/purple potion
+elven long bow
+ancient claymore
+Aylas Holy Scarf/silk scarf
+arrow of undead slaying/arrow
+arrow of construct slaying/arrow
+arrow of giant slaying/arrow
+arrow of dragon slaying/arrow
+arrow of humanoid slaying/arrow
+quarrel of undead slaying/quarrel
+quarrel of construct slaying/quarrel
+quarrel of giant slaying/quarrel
+quarrel of dragon slaying/quarrel
+quarrel of humanoid slaying/quarrel
+lead sling bullet/sling bullet
+mithril sling bullet/sling bullet
+adamantium sling bullet/sling bullet
+eternium sling bullet/sling bullet
+sling bullet of crashing/sling bullet
+mace of disruption
+heavy mace
+black long sword
+silvery two-handed sword
+torch
+box with flint and steel
+tinderbox
+arrow of demon slaying/arrow
+quarrel of demon slaying/quarrel
+sling bullet of demon slaying/sling bullet
+holy avenger/long sword
+Iron Crown of Havlor/iron crown
+iron crown
+wand of earthquakes/stone wand
+pendant of beauty/ruby amulet
+bracers of resistance/iron bracers
+ring of gain attribute/ruby ring
+knife
+rabbit knife/knife
+thin dagger
+boots of sneakiness/leather boots
+girdle of strength/hard girdle
+pendant of mana/amber amulet
+Chaos Orb of Elemental Water
+Chaos Orb of Elemental Air
+Chaos Orb of Elemental Fire
+Chaos Orb of Elemental Earth
+potion of ultra healing/rainbow-hued potion
+potion of blindness/amber potion
+potion of deafness/red potion
+potion of confusion/green potion
+heavy crossbow
+ring of slaying/opal ring
+silvery arrow
+obsidian quarrel
+cloak of adornment/multi-colored cloak
+amulet of free action/golden amulet
+staff of the Wanderer/quarterstaff
+eternium ingot/metal ingot
+wand of wishing/glowing wand
+ring of invisibility/jade ring
+blue dragon scale mail
+black dragon scale mail
+white dragon scale mail
+red dragon scale mail
+cudgel
+heavy cudgel
+ebony spear
+ring of see invisible/amber ring
+ring of regeneration/coral ring
+bracers of regeneration/steel bracers
+crown of regeneration/brass crown
+cloak of protection/cheap cloak
+cloak of defense/warm cloak
+gloves of dexterity/light gloves
+diadem of beauty/silver diadem
+gauntlets of strength/iron-shod gauntlets
+necklace of the silver tongue/shining necklace
+cloak of invisibility/fine cloak
+scroll of dark predictions/scroll labeled \Odiv\
+scroll of chaos resistance/scroll labeled \Yik Mech'Shegoth\
+ring of cold resistance/marble ring
+ring of stun resistance/electrum ring
+ring of acid resistance/iron ring
+potion of uselessness/violet potion
+rune-covered long sword
+halberd
+amulet of perseverance/electrum amulet
+bracers of toughness/bone bracers
+lead-filled mace
+amulet of light/glass amulet
+hexagonal key
+small key
+tiny key
+square key
+round key
+triangular key
+silver key
+piece of iron ore/rock with metal veins
+piece of mithril ore/rock with metal veins
+piece of adamantium ore/rock with metal veins
+piece of eternium ore/rock with metal veins
+wand of door creation/glass wand
+oil of rust removal/white potion
+statue
+wand of acid/wooden wand
+wand of cold/silver wand
+wand of fire/golden wand
+orcish knife/crude knife
+orcish spear/crude spear
+potion of cure poison/cyan potion
+scroll of great identify/scroll labeled \DOGO FUTSF\
+gauntlets of peace/gauntlets
+red dragon-hide gauntlets/red gauntlets
+black dragon-hide gauntlets/black gauntlets
+blue dragon-hide gauntlets/blue gauntlets
+white dragon-hide gauntlets/white gauntlets
+red leather gauntlets/red gauntlets
+black leather gauntlets/black gauntlets
+blue leather gauntlets/blue gauntlets
+white leather gauntlets/white gauntlets
+helm of teleportation/metal helmet
+amulet of death ray resistance/stone amulet
+amulet of petrification resistance/opal amulet
+bone
+potion of insight/magenta potion
+scroll of light/scroll labeled \FROTZ\
+scroll of darkness/scroll labeled \ZTORF\
+potion of wonder/shimmering potion
+berzio potion/brown potion
+scroll of teleportation/scroll labeled \YTTOCS PU EM MAEB\
+scorched spear
+scroll of satiation/scroll labeled \FPMAM\
+ruby/red gem
+sapphire/blue gem
+emerald/green gem
+turquoise/blue gem
+turquoise/green gem
+aquamarine/blue gem
+aquamarine/green gem
+amber/brown gem
+topaz/brown gem
+opal/white gem
+worthless piece of white glass/white gem
+worthless piece of red glass/red gem
+worthless piece of blue glass/blue gem
+worthless piece of green glass/green gem
+worthless piece of brown glass/brown gem
+Brannalbin's Cloak of Defense/gray cloak
+ring of minor elemental mastery/topaz ring
+ring of elemental mastery/emerald ring
+ring of doom/black ring
+crystal of knowledge/green gem
+crystal of light/white gem
+crystal of darkness/brown gem
+crystal of power/red gem
+dagger of returning/thin dagger
+spear of returning/short spear
+short spear
+wand of trap detection/purple wand
+bit of gnomish candy/bit of candy
+bit of plain candy/bit of candy
+melon
+crystal of fire/red gem
+crystal of health/blue gem
+gauntlets of eternal peace/gauntlets
+heavy flail
+morning star
+mighty morning star/morning star
+girdle of the emperors/golden girdle
+amulet of balance/gray amulet
+amulet of the cold heart/bleak amulet
+orcish helmet/black helmet
+helm of leadership/silver helmet
+helm of beauty/silver helmet
+silver helmet
+wand of destruction/cedar wand
+staff of power/quarterstaff
+staff of the magi/quarterstaff
+brass bracers
+brass amulet
+mace of destruction/mace
+staff of smiting/quarterstaff
+dagger of death/dagger
+cloak of Oman/dirty cloak
+large ration
+amulet of water breathing/blue amulet
+trident
+rune-covered trident/trident
+sword of Nonnak/broadsword
+elemental gauntlets/gauntlets
+manual of bridge building/huge manual
+hatchet
+log
+ring of the High Kings/platinum ring
+potion of sickness/light magenta potion
+sickle
+scythe
+loaf of dwarvish bread
+piece of dry meat
+amulet of luck/lead amulet
+bone helmet
+throwing knife
+heavy spear
+cooking set
+piece of fresh meat
+spider shell armor/shell armor
+shell armor
+wooden stick
+fletchery set
+black robe
+skull dagger
+skull staff
+skull club
+heavy skull club
+wooden shield
+heavy cudgel
+frog legs
+golden ball
+spiked boots
+brass knuckles
+gloves of smiting/gloves
+phase dagger/gray dagger
+potion of boost strength/light green potion
+potion of boost learning/mercury potion
+potion of boost willpower/light cyan potion
+potion of boost dexterity/light red potion
+potion of boost toughness/turquoise potion
+potion of boost charisma/light blue potion
+potion of boost appearance/blubbery potion
+potion of boost perception/bright potion
+potion of boost mana/rusty potion
+scroll of luck/scroll labeled \YIKES\
+scroll of ill fate/scroll labeled \IAZNAB\
+scroll of treasure creation/scroll labeled \NADSIL SEETRURA\
+scroll of item creation/scroll labeled \GNOZAB\
+stone spear
+stone axe
+stone club
+crystal scale mail/scale mail
+crystal chain mail/chain mail
+crystal plate mail/plate mail
+small crystal shield/small shield
+medium crystal shield/medium shield
+large crystal shield/large shield
+tower crystal shield/tower shield
+scroll of danger/scroll labeled \REGNAD\
+scroll of peace/scroll labeled \GNAY-GNIY\
+potion of troll blood/blood red potion
+potion of raw mana/sparkling potion
+potion of oil/slimy potion
+potion of education/dull potion
+potion of training/light yellow potion
+money belt/leather girdle
+crystal dagger
+book titled \The Collected Works of Confucious\/brittle book
+scroll of item destruction/scroll labeled \MUNCH MUNCH\
+phial of Caladriel/crystal phial
+scroll of charging/scroll labeled \KAPOW\
+crown of science/steel crown
+shield of raw steel/steel shield
+spear of raw steel/steel spear
+amulet of raw steel/steel amulet
+climbing set
+mithril arrow/arrow
+adamantium arrow/arrow
+eternium arrow/arrow
+helm of water breathing/blue metal cap
+waterproof blanket/blanket
+plain blanket/blanket
+scroll of information/scroll labeled \ENO OWT EERHT\
+mummy wrapping/strange wrapping
+ancient mummy wrapping/strange wrapping
+ankh
+papyrus scroll
+herb seed/seed
+plant seed/seed
+wand of far slaying/brittle wand
+fireproof blanket/blanket
+potion of cure corruption/mottled potion
+wand of ball lightning/curved wand
+boots of the divine messenger/fine leather boots
+huge iron hammer
+hammer of the gods/huge iron hammer
+Perion's mithril plate mail/plate mail
+orcish dagger
+orcish dagger/bloody dagger
+whip
+scourge
+intricate wooden shield/wooden shield
+small black shield/small shield
+scroll of increase melee accuracy/scroll labeled \WoPaK\
+scroll of increase melee damage/scroll labeled \HcUo\
+scroll of defense/scroll labeled \HITME\
+scroll of protection/scroll labeled \CUTME\
+whistle
+ring of speed/aquamarine ring
+boots of speed/soft boots
+amulet of speed/bronze amulet
+seven league boots/worn boots
+bracers of speed/bronze bracers
+ring of teleport control/glowing ring
+bandage
+orcish battle axe/crude battle axe
+scroll of repair/scroll labeled \FOO BAR\
+giant boar skull
+potion of potential strength/viscous potion
+potion of potential learning/thick potion
+potion of potential willpower/speckled potion
+potion of potential dexterity/shiny potion
+potion of potential toughness/heavy potion
+potion of potential charisma/translucent potion
+potion of potential beauty/clotted potion
+potion of potential mana/light potion
+scroll of vermin control/scroll labeled \CHUTZPAH\
+boots of great speed/hide boots
+potion of boost speed/thin potion
+Crown of Chaos/obsidian crown
+Sceptre of Chaos/obsidian sceptre
+alchemistic gloves/gloves
+black torc
+huge rock
+strange message/scroll labeled \Fox Nawagu\
+Medal of Chaos/obsidian amulet
+helm of mental stability/crystal helmet
+ring of mental stability/agate ring
+ring of the clear mind/fire opal ring
+rune-covered club
+glaive/jet-black glaive
+Shirt of the Saints/clothes
+scroll of warning/scribbled scroll
+heavy throwing club/throwing club
+curved throwing club/throwing club
+throwing club of death/throwing club
+mithril drakish scurgar/drakish scurgar
+adamantium drakish scurgar/drakish scurgar
+eternium drakish scurgar/drakish scurgar
+drakish scurgar of returning/drakish scurgar
+drakish scurgar of death/drakish scurgar
+mithril two-handed sword/two-handed sword
+adamantium two-handed sword/two-handed sword
+eternium two-handed sword/two-handed sword
+whip of slaughtering/whip
+whip of the snake/whip
+mithril halberd/halberd
+adamantium halberd/halberd
+eternium halberd/halberd
+halberd of defense/halberd
+two-handed sword of parrying/two-handed sword
+knife of endurance/knife
+robe of invisibility/robe
+potion of raw chaos/flickering potion
+bracers of war/shining silver bracers
+Chaos Orb of Elemental Mana
+black rune-covered dagger/dagger
+black rune-covered dagger/dagger
+wand of item detection/twisted wand
+wand of gold detection/bronze wand
+wand of monster detection/ebony wand
+ratling pamphlet/tattered scroll
+short bow of accuracy/short bow
+long bow of accuracy/long bow
+light crossbow of accuracy/light crossbow
+heavy crossbow of accuracy/heavy crossbow
+sling of accuracy/sling
+sling of the long shot/sling
+crumpled scroll
+rune-covered sling
+fine leather armor/leather armor
+jet-black battle axe
+robes of resistance
+staff of the archmagi/quarterstaff
+ring of immunity/sapphire ring
+rune-covered heavy mace/heavy mace
+medium obsidian shield/medium shield
+sapphire amulet
+crown of leadership/silver crown
+dwarven pick axe/pick axe
+crown of fire/red crown
+crown of ice/blue crown
+crown of lightning/yellow crown
+potion of quickling blood/opaque potion
+potion of visibility/smelly potion
+iron gauntlets
+gloves of carrying/gloves
+javelin of death/black javelin
+javelin of doom/obsidian javelin
+black hurthling quarrel/tiny quarrel
+long bow of hunting/long bow
+figurine of wondrous power/figurine
+black tome of Alsophocus/black tome
+arrow of jelly slaying/arrow
+quarrel of jelly slaying/quarrel
+shining long spear/long spear
+emerald dagger/dagger
+platinum girdle
+iron-shod quarterstaff/quarterstaff
+mithril-shod quarterstaff/quarterstaff
+adamantium-shod quarterstaff/quarterstaff
+eternium-shod quarterstaff/quarterstaff
+quicksilver quarterstaff/quarterstaff
+Trident of the Red Rooster/red trident
+moloch armor/hulking armor
+fancy clothes
+ugly clothes
+blood-stained robe
+clean robe
+archery gloves/gloves
+boxing gloves/gloves
+studded gloves/gloves
+blank scroll/unlabeled scroll
+weird tome
+ring mail
+mithril ring mail/ring mail
+adamantium ring mail/ring mail
+eternium ring mail/scale mail
+splint mail
+mithril splint mail/splint mail
+adamantium splint mail/splint mail
+eternium splint mail/splint mail
+magical writing set/writing set
+tract of chaos/tome
+tract of balance/tome
+tract of order/tome
+rune-covered halberd/halberd
+axe of the minotaur emperor/great axe
+boots of the slow shuffle/greased boots
+amulet of hunger/tarnished amulet
+ring of weakness/plain ring
+ring of the fish/vibrating ring
+scroll of cure blindness/scroll labeled \YNORI ERUP\
+potion of stun recovery/icky potion
+scroll of education/scroll labeled \MANNANNANMACLIR\
+piece of fish meat
+scroll of literacy check/scroll labeled \EDEVESH HANAGASH\
+marble statue
+unfinished statue of an unquestionably famous hero
+ring of karmic absorption/scratched ring
+Magic Missile/Minor Punishment
+Lightning Bolt/Divine Wrath
+Identify/Enlightement
+Light
+Darkness
+Cure Light Wounds
+Knock/Divine Key
+Disarm Trap
+Fireball/Major Punishment
+Bless
+Slow Monster
+Calm Monster
+Cure Serious Wounds
+Cure Critical Wounds
+Heal
+Cure Disease
+Neutralize Poison
+Invisibility/Veil of the Gods
+Destroy Undead/Dispel Undead
+Slow Poison
+Teleportation/Ethereal Bridge
+Remove Curse
+Greater Identify/Greater Enlightement
+Earthquake
+Revelation
+Know Alignment
+Create Item/Divine Favour
+Summon Monsters
+Petrification
+Frost Bolt/Nether Bolt
+Acid Bolt
+Fire Bolt/Hellish Flames
+Strength of Atlas/Lordly Might
+Magic Lock/Seal of the Spheres
+Improved Fireball/Invoked Devastation
+Farsight
+Web
+Stun Ray/Lesser Divine Touch
+Death Ray/Greater Divine Touch
+Magic Map/Knowledge of the Ancients
+Mystic Shovel/Divine Digger
+Burning Hands/Baptism of Fire
+Wish/Divine Intervention
+Scare Monster/Holy Awe
+Ice Ball/Freezing Fury
+Lightning Ball/Heavenly Fury
+Acid Ball/Rain of Sorrow
+
