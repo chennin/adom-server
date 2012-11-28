@@ -2,7 +2,7 @@
 
 CONF=/var/lib/adom/server/adom_adduser.conf
 
-sudo adduser --conf $CONF "$1" 
+sudo adduser --conf $CONF --ingroup adomusers "$1" 
 
 if [ $? == "0" ]; then
 	echo "Your account was created. Please open a new SSH connection"
