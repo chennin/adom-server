@@ -1,0 +1,34 @@
+#! /usr/bin/perl
+
+use warnings;
+use strict;
+
+use Term::ReadKey;
+
+chdir "$ENV{HOME}/.messages/" or die "chdir";
+
+TRY: while(1) {
+    select undef,undef,undef, 0.1;
+
+    opendir MESSAGES, "." or die "opendir";
+    (my ($thing) = grep { ! /^\.+$/ } readdir MESSAGES) or last TRY;
+
+    open THING, '<', $thing or next TRY;
+
+    my ($nick, $text) = (<THING> =~ m/([^ ]*) (.*)\n/) or next TRY;
+
+    close THING or die;
+    closedir MESSAGES or die;
+
+    $| = 1;
+    print "\e7\e[2;1H\e[43;30m  MESSAGE FROM '$nick' | PRESS '#' TO CONFIRM  \e[3;1H  $text  ";
+    ReadMode 4;
+    while(ReadKey(0) ne '#') {}
+    ReadMode 0;
+
+    print "\e[2;1H  USE MONSTER MEMORY (&) TO REPLY, REDRAW (CTRL-R) TO REMOVE MESSAGE.  \e[40;37m\e8";
+
+    unlink $thing;
+
+    select undef, undef, undef, 0.1;
+}
