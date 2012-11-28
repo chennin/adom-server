@@ -1,0 +1,97 @@
+#!/bin/bash
+
+mkdir -p ${HOME}/.adom.data/
+
+while true
+do
+    clear
+
+    echo "Welcome to the ADOM configuration editor menu. Here you can edit"
+    echo "your ADOM configuration with the nano editor."
+
+    echo "Please note that you will need to switch the ADOM version in the"
+    echo "main-menu in order to edit configurations for other versions."
+    echo "This, surprisingly, does not apply to the SSH authorized_keys file."
+    echo
+    echo "Select the config you wish to edit:"
+    echo
+    echo "  1 - .adom.cfg, main ADOM configuration file"
+    echo "  2 - .adom.kbd, ADOM keymap configuration file"
+    echo "  3 - sage.cfg, ADOM Sage main configuration file"
+    echo "  4 - sage.msg, ADOM Sage message configuration file"
+    echo "  5 - sage.kbd, ADOM Sage keymap configuration file"
+    echo
+    echo "  6 - ~/.ssh/authorized_keys, authorized SSH RSA/DSA public keys"
+    echo
+    echo "  7 - quit"
+    printf "> "
+
+    read command
+    case $command in
+	
+	1)
+	    pico --restricted "${HOME}/.adom.data/.adom.cfg"
+	    continue
+	    ;;
+	
+	2)
+	    pico --restricted "${HOME}/.adom.data/.adom.kbd"
+	    continue
+	    ;;
+	
+	3)
+	    pico --restricted "${HOME}/.adom.data/sage.cfg"
+	    continue
+	    ;;
+	
+	4)
+	    pico --restricted "${HOME}/.adom.data/sage.msg"
+	    continue
+	    ;;
+	
+        5)
+            pico --restricted "${HOME}/.adom.data/sage.kbd"
+            continue
+            ;;
+
+	6)
+	    pico --restricted "${HOME}/.ssh/authorized_keys"
+	    continue;
+	    ;;
+
+	7)
+	    exit
+	    ;;
+
+	*)
+	    echo "Erroneous selection!"
+	    sleep 2
+	    continue
+	    ;;
+    esac
+done
+      
+#CONFIGS=".adom.cfg .adom.kbd sage.cfg sage.kbd sage.msg"
+
+#echo "Please note that you will need to upload the config files separately for" 
+#echo "each version!"
+#echo
+
+#for file in $CONFIGS
+#do
+#clear
+#	echo "Please type the URL that contains your $file file"
+#	echo "or press enter to skip and keep the original"
+#	echo
+#	echo "The old file will not be overwritten if the download fails"
+#	read INPUT
+	
+#	if [ ! "$INPUT" = "" ]; then
+#		wget "$INPUT" -O ${HOME}/tmp.file && \
+#		rm -f "${HOME}/${file}" && \
+#		cp "${HOME}/tmp.file" "${HOME}/.adom.data/${file}"
+
+#		rm -f ${HOME}/tmp.file
+#	fi
+#clear
+#done
