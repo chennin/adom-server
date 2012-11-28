@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main(int argc, char **argv) {
-	FILE *f = fopen(argv[1], "w");
+	FILE *f = fopen(argv[1], "r+");
 	if (f != NULL)
 	{
 		rewind(f);
