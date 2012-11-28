@@ -1,0 +1,141 @@
+<html><body><pre>
+There is a public, session-recording ADOM (optionally Sage) 1.1.1 / 1.0.0 /
+Eternium Man SSH server online on ancardius.ath.cx.
+
+It does not hurt to read through the following instructions before playing.
+
+[Connecting]:
+
+  Connect to the mentioned address, default SSH port, with your SSH-client.
+
+  Please use SSH2 protocol for SSH interaction! The server will not allow the 
+  use of the obsolete SSH1 version (PuTTY should use the version 2 by default).
+          
+  If you're a Windows-user and don't have a SSH-client, download one (PuTTY) 
+  from the offical download page 
+  http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html.
+  
+  PuTTY is a single executable and needs no installing.
+
+[Spectating]:
+
+  To spectate current players, give username 'spectator' and password 
+  'spectator'. 
+  You may then choose the game to spectate, if there are players online.
+
+[Playing]:
+
+  To create a new user, give username 'adom' and password 'adom', then log in
+  with this newly-created account.
+
+  NOTE: only 3 registrations allowed per IP every day.
+
+  Note that ADOM will not launch if your terminal size is something else than
+  80x25 characters!
+
+  You may then choose whether you want to play ADOM 1.1.1, 1.0.0 or Eternium Man
+  challenge and whether you want to use Sage or not. Note that 1.1.1/1.0.0/
+  Eternium Man have separate save- and hiscore files!
+
+  The server automatically enforces the rules of the Eternium Man challenge.
+  Breaking the rules will get your ADOM process killed.
+
+  PROTIP:
+
+    In the game, there is a place called "The Bug-Infested Temple". Normally you
+    will need at least a hundred deaths recorded to be allowed entry. However, 
+    on the server, you will not need to reach this limit.
+
+[Session recording and playback]:
+
+  Note that every game on the server is recorded!
+
+  You can playback any recorded game by logging in with the username 'ttyrecplay'
+  and the password 'ttyrecplay'. Instructions for selecting and playing a recording
+  are explained when you log in.
+
+  The recordings are in "ttyrec" format, and can be downloaded from each user's
+  WWW-accessable /ttyrecs -directory (if they've enabled WWW access).
+
+[Hiscore]:
+
+  The hiscore dumps of the server are available at the following address:
+
+    http://ancardius.ath.cx/adom_hiscore/
+
+  On the IRC-channel #adom, on IRCNet, there is the IRC-bot AncardiUSBot 
+  announcing new Hall of Fame (top 100) entries, if they exceed 10k points.  
+
+[Editing the config files]:
+
+  You are allowed to edit ADOM and ADOM Sage configuration files on the server.
+  You can launch the nano editor (see main menu when you log in) for writing 
+  your own configurations.
+
+[Miscellaneous]:
+
+  There is a little problem with the terminal bell - spectators are able to 
+  send it. 
+
+  You should disable the bell from the playing/spectating terminal.
+  In PuTTY, the following settings are highly recommended:
+
+  Window -> Rows: 25 (you NEED this to launch ADOM!)
+  Window -> Columns: 80 (this should be the default)
+  Terminal -> Bell -> None (bell disabled)
+  Features -> Disable application keypad mode
+  Terminal -> Keyboard -> xterm R6 (in order to use the function keys properly)
+
+  You will probably want to change the default font, too. Note that you can save
+  these settings, including username (Connection -> Auto-login username) in the
+  main Session-window.
+
+  If you are used to the DOS or Windows versions of ADOM, it's possible to
+  configure PuTTY to look like them; thanks to rmcin329 for finding this:
+
+         ANSI black: 0 0 0        ANSI bold black: 119 119 119
+         ANSI red: 255 68 0       ANSI bold red: 255 119 0
+         ANSI green: 0 170 0      ANSI bold green: 0 255 0
+         ANSI yellow: 153 85 0    ANSI bold yellow: 221 221 0
+         ANSI blue: 0 0 170       ANSI bold blue: 0 119 255
+         ANSI magenta: 170 0 170  ANSI bold magenta: 255 0 255
+         ANSI cyan: 0 170 170     ANSI bold cyan: 0 255 255
+         ANSI white: 187 187 187  ANSI bold white: 255 255 255
+
+         If you want the cursor the same as well just use bold white for
+         it, and under appearance set it to underline.
+
+  If you use another terminal emulator see its documentation for setting
+  colors, obviously.
+
+  If the game happens to crash, there is a supposedly working restore system 
+  that allows you to restore the last save game if the ADOM process crashes.
+
+  Also, you can enable your user directory to be accessible (read-only) at
+  http://ancardius.ath.cx/adom_users/. You can enable or disable this access any
+  time you wish. Useful for exporting character dumps, configs, etc.!
+
+  (...and of course, access your game demos.)
+
+  A somewhat maintained changelog can be found at
+  http://ancardius.ath.cx/adom_changes.
+
+[Contact and Thanks]:
+
+  Please report any trouble (which I expect, since this is a very alpha-stage 
+  system) to jaakkos on IRCNet, Quakenet or Freenode, sorear on Freenode or
+  IRCNet, or to Chousuke on IRCNet.
+
+  You might also want to visit the #adom channel in IRCNet, but then again you 
+  might not want to.  There is also #adom on Freenode (newer, smaller, and
+  friendlier) and #ancardius on ancardius.ath.cx:6667 (mostly used for tourney
+  coordination) (XXX will someone who knows something about quakenet add
+  something here).
+  
+  Huge thanks to Chousuke and Vladimir Panteleev for making all this possible!
+
+  Sensible enhancement ideas are also welcome!
+  Have fun playing!
+
+Readme updated on 2010-04-07.
+</pre></body></html>
