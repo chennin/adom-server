@@ -4,9 +4,9 @@ import time
 import os
 
 def poll_hiscore(hiscore_100, hiscore_111, hiscore_etr):
-    new_100 = import_hiscore("/var/www/adom_hiscore/hiscore_v100.txt")
-    new_111 = import_hiscore("/var/www/adom_hiscore/hiscore_v111.txt")
-    new_etr = import_hiscore("/var/www/adom_hiscore/hiscore_eternium_man.txt")
+    new_100 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt")
+    new_111 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt")
+    new_etr = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_eternium_man.txt")
 
     diff_100 = set(new_100.keys()).difference(hiscore_100.keys())
     diff_111 = set(new_111.keys()).difference(hiscore_111.keys())
@@ -140,9 +140,9 @@ else:
 nickname = sys.argv[2]
 target = sys.argv[3]
 
-hiscore_111 = import_hiscore("/var/www/adom_hiscore/hiscore_v111.txt")
-hiscore_100 = import_hiscore("/var/www/adom_hiscore/hiscore_v100.txt")
-hiscore_etr = import_hiscore("/var/www/adom_hiscore/hiscore_eternium_man.txt")
+hiscore_111 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt")
+hiscore_100 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt")
+hiscore_etr = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_eternium_man.txt")
 
 irc = irclib.IRC()
 try:

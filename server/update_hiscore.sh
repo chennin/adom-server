@@ -6,10 +6,10 @@ update()
 {
     /usr/games/adom-$1-bin -S
 
-    if ! cmp hiscore.doc /var/www/adom_hiscore/hiscore_$2.txt
+    if ! cmp hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_$2.txt
     then
         echo "Hiscore for $2 CHANGED."
-        mv hiscore.doc /var/www/adom_hiscore/hiscore_$2.txt
+        mv hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_$2.txt
     else
         echo "Hiscore for $2 not changed."
     fi

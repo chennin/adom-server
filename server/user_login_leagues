@@ -1,0 +1,113 @@
+#!/bin/bash --login
+
+export LESSSECURE=1
+
+EXPECTED_ARGS=0
+
+if [ $# -ne $EXPECTED_ARGS ]; then
+	exit
+fi
+
+command=""
+sage=$(cat ${HOME}/sage_status)
+adom_ver=$(cat ${HOME}/adom_ver)
+
+if [ ! -e "${HOME}/.adom.data" ]; then
+	ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+fi	
+
+until [ "$command" = "end" ]
+do
+	sage=$(cat ${HOME}/sage_status)
+	adom_ver=$(cat ${HOME}/adom_ver)
+
+	tput reset
+	clear
+
+	echo "Welcome to the Ancardia ADOM Server!"
+	echo "You are about to participate a league game."
+	echo ""
+
+	python /var/lib/adom/server/check_term.py
+	res="$?"
+
+	if [ "$res" == "1" ]; then
+	    echo ""
+	fi
+
+   	echo "What do you wish to do?"
+	echo ""
+	echo "  ? - View the readme (press 'q' to return)"
+	echo ""
+	echo "  1 - Launch ADOM"
+	echo "  2 - Select configuration files"
+	echo "  3 - Restore default configuration files"
+	echo "  4 - Kill all user processes (if stuck)"
+	
+	echo "  5 - Quit"
+    	printf "> "
+
+	read command
+	case $command in
+	        '?')
+		less /var/lib/adom/public_html/adom_server_info.txt
+		continue
+		;;
+
+		1)
+		clear
+
+		python /var/lib/adom/server/check_term.py
+		res="$?"
+		
+		if [ "$res" == "1" ]; then
+		    echo ""
+		    echo "Press enter to return to the main menu."
+		    read junk
+		    continue
+		fi
+		
+		touch /var/lib/adom/sockets/$USER
+
+		if [ -e "${HOME}/.adom.data/.adom.cnt" ]; then
+		    /var/lib/adom/server/modify_cnt "${HOME}/.adom.data/.adom.cnt"
+		fi
+
+		screen -DR -c /var/lib/adom/server/user-screen -S adom -s \
+		"/var/lib/adom/server/adom_wrapper_leagues"
+		rm -f /var/lib/adom/sockets/$USER
+
+		continue
+		;;
+
+		2)
+		/var/lib/adom/server/select_conf
+		echo 
+		sleep 1
+		continue
+		;;
+	
+		3)
+		/var/lib/adom/server/select_conf --reset
+		echo 
+		sleep 1
+		continue
+		;;
+	
+	        4)
+		rm -rf /var/run/screen/S-${USER}/*.adom
+		killall -9 -u ${USER}
+		continue
+		;;
+		    
+		5)
+		exit
+		;;
+		
+		*)
+		echo "Erroneous selection!"
+		sleep 1
+		continue
+		;;
+	esac
+done

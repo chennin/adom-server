@@ -74,7 +74,7 @@ do
 	fi
 	echo " receiving messages sent by other users"
 
-	if [ -e "/var/www/adom_users/${USER}" ]; then
+	if [ -e "/var/lib/adom/public_html/adom_users/${USER}" ]; then
 		printf "d - disable"
 	else
 		printf "d - enable"
@@ -90,7 +90,7 @@ do
 	read command
 	case $command in
 	'h')
-		less /var/www/adom_server_info.txt
+		less /var/lib/adom/public_html/adom_server_info.txt
 		continue
 		;;
 
@@ -216,11 +216,11 @@ do
 		;;
 
 	'd')
-		if [ -e "/var/www/adom_users/${USER}" ]; then
-			rm "/var/www/adom_users/${USER}"
+		if [ -e "/var/lib/adom/public_html/adom_users/${USER}" ]; then
+			rm "/var/lib/adom/public_html/adom_users/${USER}"
 			echo "Directory link removed."
 		else
-			ln -s "${HOME}" "/var/www/adom_users/${USER}"
+			ln -s "${HOME}" "/var/lib/adom/public_html/adom_users/${USER}"
 			echo "Directory link created."
 		fi
 
