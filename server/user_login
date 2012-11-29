@@ -88,6 +88,7 @@ do
 	echo "x - toggle ADoM Sage"
 	echo "c - edit ADoM, ADoM Sage and SSH key (RSA/DSA) configurations"
 	echo "kp - kill all user processes (if stuck) and give debug info"
+	echo -e "\033[1m[ del ]\033[0m delete all your ttyrecs, slgs, vlgs, & sshs, (with confirmation)"
 	echo "pw - change your password"
 
 	printf "> "
@@ -199,6 +200,23 @@ do
 		fi
 		continue
 		;;
+
+        'del')
+                OLDSZ=$(du -shx $HOME | cut -f1)
+                echo -e "Your homedir usage is $OLDSZ. Delete ALL your ttyrecs, vlgs, slgs, and .sshs?\n(y/N)?"
+                read ANSWER
+                if [[ $ANSWER = [yY]* ]]; then
+                        find $HOME/ttyrecs -type f -delete -print
+                        find $HOME -type f -name "*.ssh" -delete -print
+                        find $HOME -type f -name "*.slg" -delete -print
+                        find $HOME -type f -name "*.vlg" -delete -print
+                        find $HOME -type f -name "core" -delete -print
+                fi
+                NEWSZ=$(du -shx $HOME | cut -f1)
+                echo "Your new disk usage is $NEWSZ. (press enter)"
+                read
+                continue
+                ;;
 
 	'c')
 		/var/lib/adom/server/conf_adom
