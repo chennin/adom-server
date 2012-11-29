@@ -71,12 +71,23 @@ bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin /var/lib/adom/software/adom-
 rm -rf ./adom
 done
 
+md5sums to check:
+2e870f9207c08e736d2e2a81ae1f7098  adom-100-bin
+c7d6813e48cf19c163ac1a6eba8122ee  adom-111-bin
+d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
+43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
+11d27e4466b94e1667916296178785d9  adom-120p5-bin
+a2dc057b464a6ac6922772c705043346  adom-etr-bin
+979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
+3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
+
+
 (temp) link in /usr/games
-for i in 100 111 lea etr swp; do
+for i in 100 111 120p3 120p4 120p5 lea etr swp; do
 ln -s /var/lib/adom/bin/adom-$i-bin /usr/games/adom-$i-bin
 done
 
-for those following along: edit the adom binary in a hex editor (like hexcurse) and change both mentions of adom_ds.cfg to something unique
+Binary changes are required to separate HISCORE Files. To do yourself, edit the adom binary in a hex editor (like hexcurse) and change both mentions of adom_ds.cfg to something unique.
 
 I have used:
 1.0.0: adom_ds.100
@@ -89,9 +100,8 @@ Swapgame: adom_ds.swp
 1.2.0p6-: adom_ds.12c
 
 X. Link public_html into your web server, example:
-rmdir /var/www && ln -s /var/lib/adom/public_html /var/www
+rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
 
-X. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
 
 X. ssh key for spectator (no passphrase)
 ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f /var/lib/adom/etc/adomusers_key
@@ -116,3 +126,5 @@ chmod 4710 /var/lib/adom/server/bin/message_dispatch
 
 X. Copy server/etc/adom_ds* to /etc/
 cp server/etc/adom_ds* /etc/
+
+X. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
