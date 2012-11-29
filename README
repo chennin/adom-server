@@ -6,7 +6,7 @@ These instructions are written with a Debian or Ubuntu-based system in mind
 
 1. Install required tools:
 apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl
- wget
+ wget python-tweepy
 apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
 
 X. Add local user accounts:
@@ -140,9 +140,12 @@ rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
 
 X. run ldconfig
 
+X. Set up a web server.  Enable PHP and edit the variables at the top of index.php.  Or, don't enable PHP, strip the PHP out of index.php and replace it with yo
+ur hard-coded info, and rename index.php to index.html.
+
 II. USAGE
 
-The full readme is at readme.html.
+The full readme is at readme.php.
 
 SSH in with user adom and password adom, and follow prompts to create a new user.
 Then SSH in as your new user.

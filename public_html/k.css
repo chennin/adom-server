@@ -1,0 +1,16 @@
+A:link{color:#ff6}
+A:visited{color:#9AF}
+A {font-size:95%;}
+
+body{ 
+background-color:#000;  
+font-family:Verdana,Geneva,Arial,Helvetica,sans-serif;  
+font-size:90%;  
+color:white;
+}
+
+span.link {color:#ff6}
+h2
+{
+border-bottom: 1px solid white;
+}
