@@ -23,7 +23,8 @@ def list_recs():
       continue
 	 
     for file in files:
-      ttyrecs.append((parts[5], file, os.path.getsize(root + "/" + file), 0, os.path.getmtime(root + "/" + file)))
+      if file != ".gitignore":
+        ttyrecs.append((parts[5], file, os.path.getsize(root + "/" + file), 0, os.path.getmtime(root + "/" + file)))
           
   ttyrecs.sort(ttyreclist_alphabetsort.sortfunc)
   write_list(ttyrecs, open("/var/lib/adom/server/ttyrec_lists/alphasorted", "w"))
