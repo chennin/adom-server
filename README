@@ -2,25 +2,41 @@ Public ADOM Server scripts
 
 I. Install
 
-A Debian or Ubuntu-based system
+These instructions are written with a Debian or Ubuntu-based system in mind
 
-1. apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl sudo screen bspatch bsdiff nano hexcurse libterm-readkey-perl
-
-X. For tool compiling support: apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
-
-X. Install passwd.py from http://newcenturycomputers.net/projects/passwd.html
-
-X. Install termplay & termplay from http://angband.pl/termrec.html
+1. Install required tools:
+apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl
+ wget
+apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
 
 X. Add local user accounts:
 groupadd adomusers
+useradd -d /var/lib/adom -m -c "ADOM owner" -s /bin/bash -g adomusers adomown
+mkdir /var/lib/adom
+chown adomown:adomusers /var/lib/adom
 useradd -d /var/lib/adom -c "ADOM public login" -s /var/lib/adom/server/public_login adom
 useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s /var/lib/adom/server/spec_login spectator
 useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s /var/lib/adom/server/ttyrecplay_login ttyrecplay
 
-Set passwords the same as their username
+For adom, spectator, and ttyrecplay, set passwords the same as their username
+passwd adom
+passwd spectator
+passwd ttyrecplay
 
-X. git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
+X. su to adomown
+
+X. Pick a directory (default: /var/lib/adom) and check out the code
+git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
+
+X. Install passwd.py (latest from http://newcenturycomputers.net/projects/passwd.html)
+python /var/lib/adom/software/passwd.py install
+
+X. Install termrec & termplay (latest from http://angband.pl/termrec.html)
+cd /tmp
+tar xzf /var/lib/adom/software/termrec-0.16.tar.gz
+cd termrec-0.16/
+./configure && make && make install
+
 
 X. Copy server/etc/sudoers-50-adom to /etc/sudoers.d/50-adom
 chmod 0440 /etc/sudoers.d/50-adom
