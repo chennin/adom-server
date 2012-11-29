@@ -102,6 +102,8 @@ ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f /var/lib/adom/e
 cat /var/lib/adom/etc/adomusers_key.pub >> /var/lib/adom/server/spectator/.ssh/authorized_keys
 cat /var/lib/adom/etc/adomusers_key.pub >> /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
 
+X. Add to crontab the contents of etc/crontab
+
 X. Exit to root
 
 X. Permissions
@@ -118,6 +120,8 @@ chmod 755 /var/run/screen/
 # for messaging
 chown root:adomusers /var/lib/adom/bin/message_dispatch
 chmod 4710 /var/lib/adom/bin/message_dispatch
+chown adom /var/lib/adom/server/registered_ips
+chmod 640 /var/lib/adom/server/registered_ips
 
 X. Copy server/etc/adom_ds* to /etc/
 cp /var/lib/adom/etc/adom_ds* /etc/
@@ -126,6 +130,8 @@ X. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
 
 X. Link public_html into your web server, example:
 rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
+
+X. run ldconfig
 
 II. USAGE
 
