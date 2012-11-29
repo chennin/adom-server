@@ -38,8 +38,6 @@ cd termrec-0.16/
 X. Add following line to /etc/sudoers or /etc/sudoers.d/50-adom (must be chmod 0440)
 adomown    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
 
-X. screen binary must be setuid root (chmod u+s /usr/bin/screen)
-
 X. su to adomown
 
 X. Pick a directory (default: /var/lib/adom) and check out the code
@@ -99,10 +97,6 @@ Swapgame: adom_ds.swp
 1.2.0p4-5: adom_ds.12b
 1.2.0p6-: adom_ds.12c
 
-X. Link public_html into your web server, example:
-rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
-
-
 X. ssh key for spectator (no passphrase)
 ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f /var/lib/adom/etc/adomusers_key
 cat /var/lib/adom/etc/adomusers_key.pub >> /var/lib/adom/server/spectator/.ssh/authorized_keys
@@ -111,6 +105,7 @@ cat /var/lib/adom/etc/adomusers_key.pub >> /var/lib/adom/server/ttyrecplay/.ssh/
 X. Exit to root
 
 X. Permissions
+cd /var/lib/adom
 chgrp adomusers public_html/adom_users/ sockets
 chmod 775   public_html/adom_users/ sockets
 chmod ugo+x bin/*
@@ -121,10 +116,13 @@ chmod 664 1*/.HISCORE
 chmod u+s `which screen`
 chmod 755 /var/run/screen/
 # for messaging
-chown root:adomusers /var/lib/adom/server/bin/message_dispatch
-chmod 4710 /var/lib/adom/server/bin/message_dispatch
+chown root:adomusers /var/lib/adom/bin/message_dispatch
+chmod 4710 /var/lib/adom/bin/message_dispatch
 
 X. Copy server/etc/adom_ds* to /etc/
 cp server/etc/adom_ds* /etc/
 
 X. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
+
+X. Link public_html into your web server, example:
+rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
