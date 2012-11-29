@@ -38,6 +38,13 @@ cd termrec-0.16/
 X. Add following line to /etc/sudoers or /etc/sudoers.d/50-adom (must be chmod 0440)
 adomown    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
 
+X. Add quota support
+Edit /etc/fstab and add the following to the filesystem options: relatime,errors=remount-ro,usrquota,usrjquota=aquota.user,jqfmt=vfsv0
+Run:
+mount -o remount,usrquota /
+quotacheck -avugm 
+quotaon -a
+
 X. su to adomown
 
 X. Pick a directory (default: /var/lib/adom) and check out the code

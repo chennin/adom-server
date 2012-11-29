@@ -36,6 +36,11 @@ do
 		echo ""
 	fi
 
+	quota -slq > /dev/null
+        if [ $? == 1 ]; then
+		echo -e " ** \033[1;31mWARNING: You are over your disk quota. Please type 'del'. \033[0m**"
+        fi
+
 	printf "You're about to play ADoM"
 	if [ "$adom_ver" = "111" ]; then
 		echo " version 1.1.1, normal mode"
