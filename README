@@ -4,4 +4,95 @@ I. Install
 
 A Debian or Ubuntu-based system
 
-1. apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl libncurses5-dev
+1. apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl sudo screen bspatch bsdiff nano hexcurse libterm-readkey-perl
+
+X. For tool compiling support: apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
+
+X. Install passwd.py from http://newcenturycomputers.net/projects/passwd.html
+
+X. Install termplay & termplay from http://angband.pl/termrec.html
+
+X. Add local user accounts:
+groupadd adomusers
+useradd -d /var/lib/adom -c "ADOM public login" -s /var/lib/adom/server/public_login adom
+useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s /var/lib/adom/server/spec_login spectator
+useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s /var/lib/adom/server/ttyrecplay_login ttyrecplay
+
+Set passwords the same as their username
+
+X. git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
+
+X. Copy server/etc/sudoers-50-adom to /etc/sudoers.d/50-adom
+chmod 0440 /etc/sudoers.d/50-adom
+
+X. screen binary must be setuid root (chmod u+s /usr/bin/screen)
+
+X. Copy server/etc/adom_ds* to /etc/
+cp server/etc/adom_ds* /etc/
+
+X. Download desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and 1.2.0p3 are included, in the same way as from ancardia.com (due to the license). Where you have a choice, use the Debian 32-bit version.
+
+X. Install ADOM versions to bin/
+
+1.0.0, 1.1.1, and 1.2.0p3 are provided.  Place other archives (32-bit Debian!) in /var/lib/adom/adom-dist.
+
+mkdir /tmp/adom && cd $_
+
+for i in 100 111; do
+tar xzf /var/lib/adom/adom-dist/adom-$i-elf.tar.gz &&
+bspatch adom/adom /var/lib/adom/bin/adom-$i-bin /var/lib/adom/adom-dist/adom-$i-ds.binpatch
+rm -rf ./adom
+done
+
+tar xzf /var/lib/adom/adom-dist/adom-111-elf.tar.gz
+for i in lea etr swp; do
+bspatch adom/adom /var/lib/adom/bin/adom-$i-bin /var/lib/adom/adom-dist/adom-$i-ds.binpatch
+done
+rm -rf adom
+
+for i in 3 4 5; do
+tar xzf /var/lib/adom/adom-dist/adom_linux_debian_32_1.2.0_pre$i.tar.gz &&
+bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin /var/lib/adom/adom-dist/adom-120p$i-ds.binpatch
+rm -rf ./adom
+done
+
+(temp) link in /usr/games
+for i in 100 111 lea etr swp; do
+ln -s /var/lib/adom/bin/adom-$i-bin /usr/games/adom-$i-bin
+done
+
+for those following along: edit the adom binary in a hex editor (like hexcurse) and change both mentions of adom_ds.cfg to something unique
+
+I have used:
+1.0.0: adom_ds.100
+1.1.1: adom_ds.111
+Eternium Man: adom_ds.etr
+League: adom_ds.lea
+Swapgame: adom_ds.swp
+1.2.0p1-3: adom_ds.12a
+1.2.0p4-5: adom_ds.12b
+1.2.0p6-: adom_ds.12c
+
+X. Link public_html into your web server, example:
+rmdir /var/www && ln -s /var/lib/adom/public_html /var/www
+
+X. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
+
+X. ssh key for spectator (no passphrase)
+ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f /var/lib/adom/etc/adomusers_key
+cat /var/lib/adom/etc/adomusers_key.pub >> /var/lib/adom/server/spectator/.ssh/authorized_keys
+cat /var/lib/adom/etc/adomusers_key.pub >> /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
+
+X. Permissions
+chgrp adomusers public_html/adom_users/ sockets
+chmod 775   public_html/adom_users/ sockets
+chmod ugo+x bin/*
+chgrp adomusers 1* 1*/.HISCORE
+chmod 775 1* 
+chmod 664 1*/.HISCORE
+# for spectating
+chmod u+s `which screen`
+chmod 755 /var/run/screen/
+# for messaging
+chown root:adomusers /var/lib/adom/server/bin/message_dispatch
+chmod 4710 /var/lib/adom/server/bin/message_dispatch
