@@ -120,9 +120,16 @@ chown root:adomusers /var/lib/adom/bin/message_dispatch
 chmod 4710 /var/lib/adom/bin/message_dispatch
 
 X. Copy server/etc/adom_ds* to /etc/
-cp server/etc/adom_ds* /etc/
+cp /var/lib/adom/etc/adom_ds* /etc/
 
 X. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
 
 X. Link public_html into your web server, example:
 rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
+
+II. USAGE
+
+The full readme is at readme.html.
+
+SSH in with user adom and password adom, and follow prompts to create a new user.
+Then SSH in as your new user.
