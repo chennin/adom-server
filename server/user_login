@@ -11,6 +11,7 @@ fi
 command=""
 sage=$(cat ${HOME}/sage_status)
 adom_ver=$(cat ${HOME}/adom_ver)
+ttyq=$(cat ${HOME}/ttyrec_status)
 
 if [ ! -e "${HOME}/.adom.data" ]; then
 	ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
@@ -20,6 +21,7 @@ until [ "$command" = "end" ]
 do
 	sage=$(cat ${HOME}/sage_status)
 	adom_ver=$(cat ${HOME}/adom_ver)
+	ttyq=$(cat ${HOME}/ttyrec_status)
 
 	tput reset
 	clear
@@ -58,7 +60,8 @@ do
 		printf "with spectator messages"
 	fi
 
-	echo " and ADoM Sage $sage."
+	echo -ne "with ADoM Sage \e[4m$sage\e[0m,"
+        echo -e " and tty recordings \033[4m$ttyq\033[0m."
 
 	if [[ $(date +%w) = 1 ]] ; then
                 echo -e "     \033[4mNOTE\033[0m: It's Monday.";
@@ -100,6 +103,7 @@ do
 	fi
 	echo " user directory access at http://ancardia.ath.cx/adom_users/${USER}"
 	echo "x - toggle ADoM Sage"
+	echo -e "\033[1m[ r ]\033[0m toggle tty recording"
 	echo "c - edit ADoM, ADoM Sage and SSH key (RSA/DSA) configurations"
 	echo "kp - kill all user processes (if stuck) and give debug info"
 	echo -e "\033[1m[ del ]\033[0m delete all your ttyrecs, slgs, vlgs, & sshs, (with confirmation)"
@@ -129,6 +133,7 @@ do
 
 		export sage
 		export adom_ver
+		export ttyq
 		touch /var/lib/adom/sockets/$USER
 
 		if [ -e "${HOME}/.adom.data/.adom.cnt" ]; then
@@ -214,6 +219,15 @@ do
 		fi
 		continue
 		;;
+
+        'r')
+                if [ "$ttyq" = "disabled" ]; then
+                        echo "enabled" > ${HOME}/ttyrec_status
+                else
+                        echo "disabled" > ${HOME}/ttyrec_status
+                fi
+                continue
+                ;;
 
         'del')
                 OLDSZ=$(du -shx $HOME | cut -f1)

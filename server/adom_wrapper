@@ -1,21 +1,23 @@
 #!/bin/bash
 
 # $sage = enabled/disabled -- whether sage should be used
-# $adom_ver = 100/111/etr/swp -- adom version
-
+# $adom_ver = 100/111/etc/lea/swap/120p3/... -- adom version
+# $ttyq - enabled/disabled -- whether tty recording should be used
 ulimit -c unlimited
 
-python /var/lib/adom/server/ttyrecord.py
-res="$?"
+if [ "$ttyq" = "enabled" ]; then
+	python /var/lib/adom/server/ttyrecord.py
+	res="$?"
 
-if (( "$res" == "1" )); then
-	exit
+	if (( "$res" == "1" )); then
+		exit
+	fi
 fi
 
 mkdir -p ${HOME}/backup-$adom_ver
+mkdir -p ${HOME}/adom.data-$adom_ver
 
 python /var/lib/adom/server/check_term.py
-
 touch /var/lib/adom/sockets/$USER
 umask 013
 
