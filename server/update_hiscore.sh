@@ -1,29 +1,33 @@
 #!/bin/bash
+set +o noclobber
+cd /var/lib/adom/tmp
 
-cd /var/lib/adom/server
+versions=('100' '111' '120p3' '120p4' '120p5' 'etr' 'lea' 'swp')
+file=()
+
+for v in ${versions[@]}; do
+    file=("${file[@]}" "/var/lib/adom/${v}/.HISCORE")
+done
 
 update()
 {
-    /var/lib/adom/bin/adom-$1-bin -S
+    /var/lib/adom/bin/adom-$1-bin -S >/dev/null <<EOF
 
-    if ! cmp hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_$2.txt
+EOF
+
+    if ! cmp hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_$1.txt
     then
-        echo "Hiscore for $2 CHANGED."
-        mv hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_$2.txt
+        echo "Hiscore for $1 CHANGED."
+        mv hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_$1.txt
     else
-        echo "Hiscore for $2 not changed."
+        echo "Hiscore for $1 not changed."
     fi
 }
 
-while true
+inotifywait -e modify -m ${file[@]} |
+while read filename eventlist eventfile
 do
-    update 100 v100
-    update 111 v111
-    update etr eternium_man
-    update swp swapgame
-    update lea leagues
-
-    echo "Hiscore updated."
-
-    sleep 60
+        rawvers=$(basename $(dirname "$filename"))
+        echo "$(date): ${rawvers} updating"
+        update $rawvers
 done

@@ -118,9 +118,9 @@ cd /var/lib/adom
 chgrp adomusers public_html/adom_users/ sockets
 chmod 775   public_html/adom_users/ sockets
 chmod ugo+x bin/*
-chgrp adomusers 1* 1*/.HISCORE
-chmod 775 1* 
-chmod 664 1*/.HISCORE
+chgrp adomusers 1* etr lea swapgame 1*/.HISCORE etr/.HISCORE lea/.HISCORE swapgame/.HISCORE
+chmod 775 1* etr lea swapgame
+chmod 664 */.HISCORE
 # for spectating
 chmod u+s `which screen`
 chmod 755 /var/run/screen/
