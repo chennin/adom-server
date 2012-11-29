@@ -119,13 +119,13 @@ def import_hiscore(file):
 def on_connect(connection, event):
     connection.join(target)
 
-if len(sys.argv) != 4:
-    print "Usage: adombot <server[:port]> <nickname> <target>"
+if len(sys.argv) < 4:
+    print "Usage: adombot <server[:port]> <nickname> <target> [realname] [ssl]"
     sys.exit(1)
 
 def on_disconnect(connection, event):
     time.sleep(60)
-    connection.connect(server, port, nickname)
+    connection.connect(server, port, nickname, ircname=ircname, ssl=dossl)
 
 s = sys.argv[1].split(":", 1)
 server = s[0]
@@ -140,13 +140,27 @@ else:
 nickname = sys.argv[2]
 target = sys.argv[3]
 
+if len(sys.argv) >= 5:
+        ircname = sys.argv[4]
+else:
+        ircname = nickname
+
+if len(sys.argv) >= 6:
+        dossl = bool(sys.argv[5])
+else:
+        dossl = False
+
+if (dossl != False) and (dossl != True):
+        print "Invalid value for SSL: must be True or False"
+        exit(1) 
+
 hiscore_111 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt")
 hiscore_100 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt")
-hiscore_etr = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_eternium_man.txt")
+hiscore_etr = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_vetr.txt")
 
 irc = irclib.IRC()
 try:
-    c = irc.server().connect(server, port, nickname)
+    c = irc.server().connect(server, port, nickname, ircname=ircname, ssl=dossl)
 except irclib.ServerConnectionError, x:
     print x
     sys.exit(1)
