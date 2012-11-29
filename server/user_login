@@ -60,6 +60,20 @@ do
 
 	echo " and ADoM Sage $sage."
 
+	if [[ $(date +%w) = 1 ]] ; then
+                echo -e "     \033[4mNOTE\033[0m: It's Monday.";
+	elif [[ $(date +%w-%d) = "5-13" ]]; then
+                echo -e "     \033[4mNOTE\033[0m: It's Friday the 13th.";
+        fi
+
+	if [[ $(date +%m-%d) = "07-2" ]]; then
+                echo -e "     \033[4mNOTE\033[0m: It's Creator's Day."
+	elif [[ $(date +%m-%d) = "12-24" ]]; then
+                echo -e "     \033[4mNOTE\033[0m: It's Christmas Eve."
+	elif [[ $(date +%m-%d) = "12-31" ]]; then
+                echo -e "     \033[4mNOTE\033[0m: It's New Year's Eve."
+        fi
+
 	echo ""
 	echo "h - view the readme (press 'q' to return)"
 	echo ""
