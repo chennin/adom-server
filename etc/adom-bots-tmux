@@ -1,0 +1,4 @@
+#!/bin/sh
+tmux new-session -d -s "adom-bots" -x 100 -y 30 'python /var/lib/adom/server/adombot.py irc.freenode.net:6697 AnnounceBot "#adom" "Public ADOM server" True'
+tmux new-window '/var/lib/adom/server/update_hiscore.sh'
+tmux new-window 'cd /var/lib/adom/adomhack/; perl /var/lib/adom/adomhack/sorbot/bot'
