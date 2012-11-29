@@ -23,20 +23,22 @@ passwd adom
 passwd spectator
 passwd ttyrecplay
 
+X. Install passwd.py (latest from http://newcenturycomputers.net/projects/passwd.html)
+cd /tmp
+wget http://newcenturycomputers.net/projects/download.cgi/passwd.py
+python passwd.py install
+
+X. Install termrec & termplay (latest from http://angband.pl/termrec.html)
+cd /tmp
+wget http://prdownloads.sourceforge.net/termrec/termrec-0.16.tar.gz
+tar xzf termrec-0.16.tar.gz
+cd termrec-0.16/
+./configure && make && make install
+
 X. su to adomown
 
 X. Pick a directory (default: /var/lib/adom) and check out the code
 git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
-
-X. Install passwd.py (latest from http://newcenturycomputers.net/projects/passwd.html)
-python /var/lib/adom/software/passwd.py install
-
-X. Install termrec & termplay (latest from http://angband.pl/termrec.html)
-cd /tmp
-tar xzf /var/lib/adom/software/termrec-0.16.tar.gz
-cd termrec-0.16/
-./configure && make && make install
-
 
 X. Copy server/etc/sudoers-50-adom to /etc/sudoers.d/50-adom
 chmod 0440 /etc/sudoers.d/50-adom
