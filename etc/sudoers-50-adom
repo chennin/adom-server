@@ -1,1 +1,1 @@
-adom    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
+adomown    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
