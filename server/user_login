@@ -277,7 +277,7 @@ do
 		;;
 
 	's')
-		ssh -o "StrictHostKeyChecking no" spectator@localhost
+		ssh -o "StrictHostKeyChecking no" -i /var/lib/adom/adomusers_id  spectator@localhost
 		continue
 		;;
 
