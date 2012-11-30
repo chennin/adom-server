@@ -35,10 +35,8 @@ do
 	tput reset
 	clear
 
-	echo "Welcome to the Ancardia ADoM server! All games are recorded! View the"
-	echo "readme before playing; solutions to most problems can be found there."
-
-	echo ""
+	#Show server MOTD
+        while read line; do echo -e $line; done < /var/lib/adom/etc/motd
 
 	python /var/lib/adom/server/check_term.py
 	res="$?"
@@ -106,9 +104,9 @@ do
         fi
 
 	echo ""
-	 echo -ne "\e[1;33m[ a ]\e[0m launch ADoM (start or resume)    "
+	 echo -ne "\e[1;33m[ a ]\e[0m launch ADoM (start or resume)	"
         echo -e "\e[1m[ h ]\e[0m view readme"
-        echo -ne "\e[1m[ j ]\e[0m join this user's session (co-op)  "
+        echo -ne "\e[1m[ j ]\e[0m join this user's session (co-op)	"
         echo -e "\e[1m[ s ]\e[0m spectate other users' games"
         echo -e "\e[1;31m[ q ]\e[0m quit"
         echo ""
