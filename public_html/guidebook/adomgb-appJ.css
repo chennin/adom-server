@@ -1,0 +1,17 @@
+body {
+	font-family : Arial
+}
+
+th {
+	color: #000000;
+	background-color: #00BBBB;
+	font-weight: bold;
+}
+
+
+
+caption {
+	text-align: left;
+   	font-weight: bold;	
+        font-size: large;
+}

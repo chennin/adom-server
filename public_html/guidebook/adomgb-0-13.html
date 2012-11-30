@@ -1,0 +1,1516 @@
+<HTML>
+<HEAD>
+<TITLE>ADOM Guidebook - Dungeon features</TITLE>
+<LINK rel="stylesheet" type="text/css" href="adomgb-body.css">
+</HEAD>
+<BODY>
+<H1>ADOM Guidebook</H1>
+<HR size = "2">
+
+<H3>Dungeon features</H3>
+
+Thanks to gut for the following observations:<p>
+
+Dungeon generation has a few peculiarities that may be worth mentioning.
+Almost all rooms generated on any level will have an odd number of floor
+spaces available. To my knowledge, the only exception to this is the very
+rare random shop room. They are capable of being generated with an even
+number of available floor spaces, and this causes the 'dig' algorithm in the
+game to be unable to connect them to the rest of the map. The only way
+to reach these shops is by tunneling.<p>
+
+Remarks about staircase generation and room layout:<p>
+
+
+When hopping in the ID, I noticed that some rooms were likely to have staircases in the adjacent room. Basically, if you enter a room that's <i>in</i> a corner, or <i>near</i> a corner, and your room has a door that leads <i>directly</i> up, down, left or right, into a corner, there is likely a stair room there.<p> 
+
+For example, if a room like this:<p>
+<pre>
+   #########                 
+   #.......#                 
+   #.<.....#                 
+   #.......#                 
+   #####.###                 
+       #+#   
+</pre>
+is generated at the top of the level, at the left or right-hand corners, it likely leads to a stair room.<p>
+
+Please note that this:<p>
+<pre>
+   #########                 
+   #.......#            
+   #.<.....###                 
+   #.........#               
+   #########.#               
+           #.#
+           #.#
+           ..#
+</pre>
+isn't the same, and will not work.<p>
+
+One like this:<p>
+<pre>
+      #+#   
+   ####.####                 
+   #.......#                 
+   #.<.....#                 
+   #.......#                 
+   #########                 
+</pre>
+at the bottom left or right-hand corners is good too.<p>
+
+
+A room like this:<p>
+<pre>
+ #######                           
+ #.....##                   
+ #.<....+                    
+ #.....##                     
+ #######                            
+</pre>                         
+has a high probability if it is generated at the right-hand side of the map, but it has to be at the very top or bottom, right next to a corner.<p>
+
+The same goes for a room like this:<p>
+<pre>
+ #######                           
+##.....#                   
++....<.#                    
+##.....#                     
+ #######       
+</pre>
+in the left hand side of the level.<p>
+
+A room like this :<p>
+<pre>
+ #######                           
+##.....###                   
+.....<....                    
+##.....###                     
+ #######       
+</pre>
+is also good if next to any corner, but doesn't seem as sure as the others.<p>
+
+
+<A NAME=0.13.1></A><b>0.13.1 Level Messages, Special Messages</b><p>
+
+See also section 0.2.3 Altars for messages generated when sacrificing.<p>
+
+Messages which indicate the presence of monsters or monster vaults:<p>
+
+"You feel excited." - a vault on the level<br>
+"You feel truly excited." - a greater vault<br>
+"You sense a certain tension." - a room full of monsters<br>
+"You sense the death of an innocent being." - the cute puppy has just been killed<br>
+"You feel a surge of power." - an artifact, guarded by a named monster<br>
+"You hear a distant wind." - a vortex<br>
+"You hear a distant "Hurumph!"" - Dorn Beast<br>
+"*THUMB*" - titan or greater moloch<br>
+"You hear a horrible unearthly wail in the distance!" - Banshee<br>
+"You see a small hole in the ground." - a hive<br>
+"Something is moving in the hole beneath your feet." - a hive creature is trying to emerge while the PC is standing on the hive<br>
+"You nearly fall into a small hole in the ground." - a hive in the dark<br>
+"You see a crumpled hole in the ground." - an empty hive<br>
+"The floor is very rough here." - an empty hive in the dark<br>
+"You hear clicking sounds." - ants<br>
+"You hear buzzing sounds." - bees<br>
+"You hear an evil hissing and something large crawling about the ground." - ant queen<br>
+"You hear a vile buzzing sound!" - queen bee<br>
+"The whole dungeon level seems to be shaking." - This, in general, indicates that a hive creature tried to emerge from a hive and was not successful.  It will be followed by messages that indicate the reason, for instance
+"The center of the earthquake seems to be directly beneath your feet!" which means the PC is standing on the hive.  There are other messages that need to be compiled regarding other monsters standing on the hive, etc.<br>
+"You hear a slurping sound." - a spider spun a web<br>
+"You hear a ripping sound." - a web was torn apart<br>
+"You hear a burping/popping sound." - a breeder just bred<br>
+"You hear a grinding sound." - something just dug through stone<br>
+"You sense imminent danger..." - chance of out-of-depth danger generation<br>
+"... but the feeling passes." - but it didn't happen<br>
+"You sense a rupture in the spiritual aura of this place." - a (greater) moloch smashed an altar<br>
+"You feel the presence of a friend." - a companion was generated out of LOS - in a dark room, for example<br>
+"Someone shouts: "*Yippiyaiyay!*"" - Tywat Pare has found a bandit<p>
+
+Messages which indicate the presence of a special dungeon feature:<p>
+
+"You hear the wind howling." - a forge<br>
+"A lot of stuff seems to be standing around here." - the PC is standing at a forge's location in the dark<br>
+"You sense a pious aura." - an altar<br>
+"You stumble against some stone block."  - the PC is standing on an altar in the dark<br>
+"You hear someone counting money." - shop<br>
+"You hear arcane mumbling." - shop being restocked<br>
+"You hear someone cursing shoplifters." - shop<br>
+"You hear the chime of a tiny bell." - shop<br>
+"You feel observed." - shop - an invisible PC has been detected by a shopkeeper who is out of LOS<br>
+"You hear splashing sounds." - a pool (note similarity to acid trap below)<br>
+"Your feet suddenly feel wet." - a pool in the dark or while blind<br>
+"You hear the sound of rushing water!" - a river (note similarity to water trap below)<br>
+"You hear the sound of falling coins." - royal vault<br>
+"You hear the steps of the royal guard." - royal vault<br>
+"You suddenly feel the urge to get very rich really soon!" - royal vault (while wearing an amulet of greed)<br>
+"Something shifts beneath your feet!" - The PC entered the top level of the Pyramid while blind or while the stairway is covered in darkness<p>
+
+Messages which indicate the presence of traps:<p>
+
+"You hear a splashing sound." - an acid trap was triggered<br>
+"You hear the sound of rushing water." - a water trap was triggered<br>
+"You hear a strange "ZAP!"" - a light trap (also possibly a flash/stun door trap) was triggered<br>
+"You hear a pained -foo sound- in the distance." - a weapon trap was triggered<br>
+"You suddenly sense taint in your vicinity." - a corruption trap was triggered<br>
+"You sense a soul in agony." - a corruption trap was triggered<br>
+"You hear the sound of toppling stones." - a stone block trap was triggered<br>
+"You hear a thundering explosion." - a fireball trap was triggered<br>
+"The -foo- seems to move very carefully." - a monster (or companion) encountered a trap<br>
+"You shudder." - a trap-filled room is somewhere on the level<p>
+
+Messages which indicate a unique level:<p>
+
+"You feel watched.  You shiver.  You shiver really bad!" - The Gremlin Cave<br>
+"This air of this level is filled with a strange smell." - the si level<br>
+"You hear someone chuckling evilly." - the underground level of the Dwarven Graveyard<br>
+"You smell the reek of sulphur, steel and oil." - Darkforge<br>
+"The air suddenly is filled with the stench of death. The stone is colored in strange gray shades and everything seems to be decaying, rotting and dying slowly." - The CoC graveyard<br>
+"This dungeon is very dusty." - The second level of the Assassin's guild<br>
+"Water drips constantly from the ceiling..." - the water temple level<br>
+"This whole level seems to be filled with emotions of terror, sorrow, pain and death..." - the Banshee's level<br>
+"Stormy winds howl through these tunnels." - the air temple level<br>
+"This level is intensely hot!  The rocks are glowing..." - the fire temple level<br>
+"You sense an intense tension." - the battle bunny level<br>
+"This level seems somehow removed from the rest of the world." - The Cat Lord level<br>
+"The walls seem to be closing in..." - the earth temple level<br>
+"This part of infinity seems to be special in a very eerie way. You wonder whether you would be able to find it ever again..." - The SIL<br>
+"The walls and floor of this level are filled with the marks of huge reptiles... hundreds of such marks." - the final level of the blue dragon caves<br>
+"You feel touched by the forces of chaos..." - the lair of the Emperor Moloch<br>
+"Some strange energy fills the air causing your skin to itch." - the mana temple level<br>
+"This level is covered with a very slippery layer of ice." - D: 49<br>
+"This level is very strange... the walls are hard to see, everything seems to blur and you feel slightly dizzy." - D: 50<p>
+
+Special messages:<p>
+
+"You hear a sliding sound." - the PC kicked an object on the floor in the dark<br>
+"Oh my, I'm so lonely and need some company." - random, any NPC can say this, small lawful boost if the PC agrees to spend time with the NPC<br>
+"You feel a great wave of relief rushing through these tunnels." - Jharod has healed Yrrigs while both are out of LOS<br>
+"Jharod, the healer, suddenly seems to touch someone in a soothing way. You feel a great wave of relief rushing towards you." - Jharod, in LOS, has healed Yrrigs, out of LOS<br>
+"You suddenly feel ancient magical energies manifest in your vicinity." - the PC has just achieved experience level 13; the papyrus scroll has been generated, which is an invitation to enter the Pyramid (see section 2.9).  Alternatively:<br>
+"You suddenly feel ancient magical energies manifest at your feet." - same as above, but the papyrus scroll was generated on the dungeon square where the PC is standing<br>
+"Your equipment suddenly seems to weigh less." - an item has disappeared from the PC's pack, most likely a food item susceptible to rotting - this includes corpses, apples and pieces of raw meat<br>
+"Your -foo- starts to rot!" - a food item in the PC's pack has started to rot(which means it has changed from uncursed to cursed status)<br>
+"Your -foo- rots away!" - a (cursed) food item in the PC's pack has rotted away; the difference between this message and "Your equipment suddenly seems to weigh less." may be Perception dependent or may involve other factors<br>
+"You feel a change of mind in a being close to you." - A pet has become hostile<br>
+"You feel like scum." OR "You feel like a traitor." - The PC sacrificed a pet<br>
+"Your mood darkens." - PC has lost blessed status<br>
+"For a moment you feel dizzy." - A monster tried to teleport to the PC's location<br>
+"You hear a thudding sound." - A thrown rock landed without being destroyed OR a wounded monster died after running out of the PC's line of sight<br>
+"You feel responsible." - the PC killed a ratling guardian<br>
+"You feel a horrible loss." - the cute dog transformed into a writhing mass of primal chaos<br>
+"You smash the stones to pieces. Some stuff buried in the rock in uncovered!" - the PC dug through stone, uncovering an item dropped by a monster that was killed while in the wall<br>
+"The altar is smashed by the greater moloch! An energy bolt strikes down on the greater moloch! The greater moloch shruggs it off and laughs with malicious glee!" - pretty self-explanatory<br>
+"*SORRY, MISSED*" - the above happens, but the PC is doomed; the god strikes at the PC by mistake<br>
+"You hit something and notice a thudding sound." - the PC killed an invisible monster with a missile<br>
+"Drops of blood appear on the ground." - an invisible monster is bleeding<p>
+
+
+<A NAME=0.13.2></A><b>0.13.2 Traps</b><p>
+
+Traps are exactly what the name implies.  They are represented by carets ^ in the dungeon maps once they are discovered.  There are several varieties which do various nasty things to the PC or his worn or carried inventory:<p>
+<table border=1>
+<th>Trap</th><th>Caret symbol</th><th>Effect</th>
+<tr><td>Acid<td>green<td>damages or destroys non-artifact worn equipment
+<tr><td>Alarm<td>orange<td>warns every monster on the level of the PC's presence and causes them to become hostile
+<tr><td>Arrow<td>white<td>shoots an arrow at the PC; can be exploited to gain arrows
+<tr><td>Ceiling<td>dark blue<td>drops a portion of the ceiling on the PC; only found in the mana temple
+<tr><td>Corruption<td>purple<td>corrupts the PC; a relatively small effect
+<tr><td>Explosion<td>red<td>generates a fireball at the location of the trap
+<tr><td>Light<td>yellow<td>blinds the PC
+<tr><td>Pit<td>brown or cyan<td>PC falls into a hole; can be used to train Climbing; two types, one contains vipers; appear as cyan caret if detected with a wand of trap detection, brown caret if detected with the Detect Traps skill (this may well be a bug)
+<tr><td>Spear<td>brown<td>shoots a spear at the PC; can be exploited as a source of metal
+<tr><td>Stone block<td>gray<td>drops a stone block on the PC; can kill low level PCs
+<tr><td>Teleportation<td>light green<td>teleports the PC; sometimes handy for on-demand teleportation
+<tr><td>Water<td>blue<td>causes a gush of water; can destroy scrolls if the PC does not have a waterproof blanket to protect the backpack; rusts vulnerable armor and weapons
+</table>
+<p>
+Traps can be deliberately set off by standing on the trap and pressing ctrl-T.<p>
+
+It should be noted that traps affect monsters as well as the PC: light traps will blind monsters,
+corruption traps will corrupt monsters, acid traps will damage monsters, etc.  An interesting use
+for an alarm trap is to lure a monster across it.  Other monsters will become hostile towards the
+monster which triggered the trap and attack it.  This can be very handy for disposing of cats (see
+section 0.9.2).<p>
+
+Traps can be discovered with the Detect Traps skill.  PCs with this skill automatically apply
+it when the 's'earch command is used.  In ordinary dungeons it is not worth using this technique,
+but in heavily trapped areas (the underground level of the Dwarven Graveyard, the Pyramid,
+certain elemental temples) it is definitely prudent to use this skill multiple times during every
+turn where the PC suspects a trap is present.<p>
+
+Traps are much easier to avoid once they are discovered, probably by a factor of 100 or more.
+This is why the Detect Traps skill is so useful.  Every PC should attempt to gain this skill.
+Wands of trap detection can be used for this, but they run out of charges.  They can be recharged of
+course, but the skill never runs out and is unaffected by the mana battery corruption.<p>
+
+Traps occur in a known pattern.  The order, left to right or top to bottom, is:<p>
+
+Light trap<br>
+Corruption trap<br>
+Stone block trap<br>
+Alarm<br>
+Arrow trap<br>
+Acid trap<br>
+Pit - this pit is distinct from the other in that it contains vipers<br>
+Spear trap<br>
+Teleportation trap<br>
+Water trap<br>
+Fireball trap<br>
+Pit - simple pit, no vipers<p>
+
+There are several places on fixed-layout levels where trap types and locations are shown in
+these documents.  Note that trap <i>types</i>, in particular, are dependent upon the dungeon level
+where the fixed-layout level in question is generated.  Examples include Dwarftown and (most of)
+the elemental temples.  There is generally a warning in those sections concerning variations
+caused by differing dungeon level.  There is also variability introduced if the player chooses
+to play with nonstandard resolution.  There is no warning about this factor.  Nevertheless, the
+above pattern applies; identifying a single trap allows the player to predict the type of trap
+generated elsewhere on the level.<p>
+
+Finally, bear in mind that PCs with high Alertness, Perception and Dexterity stats will avoid
+undiscovered traps much more successfully than those without these abilities.<p>
+
+Note that it is not possible to use the 'w5' (walk in place) command while standing on a trap.<p>
+
+<A NAME=0.13.3></A><b>0.13.3 Doors</b><p>
+
+There are doors on many of the dungeon room entrances.  The majority of doors are not a problem.
+However, they can be locked or locked and trapped.<p>
+
+<b>0.13.3.1 Locked doors</b><p>
+
+Locked doors can be opened using several methods.  The most obvious is with a key that fits the
+lock.  Keys are randomly found in the dungeons.  Skriek, the ratling in Lawenilothehl, also sells
+keys.  Blessed keys will generally open a locked door without setting off a trap if one is present.
+A message is generated: "You notice a clicking sound." meaning a trap was bypassed.  Cursed keys
+will often break when used, setting off a trap in the process, if one is present.  Doors can be
+kicked down; this will set off a trap every time if one is present.  An unsuccessful attempt to
+kick down a non-trapped door yields the message "You kick the door but it does not budge." An
+unsuccessful attempt to kick down a trapped door yields the message "You kick the door but it does
+not budge at all."  In this case the PC was extremely lucky, since kicking a trapped door almost
+invariably sets off the trap. Huge rocks or anvils can be thrown at doors to smash them.  Doors can
+be tunneled around with a pickaxe.  The safest way to open a door is with the Knock spell or a wand
+of knocking.  A magical breeze blows the door open and traps are completely bypassed.<p>
+
+As with traps, door locks occur in a known pattern.  The order, left to right or top to bottom, is:<p>
+
+Tiny lock<br>
+Square lock<br>
+Round lock<br>
+Triangular lock<br>
+Hexagonal lock<br>
+Small lock<p>
+
+<b>0.13.3.2 Door traps</b><p>
+
+There are different types of door traps:<p>
+<table border=1>
+<th>Trap</th><th>Effect</th>
+<tr><td>Collapsing door<td>drops door directly in front of doorway, damages the PC and worn equipment
+<tr><td>Explosive rune<td>arguably the worst door trap, destroys a variety of worn items and backpack items and damages the PC; a new effect in ADOM 1.1.x+ is possible deafening of the PC
+<tr><td>Fireball trap<td>similar to the explosion trap, generates a fireball, can injure companions, making them become hostile
+<tr><td>Flash<td>blinds the PC temporarily, also can stun the PC - might be two different types of traps
+<tr><td>Trick door<td>similar to the stone block trap, drops stones directly in front of the door, can kill low level PCs
+</table>
+<p>
+Players should get into the habit of never standing directly in front of a door when opening it
+whenever possible.  This will completely eliminate deaths from trick door traps and damage from
+collapsing doors.  It also lessens the damage from an explosive rune: "You partially evade the
+explosion."  As with ordinary traps, PCs with high Dexterity are more successful at evading door
+traps: "Suddenly a huge rock drops directly in front of the door!  You barely evade it by jumping
+backwards!"<p>
+
+If the PC has the Detect Traps skill, it is worth 'a'pplying it a few times in the direction of
+closed doors.<p>
+
+<b>0.13.3.3 Secret doors</b><p>
+
+Some doors are hidden and must be 's'earched for.  A ring of searching will do this automatically.
+Alternatively, secret doors may be discovered by 'k'icking them.  Kicking a normal dungeon wall results
+in the message "You hurt your foot kicking the wall!".  Kicking a concealed secret door results in the
+message "You really hurt your foot kicking the wall!"<p>
+
+
+<A NAME=0.13.4></A><b>0.13.4 Dark rooms</b><p>
+
+Dark rooms, and dark areas in general, are just that - dark.  They are problematic since approaching
+enemies can't be seen.  It is also possible to inadvertantly kill a creature in a dark room.  The
+darkness can be permanently dispelled with the Light spell or a wand of light.  A torch or an amulet
+of light provides a temporary light source.  If a doomed PC enters a dark room, there is a 1 in 1000
+chance of being instakilled by a grue each turn.<p>
+
+
+<A NAME=0.13.5></A><b>0.13.5 Tension rooms, threatening rooms</b><p>
+
+Tension rooms are relatively small rooms filled with monsters.  They always have doors that cause
+the walls around them to crumble.  This allows the monsters within to swarm the PC.  They can be
+filled with monsters of one type, two separate types or a variety of different monsters.  Mixed
+tension rooms in particular can contain out-of-depth monsters.  Since the level message "You sense
+a certain tension." is always associated with these rooms, the PC is forewarned.  It is prudent
+to find out what is in the tension room with a wand of monster detection, especially at deeper
+dungeon levels.  It is quite possible to be faced with a ghost king and ancient karmic dragon
+simultaneously from such a room.<p>
+
+A new variant of tension rooms has appeared in ADOM 1.0.0+.  The level message "You feel threatened."
+is generated on levels containing these rooms.  These rooms are similar to tension rooms, but are always
+filled with a single type of monster. In addition, they do not have the crumbling walls feature of
+tension rooms.<p>
+
+
+<A NAME=0.13.6></A><b>0.13.6 Herbs</b><p>
+
+Herb bushes are always found in the Big Room (level 6 of the Caverns of Chaos) and randomly
+elsewhere in the dungeons.  They grow according to Conway's Life rules.  They are as follows:<p>
+
+If the bush has 0 or 1 neighboring bush, it will die in the next generation<br>
+If the bush has 2 or 3 neighboring bushes, it will survive through the next generation<br>
+If the bush has 4 neighboring bushes, it will die in the next generation<br>
+If an empty dungeon square has 3 neighboring bushes, a new bush will grow during the next generation<br>
+Births and deaths are simultaneous<p>
+
+ADOM adds to this: if a bush has two neighbors, it will remain the same during the next generation.
+If a bush has three neighbors, it will generate more blossoms during the next generation.  These
+additions are important, since there are many stable patterns, but very few that will continue to
+blossom over time.  For instance the following patterns are stable:<p>
+<pre>
+                                       *     *
+                                      * *   * *
+                                      * *    *
+                                       *
+</pre>
+but are quite useless as far as ADOM is concerned.  Since none of the bushes has three neighbors,
+once they reach a withered state they will never recover.  The best pattern to create for farming
+herbs in ADOM is a 2 × 2 square of herbs.  This will remain alive indefinitely and generate more
+herb blossoms every generation.  It is also worth preserving a 1 × 3 pattern.  This is a pattern
+that oscillates between horizontal and vertical.  Since two of the herb bushes are new each
+generation and therefore unpicked, they will constantly be renewed.  The danger with this pattern
+is overharvesting.  If one bush dies, they all die.  The square 2 × 2 pattern does not have this
+liability.  If one (and only one) bush dies, it will be filled in the next generation.<p>
+
+Herbs apparently require light to survive.  A message "It's dark here! Some herb bushes full of
+blossoms are growing here. The vegetation beneath your feet shrivels and suddenly is gone." has
+been observed.<p>
+
+Herbs have the following properties:<p>
+<table border=1>
+<th>Name</th><th>Method of use</th><th>Cursed effect</th><th>Uncursed effect</th><th>Blessed effect</th>
+<tr><td>stomafillia<td>eat<td>satiates less<td>satiates<td>bloats
+<tr><td>stomacemptia<td>eat<td>near starvation<td>makes hungry!<td>makes almost hungry
+<tr><td>curaria mancox<td>eat<td>smaller effect<td>fights sickness<td>cures sickness
+<tr><td>devil's rose<td>eat<td>severe sickness<td>sickness<td>mild sickness
+<tr><td>alraunia antidote<td>eat<td>smaller effect<td>dilutes poisoning<td>cures most poisoning
+<tr><td>demon daisy<td>eat<td>severely poisons<td>poisons<td>mildly poisons
+<tr><td>pepper petal<td>eat<td>smaller effect<td>heals a little<td>heals more (~27 points)
+<tr><td>burb root<td>eat<td>more damage<td>burns stomach damage<td>less damage
+<tr><td>morgia root<td>eat<td>exercises Wi & To<td>exercises Wi & To<td>really exercises Wi & To
+<tr><td>spenseweed<td>use<td>smaller effect<td>heals a little<td>heals more (~30 points)
+<tr><td>moss of mareilon<td>use<td>abuses Dx<td>exercises Dx<td>really exercises Dx
+</table>
+<p>
+
+Note that eating many devil's roses does not increase the duration of sickness, but instead increases 
+the damage from the final blow sickness delivers. This can be over 1000 HPs. This is important for those 
+exploiting the temporary stat-draining properties of sickness to increase stats.<p>
+
+See section 0.6.1.3 for more on training stats with herbs.<p>
+
+Herbs can be generated on any dungeon level by 'U'sing a potion of holy water on a dungeon
+square, even for PCs without the Gardening skill.  The success rate is about 33%.  Note that
+while any dungeon level will work, only those levels which already had herbs will support
+herb growth.  In other words, herbs will not undergo the normal growth cycle unless the
+dungeon level had indigenous herbs.  Consequently, the PC should avoid creating herbs in this
+manner unless the dungeon level already has herbs, unless it is a matter of life or death.  The
+exception is PCs that have the Gardening skill. 'A'pplying the Gardening skill with herb seeds causes a dungeon level to transform to an herb-sustaining state. Be sure to take advantage of the information below about creating especially desirable herbs.<p>
+
+Note when planting or rearranging herbs that they will not grow on a square that contains a spider's web.<p>
+
+Reproduced here is a -----short treatise on herbs by the newsgroup poster known as Loves A Dustbin-----:<p>
+
+The patterns governing herb growth are well documented elsewhere, but it is
+also quite easy to tell what kind of herb a given bush will produce.  How?
+It's determined by the line on the screen at which the bush appears.  Using the
+big room as a guide, the first screen line at which a floor or dungeon feature
+can appear is line 5, whose herb bushes always produce morgia roots.  The line
+below that is home to moss of mareilon, and below that is the mighty
+spenseweed.  Curaria mancox/devil's roses are next, followed by alraunia
+antidote/demon daisy, followed by stomafillia/stomacemptia, followed by pepper
+petal/burb root.  The line after pepper petal is morgia root again, and the
+pattern repeats.  Presented more visually (and best viewed in a monospaced
+font):<pre>
+(line no.
+  mod 7)  type of herb found at that line
+---------+--------------------------------
+    5    | morgia root
+    6    | moss of mareilon
+    0    | spenseweed
+    1    | curaria mancox/devil's rose
+    2    | alraunia antidote/demon daisy
+    3    | stomafillia/stomacemptia
+    4    | pepper petal/burb root</pre>
+
+If you don't know what "line number mod 7" means in the above chart, feel free
+to ignore it.  Just remember that the pattern starts with morgia root for the
+topmost line at which herb bushes usually appear (barring any digging) and
+repeat every seven lines.  BTW, if you are like me in never remembering which
+beneficial herbs are paired with demon daisies and devil's roses, remember the
+"a" in "daisy" matches the "a"'s in "alraunia" and the "o" in "rose" matches
+the "o" in "mancox."  Kinda cheesy, but it works.<p>
+
+On a standard 80x25 character screen, there are fifteen lines on which floors
+and dungeon features may appear, yielding two complete repetitions of the
+pattern with a bonus line of morgia root at the bottom.  Lines 4, 20, and 21
+may be burrowed to yield floors there too, and herb bushes can grow into these
+lines once dug out if their growth patterns permit it.  If you play on a larger
+screen, use the "l"ook command to count down the line number of a given herb
+bush, keeping in mind that the "look" cursor's topmost limit is line 3, which
+would be stomafillia according to the pattern.<p>
+
+It is sometimes possible to move herb bushes to the lines you want in order to
+get a particularly desirable herb.  You need four herb bushes in a "T" shape,
+like this (again, view it in a monospaced font):<pre>
+...
+"""
+.".</pre>
+
+When it's time for new bushes to grow, you'll get this pattern . . .<pre>
+
+.".
+"""
+"""</pre>
+
+. . . pick the bottom row clean . . .<pre>
+
+.".
+"""
+...</pre>
+
+. . . and wait for another generation to pass . . .<pre>
+
+"""
+"""
+.".</pre>
+
+Then harvest the bottom bush of each column to oblivion.<pre>
+
+"""
+.".
+...</pre><p>
+
+Voila!  The T has moved up a row.  You can also use an inverted T to move
+downward, or T's laid on their sides to move left or right.  Once your T is in
+the position you want, just pluck off one end of the crossbar to get the
+ever-lovin' herb square.  The process isn't risk-free, however.  For one thing,
+generations of herb growth are not always predictable, and you may find two
+generations spawning in quick succession without giving you enough time in
+between to overharvest the needed bushes.  Another note:  do this in a locked
+room if you can.  If you don't, the RNG <i>will</i> dump a wererat or a dark elven
+spider factory into your lap at an inoppurtune moment, leaving you to hack and
+slash through the bodies and miss perhaps several generations of herb growth.<p>
+
+As for the overall usefulness of each herb--well, reasonable minds will differ.
+Following are my own subjective opinions.  Spenseweed, stomafillia, morgia root
+and moss of mareilon are the top four, with a definite gap in usefulness
+between them and curaria and alraunia, and another larger gap between those two
+and pepper petal.  I personally rate spenseweed and stomafillia at the top
+because their utility never expires; you will <i>always</i> need healing and you
+will <i>always</i> need food, but the stat gain twins stop increasing your stats at
+a certain point.  My non-troll characters go for spenseweed first, stomafillia
+second; for trolls, the priorities are reversed.  If only the two grew on
+adjacent lines!  Also, don't pass up the opportunity for a stat gain square,
+ever, unless you absolutely must choose between morgia root and spenseweed.
+Even then, morgia root <i>may</i> be the right choice, depending on how early it is
+(early game, pick morgia, late, pick spenseweed, middle is a toss-up), your
+race and class (mindcrafters and wizards love morgia, brawlers <i>need</i>
+spenseweed), and how low your stats are now.<p>
+
+In the middle tier, I prefer alraunia antidote in the <i>very</i> early game, as in
+the initial dive from the SMC to the mountain village before my first spider
+corpse.  Once I'm no longer scared of pit vipers, my preference changes to
+curaria mancox so as to safely increase my Mana score by munching on kobold
+shaman.  Last and in my mind least is pepper petal, which is inferior to
+spenseweed in almost every way.  Spenseweed's use by rubbing instead of
+ingesting allows its use even while bloated, which will happen often if you're
+on the Blessed stomafillia Diet Plan (TM).  Pepper petal has an evil twin;
+spenseweed doesn't.  I've not observed any significant difference in healing
+potency between blessed pepper petal and blessed spenseweed, but as I often
+don't even bother to ID a bush I know will be pepper petal, I may have missed
+it.  Some may argue that pepper petal is preferable to spenseweed for a
+starving character, but since stomafillia grows on the line above pepper
+petal--i.e. the two are often found together--I don't consider that a
+compelling argument.<p>
+
+Please note that, in those crucial beginning turns, <i>any</i> beneficial herb
+(anything but the "evil twins") can save your life.  If you see an herb bush by
+its lonesome, fated to die next generation anyway, then for heaven's sake,
+don't stop picking till you see the ground!  Also, the Alchemy skill can add
+new wrinkles to prioritizing one's herbs.  If you happen to know a recipe for a
+PoGA using only demon daisies and booze, then ignore the above paragraphs and
+GO FOR IT, MAN!  Remember that success in the Drakalor Chain often comes not by
+memorizing a bunch of rules and patterns but by thinking on your feet!<p>
+
+One last comment:  for an eerily complete catalog of insights into Conway's
+Life, point your web browser to http://www.treasure-troves.com/life/ and learn
+more than you ever knew you needed to know about herb bushes.<p>
+
+-----End of Loves a Dustbin's short treatise on herbs-----<p>
+
+Generation of the r pentomino - thanks to Malte Helmert for the method<p>
+
+It is almost inevitable for a stable square herb pattern to form spontaneously.
+Alternatively, one can be generated.  Once a square is generated, the PC needs
+to generate only one additional bush to form the r pentomino pattern, which grows
+explosively.  Follow the steps shown below:<p>
+
+<pre>
+ . = empty, no change  1) ........ 2) ........ 3) ........ 4) ........ 5) ........ 6) ........
+ o = alive, boring        ........    ........    ..+.....    ..kn....    ...o....    ...o....
+ + = added by you         ...oo...    ...oo...    ...oo...    ..noo...    ..ooo...    ..ooo...
+ - = killed by you        ...oo...    ...o-...    ...o....    ...on...    ...-o...    ....o...
+ n = generated by rules   ........    ........    ........    ........    ........    ........
+ k = killed by rules      ........    ........    ........    ........    ........    ........
+</pre>
+This pattern will then grow for dozens of generations.<p>
+
+<A NAME=0.13.7></A><b>0.13.7 Shops</b><p>
+
+Shops are rooms in the dungeons inhabited by shopkeepers and stocked with their wares.  Shops can be
+general stores selling a variety of items or specialty stores selling only one type of item.  Shops
+should always be entered and explored, since viewing the items in a shop permanently identifies them.
+There are guaranteed shops in the game: Munxip's food store in Terinyo, Barnabas' shop in Lawenilothehl,
+Waldenbrook's shop in Dwarftown, Leggot's shop in the High Mountain Village and the Great Gift Shoppe
+in the Casino.  Others are found randomly in the dungeons.  Shopkeepers generally buy items as well as
+selling them.  The exception is the Casino shop, which only sells.  Specialty storekeepers are only
+interested in purchasing the items they specialize in.  Sell Munxip those useless kobold corpses!<p>
+
+Shopkeepers will restock their inventory if it is depleted or appears to be depleted.  It is a good idea
+to pick up everything in a shop and drop the unwanted items on one square.  This gives the shopkeeper
+room to restock.  Note that it is necessary  for a certain amount of game time to pass in order for a
+shop to restock.  PCs with sufficient Perception scores and Listening skill levels will hear a message
+"You hear arcane mumbling." which means a depleted shop has been restocked.<p>
+
+Shopkeepers have definite racial prejudices in addition to the special criteria Munxip (see sections
+1.2.1.2, 1.2.1.3) and Barnabas (see sections 1.2.2.1, 1.2.2.2) use. Malte Helmert has done some testing
+regarding this and observed the following: The HMV and Lawenilothehl shops were generated 50 times each.
+The races of the shopkeepers were:<p>
+
+Barnabas: 15 × Human, 14 × Orc, 13 × Troll, 8 × Gnome<br>
+Leggot: 18 × Human, 14 × Troll, 9 × Gnome, 9 × Dwarf<p>
+
+Other races may be possible, with a very low probability.<p>
+
+Quoting Malte's findings:<p>
+
+"The following chart lists the percentage of the "base value" offered by a shopkeeper of the race
+specified in the column to a PC of the race specified in the row. 100% is normal, 110% is possible
+if the shopkeeper likes the PC's race very much (mostly if both are of the same race), and the value
+can become as low as 10% if the shopkeeper really hates the PC's race.<p>
+
+"Looking at the chart, you see that all non-Hurthling shopkeepers prefer PCs of the same race.
+Hurthlings are the only shopkeeper race that isn't prejudiced, and Hurthlings are also the
+best-liked PC race (there is no race that gives Hurthlings a really bad deal, and many give them
+excellent deals).<p>
+
+"Considering the fact that the most important shopkeeper in the game is a Dwarf [Waldenbrook - AW],
+Orcish and especially Dark Elven PCs appear to have the worst time (this is not news, of course)."<p>
+
+<table border=1>
+<th width=9%>Race</th><th width=9%>Human</th><th width=9%>Troll</th><th width=9%>H.Elf</th><th width=9%>G.Elf</th><th width=9%>D.Elf</th><th width=9%>Dwarf</th><th width=9%>Gnome</th><th width=9%>Hurth</th><th width=9%>Orc</th><th width=9%>Drake</th>
+<tr><td>Human     <td> 110% <td> 100% <td>  80% <td>  80% <td>  80% <td>  80% <td> 100% <td> 100% <td> 100% <td>  80%
+<tr><td>Troll     <td> 100% <td> 110% <td>  50% <td>  20% <td>  80% <td>  60% <td>  80% <td> 100% <td> 100% <td>  80%
+<tr><td>High Elf  <td> 100% <td>  70% <td> 110% <td> 105% <td>  10% <td>  80% <td> 100% <td> 100% <td>  50% <td>  80%
+<tr><td>Gray Elf  <td> 100% <td>  50% <td> 105% <td> 110% <td>  10% <td>  80% <td> 100% <td> 100% <td>  50% <td>  80%
+<tr><td>Dark Elf  <td>  60% <td>  85% <td>  10% <td>  10% <td> 110% <td>  10% <td>  80% <td> 100% <td> 110% <td>  40%
+<tr><td>Dwarf     <td> 100% <td>  70% <td>  50% <td>  50% <td>  50% <td> 110% <td> 110% <td> 100% <td>  20% <td>  80%
+<tr><td>Gnome     <td> 100% <td> 100% <td> 100% <td> 100% <td>  80% <td> 110% <td> 110% <td> 100% <td>  60% <td>  80%
+<tr><td>Hurthling <td> 110% <td> 100% <td> 110% <td> 110% <td>  90% <td> 110% <td> 110% <td> 100% <td>  80% <td>  80%
+<tr><td>Orc       <td>  80% <td> 100% <td>  50% <td>  50% <td> 100% <td>  20% <td>  50% <td> 100% <td> 110% <td>  50%
+<tr><td>Drakeling <td>  90% <td> 100% <td>  80% <td>  80% <td> 100% <td>  80% <td> 100% <td> 100% <td>  80% <td> 110%
+</table>
+<p>
+
+Shops can be robbed.  This of course has effects on alignment, in addition to putting the PC's life at
+risk.  These shopkeepers are maintaining a business in a highly dangerous enviroment and are well
+suited to dealing with those who choose to steal from them.  In addition to their own very tough nature,
+they can summon hordes of thugs who attack the PC.  Shopkeepers are able to detect invisible PCs.  The
+message "-Shopkeeper- stares at your position with great intensity." indicates they have detected and
+are looking at an invisible PC.  However, this does not happen instantly.  Therefore, invisibility can
+be used to rob shops without making the shopkeeper hostile.  The PC can enter a shop while invisible and
+pick up items.  Anything the invisible PC picks up <i>prior</i> to generation of the above message can be
+taken from the shop safely.  Therefore, the usual technique is to enter the shop while visible, gather
+up everything in the shop and drop it all as close to the door as possible.  The PC can then become
+invisible, pick up everything and leave the shop undetected as long as the above message is not generated.<p>
+
+Another technique for robbing shops is available for those PCs who have pets or slaves under good control.
+If a shop is entered and nothing is picked up, the shopkeeper does not block the door.  The PC can order
+his pet or slave to stand in the doorway, pick up whatever is desired, then :s swap positions with the
+pet or slave.  At that point, getting away with the loot is simply a matter of outrunning the shopkeeper
+and avoiding or killing any summoned thugs.<p>
+
+A PC with the Teleportation spell can teleport a shopkeeper out of his shop.  Shopkeepers are
+teleportation resistant, so trying this with a wand is usually not successful and a waste of the wand's
+charges.  This results in a hostile shopkeeper and summoned thugs, however.  Since it is impossible to
+choose the destination of the shopkeeper, this is a dangerous technique unless the PC is experienced
+enough to deal with a hostile shopkeeper and the thugs he will summon.<p>
+
+A hostile shopkeeper can use his thrown coin attack only once.<p>
+
+The following table is under development as of June 17th, 2009<p>
+
+The cursing and dooming penalties apply only to <i>nonchaotic</i> PCs.<p>
+
+<table border=1>
+<th>Technique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Effect on:</th><th>alignment</th><th>cursing, dooming</th><th>shopkeeper</th><th>thugs</th><th>villagers</th><th>remarks</th>
+<tr><td>Teleport PC<td>towards C<td>cursed<td>hostile<td>summoned<td>nonhostile<td>&nbsp;
+<tr><td>Teleport shopkeeper<td>towards C<td>unknown<td>hostile<td>summoned<td>unknown<td>&nbsp;
+<tr><td>Stun Ray, Paralyzation, bolt spells, mindcraft in LOS<td>towards C<td>cursed<td>hostile<td>summoned<td>nonhostile<td>&nbsp;
+<tr><td>Stun Ray, Paralyzation, bolt spells, mindcraft out of LOS or PC in Darkness<td>none?<td>none<td>hostile<td>none<td>hostile towards shopkeeper<td>even if shopkeeper is killed
+<tr><td>Ventriloquism<td>towards C<td>none<td>confused then hostile<td>none<td>nonhostile<td>even if shopkeeper is killed
+<tr><td>Melee shopkeeper<td>towards C<td>cursed + doomed<td>hostile<td>summoned<td>hostile<td>even in Darkness
+<tr><td>Pick Pockets against shopkeeper<td>towards C<td>cursed<td>hostile<td>summoned<td>nonhostile<td>even if pickpocketed in Darkness
+<tr><td>Digging shop walls and kicking objects out<td>none<td>none<td>none<td>none<td>none<td>very abusable
+</table>
+<p>
+Note that killing <i>anyone</i> who is in a state of panic will cause the entire town to become hostile.<p>
+
+<A NAME=0.13.8></A><b>0.13.8 Rivers</b><p>
+
+Introduced in gamma 14, these can be found in the High Kings cave, puppy cave, druid dungeon, CoC, ID, UD
+(Rift?). Like any body of water, they can rust unprotected iron items, drench scrolls and spellbooks
+and drown the PC. Drowning damage seems to be dependent on HPs, with high-HP PCs taking proportionally 
+<i>more</i> damage. Precautions include waterproof blankets, a high Swimming skill, water breathing gear
+(see section 0.12.7), rustproofing iron items and freezing the water.<p>
+
+
+<A NAME=0.13.9></A><b>0.13.9 Pools</b><p>
+
+Drinking from pools can do various magical things to a PC: one can gain or lose <i>any</i> intrinsic or
+unnatural aging.  It is very possible to be corrupted by drinking from pools.  Also, hostile snakes or
+water elementals can come out of pools. The most hunted-for ability of pools is the small chance of
+getting a wish. It has been said that pools with the color of the PC's eyes are the most beneficial.<p>
+
+<table border=1>
+<th>Message</th><th>Effect</th>
+<tr><td>You feel altered in an eerie way.<td>Only happens with the pool in the Stone Circle.  Causes ~2 corruptions.
+<tr><td>You feel slightly strengthened.<td>trains Strength
+<tr><td>You feel exhausted.<td>abuses Strength and Toughness
+<tr><td>You feel much better.<td>Healing
+<tr><td>Nothing happens.<td>?
+<tr><td>Urgh! Poison!<td>Poisoned for 2d10 poison effects.
+<tr><td>The water tastes bitter.<td>Poison, but PC is poison resistant
+<tr><td>Suddenly your ears start to bleed!<td>+Bleeding state
+<tr><td>Your wounds no longer bleed.<td>-Bleeding state.
+<tr><td>Your blood seems to cool down.<td>? (does not affect healing rate)
+<tr><td>The pool bubbles.<td>No room for more snakes?
+<tr><td>The water is suddenly writhing with snakes!<td>Snakes to fight
+<tr><td>You hear hissing sounds.<td>Snakes, but you are blind
+<tr><td>Lots of vipers burst out of the pool.<td>Vipers + chance of water damage
+<tr><td>You suddenly hear many hissing sounds!<td>Snakes or vipers, but PC is blind
+<tr><td>While you drink small waves seem to ripple the otherwise calm surface of the pool.<td>? (may no longer exist)
+<tr><td>Suddenly a water elemental rises from the pool!<td>Water elemental to fight, also possible water damage
+<tr><td>You suddenly hear roaring waves!<td>Water elemental, but PC is blind.
+<tr><td>You feel younger!<td>Removes some effects of unnatural aging
+<tr><td>You suddenly remember your early youth<td>Would've undone unnatural aging, but PC didn't have any
+<tr><td>Wow! Pure beer!<td>Like potion of booze
+<tr><td>Great! Pure dwarven ale!<td>Like potion of booze
+<tr><td>You taste bitter bile in your mouth.<td>-Acid resist
+<tr><td>You swallow hard.<td>+Acid resist
+<tr><td>You sweat.<td>-Fire resist
+<tr><td>You feel cool.<td>+fire resist
+<tr><td>You shiver.<td>-Cold resist
+<tr><td>You feel hot-headed.<td>+Cold resist
+<tr><td>You feel shocked.<td>-Shock resist
+<tr><td>You hear a voice calling you 'Iceberg'<td>+Shock resist (also password for Hawkslayer)
+<tr><td>Your stomach stings painfully.<td>-Poison resist
+<tr><td>Your digestion calms down.<td>+Poison resist
+<tr><td>You feel cheated.<td>-Lucky
+<tr><td>You feel lucky.<td>+Lucky
+<tr><td>You feel very bad off.<td>-Fate smiles
+<tr><td>You feel very lucky.<td>+Fate smiles
+<tr><td>Bah! This liquid is extremely filthy! You are wracked by feverish fits!<td>+Sick
+<tr><td>You feel relieved.<td>-Cursed
+<tr><td>You sense trouble.<td>+Cursed
+<tr><td>You start a trip on the road to nowhere.<td>+Cursed
+<tr><td>You feel elated.<td>-Doomed
+<tr><td>You become depressive.<td>+Doomed
+<tr><td>You feel very very bad.<td>+Doomed
+<tr><td>You continue the trip on the road to nowhere.<td>+Doomed
+<tr><td>You feel steady.<td>-Teleportitis
+<tr><td>You feel jumpy.<td>+Teleportitis
+<tr><td>You suddenly hate the thought of jumping around.<td>-Teleport control
+<tr><td>You suddenly feel like jumping around.<td>+Teleport control
+<tr><td>You feel tired.<td>-Sleep resist
+<tr><td>You feel totally awake.<td>+Sleep resist
+<tr><td>You feel shaken.<td>-Stun resist
+<tr><td>You feel very controlled.<td>+Stun resist
+<tr><td>You feel inflexible.<td>-Paralysis AND petrification resist
+<tr><td>You are moved by the sheer pleasure of this sip of fluid.<td>+Paralysis resist
+<tr><td>You feel gnarly.<td>-Petrification resist
+<tr><td>You feel flexible.<td>+Petrification resist
+<tr><td>You feel like an endangered species.<td>-Resist death rays
+<tr><td>You feel bold at the thought of danger.<td>+Resist death rays
+<tr><td>Your outfit suddenly looks much cleaner<td>-Invisibility intrinsic, also occurs if PC has no form of invisibility
+<tr><td>Suddenly you are gone.<td>+Temporary invisiblity
+<tr><td>You suddenly are visible again.<td>-Invisibility intrinsic OR -Temporary invisibility
+<tr><td>You feel translucent.<td>+Temporary invisibility
+<tr><td>You feel on air.<td>+Temporary invisibility
+<tr><td>Your eyes sting for a second.<td>-See invisible
+<tr><td>Your eyes tingle for a second.<td>+See invisible
+<tr><td>You suddenly can see yourself.<td>-Temporary invisibility - note the message may be misleading if the PC has permanent as well
+<tr><td>No effect, as far as you notice.<td>-Intrinsic invisibility when able to see invisible
+<tr><td>You suddenly are gone.<td>+Invisibility intrinsic
+<tr><td>You feel dizzy for some seconds.<td>+Invisibility intrinsic
+<tr><td>You feel corrupted!<td>Corrupted!
+<tr><td>A small frog pops up...<td>Get the frog quest
+<tr><td>A gush of water hits you!<td>Like water trap.
+<tr><td>You are hit by lots of water.<td>Same as monster water breath attack
+<tr><td>You slip and fall in!<td>Water effects on PC and equipment, may find money or gem in the water
+<tr><td>The pool suddenly dries up.<td>Pool disappears
+</table>
+<p>
+Another thing you might experience, though...<p>
+
+ "What do you wish for?"<p>
+
+<b>Stat changes</b><p>
+
+<table border=1>
+<th>Stat</th><th>Increases</th><th>Decreases</th>
+<tr><td>Strength<td>Your muscles feel stronger<td>Your muscles soften
+<tr><td>Learning<td>You feel studious<td>Thinking seems to get tougher
+<tr><td>Willpower<td>Your will seems inflexible<td>You feel soft-hearted
+<tr><td>Dexterity<td>Your movements are getting swifter<td>You are getting shaky
+<tr><td>Toughness<td>Your health increases<td>It seems that you are getting a cold
+<tr><td>Charisma<td>You feel very self-confident<td>You feel reserved
+<tr><td>Appearance<td>Your looks improve<td>You are growing a wart
+<tr><td>Mana<td>You feel more in touch with the world<td>You are getting out of touch with everything
+<tr><td>Perception<td>Your senses sharpen<td>You seem to get less perceptive
+</table>
+<p>
+
+These messages also occur at other times when stats change, for example when gaining
+an experience level or encountering a stat-draining monster.<p>
+
+About a half-dozen pools are guaranteed to be found in Darkforge.<p>
+
+
+<A NAME=0.13.10></A><b>0.13.10 Forges</b><p>
+
+Forges are the basic prerequisite for smithing - the PC also needs an anvil, an
+item to improve, a hammer and an ingot of the appropriate metal.<p>
+
+A forge is near-guaranteed to be found in the UD. Guaranteed places to
+find them include Dwarftown and Darkforge.<p>
+
+
+<A NAME=0.13.11></A><b>0.13.11 Hives</b><p>
+
+Hives are holes in the floor of the dungeon containing hive creatures, either
+ants or bees.  Their population is finite.  There is a guaranteed ant hive on
+level two of the puppy cave.<p>
+
+
+<b>0.13.11.1 Ants</b><p>
+
+Ant hives are simply a source of monsters to be killed with no particular reward
+associated with clearing the hive.  Bear in mind that ants dig.  Leaving them
+alone and allowing them to dig can be exploited as a source of rocks, ore and 
+gems.<p>
+
+Huge rocks can be used to keep ants from escaping anthills.  When an ant attempts
+to leave an anthill covered by a huge rock, the message "The uncursed huge rock
+(-10, 10d6) seems to be shaking." is generated. Eventually the huge rock is
+destroyed ("Something from below destroys the uncursed huge rock (-10, 10d6)!")
+and ants can come out of the hole again. Sometimes this happens after only a few
+turns, sometimes it takes more than a hundred. Multiple huge rocks are destroyed
+one after another and thus last longer than a single one.<p>
+
+
+<b>0.13.11.2 Bees</b><p>
+
+Bee hives are filled with giant bee workers, giant bee warriors and a queen bee.
+They are a source of beeswax, which can be used to plug the PCs ears.  This deafens
+the PC and is one way to survive the Banshee level.  A bee hive is guaranteed to be
+generated before the Banshee's level.  They are also a potential source of gelee
+royal, which when eaten has a variety of beneficial effects: it is very nourishing,
+heals, increases Appearance and cures poisoning.  All of these beneficial effects
+will not be experienced simultaneously, of course.  Bees have a poisonous attack,
+which kills the attacking bee.  Kicking the hive will cause the bees to become
+enraged and swarm the PC.  Kicking the hive apparently increases the chance of
+gelee royal generation, although it is not guaranteed.  Currently (in ADOM 1.1.1),
+bees generated by kicking the hive are considered summoned and therefore cannot be
+sacrificed.  This may well be a bug.  Be careful of this if you are relying on an
+altar to get rid of bees.<p>
+
+
+<A NAME=0.13.12></A><b>0.13.12 Special rooms and their effects</b><p>
+
+Courtesy of Bartalak with contributions by FoxRedlum and rgra<p>
+
+<b>0.13.12.1 Permanent effects</b><p>
+
+Strange lights flicker in this room.<br>
+- squares adjacent to the PC will be lit and darkened, changing with every turn<br>
+- the Light and Darkness spells do not have their usual permanent effect in these rooms<p>
+
+This seems to be a very dull room.<br>
+- this room abuses the Learning stat if stayed in too long<br>
+- almost no monsters or items are generated in this room (?)<p>
+
+The floor of this room seems to be very sticky.<br>
+- the energy points cost to move is increased by 30%<p>
+
+There seems to be a shifting breeze in this room.<br>
+- missile to-hit bonus is reduced by 2/3<p>
+
+The floor of this room is covered with puddles of ancient dried blood.<br>
+- bleeding is increased<p>
+
+You get the odd feeling that something is wrong with your perception of this room, <br>
+but can't seem to tell what it is from just looking around.<br>
+- the direction of game actions that use the 'Which direction' dialog is reversed<p>
+
+This room seems to be filled with a deadly and chilling silence. All sounds are muffled.<br>
+- normal monster hits receive a large multiplier, causing many instakills<p>
+
+The air of this room is filled with the smell of carrots.<br>
+- drink a potion of carrot juice for +5 Pe, then the smell will disappear<p>
+
+This room seems to be magically charged.<br>
+- faster pp regeneration<p>
+
+The air of this room is filled with a very rich flavor.<br>
+- satiation level does not go down (the PC doesn't get hungry)<p>
+
+There has been a recent report (4/24/2002) that satiation values do indeed decrease in
+rich flavor rooms, albeit very slowly.  A bard who had won the game attempted to read a
+spellbook of Wish in a rich flavor room and failed due to the onset of starvation.
+After eating a blessed stomfillia at the Very Hungry stage, the same bard was able to
+read the spellbook.  More details are needed, but it seems that food consumption rate
+is not reduced to zero in these rooms.<p>
+
+The air of this room refreshes you and sharpens your spirits!<br>
+- increases healing rate<p>
+
+The walls of this room are made of many small stones of uniform height;
+they almost look like shelves of books.<br>
+- better results when learning spells from books, also faster learning<p>
+
+This room seems to vibrate with life. Insects are crawling everywhere, <br>
+strange mushrooms cover the walls and moss is growing at the ceiling.<br>
+- monster pv is increased, as well as the PC's<p>
+
+This room smells of herbs and antiseptics.<br>
+- hp regenerate faster<p>
+
+The aura of this room seems to be devoid of all life!<br>
+- hp regeneration rate is reduced to 0<p>
+
+Hundreds of tiny insects are crawling beneath your feet and the whole
+ground seems to be covered with tiny white eggs!<br>
+- breeders reproduce much faster<p>
+
+The air in this room is stale in a highly unnatural way.<br>
+- increases spell PP cost by 3x<p>
+
+The atmosphere of this room makes your skin tingle!<br>
+- decreases spell PP cost by 20%<p>
+
+This room seems to be incredibly ancient.<br>
+-Increases the effect of aging attacks.<p>
+
+UNKNOWN:<p>
+
+The skulls of many creatures are embedded in the walls.
+It's almost like being in the grave with them.<p>
+
+
+The walls and the ceiling of this room are sewn with cracks.<br>
+- increased chance of equipment being damaged/destroyed? less turns to mine through walls?<p>
+
+You sense the presence of some supernatural entity of benevolent nature.<br>
+- chaotics receive a penalty to rolls?<p>
+
+You sense the presence of some supernatural entity of malevolent disposition.<br>
+- lawfuls receive a penalty to rolls?<p>
+
+The walls of this room seem to be made from pure obsidian.<br>
+- more chaotic creatures generated? better rolls for chaotics?<p>
+
+This room seems to be tainted by evil.<br>
+- more chaotic creatures generated? more chances to get corrupted?<p>
+
+The walls of this room are covered with leering visages of demons of all kind!<br>
+- more demons generated? demons are more powerful in this room?<p>
+
+The walls of this room are scarred with signs of many fights.<br>
+- monsters are always hostile?<p>
+
+The walls of this room are covered with ancient runes.<br>
+- doubles pp recovery rate?<p>
+
+The air in this room seems to be magically charged.<p>
+
+This room is very humid.<br>
+- possible rust or water damage?<br>
+- possibly killed monsters drop water?<p>
+
+The walls of this room are scarred by the signs of many fights.<br>
+Most parts of the room are heavily damaged.<p>
+
+You hear a crunshing sound beneath your feet.<p>
+
+
+<b>0.13.12.2 One time effects</b><p>
+
+This room seems to be particularly unholy!<br>
+- Temporary blessing is removed - permanent blessing, by crowning, will not be removed.<p>
+
+Upon entering this room you feel a strange magical shock!<br>
+- pp is reduced to 0<p>
+
+Images of books and comfortable chairs line the walls. Suddenly the images fade away!<br>
+- -1 St, +1 Le<p>
+
+The walls have mirrors with many distortions of your image. You can't
+stand the sight of your warped self. All the mirrors shatter!<br>
+- -1 Pe.  If the PC is very low on hp the PC can be killed by the shattering.<p>
+
+A variation of these messages:<br>
+The walls have mirrors with many distortions of your image.
+You look great in all of them. All the mirrors shatter!<br>
+This was a gray elven barbarian with Ap=20.  Charisma was raised from 4 to 5
+with no other effect. Other elven PCs have seen the same effect with Ap=19.<p>
+
+The breeze accompanying you causes some ancient bones on the floor to transform into dust.
+You feel a sense of relief.<br>
+- apparently restores a few hit points<p>
+
+This room looks like a spa with a mud bath. You are hit in the face
+by a glob of hot mud! Suddenly everything disappears!<br>
+- blinds the PC, lowers appearance by 1.  Wipe the PC's (F)ace, to raise the PC's
+appearance by 2 for a net gain of 1.<p>
+
+UNKNOWN:<p>
+
+You notice a pale fading ball of light upon entering this room. It quickly disappears.<p>
+
+You hear an eerie wail for a few seconds...<p>
+
+You hear a strange "*TCHUNK*" in your vicinity.<br>
+- Reported as meaningless by disassembly of the executable.<p>
+
+A rat scurries between your feet and disappears in a small hole in the ground.<p>
+
+For a few seconds you see a looming shade before you. It points
+its hand towards you in a threatening manner! Then it disappears.<p>
+
+<A NAME=0.13.13></A><b>0.13.13 Vaults</b><p>
+
+Vaults are large rooms, larger than tension rooms.  Depending on the variety, they can
+be nearly completely filled with monsters or only partially filled.  They vary in
+danger from moderate (a lesser vault full of gnolls and hyenas), a challenge for PCs
+less than experience level ten, to absolutely deadly (a greater vault full of greater
+undead), a challenge for experience level 50 PC's who have already won the game.<p>
+
+
+<b>0.13.13.1 Lesser vaults</b><p>
+
+Lesser vaults generally take up about 1/4 of the screen with an 80 × 25 display.  They
+come in every imaginable flavor, from gnolls and hyenas to lesser undead to a variety
+of berserkers.  Their danger level is relatively low, comparable to a mixed tension room
+on the same level.  There is a guaranteed lesser vault on the bottom level of the Puppy
+Cave if you want to see one quickly.  The level message "You feel excited." is always
+generated when the PC enters a dungeon level containing a lesser vault.<p>
+
+Here is one possible layout of PC: 6 showing the guaranteed lesser vault in the upper
+right portion of the dungeon level:<p>
+<pre>
+                                                  ##############################
+                                         #######  #............................#
+                                         #.....#  #.##########################.#
+                                        ##.....####.#    ###..........###    #.#
+                                        #....../.##.#  ###..............###  #.#
+     #########     #########            #...####....####..................####.#
+     #.......#     #.......#            #...#  ####.##......................##.#
+     #.......#######.......###############.##     #.###########...############.#
+     #............./......./...........# #.#      #.###########...############.#
+     #.......#######.......###########/# #.#      #............................#
+     #.......#     #.......#   #.......# #.#      ##############.###############
+     #########     #.......#   #.......# #.#                   #.#
+                   #.......#   #.......# #.#                   #.#
+     ###########################.......###.#####################.#########
+     #...../.................../......./.........../......./.....#.......#
+     #...<.###############################.#########.......#######.......#
+     #.....#                             #.........@.....................#
+     #######                             #################################
+</pre>
+
+Another example.  The lesser vault is in the southwest quarter of the level.  This was on
+D: 6 and contained gnolls and hyenas:<p>
+<pre>
+  ############      ###################################### ######### #########
+  #..........#      #....................................# #.......# #.......#
+  #.####.....########.############################.......###.>.....# #.......#
+  #.#  #...../.................................../......././.......# #.......#
+  #.#  ##############.############################.......#######/### #.......#
+  #.#               #.#                #@......../.......#     #.#   #.......#
+ ##.#####           #.#######          #.#################     #.#   ###/#####
+##......#########   #.......####       #.#                     #.#     #.#
+#.....##........#   #####......#########/#######################.#######.#
+##....##.######.####    #...##./....././........./.......................#
+##.###########.....#    ###.####.<...###.........#########################
+#..# #......##..%..# ####....../.....# #.........#
+######......[......###....######/##### #.........#
+ ##.........##.......#....#    #.#     #.........#
+ #..##########.....###....######.#     ###########
+#..##        ########.......%....#
+####                ##############
+</pre>
+
+Another example.  The lesser vault is in the southeast quarter of the level.  This was on
+D: 9 and contained orcs:<p>
+<pre>
+     #######################################################################
+     #.........................................../......./...../...........#
+     #.###########################################.......#######...........#
+     #.#                                         #.............+...........#
+     #/#######     #############                 #/#############....>@.....#
+     #.......#     #...........#                 #..#          #...........#
+     #.......#######...........#                 #..#          #############
+     #............./...........#                 #..#
+     #.......#######...........#       ######### #..############################
+     #.......#     #...........#       #.......# #.............................#
+     ###/#####     #...........#       #.......# #..#.########################.#
+       #.#         #...........#       #.......# #..#.#...............%......#.#
+       #/#####     #####/###############.......# #..#.#.####################.#.#
+       #.....#         #.......................# #..#.#.%.%........%.......#.#.#
+       #.<...#         ######################### #..#.######################.#.#
+       #.....#                                   #..#........................#.#
+       #######                                   #..##########################.#
+                                                 #.............................#
+                                                 ###############################
+</pre>
+
+More lesser vault layouts:<p>
+<pre>
+           #########
+           #.......#
+ #######   #.......#########################################
+ #.....+   +...............................................#
+ #...<.#####.......#############.#########################.#   ######
+ #...../@(./.......#           #.#                       #.#   #.....#
+ ###################           #/#                       #.#   #.....#
+                               #.#                       #.#   #.....#
+                               #.#     #########     #####/#####.....#
+          ##########           #.#     #.......#     #......././.....#
+     ######........######      #/#######.......#     #.......#####/###
+  ####..[(..............####   #.[..././...[...#     #.......#    .#
+  #./..[...................#####.....###########     #......[#####+#####
+  #......[...................../.....#               #......././.......#
+  #....[...................###########               ###########....>..#
+  ####..................####                                   #.......#
+     ######........######                                      #########
+          ##########
+
+
+                                   #########     ######           ############
+                                   #.......#     #.....           .../.......#
+ ################################# #.......#######.###################.......#
+ #.........../..........././.....# #................................./.......#
+ #.###########...........###..>..# #.......#######.###################.......#
+ #.#       #./...........# #.....# #.........................     .../.......#
+ #.#       #.#...........# #####/# #.......#######.###.######     #########/##
+ #.#       #.#...........#     #.# #...[...#     #.# #.#                  #.#
+ #/#####   #.#############     #.# ###/#####     #.# #.#       ####       #.#
+ #.....#   #.#                 #.#   #.#         #.# #.#     ###..###     #.#
+ #.>...#   #/###################.#####.######### #.# #.#    ##....[.###   #.#
+ #.....#   #       ../...................@.....# #.# #.# ###...##%#...### #.#
+ #######   #       ..#####################..<..# #.###.###...# ##*###...###.####
+           #        .#                   #.....# #....[....### #..# ###.%......#
+           #         #                   ####### #####.###...###.####%..###.####
+           #         #                               #.# ###...#.##...### #.#
+           ###########                               #.#   ###......###   #.#
+                                                     #.#     ###..###     #.#
+                                                     ###       ####       ###
+
+
+          ##########
+       ####........####                      ###############################
+    ####..[.######....####                   #...../.[........(....../.....#
+  ###....##.#....####..[.### #############   #.....###################.>...#
+###...####..........####...###...........#   #...../.........]...#   #.....#
+#.[.###......[.........###...[...........#   #.....#####.........#   #######
+###.(.####..........####...###...........#   #.....#   #.........#
+  ###....####....####....### #######/#####   #{#####   #.........#
+    ####....######....####         #.#       #.#       #.........#
+       ####........####            #.#       #.#       #.........#   #########
+          ####.#####               #.#       #.#       #.........#   #.......#
+             #[#                   #/####### #.#######################.......#
+             #.#                   #.......# #......................./.......#
+       #######.#############       #.......# #########################.%.....#
+       #.........../][.....#       #.......#                         #.......#
+       #.@...#######.>.....#########.......#############################/#####
+       #.....#     #]............../......./.............[...........*...#
+       #######     #######################################################
+
+
+                 #######################################################
+                 #......[...................}..*................./.....#
+     #########   #.......].#########################.........#####.@...#
+     #.......#   #.........#                       #.........#   #.....#
+     #....>..#####.........###################     #.........#   #######
+     #......./.../...........................#     #.........#
+     ###/############/######################.#     #####/#####
+       #.#          #.#        #.........# #.#         #.#
+       #.####    ####.#        #.........###.###########/#####
+   #####.[..##  ##....#####    #..........}.*......../.......#
+   #.....##..####./##.....#    #.........###.#########.......#
+####...#####..../.#####...####.#.........# #.#       #.......#
+#...}..###....##....###........########### #/#####   #.......#
+#########....[##.....##########            #.(...#   #.......#
+       ##.##......##.##                    #..<..#   #########
+      ##..###....###..##                   #.....#
+     ##..## #....# ##..##                  #######
+     #..##  #....#  ##..#
+     ####   ######   ####
+
+
+    ######################
+  ###.#.#.#.#.##.#.#.#.#.###                         #######         #########
+  #.........[*..(.[.%..*...#                         #.....#         #.......#
+ ##.##########..##########.##  ####### ###########   #.....#         #.......#
+ #..#.#.[.#..#..#....#.[[#..#  #.....# #.../.....#   #.....#         #.......#
+ ##.%.#.#.#........#.#.#.(%##  #.@...###.........#     #/#   #########.......#
+  #.#...#....#..#..#...#.#..#  #...../...........#     #.#   #...............#
+###.##########(.##########.##  ###+#####.........#     #.#   #.#########/#####
+#..*}(..%.*.}........[....*#           #.........#     #.#   #.#       #.#
+###[#.#[#.#.#.##.#.#.#.#.###           #.#########     #.#####/##### ###.#####
+  #.######################.#           #.#             #.#.........# #.......#
+  #.#                    #.#           #.#             #.#.........# #...>...#
+  #.#                    #.#           #.#             #.#.........# #.......#
+ ##/######################.#############.######  #######.#.........# #.......#
+ #...........[./..%....../.....................  ......../.........+.........#
+ #.....#########.........#################################.........###########
+ #.....#       #........./.............................../.........#
+ #######       #####################################################
+
+
+     #############                       ###########
+     #...........#                       #.........#
+######........%*.####################### #......@..#########################
+#................/............./.[.....# #...........+........./...#.......#
+#.##########################.###.%.*...# #####.#.#####.........###.#.......#
+#.#                        #.# #.......#     #.#.#   #.........# #.#.......#
+#.#                        #.# #.......#######.#.#####.........###.#......(#
+#.#                        #.# #......*/...(.................../.../.......#
+#.##########################.#########+#######.#.#####.........###.#.......#
+#................([.(..............     ......%..#   #.........# #.#.......#
+#.############.#############.######     ######.###   ########### #.#########
+#.##...[................=.##.#               #.#                 #.#
+#.##.#......#...#.......#.##.#               #.#   ########### ###/###
+#.##.........[#..........[##.#               #.#   #.........# #.....#
+#.##.#......#...#.......#.##.#          ######.#####.........# #..>..#
+#.##.[...([.[~............##.#          .........../.........# #.....#
+#.############.#############.#################.############### #######
+#........../......... .........................#
+##################### ##########################
+</pre>
+
+<b>0.13.13.2 Greater vaults</b><p>
+
+Greater vaults are unmistakable.  They take up half of a standard dungeon level.  The
+level message "You feel truly excited." is always generated when the PC enters a dungeon
+level containing a greater vault.  It is wise to immediately zap a wand of Monster
+Detection to determine the type of vault.  They come in a variety of types, including
+fire creatures (fire lizards, red dragons, ancient red dragons, ancient red wyrms),
+black dragons, white dragons, giants (hill giants, frost giants, fomorian giants), undead
+(vampires, ghosts, ghost lords, emperor lichs) and karmics (karmic lizards, karmic dragons,
+ancient karmic dragons).  Greater undead and karmic greater vaults are particularly
+challenging.  Some players will simply ignore greater vaults of greater undead, even with
+experience level 50 PCs.  This is despite the fact that the rewards for clearing a greater
+vault are considerable.  They generally contain one or two artifacts along with substantial
+amounts of gold, usually well over 100000 gold pieces.  This is in addition to any equipment
+that the monsters might drop, which is considerable in the case of a greater vault full of
+dragons.  The amount of experience points available from clearing a greater vault is also
+huge.<p>
+
+PCs using good effectivity Frost Bolt or Fire Bolt generally have a fairly easy time clearing
+fire- or cold-based creatures, respectively.  However, these ranged spells also destroy some
+of the equipment dropped by the monsters.  High level Mindcrafters also have a relatively easy
+time with greater vaults (as long as they are not undead!).  Casting Confusion Wave followed
+by (Greater) Mental Wave will clear a vault quickly, no muss, no fuss and no equipment
+destruction.  Clearing a greater vault with a pure fighter is much more tedious.<p>
+
+Here is an example of a greater vault in the left half of D: 44.  It contained fire creatures:<p>
+
+<pre>
+###################################### #######################################
+#.....%.............%................# #..............................       #
+#.##################################.# #/#############################       #
+#.#................................#.# #.............^......./.....# #       #
+#.#%.############################..#.# #..>..#################.....# #########
+#.#[.##.##.#####.......####.##.##..#.# #.....#     #.......# #.....#
+#.#..##.##.##............##.##.##..#.# #######     #.^.....# #.....###########
+#.#..##(#.................*..#.##..#.#####         #.......# #....././.......#
+#.#..#.@........................#..#.....######### #.......###/#######.......#
+#.#..#...*.....*.........*[.....#..#.###./.......# #......./...#     #.......#
+#.#..#..........................#..#.# ###.......# #####/#######     #.......#
+#.#..#..........................#..#.#   #(......#     #.#           #.......#
+#.#..#..........................#..#.#   #.......#######.#########   #########
+#.#..#############..#############..#.#   #................./.....#
+#.#.................%..............#.#   #.......#######.###.....#
+#.################..################.#   #...............# #.....#
+#....................................#   ################# #######
+######################################
+</pre>
+
+Note that this map displays an almost guaranteed feature of greater vaults - hidden rooms.
+Directly to the north of the PC is a 1 × 3 space.  This was originally a hidden door and a
+1 × 2 room containing a monster guarding an artifact, now lying on the floor.  To the east
+is a formerly secret 1 × 1 room.  On the other side of the vault are two additional formerly
+secret rooms.  The three that did not contain an artifact each contained 30,000+ gold pieces.<p>
+
+Greater fire creature vaults are not always in this configuration.  The hidden rooms vary in
+location according to the layout.<p>
+
+More greater vault layouts:<p>
+
+This particular greater vault does not contain small hidden rooms,
+although the doorway into the central chamber is initially hidden.<p>
+<pre>
+       ########################          ###########################
+     ###......................###        #......./........./.......#
+    ##...............[..........##       #.@.....###########.......#
+   ##*?[..[=.}....(..............##      #.......#         #.......#
+  ##.$.%..[.......................##     #.......#         #.....[.# #######
+ ##....[...################.../....##    #.......#         #.......# #.....#
+##.........#..../.........#.........##   #########         #####.#/###...>.#
+#......[...#~(......[*[...#.[......}*#########                 #.#.........#
+#....../'.[#.....([.%.......[..*...(.........#########         #.###########
+#...[....[[#....[.%((.....#..........#######./...'...#         #.#
+##/[...?...#..............#.(.......##     ###..(....#         #/#########
+ ##........################........##        #.......#         #.........#
+  ##.........................]....##         #.......###########.........#
+   ##............................##          #......./........./.(.......#
+    ##...[%.....................##           ###################.........#
+     ###!.....................###                              #........%#
+       ########################                                ###########
+</pre>
+
+The hidden rooms in this greater vault are the ones containing the miscellaneous
+[%(*}* items.  There is a very good chance of finding an artifact in the inner room.<p>
+<pre>
+     #######           ######### ####### ######## ######               ########
+     #.....#           #.......# #.....###......# #....#               #......##
+     #.....#############...>...###.<.../........###....####     ########.......#
+     #...../..........*/......././..@..#............(........   ...............#
+     #/#############################/###########.######################.######.#
+     #.#                           #.#         #...........[[[..[.......#    #*#
+     #.#     ###########   #########.#         #.######################.#    #.#
+     #.#     #.........#   #.......#.#         #.#....................#.#    #.#
+ #####/#######.........#   #.......#.###########.#...........[[.......#.######.#
+ #...%./...../.........#   #............................................%......#
+ #....%#######.........#   #.......#.###########.#....................#[######.#
+ #.....#     #.........#   #.......#.#         #.##########.###########.#    #.#
+ #.....#     #.........#####.......#.#         #....[...[.[.............#    #.#
+ #.....#     #........./...........#.#   #######.###################.##.######.#
+ #######     #######################.#####.......#      #.....######.##../.....#
+                                   #............##      #[%(*}*..(..(###.......#
+                                   #######......#       #.....###.[..# #......##
+                                         ########       ####### ###### ########
+</pre>
+
+<A NAME=0.13.14></A><b>0.13.14 Royal treasuries</b><p>
+
+Royal treasuries are small hidden rooms generally found in the upper parts of the CoC.  Their
+presence is indicated by the "You hear the steps of the royal guard." or "You hear the sound
+of falling coins." level messages.  They are disconnected from the rest of the rooms on the
+level and thus can only be entered by tunneling or teleportation.  The royal guard within will
+not be hostile towards PCs that simply pick up the gold.  Attacking the royal guard is not
+really worthwhile.  It does not curse or doom, but is a chaotic act.  Note that eating the
+corpse of a royal guard curses the PC.<p>
+
+<A NAME=0.13.15></A><b>0.13.15 Danger levels and top trap types</b><p>
+
+For the moment this is posted preformatted as written by David Byron (thanks!) in the interest
+of getting it online.  It will be formatted as time permits.<p>
+
+<pre>
+
+Numbering the traps per the list in the GB:
+
+0  Light trap
+1  Corruption trap
+2  Stone block trap
+3  Alarm
+4  Arrow trap
+5  Acid trap
+6  Pit - this pit is distinct from the other in that it contains vipers
+7  Spear trap
+8  Teleportation trap
+9  Water trap
+10 Fireball trap
+11 Pit - simple pit, no vipers
+
+In the list the first number is the danger level, then the top trap
+type number.  For any Caverns of Chaos levels the danger level equals
+the dungeon level and the top trap type is equal to (level x 5) -1
+
+So, for example, on D:1 the trap that you would find in the top left
+hand corner of the screen, if you could get there and make one, is
+an arrow trap (trap number 4).  Within these lists the ttt just increases
+by 5 each time.
+
+3*  7 Shortcut
+40  0 Dwarf Hall 1
+45  5 Dwarf Hall 2
+ 3 10 Wilderness
+ 1  3 Terinyo
+20  8 Water Dragon Lair
+20  1 Dwarven Graveyard 1
+24  6 Dwarven Graveyard 2
+ 1 11 Village Dungeon 1
+ 1  4 Village Dungeon 2
+ 2  9 Village Dungeon 3
+ 2  2 Village Dungeon 4
+ 3  7 Village Dungeon 5
+ 4  0 Village Dungeon 6
+ 8  5 Village Dungeon 7
+18 10 High Kings' Tomb
+ 5  3 Gremlin Cave
+18  8 Above Dark Forge
+25  1 Dark Forge
+30  6 White Unicorn Glade
+40 11 Black Unicorn Glade
+ 3  4 HoleInTheWall
+24  9 ToEF 1
+25  2 ToEF 2
+26  7 ToEF 3
+27  0 ToEF 4
+ 1  5 Mad Minstrel's Clearing
+** 10 SMC
+ 1  3 Old Barbarian's Clearing
+12  8 Pyramid 1
+15  1 Pyramid 2
+18  6 Pyramid 3
+12*11 Ogre Cave
+14  4 Rift 9
+16  9 Rift 8
+18  2 Rift 7
+19  7 Rift 6
+20  0 Rift 5
+24  5 Rift 4
+28 10 Rift 3
+35  3 Rift 2
+40  8 Rift 1
+30  1 Library
++   6 The ID
+ 1 11 Wilderness level (eg Plains, Forest)
+25  4 Quickling Tree
+40  9 Stone Circle
+48  2 SIL
+ 4  7 Dusty Level 1
+ 8  0 Dusty Level 2
+
+(*) I don't know if the danger level of the Shortcut level varies
+    with which CoC level it corresponds to - I've only seen S3.
+(**) The danger level of the SMC is roughly equal to the PC's level.
+(+)  The danger level of the ID is equal to the level of the ID 
+     divided by 3 up to a maximum of 45.
+
+ 1 10 Druid Dungeon 1
+ 1  3 Druid Dungeon 2
+ 2  8 Druid Dungeon 3
+ 2  1 Druid Dungeon 4
+ 3  6 Druid Dungeon 5
+ 4 11 Druid Dungeon 6
+ 6  4 Druid Dungeon 7
+ 6  9 Unremarkable Dungeon 1
+ 6  2 Unremarkable Dungeon 2
+ 7  7 Unremarkable Dungeon 3
+ 7  0 Unremarkable Dungeon 4
+ 8  5 Unremarkable Dungeon 5
+ 8 10 Unremarkable Dungeon 6
+ 9  3 Unremarkable Dungeon 7
+ 9  8 Unremarkable Dungeon 8
+ 5  1 High Mountain Village
+++  6 ChAoS
+14 11 High Kings 1
+15  4 High Kings 2
+16  9 High Kings 3
+17  2 High Kings 4
+18  7 High Kings 5
+ 1  0 Puppy Cave 1
+ 2  5 Puppy Cave 2
+ 3 10 Puppy Cave 3
+ 3  3 Puppy Cave 4
+ 4  8 Puppy Cave 5
+ 6  1 Puppy Cave 6
+48  6 Unreal Dungeon 1
+48 11 Unreal Dungeon 2
+48  4 Unreal Dungeon 3
+48  9 Unreal Dungeon 4
+48  2 Unreal Dungeon 5
+48  7 Unreal Dungeon 6
+48  0 Mana Temple
+48  5 Blue Dragon Caves 1
+48 10 Blue Dragon Caves 2
+48  3 Blue Dragon Caves 3
+48  8 Blue Dragon Caves 4
+48  1 Blue Dragon Caves 5
+18  6 ????
+41 11 Scintilating Cave 1
+42  4 Scintilating Cave 2
+43  9 Scintilating Cave 3
+44  2 Scintilating Cave 4
+45  7 Scintilating Cave 5
+46  0 Scintilating Cave 6
+47  5 Scintilating Cave 7
+48 10 Scintilating Cave 8
+48  3 Scintilating Cave 9
+
+(++) ChAoS' corruption rate is special.  Something like 30-50 points
+per action.  Not sure if the 90 day limit makes a difference. At any
+rate it is not the standard amount for a danger level 48 dungeon.
+
+16  1 Ancient City
+26  6 Minotaur Maze 1
+27 11 Minotaur Maze 2
+28  4 Minotaur Maze 3
+29  9 Minotaur Maze 4
+30  2 Minotaur Maze 5
+31  7 Minotaur Maze 6
+35  0 Minotaur Maze 7
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+xx xx False Maze Levels
+20  3 Bug Infested Temple
+40  8 Bug Temple Cave
+
+(xx) The false Minotaur levels have a danger level equal to the
+equivalent real Minotaur level.  ie between 26 and 31.  Their
+ttt varies.  The progression of the table above does hold, but
+since you can't tell one false level from another other than by ttt
+I didn't think it was worth writing them down.  I've not seen
+14 false Minotaur levels.  There is space for 14 but I've only
+seen 12 so far.  If 12 is the maximum there are only 172 locations.
+
+</pre>
+
+<HR size = "2">
+Updated April 1st, 2010<br>
+&copy; Copyright Andrew Williams 2000-2010
+</BODY>
+</HTML>

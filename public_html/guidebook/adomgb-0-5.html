@@ -1,0 +1,211 @@
+<HTML>
+<HEAD>
+<TITLE>ADOM Guidebook - Spells and Mindcraft</TITLE>
+<LINK rel="stylesheet" type="text/css" href="adomgb-body.css">
+</HEAD>
+<BODY>
+<H1>ADOM Guidebook</H1>
+<HR size = "2">
+
+<H3>Spells - description and usefulness</H3>
+
+There is a description of available spells in the ADOM manual.  The range and 
+damage information has been removed from the manual in ADOM 1.1.x+.  Accordingly 
+they are tabulated below.  The diameter of ball spells is dependent upon 
+Willpower / 8.  However, this diameter only increases as a multiple of sixteen 
+since ball spells radiate symmetrically; the minimum diameter is two.  Therefore 
+getting Willpower to 24, for instance, does not increase the diameter.  Willpower 
+must be increased to 32 for the diameter to increase to four, 48 for the diameter 
+to increase to six, 64 for the diameter to increase to eight, etc.<p>
+
+Note that spells become more costly to cast (in terms of PP) as the number of 
+available castings decreases. Thus a spell will increase in cost as the number 
+of available castings decreases below 100 or so, becoming very noticeable as 
+the number drops below about 20.  This is class dependent but will affect all 
+classes to differing extents.  Note also that the number of available castings 
+is not a simple "decrement by one each time the spell is cast" type of formula.  
+Again depending on class, the difficulty of casting the spell and probably other 
+factors this will vary.  For example, casting Light with 1000 castings available 
+to a level 40 wizard may decrease the available castings by one, while casting 
+Death Ray with 20 castings available with a level 30 archer may reduce the 
+available castings to zero.  These are purely hypothetical examples but should 
+give an idea of the trends.<p>
+
+Some general remarks about spells: Ball spells are extraordinarily useful since no 
+monsters shrug them off.  They are wonderful when the PC is surrounded, of course.  
+It is worth switching to Coward tactics and waiting to be completely surrounded 
+before casting.  Since they are relatively costly in terms of PP, it is useful to 
+destroy the maximum number of enemies with each casting.  Fire magic is 
+particularly effective against cold-based creatures and undead including mummies.  
+Cold magic is particularly effective against fire-based creatures.  Bless damages 
+undead.  Healing spells can be cast at monsters including companions (but don't 
+use them on slaves!).  Wish is a unique spell.  It is very difficult to learn, 
+probably impossible if the PC has teleportitis.  Such PC's must travel to a location 
+where teleportation is impossible, such as the the Assassin's Guild, the Tomb of the 
+High Kings or the elemental temples (the desirability is in that order due to background 
+corruption in all of those locations).  Furthermore, PC's will usually reach Starving! 
+status while attempting to learn Wish.  Tactics to deal with this include eating a 
+blessed stomfillia to become Bloated, waiting just until the PC returns to Satiated, 
+then eating another blessed stomfillia.  It may be necessary to drink additional 
+satiating potions, such as potions of toughness or potential toughness, even when the 
+double blessed stomafillia tactic is used.  Alternatively, PC's without teleportitis 
+can use a room that has the "rich flavour" special effect, where PC's will never 
+become hungry.  Wish is extraordinarly expensive to cast and also drains a random 
+stat by -10 when cast.  If the PC must cast it, be prepared for the stat drain.  
+Plan to cast it in a special room that lowers spell costs, and on Silvernight or 
+Darknight, if possible, according to the PC's alignment.<p>
+
+Bounces in the Remarks field means the bolt will bounce off walls. Bolts do not bounce off doors.<p>
+
+Some spell durations stack. Bless, Strength of Atlas, invisibility and Farsight all stack.
+
+Notation for spells:<p>
+
+W - Willpower of the PC<br>
+M - Mana of the PC<br>
+L - Level of the PC<br>
+E - Spell Effectiveness for the given spell<br>
+R - Maximum range (as determined by the range formula)<br>
+r - Remaining range points when target is hit<p>
+
+M{x, y} - take the maximum of x and y<br>
+m{x, y} - take the minimum of x and y<p>
+
+<table border=1>
+<th align=left>Spell</th><th align=left>Range or diameter</th><th align=left>Damage</th><th align=left>Duration</th><th align=left>Remarks</th>
+<tr><td><b>Acid Ball / Rain Of Sorrow</b></td><td>M{2, W / 8}</td><td>M{3, L / 4 + 2}d9 + L + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Acid Bolt</b></td><td>W / 4 + L / 4 + 2</td><td>M{4, (L + E) / 3}d8 + r</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Bless</b></td><td>&nbsp;</td><td>&nbsp;</td><td>3d{W + E}</td><td>&nbsp;</td></tr>
+<tr><td><b>Burning Hands / Baptism of Fire</b></td><td>&nbsp;</td><td>m{15, L}d3 + L + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Calm Monster</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr> 
+<tr><td><b>Create Item / Divine Favour</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Cure Critical Wounds</b></td><td>&nbsp;</td><td>cures 4d8 + 4 + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Cure Disease</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Cure Light Wounds</b></td><td>&nbsp;</td><td>cures 1d8 + 1 + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Cure Serious Wounds</b></td><td>&nbsp;</td><td>cures 2d10 + 2 + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Darkness</b></td><td>1 + M{4, (W + E) / 4} / 2</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Death Ray / Greater Divine Touch</b></td><td>M{2, m{16, (W + E) / 8}}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Destroy Undead / Dispel Undead</b></td><td>&nbsp;</td><td>{L + 1}d6 + W + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Disarm Trap</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Earthquake</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Farsight</b></td><td>&nbsp;</td><td>&nbsp;</td><td>(M + E) * 10</td><td>&nbsp;</td></tr>
+<tr><td><b>Fire Bolt / Hellish Flames</b></td><td>W / 4 + L / 4 + 2</td><td>M{4, (L + E) / 3}d6 + r</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Fireball / Major Punishment</b></td><td>M{2, W / 8}</td><td>M{3, L / 4 + 2}d6 + L + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Frost Bolt / Nether Bolt</b></td><td>W / 4 + L / 4 + 2</td><td>M{4, (L + E) / 3}d6 + r</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Greater Identify / Greater Enlightment</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Heal</b></td><td>&nbsp;</td><td>cures 10d6 + 10 + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Ice Ball / Freezing Fury</b></td><td>M{2, W / 8}</td><td>M{3, L / 4 + 2}d7 + L + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Identify / Enlightenment</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Improved Fireball / Invoked Devastation</b></td><td>R: LOS D:M{2, W / 8}</td><td>{2 + (L + E) / 5}d8 + L</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Invisibility / Veil Of The Gods</b></td><td>&nbsp;</td><td>&nbsp;</td><td>{L + E + 3}d6</td><td>&nbsp;</td></tr>
+<tr><td><b>Knock / Divine Key</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Know Alignment</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Light</b></td><td>1 + M{4, (W + E) / 4} / 2</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Lightning Ball / Heavenly Fury</b></td><td>M{2, W / 8}</td><td>M{3, L / 4 + 2}d8 + L + E</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Lightning Bolt / Divine Wrath</b></td><td>W / 4 + L / 4 + 2</td><td>Damage: M{4, (L + E) / 3}d6 + r</td><td>&nbsp;</td><td>Bounces</td></tr>
+<tr><td><b>Magic Lock / Seal of the Spheres</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Will close and lock a door in one turn</td></tr>
+<tr><td><b>Magic Map / Knowledge of the Ancients</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Magic Missile / Minor Punishment</b></td><td>W / 4 + L / 4 + 2</td><td>M{2, (L + E) / 3}d4 + r</td><td>&nbsp;</td><td>Bounces; <i>nothing</i> is resistant to Magic Missile</td></tr>
+<tr><td><b>Mystic Shovel / Divine Digger</b></td><td>M{2, m{10, (W + E) / 5}}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Neutralize Poison</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Petrification</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Remove Curse</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Revelation</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Scare Monster / Holy Awe</b></td><td>&nbsp;</td><td>&nbsp;</td><td>(L)d4 turns + E</td><td>&nbsp;</td></tr>
+<tr><td><b>Slow Monster</b><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Slow Poison</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Strength Of Atlas / Lordly Might</b></td><td>&nbsp;</td><td>&nbsp;</td><td>(W + E) * 20</td><td>&nbsp;</td></tr>
+<tr><td><b>Stun Ray / Lesser Divine Touch</b></td><td>M{3, m{12, (W + E) / 4}}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Summon Monsters</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Teleportation / Ethereal Bridge</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Web</b></td><td>M{3, m{12, (W + E) / 4}}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td><b>Wish / Divine Intervention</b><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+<p>
+
+
+<H3>Mindcraft</H3>
+
+Note that Confusion Blast, available to experience level one Mindcrafters, works analogously to Ventriloquism (see section 0.4). It confuses a monster who then does <i>not</i> alert other monsters on the level.<p>
+
+Malte Helmert contributed the following table regarding Mindcraft:<p>
+
+<table border=1>
+<th>Level</th><th>TPC</th><th>COB</th><th>COW</th><th>MBL</th><th>MSH</th><th>MWV</th><th>TBL</th><th>EOM</th><th>GMB</th><th>GTB</th><th>REG</th><th>TPS</th><th>TPO</th><th>GMW</th>
+<tr><td>1 <td>N/A<td>8<td>  <td>  <td>   <td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>2 <td>N/A<td>8<td>  <td>  <td>   <td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>3 <td>N/A<td>7<td>24<td>  <td>   <td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>4 <td>N/A<td>7<td>24<td>  <td>   <td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>5 <td>N/A<td>7<td>24<td>  <td>   <td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>6 <td>N/A<td>6<td>23<td>18<td>   <td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>7 <td>N/A<td>6<td>23<td>18<td>   <td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>8 <td>N/A<td>6<td>23<td>18<td>   <td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>9 <td>N/A<td>5<td>22<td>17<td>5/T<td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>10<td>N/A<td>5<td>22<td>17<td>4/T<td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>11<td>N/A<td>5<td>22<td>17<td>4/T<td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>12<td>N/A<td>4<td>21<td>16<td>4/T<td>  <td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>13<td>N/A<td>4<td>21<td>16<td>4/T<td>47<td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>14<td>N/A<td>4<td>21<td>16<td>4/T<td>46<td>  <td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>15<td>N/A<td>3<td>20<td>15<td>3/T<td>45<td>30<td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>16<td>N/A<td>3<td>20<td>15<td>3/T<td>44<td>28<td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>17<td>N/A<td>3<td>20<td>15<td>3/T<td>43<td>26<td> <td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>18<td>N/A<td>3<td>19<td>14<td>3/T<td>42<td>24<td>6<td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>19<td>N/A<td>3<td>19<td>14<td>3/T<td>41<td>22<td>6<td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>20<td>N/A<td>3<td>19<td>14<td>2/T<td>40<td>20<td>6<td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>21<td>N/A<td>3<td>18<td>13<td>2/T<td>39<td>18<td>5<td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>22<td>N/A<td>3<td>18<td>13<td>2/T<td>38<td>18<td>5<td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>23<td>N/A<td>3<td>18<td>13<td>2/T<td>37<td>18<td>5<td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>24<td>N/A<td>3<td>17<td>12<td>2/T<td>36<td>18<td>4<td>  <td>  <td>   <td>  <td>  <td>
+<tr><td>25<td>N/A<td>3<td>17<td>12<td>2/T<td>35<td>18<td>4<td>27<td>  <td>   <td>  <td>  <td>
+<tr><td>26<td>N/A<td>3<td>17<td>12<td>2/T<td>34<td>18<td>4<td>27<td>  <td>   <td>  <td>  <td>
+<tr><td>27<td>N/A<td>3<td>16<td>11<td>2/T<td>33<td>18<td>3<td>26<td>  <td>   <td>  <td>  <td>
+<tr><td>28<td>N/A<td>3<td>16<td>11<td>2/T<td>32<td>18<td>3<td>26<td>  <td>   <td>  <td>  <td>
+<tr><td>29<td>N/A<td>3<td>16<td>11<td>2/T<td>31<td>18<td>3<td>26<td>  <td>   <td>  <td>  <td>
+<tr><td>30<td>N/A<td>3<td>15<td>10<td>2/T<td>30<td>18<td>3<td>25<td>60<td>   <td>  <td>  <td>
+<tr><td>31<td>N/A<td>3<td>15<td>10<td>2/T<td>29<td>18<td>3<td>25<td>58<td>   <td>  <td>  <td>
+<tr><td>32<td>N/A<td>3<td>15<td>10<td>2/T<td>28<td>18<td>3<td>25<td>56<td>   <td>  <td>  <td>
+<tr><td>33<td>N/A<td>3<td>14<td> 9<td>2/T<td>27<td>18<td>3<td>24<td>54<td>   <td>  <td>  <td>
+<tr><td>34<td>N/A<td>3<td>14<td> 9<td>2/T<td>26<td>18<td>3<td>24<td>52<td>   <td>  <td>  <td>
+<tr><td>35<td>N/A<td>3<td>14<td> 9<td>2/T<td>25<td>18<td>3<td>24<td>50<td>5/T<td>  <td>  <td>
+<tr><td>36<td>N/A<td>3<td>13<td> 8<td>2/T<td>24<td>18<td>3<td>23<td>48<td>5/T<td>  <td>  <td>
+<tr><td>37<td>N/A<td>3<td>13<td> 8<td>2/T<td>23<td>18<td>3<td>23<td>46<td>5/T<td>  <td>  <td>
+<tr><td>38<td>N/A<td>3<td>13<td> 8<td>2/T<td>22<td>18<td>3<td>23<td>44<td>5/T<td>  <td>  <td>
+<tr><td>39<td>N/A<td>3<td>12<td> 7<td>2/T<td>21<td>18<td>3<td>22<td>42<td>5/T<td>  <td>  <td>
+<tr><td>40<td>N/A<td>3<td>12<td> 7<td>2/T<td>20<td>18<td>3<td>22<td>40<td>4/T<td>35<td>  <td>
+<tr><td>41<td>N/A<td>3<td>12<td> 7<td>2/T<td>19<td>18<td>3<td>22<td>38<td>4/T<td>35<td>  <td>
+<tr><td>42<td>N/A<td>3<td>11<td> 6<td>2/T<td>18<td>18<td>3<td>21<td>36<td>4/T<td>35<td>  <td>
+<tr><td>43<td>N/A<td>3<td>11<td> 6<td>2/T<td>17<td>18<td>3<td>21<td>34<td>4/T<td>35<td>  <td>
+<tr><td>44<td>N/A<td>3<td>11<td> 6<td>2/T<td>16<td>18<td>3<td>21<td>32<td>4/T<td>35<td>  <td>
+<tr><td>45<td>N/A<td>3<td>10<td> 5<td>2/T<td>15<td>18<td>3<td>20<td>30<td>4/T<td>35<td>35<td>
+<tr><td>46<td>N/A<td>3<td>10<td> 5<td>2/T<td>15<td>18<td>3<td>20<td>28<td>4/T<td>35<td>35<td>
+<tr><td>47<td>N/A<td>3<td>10<td> 5<td>2/T<td>15<td>18<td>3<td>20<td>26<td>4/T<td>35<td>35<td>
+<tr><td>48<td>N/A<td>3<td> 9<td> 5<td>2/T<td>15<td>18<td>3<td>19<td>25<td>4/T<td>35<td>35<td>
+<tr><td>49<td>N/A<td>3<td> 9<td> 5<td>2/T<td>15<td>18<td>3<td>19<td>25<td>4/T<td>35<td>35<td>
+<tr><td>50<td>N/A<td>3<td> 9<td> 5<td>2/T<td>15<td>18<td>3<td>19<td>25<td>3/T<td>35<td>35<td>50
+</table>
+<p>
+
+
+N/A: this is for free<br>
+x/T: x PP per turn<p>
+
+TPC - Teleport Control<br>
+COB - Confusion Blast<br>
+COW - Confusion Wave<br>
+MBL - Mind Blast<br>
+MSH - Mental Shield<br>
+MWV - Mind Wave<br>
+TBL - Telekinetic Blast<br>
+EOM - Eyes of the Mind<br>
+GMB - Greater Mental Blast<br>
+GTB - Greater Telekinetic Blast<br>
+REG - Regeneration<br>
+TPS - Teleport Self<br>
+TPO - Teleport Other<br>
+GMW - Greater Mental Wave<p>
+<HR size = "2">
+
+Updated June 21st, 2009<br> 
+&copy; Copyright Andrew Williams 2000-2009
+</BODY>
+</HTML>

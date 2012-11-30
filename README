@@ -149,3 +149,7 @@ The full readme is at readme.php.
 
 SSH in with user adom and password adom, and follow prompts to create a new user.
 Then SSH in as your new user.
+
+III. ADMINISTRATION
+
+To edit the banner on the top of the menu, edit etc/motd in the server homedir.  Bash color codes can be used (double-escape \s).
