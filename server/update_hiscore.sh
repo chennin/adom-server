@@ -15,10 +15,10 @@ update()
 
 EOF
 
-    if ! cmp hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_$1.txt
+    if ! cmp hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_v$1.txt
     then
         echo "Hiscore for $1 CHANGED."
-        mv hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_$1.txt
+        mv hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_v$1.txt
     else
         echo "Hiscore for $1 not changed."
     fi

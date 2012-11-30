@@ -151,6 +151,22 @@ do
 		continue
 		;;
 
+        'g')
+                echo ""
+                echo "Press enter to view the guidebook.  Keys:"
+                echo ""
+                echo "PgUp/PgDn to move"
+                echo "Up/Down arrows to move between links"
+                echo "Left/Right arrows to go back/forward"
+                echo "Enter to follow a link"
+                echo "/ to search"
+                echo ""
+                echo "External browsing is disabled. Press q to quit."
+                read
+                TERM=screen elinks -localhost 1 /var/www/guidebook/index.html
+                continue
+                ;;
+
 	'a')
 		clear
 
