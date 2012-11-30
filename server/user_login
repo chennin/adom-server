@@ -2,6 +2,15 @@
 
 export LESSSECURE=1
 
+trap "" 20
+trap intint INT
+stty susp undef
+
+# do nothing
+function intint {
+	:
+}
+
 EXPECTED_ARGS=0
 
 if [ $# -ne $EXPECTED_ARGS ]; then
