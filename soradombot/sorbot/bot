@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+package Bot;
+use base qw(Bot::BasicBot);
+use warnings;
+use strict;
+use Try::Tiny;
+
+use sorbot::Database;
+
+print "this is soradombot\n";
+
+my %help = map{$_=>1}
+    qw{help h commands instructions guide manual functions info man};
+
+my $usage = "Usage: \@[mi] name fragment | \@[mi] /regex/";
+
+sub said {
+  my $self = shift;
+  my $message = shift;
+  my $body = $message->{body};
+  my $query;
+  try {
+      (($query) = $body =~ /^\@m\s+(.*)/) && return $self->reply($message, sorbot::Database::lookup('sorbot::MonsterDb', $query));
+      (($query) = $body =~ /^\@i\s+(.*)/) && return $self->reply($message, sorbot::Database::lookup('sorbot::ItemDb', $query));
+      ($body =~ /^@(.*)/ && $help{$1}) && return $self->reply($message, $usage);
+  } catch {
+      return $self->reply($message, $_);
+  };
+}
+
+Bot->new(
+  server => "asimov.freenode.net",
+  channels => [ '#adom' ],
+  nick => 'soradombot',
+)->run();
+
