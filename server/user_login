@@ -130,9 +130,8 @@ do
         echo -e "\e[1m[ del ]\e[0m delete all your ttyrecs, slgs, vlgs, & sshs, (with confirmation)"
         echo -e "\e[1m[ pw ]\e[0m change your password"
         echo ""
-	printf "> "
 
-	read command
+	read -e -p "> " command
 	case $command in
 	[?h])
 		echo ""
@@ -259,7 +258,7 @@ do
         'del')
                 OLDSZ=$(du -shx $HOME | cut -f1)
                 echo -e "Your homedir usage is $OLDSZ. Delete ALL your ttyrecs, vlgs, slgs, and .sshs?\n(y/N)?"
-                read ANSWER
+                read -e ANSWER
                 if [[ $ANSWER = [yY]* ]]; then
                         find $HOME/ttyrecs -type f -delete -print
                         find $HOME -type f -name "*.ssh" -delete -print
