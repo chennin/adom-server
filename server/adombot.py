@@ -1,12 +1,31 @@
 import irclib
+import signal
 import sys
 import time
+from pyinotify import WatchManager, ThreadedNotifier, ProcessEvent, IN_CLOSE_WRITE, IN_MODIFY
 import os
 
-def poll_hiscore(hiscore_100, hiscore_111, hiscore_etr):
-    new_100 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt")
-    new_111 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt")
-    new_etr = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_eternium_man.txt")
+MIN_IRC_ANC = 2000
+
+FILE111 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt"
+FILE100 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt"
+FILEETR = "/var/lib/adom/public_html/adom_hiscore/hiscore_vetr.txt"
+
+def signal_handler(signal, frame):
+    print "Received signal {0}".format(signal)
+    notifier.stop()
+    sys.exit(1)
+
+signal.signal(signal.SIGINT, signal_handler) 
+
+def poll_hiscore():
+    global hiscore_100
+    global hiscore_111
+    global hiscore_etr
+
+    new_100 = import_hiscore(FILE100)
+    new_111 = import_hiscore(FILE111)
+    new_etr = import_hiscore(FILEETR)
 
     diff_100 = set(new_100.keys()).difference(hiscore_100.keys())
     diff_111 = set(new_111.keys()).difference(hiscore_111.keys())
@@ -28,51 +47,6 @@ def poll_hiscore(hiscore_100, hiscore_111, hiscore_etr):
         for key in diff_etr:
             print hiscore_etr[key] + " Played The Eternium Man challenge."
             c.privmsg(target, hiscore_etr[key] + " Played The Eternium Man challenge.")
-
-
-    status_names = []
-    cur_players = []
-
-    for root, dirs, files in os.walk("/var/lib/adom/player_locations"):
-        if root != "/var/lib/adom/player_locations":
-            continue
-
-        for s in files:
-            pid = s.split("-")[0]
-            
-            if len(os.popen("ps -p " + pid).readlines()) < 2:
-                os.system("rm -f " + root + "/" + s)
-                continue
-
-            status_names.append(s)
-
-    for root, dirs, files in os.walk("/var/lib/adom/sockets"):
-        if root != "/var/lib/adom/sockets":
-            continue
-            
-        for s in files:
-            cur_players.append(s)
-        
-    for player in cur_players:
-        ps_lines = os.popen("ps -fu " + player + " |grep /var/lib/adom/bin/adom-111-bin").readlines()
-
-        if len(ps_lines) < 1:
-            continue
-
-        pid = (ps_lines[0].split())[1]
-
-        toef_name = str(pid) + "-toef"
-        d50_name = str(pid) + "-d50"
-
-#        if (toef_name in status_names) and ((toef_name + ".announced") not in status_names):
-#            c.privmsg(target, player + " entered the final level of the Tower of eternal flames on the server.")
-#            open("/var/lib/adom/player_locations/" + toef_name + ".announced", "w")
-
-#        if (d50_name in status_names) and ((d50_name + ".announced") not in status_names):
-#            c.privmsg(target, player + " entered D:50 on the server.")
-#            open("/var/lib/adom/player_locations/" + d50_name + ".announced", "w")
-
-    c.execute_delayed(60, poll_hiscore, (hiscore_100, hiscore_111, hiscore_etr))
 
 def import_hiscore(file):
     f = open(file, "r")
@@ -99,7 +73,7 @@ def import_hiscore(file):
             parsed = " ".join((hiscore_line.split())[2:])
             parsed += " Rank: #" + hiscore_line.split()[0].strip() + ", score " + hiscore_line.split()[1].strip() + "."
 
-            if int(hiscore_line.split()[1].strip()) >= 8000:
+            if int(hiscore_line.split()[1].strip()) >= MIN_IRC_ANC:
                 hiscore[key] = parsed
 
             hiscore_line = line
@@ -111,7 +85,7 @@ def import_hiscore(file):
     parsed = " ".join((hiscore_line.split())[2:])
     parsed += " Rank: #" + hiscore_line.split()[0].strip() + ", score " + hiscore_line.split()[1].strip() + "."
 
-    if int(hiscore_line.split()[1].strip()) >= 8000:
+    if int(hiscore_line.split()[1].strip()) >= MIN_IRC_ANC:
         hiscore[key] = parsed
 
     return hiscore
@@ -154,9 +128,9 @@ if (dossl != False) and (dossl != True):
         print "Invalid value for SSL: must be True or False"
         exit(1) 
 
-hiscore_111 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt")
-hiscore_100 = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt")
-hiscore_etr = import_hiscore("/var/lib/adom/public_html/adom_hiscore/hiscore_vetr.txt")
+hiscore_111 = import_hiscore(FILE111)
+hiscore_100 = import_hiscore(FILE100)
+hiscore_etr = import_hiscore(FILEETR)
 
 irc = irclib.IRC()
 try:
@@ -167,6 +141,25 @@ except irclib.ServerConnectionError, x:
 
 c.add_global_handler("welcome", on_connect)
 c.add_global_handler("disconnect", on_disconnect)
-c.execute_delayed(60, poll_hiscore, (hiscore_100, hiscore_111, hiscore_etr))
 
-irc.process_forever()
+wm = WatchManager()
+class ScoreHandler(ProcessEvent):
+    def process_IN_CLOSE_WRITE(self, evt):
+        poll_hiscore()
+
+handler = ScoreHandler()
+notifier = ThreadedNotifier(wm, handler)
+wd1 = wm.add_watch(FILE100, IN_CLOSE_WRITE)
+wd2 = wm.add_watch(FILE111, IN_CLOSE_WRITE)
+wd4 = wm.add_watch(FILEETR, IN_CLOSE_WRITE)
+
+notifier.start()
+
+try:
+    irc.process_forever()
+except KeyboardInterrupt:
+    print "Caught ^C\n"
+    notifier.stop()
+    self.connection.quit("Aieeee!")
+    sys.exit(1)
+
