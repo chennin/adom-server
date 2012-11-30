@@ -6,14 +6,26 @@ use warnings;
 use strict;
 use Try::Tiny;
 
+$SIG{'INT'} = \&cleanquit;
+$SIG{'TERM'} = \&cleanquit;
+
 use sorbot::Database;
 
-print "this is soradombot\n";
+print "This is soradombot\n";
 
 my %help = map{$_=>1}
     qw{help h commands instructions guide manual functions info man};
 
 my $usage = "Usage: \@[mi] name fragment | \@[mi] /regex/";
+
+my $bot = Bot->new(
+  server => "irc.freenode.net",
+  channels => [ '#adom' ],
+  nick => 'soradombot',
+  ssl => 1,
+  port => 6697,
+  quit_message => "Aieee!",
+);
 
 sub said {
   my $self = shift;
@@ -28,10 +40,9 @@ sub said {
       return $self->reply($message, $_);
   };
 }
-
-Bot->new(
-  server => "asimov.freenode.net",
-  channels => [ '#adom' ],
-  nick => 'soradombot',
-)->run();
+sub cleanquit() { 
+  print STDERR "Caught signal, shutting down\n";
+  $bot->shutdown( $bot->quit_message() ); 
+}
+$bot->run();
 

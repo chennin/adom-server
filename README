@@ -5,9 +5,12 @@ I. Install
 These instructions are written with a Debian or Ubuntu-based system in mind
 
 1. Install required tools:
-apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl
- wget python-tweepy
+apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl wget python-tweepy python-pyinotify libpoe-component-sslify-perl
 apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
+
+Notes:
+tmux must be version 1.5+.
+The "xs" in libtext-levenshteinxs-perl is important.
 
 X. Add local user accounts:
 groupadd adomusers
@@ -129,6 +132,7 @@ chown root:adomusers /var/lib/adom/bin/message_dispatch
 chmod 4710 /var/lib/adom/bin/message_dispatch
 chown adom /var/lib/adom/server/registered_ips
 chmod 640 /var/lib/adom/server/registered_ips
+chmod u+x /var/lib/adom/etc/adom-bots-tmux
 
 X. Copy server/etc/adom_ds* to /etc/
 cp /var/lib/adom/etc/adom_ds* /etc/
