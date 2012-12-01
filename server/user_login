@@ -17,6 +17,8 @@ if [ $# -ne $EXPECTED_ARGS ]; then
 	exit
 fi
 
+. /var/lib/adom/etc/config
+
 command=""
 sage=$(cat ${HOME}/sage_status)
 adom_ver=$(cat ${HOME}/adom_ver)
@@ -210,7 +212,7 @@ do
 		;;
 
 	"ma")
-				if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
+		if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
 			echo "Cannot change version; ADoM is running!"
 			sleep 2
 			continue
@@ -219,12 +221,12 @@ do
 		rm -f ${HOME}/.adom.data
 		adom_ver="100"
 		echo "$adom_ver" > ${HOME}/adom_ver
-				ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+			ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
 		continue
-				;;
+		;;
 
 	"me")
-				if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
+		if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
 			echo "Cannot change version; ADoM is running!"
 			sleep 2
 			continue
@@ -233,23 +235,23 @@ do
 		rm -f ${HOME}/.adom.data
 		adom_ver="etr"
 		echo "$adom_ver" > ${HOME}/adom_ver
-				ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+			ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
 		continue
-				;;
+		;;
 
 	"ms")
-				if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
-					echo "Cannot change version; ADoM is running!"
-					sleep 2
-					continue
-				fi
+		if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
+			echo "Cannot change version; ADoM is running!"
+			sleep 2
+			continue
+		fi
 
-				rm -f ${HOME}/.adom.data
-				adom_ver="swp"
-				echo "$adom_ver" > ${HOME}/adom_ver
-				ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
-				continue
-				;;
+		rm -f ${HOME}/.adom.data
+		adom_ver="swp"
+		echo "$adom_ver" > ${HOME}/adom_ver
+		ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+		continue
+		;;
 
 	'm')
 		if [ -e ${HOME}/silence ]; then
