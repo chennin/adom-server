@@ -2,7 +2,12 @@
 set +o noclobber
 cd /var/lib/adom/tmp
 
-versions=('100' '111' '120p3' '120p4' '120p5' 'etr' 'lea' 'swp')
+. /var/lib/adom/etc/config
+
+versions=('100' '111'  'etr' 'lea' 'swp')
+for i in $(seq $MIN_PRE $MAX_PRE); do
+	versions+=("120p$i")
+done
 file=()
 
 for v in ${versions[@]}; do
@@ -26,7 +31,7 @@ EOF
     fi
 }
 
-inotifywait -e modify -m ${file[@]} |
+inotifywait -e close_write -m ${file[@]} |
 while read filename eventlist eventfile
 do
         rawvers=$(basename $(dirname "$filename"))
