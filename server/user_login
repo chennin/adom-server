@@ -244,7 +244,7 @@ do
                 done
                 read -e -p "${prompt}: " pvers
                 pvers="${pvers:-$DEF}"
-                if [[ $pvers != *[[:digit:]]* ]] || [ $pvers -lt 3 ] || [ $pvers -gt $max_pre ]; then
+                if [[ $pvers != *[[:digit:]]* ]] || [ $pvers -lt 3 ] || [ $pvers -gt $MAX_PRE ]; then
                         echo "Invalid selection"
                         sleep 3
                         continue
