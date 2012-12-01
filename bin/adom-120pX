@@ -1,6 +1,6 @@
 #!/bin/bash
 BASE='/usr/games'
-SHO='/var/lib/adom/server'
+SHO='/var/lib/adom/bin'
 SAGE='-092'
 EXE=$(basename ${0})
 PASSIVE="-p"
