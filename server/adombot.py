@@ -5,7 +5,7 @@ import time
 from pyinotify import WatchManager, ThreadedNotifier, ProcessEvent, IN_CLOSE_WRITE
 import os
 from tweepy import OAuthHandler, API, TweepError, debug
-import ConfigParser
+from configobj import ConfigObj
 import re
 
 #irclib.DEBUG = True
@@ -17,13 +17,12 @@ FILE111 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt"
 FILE100 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt"
 FILEETR = "/var/lib/adom/public_html/adom_hiscore/hiscore_vetr.txt"
 
-config = ConfigParser.RawConfigParser()
-config.read('/var/lib/adom/etc/config')
+config = ConfigObj('/var/lib/adom/etc/config')
 
-CONSUMER_KEY = config.get("twitter", "CONSUMER_KEY")
-CONSUMER_SECRET = config.get("twitter", "CONSUMER_SECRET")
-ACCESS_KEY = config.get("twitter", "ACCESS_KEY")
-ACCESS_SECRET = config.get("twitter", "ACCESS_SECRET")
+CONSUMER_KEY = config.get("CONSUMER_KEY")
+CONSUMER_SECRET = config.get("CONSUMER_SECRET")
+ACCESS_KEY = config.get("ACCESS_KEY")
+ACCESS_SECRET = config.get("ACCESS_SECRET")
 
 #try to set up twitter
 try:

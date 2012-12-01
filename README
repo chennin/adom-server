@@ -5,7 +5,7 @@ I. Install
 These instructions are written with a Debian or Ubuntu-based system in mind
 
 1. Install required tools:
-apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl wget python-tweepy python-pyinotify libpoe-component-sslify-perl
+apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl wget python-tweepy python-pyinotify libpoe-component-sslify-perl python-configobj
 apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
 
 Notes:
