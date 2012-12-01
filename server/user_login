@@ -359,7 +359,9 @@ do
 		;;
 
 	't')
+		trap - INT
 		/var/lib/adom/server/talk_at
+		trap intint INT
 		continue
 		;;
 

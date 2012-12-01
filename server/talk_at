@@ -31,6 +31,6 @@ while :; do
 	echo -n "--> "
         read PHRASE
 
-	echo "`date` `whoami` $TARGET $PHRASE" >> /tmp/messages_sent
-	/var/lib/adom/server/message_dispatch "$TARGET" "$PHRASE"
+	echo "`date` `whoami` $TARGET $PHRASE" >> /var/lib/adom/log/messages_sent
+	/var/lib/adom/bin/message_dispatch "$TARGET" "$PHRASE"
 done
