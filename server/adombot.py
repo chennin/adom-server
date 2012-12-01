@@ -2,10 +2,10 @@ import irclib
 import signal
 import sys
 import time
-from pyinotify import WatchManager, ThreadedNotifier, ProcessEvent, IN_CLOSE_WRITE, IN_MODIFY
+from pyinotify import WatchManager, ThreadedNotifier, ProcessEvent, IN_CLOSE_WRITE
 import os
 
-MIN_IRC_ANC = 2000
+MIN_IRC_ANC = 200
 
 FILE111 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt"
 FILE100 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt"
@@ -14,9 +14,11 @@ FILEETR = "/var/lib/adom/public_html/adom_hiscore/hiscore_vetr.txt"
 def signal_handler(signal, frame):
     print "Received signal {0}".format(signal)
     notifier.stop()
+    s.quit("Augh!")
     sys.exit(1)
 
-signal.signal(signal.SIGINT, signal_handler) 
+signal.signal(signal.SIGTERM, signal_handler) 
+signal.signal(signal.SIGINT, signal_handler)
 
 def poll_hiscore():
     global hiscore_100
@@ -132,9 +134,11 @@ hiscore_111 = import_hiscore(FILE111)
 hiscore_100 = import_hiscore(FILE100)
 hiscore_etr = import_hiscore(FILEETR)
 
+print "Connecting announce bot...\n"
 irc = irclib.IRC()
 try:
-    c = irc.server().connect(server, port, nickname, ircname=ircname, ssl=dossl)
+    s = irc.server();
+    c = s.connect(server, port, nickname, ircname=ircname, ssl=dossl)
 except irclib.ServerConnectionError, x:
     print x
     sys.exit(1)
@@ -143,23 +147,16 @@ c.add_global_handler("welcome", on_connect)
 c.add_global_handler("disconnect", on_disconnect)
 
 wm = WatchManager()
-class ScoreHandler(ProcessEvent):
+class ModHandler(ProcessEvent):
     def process_IN_CLOSE_WRITE(self, evt):
         poll_hiscore()
 
-handler = ScoreHandler()
+handler = ModHandler()
 notifier = ThreadedNotifier(wm, handler)
-wd1 = wm.add_watch(FILE100, IN_CLOSE_WRITE)
-wd2 = wm.add_watch(FILE111, IN_CLOSE_WRITE)
-wd4 = wm.add_watch(FILEETR, IN_CLOSE_WRITE)
+wm.add_watch(FILE100, IN_CLOSE_WRITE)
+wm.add_watch(FILE111, IN_CLOSE_WRITE)
+wm.add_watch(FILEETR, IN_CLOSE_WRITE)
 
 notifier.start()
 
-try:
-    irc.process_forever()
-except KeyboardInterrupt:
-    print "Caught ^C\n"
-    notifier.stop()
-    self.connection.quit("Aieeee!")
-    sys.exit(1)
-
+irc.process_forever()
