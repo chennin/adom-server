@@ -1,0 +1,13 @@
+#!/bin/bash
+BASE='/usr/games'
+SHO='/var/lib/adom/server'
+SAGE='-092'
+EXE=$(basename ${0})
+PASSIVE="-p"
+DEBUG=""
+#DEBUG="-d 13"
+if [[ $1 == "--enable-sage" ]]; then
+        PASSIVE=""
+fi
+
+${SHO}/adom-sage${SAGE} -a /usr/games/${EXE}-bin -s ${SHO}/adom-sage${SAGE}.so -l ${HOME}/sage-log.txt $DEBUG $PASSIVE

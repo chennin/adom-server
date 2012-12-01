@@ -91,8 +91,11 @@ a2dc057b464a6ac6922772c705043346  adom-etr-bin
 
 
 (temp) link in /usr/games
-for i in 100 111 120p3 120p4 120p5 lea etr swp; do
-ln -s /var/lib/adom/bin/adom-$i-bin /usr/games/adom-$i-bin
+for i in 100 111 120p3 120p4 120p5 120p6 lea etr swp; do
+  ln -s /var/lib/adom/bin/adom-$i-bin /usr/games/adom-$i-bin
+done
+for i in 120p3 120p4 120p5 120p6; do
+  ln -s /var/lib/adom/bin/adom-120pX /usr/games/adom-$i
 done
 
 Binary changes are required to separate HISCORE Files. To do yourself, edit the adom binary in a hex editor (like hexcurse) and change both mentions of adom_ds.cfg to something unique.
