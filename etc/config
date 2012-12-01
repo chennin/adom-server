@@ -9,5 +9,6 @@ URL=
 USER=
 PASSWORD=
 
-#Max prerelease version supported
+#Prerelease versions supported
+MIN_PRE=3
 MAX_PRE=6

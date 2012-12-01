@@ -225,6 +225,48 @@ do
 		continue
 		;;
 
+        "mp")
+                if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
+                        echo "Cannot change version; ADoM is running!"
+                        sleep 2
+                        continue
+                fi
+
+                DEF=${MAX_PRE}
+                if [[ ! -f $HOME/donated ]]; then
+                        DEF=3
+                fi
+
+                echo "Which prerelease (default: 1.2.0p${DEF})? "
+                prompt=""
+                for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
+                        prompt="${prompt}  (${i}) 1.2.0p${i}"
+                done
+                read -e -p "${prompt}: " pvers
+                pvers="${pvers:-$DEF}"
+                if [[ $pvers != *[[:digit:]]* ]] || [ $pvers -lt 3 ] || [ $pvers -gt $max_pre ]; then
+                        echo "Invalid selection"
+                        sleep 3
+                        continue
+                fi
+                if [ $pvers -ge 4 ]; then
+                        /var/lib/adom/server/donation_check.sh
+                        if [ $? -ne 0 ]; then continue; fi
+                fi
+
+                rm -f ${HOME}/.adom.data
+                adom_ver="120p${pvers}"
+                echo "$adom_ver" > ${HOME}/adom_ver
+                mkdir -p ${HOME}/adom.data-$adom_ver
+                mkdir -p ${HOME}/backup-$adom_ver
+                ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+                if [ "$sage" = "enabled" ]; then
+                        echo "Sage with 1.2.0pX may not be stable! Use at own risk! (Press enter to continue)."
+                        read
+                fi
+                continue
+                ;;
+
 	"me")
 		if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
 			echo "Cannot change version; ADoM is running!"
