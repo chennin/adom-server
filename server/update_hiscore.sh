@@ -20,6 +20,7 @@ EOF
         echo "Hiscore for $1 CHANGED."
         #mv hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_v$1.txt
 	cat hiscore.doc > /var/lib/adom/public_html/adom_hiscore/hiscore_v$1.txt
+	rm hiscore.doc
     else
         echo "Hiscore for $1 not changed."
     fi
