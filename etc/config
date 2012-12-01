@@ -7,8 +7,8 @@ ACCESS_SECRET=
 #For playing donator-only prereleases
 URL=
 DONUSER=
-PASSWORD=""
+PASSWORD=
 
 #Prerelease versions supported
 MIN_PRE=3
-MAX_PRE=6
+MAX_PRE=5
