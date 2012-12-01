@@ -8,7 +8,7 @@ if [[ -f $HOME/donated ]]; then
 fi
 
 echo ""
-echo "To prove that you donated to the ADOM  campaign, please"
+echo "To prove that you donated to the ADOM Resurrection campaign, please"
 echo "enter the details from the email you received."
 echo ""
 echo "If you don't have them, 1.2.0p3 is free to all, so try to change"
