@@ -1,4 +1,5 @@
-import sys, os
+#!/usr/bin/env python
+import sys, os, subprocess, errno
 
 def print_time(mins):
     hours = mins/60
@@ -25,15 +26,20 @@ players = []
 for line in players_raw:
     players.append(line.strip())
 
-os.remove("/var/lib/adom/server/idletimes")
-idlelistf = open("/var/lib/adom/server/idletimes", "w")
+try:
+    os.remove("/var/lib/adom/tmp/idletimes")
+except OSError, e:
+    if e.errno != errno.ENOENT:
+        raise
+
+idlelistf = open("/var/lib/adom/tmp/idletimes", "w")
 
 for player in players:
     if len(os.popen("ps -u " + player).readlines()) < 2:
         os.system("rm -f /var/lib/adom/sockets/" + player)
         continue
 
-    ps_lines = os.popen("ps -fu " + player + " |grep /var/lib/adom/bin/adom-|grep bin").readlines()
+    ps_lines = os.popen("ps -fu " + player + " |grep /var/lib/adom/bin/adom-| grep -E -- '-bin'").readlines()
 
     if len(ps_lines) < 1:
         continue
@@ -42,6 +48,17 @@ for player in players:
     last_hash = ""
     cur_hash = (os.popen("md5sum /proc/" + pid + "/stat").readline().split())[0]
     idletime = 0
+
+    version = "UNK"
+
+    try:
+        with open("/var/lib/adom/sockets/" + player) as f:
+            lines = f.readlines()
+            version = lines[0]
+            version = version.strip()
+    except:
+        pass
+
 
     try:
         last = open("/var/lib/adom/users/" + player + "/idle_info", "r")
@@ -52,19 +69,19 @@ for player in players:
         idleinfo = open("/var/lib/adom/users/" + player + "/idle_info", "w")
         idleinfo.write(cur_hash + "\n")
         idleinfo.write("0" + "\n")
-        idlelistf.write(player + ": 0 minutes idle\n")
+        idlelistf.write(player + ": 0 minutes idle (v" + version + ")\n")
         continue
     
     if cur_hash != last_hash:
         idleinfo = open("/var/lib/adom/users/" + player + "/idle_info", "w")
         idleinfo.write(cur_hash + "\n")
         idleinfo.write("0" + "\n")
-        idlelistf.write(player + ": 0 minutes idle\n")
+        idlelistf.write(player + ": 0 minutes idle (v" + version + ")\n")
 
     else:
         idleinfo = open("/var/lib/adom/users/" + player + "/idle_info", "w")
         idleinfo.write(cur_hash + "\n")
         idleinfo.write(str(idletime+idletime_inc) + "\n")
 
-        if idletime+idletime_inc < 120:
-		idlelistf.write(player + ": " + print_time(idletime+idletime_inc) + " idle\n")
+	if player in loggedin:
+		idlelistf.write(player + ": " + print_time(idletime+idletime_inc) + " idle (v" + version + ")\n")

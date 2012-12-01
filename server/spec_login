@@ -7,7 +7,7 @@ do
 
 # Only show people who have a login session and are playing
 PLAYERS=$(comm -1 -2 <(ls /var/lib/adom/sockets) \
-                     <(who | sed 's/ .*//' | sort))
+                     <(who | sed 's/ .*//' | sort -u))
 clear
 
 echo "Welcome to the spectator menu on the Ancardia ADOM server!"
@@ -25,18 +25,15 @@ fi
 
 python /var/lib/adom/server/list_spectators.py
 
-cat /var/lib/adom/server/idletimes
+cat /var/lib/adom/tmp/idletimes
 echo
 
 if [ ! "$PLAYERS" = "" ]; then
 
-     	echo "Please select someone to spectate, or choose an invalid option to"
+     	echo "Please select someone to spectate, or choose an invalid option to refresh."
 	echo "refresh the list. To escape the spectating mode, press CTRL-C-D."
-	echo "To log out now, press CTRL-C."
-	echo ""
-	echo "It is possible to send messages to users being spectated.  The"
-	echo "option to do this is in the menu for logged-in users."
-	echo ""
+	echo -e "\033[1mTo escape the spectating mode, press CTRL-C-D\033[0m. To log out now, press
+CTRL-C."
 
 	select TGT in $PLAYERS;
 	do
@@ -46,7 +43,7 @@ if [ ! "$PLAYERS" = "" ]; then
 else
 	echo "Unfortunately, there are no screens to spectate right now!"
 	echo "This means no-one is playing ADOM on the server at the moment."
-	sleep 5
+	sleep 15
 fi
 
 done

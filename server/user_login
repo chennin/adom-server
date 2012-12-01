@@ -183,7 +183,7 @@ do
 		export sage
 		export adom_ver
 		export ttyq
-		touch /var/lib/adom/sockets/$USER
+		echo $adom_ver > /var/lib/adom/sockets/$USER
 
 		if [ -e "${HOME}/.adom.data/.adom.cnt" ]; then
 			/var/lib/adom/server/modify_cnt "${HOME}/.adom.data/.adom.cnt"
