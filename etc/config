@@ -6,8 +6,8 @@ ACCESS_SECRET=
 
 #For playing donator-only prereleases
 URL=
-USER=
-PASSWORD=
+DONUSER=
+PASSWORD="resurrection"
 
 #Prerelease versions supported
 MIN_PRE=3

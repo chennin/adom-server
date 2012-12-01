@@ -18,7 +18,7 @@ read -p "ADOM prerelease download URL: " -e GURL
 read -p "Username: " -e GUSER
 read -s -p "Password (input will not be shown): " -e GPASSWORD
 echo ""
-if [[ "${GURL}" == *"${URL}"* ]] && [[ "${USER}" == "${GUSER}" ]] && [[ "${PASSWORD}" == "${GPASSWORD}" ]]; then
+if [[ "${GURL}" == *"${URL}"* ]] && [[ "${DONUSER}" == "${GUSER}" ]] && [[ "${PASSWORD}" == "${GPASSWORD}" ]]; then
         echo "Details accepted."
         touch $HOME/donated
         sleep 2
