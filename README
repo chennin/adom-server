@@ -39,7 +39,7 @@ is recommended to do.
 IV. ADOM Sage
 -------------
 
-New versions of ADOM Sage can be found at
+ADOM Sage is included, but new versions of ADOM Sage can be found at
 https://github.com/AlucardZero/adom-sage 
 
 To add, check out and compile the code, then move adom-sage and adom-sage.so
