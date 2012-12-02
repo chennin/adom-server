@@ -2,22 +2,44 @@ Public ADOM Server scripts README
 See LICENSE for copyright and licensing details
 
 Table of contents:
-	I. Install and Configuration
-	II. Usage
-	III. Administration
-	IV. Contributing
-	V. Contact
-	VI. Authors
+	I. About
+	II. Install
+	III. Usage
+	IV. Administration
+	V. Contributing
+	VI. Contact
+	VII. Authors
 	
-I. Install and Configuration
-----------------------------
+I. About
+--------
+
+These are scripts to support running a multi-user, multi-version ADOM server,
+with useful mods for the game, IRC bots useful for ADOM players, and social
+features.
+
+Why?
+
+- ADOM was not at all designed to run multiple versions on the same system.
+- For the 10 years with no new versions, mods were the only way to prevent or 
+  recover from crashes.
+- Mods add neat features like a starsign selector and autoswap with friendlies.
+- Database dumps provide invaluable information to the optimal player.
+- It is a single player game, but watching other players and seeing their wins
+  (or deaths) is social, and having your win be recorded publicly is a great
+  ego boost.
+
+ADOM can be found at http://adom.de or http://ancardia.com . 
+ADOM is Copyright (c) 1994-2013 by Thomas Biskup.
+
+II. Install
+-----------
 
 A basic Linux system is required.  The distribution should be relatively
 modern; Debian 6 or Ubuntu 12.04+ are recommended, but almost any will work.
 
 Please read the included INSTALL file, as there are many moving parts to touch.
 
-II. Usage
+III. Usage
 ---------
 
 The full usage readme is at public_html/readme.php.
@@ -26,7 +48,7 @@ SSH in with user adom and password adom, and follow prompts to create a new
 user.
 Then SSH in as your new user.
 
-III. Administration
+IV. Administration
 -------------------
 
 To edit the banner on the top of the main menu, edit etc/motd in the server 
@@ -38,22 +60,22 @@ MAX_PRE
 Setting up your web server and domain is out of scope for this document, but
 is recommended to do.
 
-IV. Contributing
+V. Contributing
 ---------------
 
 Submit a pull request on GitHub and I'll figure it out.
 
-V. Contact
+VI. Contact
 -----------
+
+http://www.adom.de/forums/showthread.php/493
 
 Alucard on #adom on irc.FreeNode.net
 Other netizens there can also answer usage questions
 
-http://www.adom.de/forums/showthread.php/493
-
 Alucard <saturos@gmail.com>
 
-VI. Authors
+VII. Authors
 ------------
 Christopher Henning aka Alucard(Zero)
 Jaakko Salo aka jaakkos
