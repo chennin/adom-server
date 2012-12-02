@@ -2,4 +2,4 @@
 PATH=$PATH:/usr/local/bin
 tmux new-session -d -s "adom-bots" -x 80 -y 26 '/var/lib/adom/server/update_hiscore.sh'
 tmux new-window 'python /var/lib/adom/server/adombot.py irc.freenode.net:6697 AnnounceBot "#adom2" "Public ADOM server" True'
-tmux new-window 'cd /var/lib/adom/dbbot/; perl /var/lib/adom/dbbot/dbbot/bot'
+tmux new-window 'cd /var/lib/adom/dbbot/; perl /var/lib/adom/dbbot/sorbot/bot'
