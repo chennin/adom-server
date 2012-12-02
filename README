@@ -5,11 +5,11 @@ I. Install
 These instructions are written with a Debian or Ubuntu-based system in mind
 
 1. Install required tools:
-apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota \
-libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl \
-libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl \
-wget python-pyinotify libpoe-component-sslify-perl python-configobj \
-python-oauth libtext-levenshteinxs-perl tmux python-tweepy
+apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
+ libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl\
+ libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
+ wget python-pyinotify libpoe-component-sslify-perl python-configobj\
+ python-oauth libtext-levenshteinxs-perl tmux python-tweepy
 
 apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
 
@@ -24,12 +24,12 @@ groupadd adomusers
 useradd -d /var/lib/adom -c "ADOM owner" -s /bin/bash -g adomusers adomown
 mkdir /var/lib/adom
 chown adomown:adomusers /var/lib/adom
-useradd -d /var/lib/adom -c "ADOM public login" -s \
-/var/lib/adom/server/public_login adom
-useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s \
-/var/lib/adom/server/spec_login spectator
-useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s \
-/var/lib/adom/server/ttyrecplay_login ttyrecplay
+useradd -d /var/lib/adom -c "ADOM public login" -s\
+ /var/lib/adom/server/public_login adom
+useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s\
+ /var/lib/adom/server/spec_login spectator
+useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s\
+ /var/lib/adom/server/ttyrecplay_login ttyrecplay
 
 For adom, spectator, and ttyrecplay, set passwords the same as their username:
 passwd adom
@@ -59,6 +59,7 @@ adomown    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
 6. Add quota support
 Edit /etc/fstab and add the following to the filesystem options: 
 relatime,errors=remount-ro,usrquota,usrjquota=aquota.user,jqfmt=vfsv0
+
 Run:
 
 mount -o remount,usrquota /
@@ -67,32 +68,40 @@ quotaon -a
 
 7. su to adomown
 
-X. Pick a directory (default: /var/lib/adom) and check out the code
+8. Pick a directory (default: /var/lib/adom) and check out the code
 git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
 
-X. Download desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and 1.2.0p3 are included, in the same way as from ancardia.com (due to the license). Where you have a choice, use the Debian 32-bit version.
+9. Download desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and
+1.2.0p3 are included, in the same way as from ancardia.com (due to the license).
+Where you have a choice, use the Debian 32-bit version.
 
-X. Install ADOM versions to bin/
+10. Install ADOM versions to bin/
 
-1.0.0, 1.1.1, and 1.2.0p3 are provided.  Place other archives (32-bit Debian!) in /var/lib/adom/software.
+1.0.0, 1.1.1, and 1.2.0p3 are provided.  Place other archives (32-bit Debian!)
+in /var/lib/adom/software/ .
+
+Patch the binaries as follows:
 
 mkdir /tmp/adom && cd $_
 
 for i in 100 111; do
 tar xzf /var/lib/adom/software/adom-$i-elf.tar.gz &&
-bspatch adom/adom /var/lib/adom/bin/adom-$i-bin /var/lib/adom/software/adom-$i-ds.binpatch
+bspatch adom/adom /var/lib/adom/bin/adom-$i-bin\
+ /var/lib/adom/software/adom-$i-ds.binpatch
 rm -rf ./adom
 done
 
 tar xzf /var/lib/adom/software/adom-111-elf.tar.gz
 for i in lea etr swp; do
-bspatch adom/adom /var/lib/adom/bin/adom-$i-bin /var/lib/adom/software/adom-$i-ds.binpatch
+bspatch adom/adom /var/lib/adom/bin/adom-$i-bin\
+ /var/lib/adom/software/adom-$i-ds.binpatch
 done
 rm -rf adom
 
 for i in 3 4 5; do
 tar xzf /var/lib/adom/software/adom_linux_debian_32_1.2.0_pre$i.tar.gz &&
-bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin /var/lib/adom/software/adom-120p$i-ds.binpatch
+bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin\
+ /var/lib/adom/software/adom-120p$i-ds.binpatch
 rm -rf ./adom
 done
 
@@ -115,22 +124,29 @@ for i in 120p3 120p4 120p5 120p6; do
   ln -s /var/lib/adom/bin/adom-120pX /usr/games/adom-$i
 done
 
-Binary changes are required to separate HISCORE Files. To do yourself, edit the adom binary in a hex editor (like hexcurse) and change both mentions of adom_ds.cfg to something unique.
+Binary changes are required to separate HISCORE Files. To do yourself, edit the
+adom binary in a hex editor (like hexcurse) and change both mentions of 
+adom_ds.cfg to something unique.
 
 I have used:
-1.0.0: adom_ds.100
-1.1.1: adom_ds.111
-Eternium Man: adom_ds.etr
-League: adom_ds.lea
-Swapgame: adom_ds.swp
-1.2.0p1-3: adom_ds.12a
-1.2.0p4-5: adom_ds.12b
-1.2.0p6-: adom_ds.12c
 
-X. ssh key for spectator (no passphrase)
-ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f /var/lib/adom/etc/adomusers_key
-cat /var/lib/adom/etc/adomusers_key.pub >> /var/lib/adom/server/spectator/.ssh/authorized_keys
-cat /var/lib/adom/etc/adomusers_key.pub >> /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
+1.0.0		adom_ds.100
+1.1.1		adom_ds.111
+Eternium Man:	adom_ds.etr
+League:		adom_ds.lea
+Swapgame: 	adom_ds.swp
+1.2.0p1-3:	adom_ds.12a
+1.2.0p4-5:	adom_ds.12b
+1.2.0p6-:	adom_ds.12c
+
+11. Generate an ssh key for spectating (with no passphrase)
+
+ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f\
+ /var/lib/adom/etc/adomusers_key
+cat /var/lib/adom/etc/adomusers_key.pub >>\
+ /var/lib/adom/server/spectator/.ssh/authorized_keys
+cat /var/lib/adom/etc/adomusers_key.pub >>\
+ /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
 
 X. Add to crontab the contents of etc/crontab
 
@@ -141,7 +157,8 @@ cd /var/lib/adom
 chgrp adomusers public_html/adom_users/ sockets
 chmod 775   public_html/adom_users/ sockets
 chmod ugo+x bin/*
-chgrp adomusers 1* etr lea swapgame 1*/.HISCORE etr/.HISCORE lea/.HISCORE swapgame/.HISCORE
+chgrp adomusers 1* etr lea swapgame 1*/.HISCORE etr/.HISCORE lea/.HISCORE\
+ swapgame/.HISCORE
 chmod 775 1* etr lea swapgame
 chmod 664 */.HISCORE
 # for spectating
