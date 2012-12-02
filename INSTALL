@@ -3,6 +3,18 @@ See LICENSE for copyright and licensing details
 
 Table of contents:
 	I. Install and Configuration
+		i. Install required tools
+		ii. Local users
+		iii. passwd.py
+		iv. termrec
+		v. sudo
+		vi. quota
+		vii. su to adomown
+		viii. Check out code
+		ix. Add other ADOM versions
+		x. Patch and install ADOM versions
+		xi. SSH key for spectating
+		xii. crontab
 	II. ADOM Sage
 	
 I. Install and Configuration
@@ -12,22 +24,65 @@ These instructions are written with a Debian or Ubuntu-based system in mind.
 Any relatively modern Linux distribution will work, but Debian 6+ or Ubuntu
 12.04+ are recommended.
 
-1. Install required tools:
+i. Install required tools
+=========================
+
+The following software is required for all pieces to work:
+
+* OpenSSH
+* inotify
+* quota support and quota tools
+* sudo
+* screen
+* tmux 1.5+
+* bsdiff & bspatch
+* nano
+* ELinks
+* ttyrec
+* termrec
+* Python 2.6+
+** IRCLib
+** Pyinotify
+** ConfigObj
+** OAuth
+** Tweepy
+* Perl
+** Bot::BasicBot
+** Try::Tiny 
+** String::Approx
+** Sub::Exporter
+** Term::ReadKey
+** POE::Component::SSLify 
+** Text::LevenshteinXS
+
+On a Debian-bases system, the following command, run as root, should bring
+in all you need:
+
 apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
  libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl\
  libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
  wget python-pyinotify libpoe-component-sslify-perl python-configobj\
- python-oauth libtext-levenshteinxs-perl tmux python-tweepy
+ python-oauth git openssh-server openssh-client\
+ libtext-levenshteinxs-perl tmux python-tweepy
 
-apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
+For compiling some binaries from source, or related tools, a compilers and
+some development libraries are required:
+
+apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc g++ make autoconf
 
 Notes:
-tmux must be version 1.5+.
-The "xs" in libtext-levenshteinxs-perl is important.
 Debian Squeeze users will have to build libtext-levenshteinxs-perl tmux and
 python-tweepy from source or another source (like Wheezy)
 
-2. Add local user accounts:
+ii. Local Users
+==============
+
+The following users and group must be set up for full funcationality:
+
+Group adomusers
+Users adomown, adom, spectator, and ttyrecplay
+
+Commands:
 groupadd adomusers
 useradd -d /var/lib/adom -c "ADOM owner" -s /bin/bash -g adomusers adomown
 mkdir /var/lib/adom
@@ -44,51 +99,98 @@ passwd adom
 passwd spectator
 passwd ttyrecplay
 
-3. Install passwd.py (latest from 
+iii. passwd.py
+==============
+
+Install passwd.py (latest can be found at
 http://newcenturycomputers.net/projects/passwd.html ):
 
+Commands:
 cd /tmp
 wget http://newcenturycomputers.net/projects/download.cgi/passwd.py
 python passwd.py install
 
-4. Install termrec & termplay ( latest from http://angband.pl/termrec.html )
+iv. termrec 
+============
 
+Install termrec & termplay ( latest at http://angband.pl/termrec.html )
+
+Commands:
 cd /tmp
 wget http://prdownloads.sourceforge.net/termrec/termrec-0.16.tar.gz
 tar xzf termrec-0.16.tar.gz
 cd termrec-0.16/
 ./configure && make && make install
 
-5. Add following line to /etc/sudoers or /etc/sudoers.d/50-adom
-(must be chmod 0440)
+v. sudo
+=======
+
+The adom user requires permission to add new users and set their quotas.
+
+Add the following line to /etc/sudoers or /etc/sudoers.d/50-adom
+(must be chmod 0440):
 
 adomown    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
 
-6. Add quota support
-Edit /etc/fstab and add the following to the filesystem options: 
+vi. quota
+=========
+
+Quota support should be added by editing /etc/fstab and adding the following 
+to the filesystem options: 
+
 relatime,errors=remount-ro,usrquota,usrjquota=aquota.user,jqfmt=vfsv0
 
-Run:
+Then run commands:
 
 mount -o remount,usrquota /
 quotacheck -avugm 
 quotaon -a
 
-7. su to adomown
+vii. su to adomown
+==================
 
-8. Pick a directory (default: /var/lib/adom) and check out the code
+The next steps should be done as the adomown user.  You'll be told when
+it's time to return to root.
+
+viii. Check out code
+====================
+Pick a directory (default: /var/lib/adom) and finally, check out the code:
+
 git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
 
-9. Download desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and
-1.2.0p3 are included, in the same way as from ancardia.com (due to the license).
+ix. Add other ADOM versions
+===========================
+
+Download any desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and
+1.2.0p3 are included, in the same way as from ancardia.com (due to the license),
+but 1.2.0 prereleases 4 to final cannot be distributed this way.  You must have
+donated to the ADOM Resurrection IndieGoGo campaign to download and play them.
+ 
 Where you have a choice, use the Debian 32-bit version.
 
-10. Install ADOM versions to bin/
+x. Patch and install ADOM versions
+==================================
 
 1.0.0, 1.1.1, and 1.2.0p3 are provided.  Place other archives (32-bit Debian!)
 in /var/lib/adom/software/ .
 
-Patch the binaries as follows:
+Binary changes are required to separate HISCORE files. To do yourself, edit the
+adom binary in a hex editor (like hexcurse) and change both mentions of
+adom_ds.cfg to something unique.
+
+I have used:
+
+1.0.0           adom_ds.100
+1.1.1           adom_ds.111
+Eternium Man:   adom_ds.etr
+League:         adom_ds.lea
+Swapgame:       adom_ds.swp
+1.2.0p1-3:      adom_ds.12a
+1.2.0p4-5:      adom_ds.12b
+1.2.0p6-:       adom_ds.12c
+
+
+Patch the binaries with the following commands:
 
 mkdir /tmp/adom && cd $_
 
@@ -113,7 +215,7 @@ bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin\
 rm -rf ./adom
 done
 
-md5sums to check:
+These are the md5sums of the resulting binaries:
 2e870f9207c08e736d2e2a81ae1f7098  adom-100-bin
 c7d6813e48cf19c163ac1a6eba8122ee  adom-111-bin
 d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
@@ -132,22 +234,9 @@ for i in 120p3 120p4 120p5 120p6; do
   ln -s /var/lib/adom/bin/adom-120pX /usr/games/adom-$i
 done
 
-Binary changes are required to separate HISCORE Files. To do yourself, edit the
-adom binary in a hex editor (like hexcurse) and change both mentions of 
-adom_ds.cfg to something unique.
-
-I have used:
-
-1.0.0		adom_ds.100
-1.1.1		adom_ds.111
-Eternium Man:	adom_ds.etr
-League:		adom_ds.lea
-Swapgame: 	adom_ds.swp
-1.2.0p1-3:	adom_ds.12a
-1.2.0p4-5:	adom_ds.12b
-1.2.0p6-:	adom_ds.12c
-
-11. Generate an ssh key for spectating (with no passphrase)
+xi. SSH key for spectating
+==========================
+Generate an ssh key for spectating from the user menu. Don't add a passphrase.
 
 ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f\
  /var/lib/adom/etc/adomusers_key
@@ -156,7 +245,10 @@ cat /var/lib/adom/etc/adomusers_key.pub >>\
 cat /var/lib/adom/etc/adomusers_key.pub >>\
  /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
 
-12. Add contents of etc/crontab to your crontab
+xii. crontab
+============
+
+Add the contents of etc/crontab to your crontab 
 
 13. Edit etc/config and fill in the values
 
