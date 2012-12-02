@@ -5,10 +5,9 @@ Table of contents:
 	I. Install and Configuration
 	II. Usage
 	III. Administration
-	IV. ADOM Sage
-	V. Contributing
-	VI. Contact
-	VII. Authors
+	IV. Contributing
+	V. Contact
+	VI. Authors
 	
 I. Install and Configuration
 ----------------------------
@@ -39,27 +38,12 @@ MAX_PRE
 Setting up your web server and domain is out of scope for this document, but
 is recommended to do.
 
-IV. ADOM Sage
--------------
-
-ADOM Sage is included, but new versions of ADOM Sage can be found at
-https://github.com/AlucardZero/adom-sage 
-
-To add, check out and compile the code, then move adom-sage and adom-sage.so
-to the bin/ directory of the server homedir, with an extenstion like -092.
-
-E.g.:
-bin/adom-sage-092
-bin/adom-sage-092.so
-
-Then edit the SAGE variable in bin/adom-120pX to your new suffix.
-
-V. Contributing
+IV. Contributing
 ---------------
 
 Submit a pull request on GitHub and I'll figure it out.
 
-VI. Contact
+V. Contact
 -----------
 
 Alucard on #adom on irc.FreeNode.net
@@ -69,7 +53,7 @@ http://www.adom.de/forums/showthread.php/493
 
 Alucard <saturos@gmail.com>
 
-VII. Authors
+VI. Authors
 ------------
 Christopher Henning aka Alucard(Zero)
 Jaakko Salo aka jaakkos
