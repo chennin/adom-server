@@ -5,6 +5,10 @@ Table of contents:
 	I. Install and Configuration
 	II. Usage
 	III. Administration
+	IV. ADOM Sage
+	V. Contributing
+	VI. Contact
+	VII. Authors
 	
 I. Install and Configuration
 ----------------------------
@@ -214,11 +218,29 @@ Then SSH in as your new user.
 III. Administration
 -------------------
 
-To edit the banner on the top of the menu, edit etc/motd in the server homedir.
-Bash color codes can be used (double-escape \s).
+To edit the banner on the top of the main menu, edit etc/motd in the server 
+homedir. Bash color codes can be used (but double-escape your \s).
 
 To add support for new 1.2.0 prereleases, just edit etc/config and change 
 MAX_PRE
+
+Setting up your web server and domain is out of scope for this document, but
+is recommended to do.
+
+IV. ADOM Sage
+-------------
+
+New versions of ADOM Sage can be found at
+https://github.com/AlucardZero/adom-sage 
+
+To add, check out and compile the code, then move adom-sage and adom-sage.so
+to the bin/ directory of the server homedir, with an extenstion like -092.
+
+E.g.:
+adom-sage-092
+adom-sage-092.so
+
+Then edit the SAGE variable in bin/adom-120pX to your new suffix.
 
 V. Contributing
 ---------------
