@@ -124,6 +124,9 @@ def import_hiscore(file):
     f = open(file, "r")
     lines = f.readlines()
 
+    if (len(lines) <= 0):
+	return {}
+
     for i in range(4):
         lines.pop(0)
 
