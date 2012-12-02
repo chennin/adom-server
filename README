@@ -1,6 +1,13 @@
 Public ADOM Server scripts
+See LICENSE for copyright and licensing details
 
-I. Install
+Table of contents:
+	I. Install and Configuration
+	II. Usage
+	III. Administration
+	
+I. Install and Configuration
+----------------------------
 
 These instructions are written with a Debian or Ubuntu-based system in mind
 
@@ -195,7 +202,8 @@ rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
 index.php.  Or, don't enable PHP, strip the PHP out of index.php and replace it
 with your hard-coded info, and rename index.php to index.html.
 
-II. USAGE
+II. Usage
+---------
 
 The full usage readme is at readme.php.
 
@@ -203,10 +211,30 @@ SSH in with user adom and password adom, and follow prompts to create a new
 user.
 Then SSH in as your new user.
 
-III. ADMINISTRATION
+III. Administration
+-------------------
 
 To edit the banner on the top of the menu, edit etc/motd in the server homedir.
 Bash color codes can be used (double-escape \s).
 
 To add support for new 1.2.0 prereleases, just edit etc/config and change 
 MAX_PRE
+
+V. Contributing
+---------------
+
+Submit a pull request on GitHub and I'll figure it out
+
+VI. Contact
+-----------
+
+Alucard on #adom on irc.Freenode.net
+Other netizens there can also answer usage questions
+http://www.adom.de/forums/showthread.php/493
+Alucard <saturos@gmail.com>
+
+VII. Authors
+------------
+Chris Henning aka Alucard(Zero)
+Jaakko Salo aka jaakkos
+Sampsa "Tuplanolla" Kiiskinen
