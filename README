@@ -150,9 +150,11 @@ cat /var/lib/adom/etc/adomusers_key.pub >>\
 
 12. Add contents of etc/crontab to your crontab
 
-13. Exit to root
+13. Edit etc/config and fill in the values
 
-14. Set permissions:
+14. Exit to root
+
+15. Set permissions:
 
 ** NOTE: Spectating requires 'screen' to be setuid root, this makes sure that
  is set. **
@@ -177,31 +179,34 @@ chmod 755 /var/run/screen/
 chown root:adomusers /var/lib/adom/bin/message_dispatch
 chmod 4710 /var/lib/adom/bin/message_dispatch
 
-15. Copy server/etc/adom_ds* to /etc/:
+16. Copy server/etc/adom_ds* to /etc/:
 
 cp /var/lib/adom/etc/adom_ds* /etc/
 
-16. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
+17. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
 
-17. Link public_html into your web server, example:
+18. Link public_html into your web server, example:
 
 rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
 
-18. run ldconfig
+19. Run: ldconfig
 
-19. Set up a web server.  Enable PHP and edit the variables at the top of 
+20. Set up a web server.  Enable PHP and edit the variables at the top of 
 index.php.  Or, don't enable PHP, strip the PHP out of index.php and replace it
 with your hard-coded info, and rename index.php to index.html.
 
-20. Done!
-
 II. USAGE
 
-The full readme is at readme.php.
+The full usage readme is at readme.php.
 
-SSH in with user adom and password adom, and follow prompts to create a new user.
+SSH in with user adom and password adom, and follow prompts to create a new 
+user.
 Then SSH in as your new user.
 
 III. ADMINISTRATION
 
-To edit the banner on the top of the menu, edit etc/motd in the server homedir.  Bash color codes can be used (double-escape \s).
+To edit the banner on the top of the menu, edit etc/motd in the server homedir.
+Bash color codes can be used (double-escape \s).
+
+To add support for new 1.2.0 prereleases, just edit etc/config and change 
+MAX_PRE
