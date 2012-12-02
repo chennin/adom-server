@@ -195,7 +195,7 @@ x. Patch and install ADOM versions
 
 1.0.0, 1.1.1, and 1.2.0p3 are provided.  Place other versions (32-bit Debian!)
 straight in /var/lib/adom/software/ , just as you downloaded them (tar.gz), as
-the following patch command expect them that way.
+the following patch commands expect them that way.
 
 Small Binary changes are required to separate HISCORE files. I have provided
 binary patch files for several versions. But to do yourself, edit the adom 
@@ -211,7 +211,7 @@ League:         adom_ds.lea
 Swapgame:       adom_ds.swp
 1.2.0p1-3:      adom_ds.12a
 1.2.0p4-5:      adom_ds.12b
-1.2.0p6-?:       adom_ds.12c
+1.2.0p6-?:      adom_ds.12c
 
 Patch the binaries with the following commands:
 

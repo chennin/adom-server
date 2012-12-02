@@ -35,7 +35,7 @@ II. Install
 -----------
 
 A basic Linux system is required.  The distribution should be relatively
-modern; Debian 6 or Ubuntu 12.04+ are recommended, but almost any will work.
+modern; Debian 6+ or Ubuntu 12.04+ are recommended, but almost any will work.
 
 Please read the included INSTALL file, as there are many moving parts to touch.
 
