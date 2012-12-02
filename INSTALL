@@ -15,6 +15,13 @@ Table of contents:
 		x. Patch and install ADOM versions
 		xi. SSH key for spectating
 		xii. crontab
+		xiii. etc/config
+		xiv. Back to root
+		xv. Permissions
+		xvi. HISCORES
+		xvii. Admin SSH key
+		xviii. ldconfig
+		xix. Web server
 	II. ADOM Sage
 	
 I. Install and Configuration
@@ -250,14 +257,40 @@ xii. crontab
 
 Add the contents of etc/crontab to your crontab 
 
-13. Edit etc/config and fill in the values
+Command:
+crontab etc/crontab
 
-14. Exit to root
+xiii. etc/config 
+================
 
-15. Set permissions:
+Edit etc/config and fill in the values.
 
-** NOTE: Spectating requires 'screen' to be setuid root, this makes sure that
- is set. **
+The twitter section is for announcing scores on Twitter. Sign up for a Twitter
+account then enable API access and generate and find your access and consumer
+tokens.
+See: https://dev.twitter.com/docs/auth/tokens-devtwittercom
+
+xiv. Back to root
+=================
+
+The rest of the steps should be done as root.
+
+xv. Permissions
+===============
+
+Git does not store permissions besides the executable bit, so some work is
+needed to allow multiple users to play on the server.
+
+** NOTE ON SETUID **
+Spectating requires 'screen' to be suid root, this makes sure that is set.
+However, you may think this is a security risk.  But if you don't set it,
+spectating (which uses the multi-user feature of screen) won't work.  By
+setting this you are basically trusting screen not to have any bugs an
+attacker could use to take over the system.
+The message_dispatch binary also must be setuid root for sending messages to
+other players to work.  This is a simple program whose source is in src/.
+
+Commands:
 
 cd /var/lib/adom
 chgrp adomusers public_html/adom_users/ sockets
@@ -269,7 +302,6 @@ chmod 775 1* etr lea swapgame
 chmod 664 */.HISCORE
 chown adom /var/lib/adom/server/registered_ips
 chmod 640 /var/lib/adom/server/registered_ips
-chmod u+x /var/lib/adom/etc/adom-bots-tmux
 chgrp adomusers /var/lib/adom/log/messages_sent
 chmod 664 /var/lib/adom/log/messages_sent
 # for spectating
@@ -279,21 +311,40 @@ chmod 755 /var/run/screen/
 chown root:adomusers /var/lib/adom/bin/message_dispatch
 chmod 4710 /var/lib/adom/bin/message_dispatch
 
-16. Copy server/etc/adom_ds* to /etc/:
+xvi. HISCORES
+============
+
+To tell ADOM where to put its .HISCORE files for all, copy server/etc/adom_ds* 
+to /etc/:
 
 cp /var/lib/adom/etc/adom_ds* /etc/
 
-17. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
+xvii. Admin SSH key
+===================
 
-18. Link public_html into your web server, example:
+Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys to
+let you SSH in as any created user, to see their issues or shut down their
+games (say when you want to reboot).
 
-rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
+xviii. ldconfig
+===============
 
-19. Run: ldconfig
+You may need to run "ldconfig" if you've installed a package rom source
 
-20. Set up a web server.  Enable PHP and edit the variables at the top of 
-index.php.  Or, don't enable PHP, strip the PHP out of index.php and replace it
-with your hard-coded info, and rename index.php to index.html.
+xix. Web server
+===============
+
+You will want to set up a Web server to provide the README and display hi
+scores and allow users to (optionally) download their files.  Setting up the
+server itself is out of scope for this document.
+
+You will want to set the provided public_html folder as your Web server's
+document root, or link it in.
+
+You should enable PHP on your server, edit the top of public_html/index.php
+with the name and other details of your server, and remove index.html.
+
+Alternately, remove index.php and use and edit the static index.html.
 
 II. ADOM Sage
 --------------
