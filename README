@@ -1,4 +1,4 @@
-Public ADOM Server scripts
+Public ADOM Server scripts README
 See LICENSE for copyright and licensing details
 
 Table of contents:
@@ -13,203 +13,12 @@ Table of contents:
 I. Install and Configuration
 ----------------------------
 
-These instructions are written with a Debian or Ubuntu-based system in mind
-
-1. Install required tools:
-apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
- libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl\
- libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
- wget python-pyinotify libpoe-component-sslify-perl python-configobj\
- python-oauth libtext-levenshteinxs-perl tmux python-tweepy
-
-apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
-
-Notes:
-tmux must be version 1.5+.
-The "xs" in libtext-levenshteinxs-perl is important.
-Debian Squeeze users will have to build libtext-levenshteinxs-perl tmux and
-python-tweepy from source or another source (like Wheezy)
-
-2. Add local user accounts:
-groupadd adomusers
-useradd -d /var/lib/adom -c "ADOM owner" -s /bin/bash -g adomusers adomown
-mkdir /var/lib/adom
-chown adomown:adomusers /var/lib/adom
-useradd -d /var/lib/adom -c "ADOM public login" -s\
- /var/lib/adom/server/public_login adom
-useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s\
- /var/lib/adom/server/spec_login spectator
-useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s\
- /var/lib/adom/server/ttyrecplay_login ttyrecplay
-
-For adom, spectator, and ttyrecplay, set passwords the same as their username:
-passwd adom
-passwd spectator
-passwd ttyrecplay
-
-3. Install passwd.py (latest from 
-http://newcenturycomputers.net/projects/passwd.html ):
-
-cd /tmp
-wget http://newcenturycomputers.net/projects/download.cgi/passwd.py
-python passwd.py install
-
-4. Install termrec & termplay ( latest from http://angband.pl/termrec.html )
-
-cd /tmp
-wget http://prdownloads.sourceforge.net/termrec/termrec-0.16.tar.gz
-tar xzf termrec-0.16.tar.gz
-cd termrec-0.16/
-./configure && make && make install
-
-5. Add following line to /etc/sudoers or /etc/sudoers.d/50-adom
-(must be chmod 0440)
-
-adomown    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
-
-6. Add quota support
-Edit /etc/fstab and add the following to the filesystem options: 
-relatime,errors=remount-ro,usrquota,usrjquota=aquota.user,jqfmt=vfsv0
-
-Run:
-
-mount -o remount,usrquota /
-quotacheck -avugm 
-quotaon -a
-
-7. su to adomown
-
-8. Pick a directory (default: /var/lib/adom) and check out the code
-git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
-
-9. Download desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and
-1.2.0p3 are included, in the same way as from ancardia.com (due to the license).
-Where you have a choice, use the Debian 32-bit version.
-
-10. Install ADOM versions to bin/
-
-1.0.0, 1.1.1, and 1.2.0p3 are provided.  Place other archives (32-bit Debian!)
-in /var/lib/adom/software/ .
-
-Patch the binaries as follows:
-
-mkdir /tmp/adom && cd $_
-
-for i in 100 111; do
-tar xzf /var/lib/adom/software/adom-$i-elf.tar.gz &&
-bspatch adom/adom /var/lib/adom/bin/adom-$i-bin\
- /var/lib/adom/software/adom-$i-ds.binpatch
-rm -rf ./adom
-done
-
-tar xzf /var/lib/adom/software/adom-111-elf.tar.gz
-for i in lea etr swp; do
-bspatch adom/adom /var/lib/adom/bin/adom-$i-bin\
- /var/lib/adom/software/adom-$i-ds.binpatch
-done
-rm -rf adom
-
-for i in 3 4 5; do
-tar xzf /var/lib/adom/software/adom_linux_debian_32_1.2.0_pre$i.tar.gz &&
-bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin\
- /var/lib/adom/software/adom-120p$i-ds.binpatch
-rm -rf ./adom
-done
-
-md5sums to check:
-2e870f9207c08e736d2e2a81ae1f7098  adom-100-bin
-c7d6813e48cf19c163ac1a6eba8122ee  adom-111-bin
-d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
-43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
-11d27e4466b94e1667916296178785d9  adom-120p5-bin
-a2dc057b464a6ac6922772c705043346  adom-etr-bin
-979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
-3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
-
-
-(temp) link in /usr/games
-for i in 100 111 120p3 120p4 120p5 120p6 lea etr swp; do
-  ln -s /var/lib/adom/bin/adom-$i-bin /usr/games/adom-$i-bin
-done
-for i in 120p3 120p4 120p5 120p6; do
-  ln -s /var/lib/adom/bin/adom-120pX /usr/games/adom-$i
-done
-
-Binary changes are required to separate HISCORE Files. To do yourself, edit the
-adom binary in a hex editor (like hexcurse) and change both mentions of 
-adom_ds.cfg to something unique.
-
-I have used:
-
-1.0.0		adom_ds.100
-1.1.1		adom_ds.111
-Eternium Man:	adom_ds.etr
-League:		adom_ds.lea
-Swapgame: 	adom_ds.swp
-1.2.0p1-3:	adom_ds.12a
-1.2.0p4-5:	adom_ds.12b
-1.2.0p6-:	adom_ds.12c
-
-11. Generate an ssh key for spectating (with no passphrase)
-
-ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f\
- /var/lib/adom/etc/adomusers_key
-cat /var/lib/adom/etc/adomusers_key.pub >>\
- /var/lib/adom/server/spectator/.ssh/authorized_keys
-cat /var/lib/adom/etc/adomusers_key.pub >>\
- /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
-
-12. Add contents of etc/crontab to your crontab
-
-13. Edit etc/config and fill in the values
-
-14. Exit to root
-
-15. Set permissions:
-
-** NOTE: Spectating requires 'screen' to be setuid root, this makes sure that
- is set. **
-
-cd /var/lib/adom
-chgrp adomusers public_html/adom_users/ sockets
-chmod 775 public_html/adom_users/ sockets
-chmod ugo+x bin/*
-chgrp adomusers 1* etr lea swapgame 1*/.HISCORE etr/.HISCORE lea/.HISCORE\
- swapgame/.HISCORE
-chmod 775 1* etr lea swapgame
-chmod 664 */.HISCORE
-chown adom /var/lib/adom/server/registered_ips
-chmod 640 /var/lib/adom/server/registered_ips
-chmod u+x /var/lib/adom/etc/adom-bots-tmux
-chgrp adomusers /var/lib/adom/log/messages_sent
-chmod 664 /var/lib/adom/log/messages_sent
-# for spectating
-chmod u+s `which screen`
-chmod 755 /var/run/screen/
-# for messaging
-chown root:adomusers /var/lib/adom/bin/message_dispatch
-chmod 4710 /var/lib/adom/bin/message_dispatch
-
-16. Copy server/etc/adom_ds* to /etc/:
-
-cp /var/lib/adom/etc/adom_ds* /etc/
-
-17. Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys
-
-18. Link public_html into your web server, example:
-
-rmdir /var/www; ln -s /var/lib/adom/public_html /var/www
-
-19. Run: ldconfig
-
-20. Set up a web server.  Enable PHP and edit the variables at the top of 
-index.php.  Or, don't enable PHP, strip the PHP out of index.php and replace it
-with your hard-coded info, and rename index.php to index.html.
+Please read the included INSTALL file, as there are many moving parts to touch.
 
 II. Usage
 ---------
 
-The full usage readme is at readme.php.
+The full usage readme is at public_html/readme.php.
 
 SSH in with user adom and password adom, and follow prompts to create a new 
 user.
@@ -245,14 +54,16 @@ Then edit the SAGE variable in bin/adom-120pX to your new suffix.
 V. Contributing
 ---------------
 
-Submit a pull request on GitHub and I'll figure it out
+Submit a pull request on GitHub and I'll figure it out.
 
 VI. Contact
 -----------
 
-Alucard on #adom on irc.Freenode.net
+Alucard on #adom on irc.FreeNode.net
 Other netizens there can also answer usage questions
+
 http://www.adom.de/forums/showthread.php/493
+
 Alucard <saturos@gmail.com>
 
 VII. Authors
