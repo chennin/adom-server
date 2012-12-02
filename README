@@ -5,23 +5,33 @@ I. Install
 These instructions are written with a Debian or Ubuntu-based system in mind
 
 1. Install required tools:
-apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota tmux libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl libtext-levenshteinxs-perl libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl wget python-tweepy python-pyinotify libpoe-component-sslify-perl python-configobj
+apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota \
+libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl \
+libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl \
+wget python-pyinotify libpoe-component-sslify-perl python-configobj \
+python-oauth libtext-levenshteinxs-perl tmux python-tweepy
+
 apt-get install libncurses5-dev git libbz2-dev zlib1g-dev gcc g++ make autoconf
 
 Notes:
 tmux must be version 1.5+.
 The "xs" in libtext-levenshteinxs-perl is important.
+Debian Squeeze users will have to build libtext-levenshteinxs-perl tmux and
+python-tweepy from source or another source (like Wheezy)
 
-X. Add local user accounts:
+2. Add local user accounts:
 groupadd adomusers
-useradd -d /var/lib/adom -m -c "ADOM owner" -s /bin/bash -g adomusers adomown
+useradd -d /var/lib/adom -c "ADOM owner" -s /bin/bash -g adomusers adomown
 mkdir /var/lib/adom
 chown adomown:adomusers /var/lib/adom
-useradd -d /var/lib/adom -c "ADOM public login" -s /var/lib/adom/server/public_login adom
-useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s /var/lib/adom/server/spec_login spectator
-useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s /var/lib/adom/server/ttyrecplay_login ttyrecplay
+useradd -d /var/lib/adom -c "ADOM public login" -s \
+/var/lib/adom/server/public_login adom
+useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s \
+/var/lib/adom/server/spec_login spectator
+useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s \
+/var/lib/adom/server/ttyrecplay_login ttyrecplay
 
-For adom, spectator, and ttyrecplay, set passwords the same as their username
+For adom, spectator, and ttyrecplay, set passwords the same as their username:
 passwd adom
 passwd spectator
 passwd ttyrecplay
