@@ -8,7 +8,9 @@ Table of contents:
 I. Install and Configuration
 ----------------------------
 
-These instructions are written with a Debian or Ubuntu-based system in mind
+These instructions are written with a Debian or Ubuntu-based system in mind.
+Any relatively modern Linux distribution will work, but Debian 6+ or Ubuntu
+12.04+ are recommended.
 
 1. Install required tools:
 apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
