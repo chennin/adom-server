@@ -36,29 +36,36 @@ passwd adom
 passwd spectator
 passwd ttyrecplay
 
-X. Install passwd.py (latest from http://newcenturycomputers.net/projects/passwd.html)
+3. Install passwd.py (latest from 
+http://newcenturycomputers.net/projects/passwd.html ):
+
 cd /tmp
 wget http://newcenturycomputers.net/projects/download.cgi/passwd.py
 python passwd.py install
 
-X. Install termrec & termplay (latest from http://angband.pl/termrec.html)
+4. Install termrec & termplay ( latest from http://angband.pl/termrec.html )
+
 cd /tmp
 wget http://prdownloads.sourceforge.net/termrec/termrec-0.16.tar.gz
 tar xzf termrec-0.16.tar.gz
 cd termrec-0.16/
 ./configure && make && make install
 
-X. Add following line to /etc/sudoers or /etc/sudoers.d/50-adom (must be chmod 0440)
+5. Add following line to /etc/sudoers or /etc/sudoers.d/50-adom
+(must be chmod 0440)
+
 adomown    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
 
-X. Add quota support
-Edit /etc/fstab and add the following to the filesystem options: relatime,errors=remount-ro,usrquota,usrjquota=aquota.user,jqfmt=vfsv0
+6. Add quota support
+Edit /etc/fstab and add the following to the filesystem options: 
+relatime,errors=remount-ro,usrquota,usrjquota=aquota.user,jqfmt=vfsv0
 Run:
+
 mount -o remount,usrquota /
 quotacheck -avugm 
 quotaon -a
 
-X. su to adomown
+7. su to adomown
 
 X. Pick a directory (default: /var/lib/adom) and check out the code
 git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
