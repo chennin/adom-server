@@ -46,8 +46,8 @@ To add, check out and compile the code, then move adom-sage and adom-sage.so
 to the bin/ directory of the server homedir, with an extenstion like -092.
 
 E.g.:
-adom-sage-092
-adom-sage-092.so
+bin/adom-sage-092
+bin/adom-sage-092.so
 
 Then edit the SAGE variable in bin/adom-120pX to your new suffix.
 
@@ -68,6 +68,6 @@ Alucard <saturos@gmail.com>
 
 VII. Authors
 ------------
-Chris Henning aka Alucard(Zero)
+Christopher Henning aka Alucard(Zero)
 Jaakko Salo aka jaakkos
 Sampsa "Tuplanolla" Kiiskinen
