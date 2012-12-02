@@ -20,7 +20,7 @@ my $usage = "Usage: \@[mi] name fragment | \@[mi] /regex/";
 
 my $bot = Bot->new(
   server => "irc.freenode.net",
-  channels => [ '#adom' ],
+  channels => [ '#adom2' ],
   nick => 'dbbot',
   ssl => 1,
   port => 6697,
@@ -43,6 +43,8 @@ sub said {
 sub cleanquit() { 
   print STDERR "Caught signal, shutting down\n";
   $bot->shutdown( $bot->quit_message() ); 
+  sleep 5;
+  exit;
 }
 $bot->run();
 
