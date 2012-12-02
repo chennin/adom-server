@@ -37,7 +37,7 @@ i. Install required tools
 The following software is required for all pieces to work:
 
 * OpenSSH
-* inotify
+* inotify (kernel 2.6.12+)
 * quota support and quota tools
 * sudo
 * screen
@@ -62,7 +62,7 @@ The following software is required for all pieces to work:
 ** POE::Component::SSLify 
 ** Text::LevenshteinXS
 
-On a Debian-bases system, the following command, run as root, should bring
+On a Debian-based system, the following command, run as root, should bring
 in all you need:
 
 apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
@@ -72,14 +72,14 @@ apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
  python-oauth git openssh-server openssh-client\
  libtext-levenshteinxs-perl tmux python-tweepy
 
-For compiling some binaries from source, or related tools, a compilers and
+For compiling some binaries from source, or related tools, a compiler and
 some development libraries are required:
 
 apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc g++ make autoconf
 
 Notes:
 Debian Squeeze users will have to build libtext-levenshteinxs-perl tmux and
-python-tweepy from source or another source (like Wheezy)
+python-tweepy from source or another source (like Wheezy).
 
 ii. Local Users
 ==============
@@ -101,7 +101,11 @@ useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s\
 useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s\
  /var/lib/adom/server/ttyrecplay_login ttyrecplay
 
-For adom, spectator, and ttyrecplay, set passwords the same as their username:
+For adom, spectator, and ttyrecplay, set passwords the same as their username.
+adomown can be given a password, or locked, your choice, but the install will
+require you to run a lot of commands as adomown.
+
+Commands:
 passwd adom
 passwd spectator
 passwd ttyrecplay
@@ -110,9 +114,10 @@ iii. passwd.py
 ==============
 
 Install passwd.py (latest can be found at
-http://newcenturycomputers.net/projects/passwd.html ):
+http://newcenturycomputers.net/projects/passwd.html ).
 
 Commands:
+
 cd /tmp
 wget http://newcenturycomputers.net/projects/download.cgi/passwd.py
 python passwd.py install
@@ -120,9 +125,10 @@ python passwd.py install
 iv. termrec 
 ============
 
-Install termrec & termplay ( latest at http://angband.pl/termrec.html )
+Install termrec & termplay ( latest at http://angband.pl/termrec.html ).
 
 Commands:
+
 cd /tmp
 wget http://prdownloads.sourceforge.net/termrec/termrec-0.16.tar.gz
 tar xzf termrec-0.16.tar.gz
@@ -142,8 +148,10 @@ adomown    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
 vi. quota
 =========
 
-Quota support should be added by editing /etc/fstab and adding the following 
-to the filesystem options: 
+Quota support should be added to prevent a user from filling up the disk.
+ttyrecs take a LOT of space.
+
+Edit /etc/fstab and add the following to the filesystem options: 
 
 relatime,errors=remount-ro,usrquota,usrjquota=aquota.user,jqfmt=vfsv0
 
@@ -159,6 +167,12 @@ vii. su to adomown
 The next steps should be done as the adomown user.  You'll be told when
 it's time to return to root.
 
+Run:
+
+su - adomown
+or
+sudo -u adomown bash
+
 viii. Check out code
 ====================
 Pick a directory (default: /var/lib/adom) and finally, check out the code:
@@ -170,20 +184,23 @@ ix. Add other ADOM versions
 
 Download any desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and
 1.2.0p3 are included, in the same way as from ancardia.com (due to the license),
-but 1.2.0 prereleases 4 to final cannot be distributed this way.  You must have
+but 1.2.0 prereleases 4 to last cannot be distributed this way.  You must have
 donated to the ADOM Resurrection IndieGoGo campaign to download and play them.
  
-Where you have a choice, use the Debian 32-bit version.
+Where you have a choice, get the Debian 32-bit version, as that is what Sage 
+supports.
 
 x. Patch and install ADOM versions
 ==================================
 
-1.0.0, 1.1.1, and 1.2.0p3 are provided.  Place other archives (32-bit Debian!)
-in /var/lib/adom/software/ .
+1.0.0, 1.1.1, and 1.2.0p3 are provided.  Place other versions (32-bit Debian!)
+straight in /var/lib/adom/software/ , just as you downloaded them (tar.gz), as
+the following patch command expect them that way.
 
-Binary changes are required to separate HISCORE files. To do yourself, edit the
-adom binary in a hex editor (like hexcurse) and change both mentions of
-adom_ds.cfg to something unique.
+Small Binary changes are required to separate HISCORE files. I have provided
+binary patch files for several versions. But to do yourself, edit the adom 
+binary in a hex editor (like hexcurse) and change both mentions of adom_ds.cfg 
+to something unique.
 
 I have used:
 
@@ -194,8 +211,7 @@ League:         adom_ds.lea
 Swapgame:       adom_ds.swp
 1.2.0p1-3:      adom_ds.12a
 1.2.0p4-5:      adom_ds.12b
-1.2.0p6-:       adom_ds.12c
-
+1.2.0p6-?:       adom_ds.12c
 
 Patch the binaries with the following commands:
 
@@ -243,6 +259,7 @@ done
 
 xi. SSH key for spectating
 ==========================
+
 Generate an ssh key for spectating from the user menu. Don't add a passphrase.
 
 ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f\
@@ -258,6 +275,7 @@ xii. crontab
 Add the contents of etc/crontab to your crontab 
 
 Command:
+
 crontab etc/crontab
 
 xiii. etc/config 
@@ -268,7 +286,14 @@ Edit etc/config and fill in the values.
 The twitter section is for announcing scores on Twitter. Sign up for a Twitter
 account then enable API access and generate and find your access and consumer
 tokens.
-See: https://dev.twitter.com/docs/auth/tokens-devtwittercom
+See https://dev.twitter.com/docs/auth/tokens-devtwittercom for help generating.
+
+The donation section is for enabling 1.2.0 prerelease 4-last for people who 
+donated to the ADOM Resurrection IndieGoGo campaign.  Obviously, you have to
+have donated to fill them in, but I can't give them to you.
+
+The prerelease section defines the minimum and maximum 1.2.0p versions 
+supported. 
 
 xiv. Back to root
 =================
@@ -293,21 +318,25 @@ other players to work.  This is a simple program whose source is in src/.
 Commands:
 
 cd /var/lib/adom
+# for playing
 chgrp adomusers public_html/adom_users/ sockets
 chmod 775 public_html/adom_users/ sockets
+# for running, be sure
 chmod ugo+x bin/*
+# for scoring
 chgrp adomusers 1* etr lea swapgame 1*/.HISCORE etr/.HISCORE lea/.HISCORE\
  swapgame/.HISCORE
 chmod 775 1* etr lea swapgame
 chmod 664 */.HISCORE
+# for registering
 chown adom /var/lib/adom/server/registered_ips
 chmod 640 /var/lib/adom/server/registered_ips
-chgrp adomusers /var/lib/adom/log/messages_sent
-chmod 664 /var/lib/adom/log/messages_sent
 # for spectating
 chmod u+s `which screen`
 chmod 755 /var/run/screen/
 # for messaging
+chgrp adomusers /var/lib/adom/log/messages_sent
+chmod 664 /var/lib/adom/log/messages_sent
 chown root:adomusers /var/lib/adom/bin/message_dispatch
 chmod 4710 /var/lib/adom/bin/message_dispatch
 
@@ -322,19 +351,20 @@ cp /var/lib/adom/etc/adom_ds* /etc/
 xvii. Admin SSH key
 ===================
 
-Add your admin SSH pubkey to /var/lib/adom/etc/skel/.ssh/authorized_keys to
+Add your SSH public key to /var/lib/adom/etc/skel/.ssh/authorized_keys to
 let you SSH in as any created user, to see their issues or shut down their
 games (say when you want to reboot).
 
 xviii. ldconfig
 ===============
 
-You may need to run "ldconfig" if you've installed a package rom source
+You may need to run "ldconfig" if you've installed a package from source
+(I did when I installed tmux)
 
 xix. Web server
 ===============
 
-You will want to set up a Web server to provide the README and display hi
+You will want to set up a Web server to provide the readme and display hi
 scores and allow users to (optionally) download their files.  Setting up the
 server itself is out of scope for this document.
 
@@ -344,7 +374,7 @@ document root, or link it in.
 You should enable PHP on your server, edit the top of public_html/index.php
 with the name and other details of your server, and remove index.html.
 
-Alternately, remove index.php and use and edit the static index.html.
+Alternately, edit the static index.html and remove index.php.
 
 II. ADOM Sage
 --------------

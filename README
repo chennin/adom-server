@@ -60,6 +60,13 @@ MAX_PRE
 Setting up your web server and domain is out of scope for this document, but
 is recommended to do.
 
+New ADOM versions require small edits to the binary to enable sharing of
+HISCORES and not clobbering other versions. To do this yourself, edit the 
+adom binary in a hex editor (like hexcurse) and change both mentions of 
+adom_ds.cfg to something unique like adom_ds.900. Then create this file in
+/etc and put as its contents the folder you want the .HISCORE to go to.
+
+
 V. Contributing
 ---------------
 
