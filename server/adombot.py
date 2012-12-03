@@ -10,12 +10,14 @@ import re
 
 #irclib.DEBUG = True
 
-MIN_IRC_ANC = 2000
+MIN_IRC_ANC = 200
 MIN_TWIT_ANC = 8000
 
 FILE111 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt"
 FILE100 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt"
 FILEETR = "/var/lib/adom/public_html/adom_hiscore/hiscore_vetr.txt"
+
+LOCDIR = "/var/lib/adom/player_locations"
 
 config = ConfigObj('/var/lib/adom/etc/config')
 
@@ -35,6 +37,7 @@ except TweepError as e:
 def signal_handler(signal, frame):
     print "Received signal {0}".format(signal)
     notifier.stop()
+    notifierloc.stop()
     s.quit("Augh!")
     sys.exit(1)
 
@@ -119,6 +122,20 @@ def poll_hiscore():
         for key in diff_etr:
             print hiscore_etr[key] + " Played The Eternium Man challenge."
             c.privmsg(target, "\x02New high score\x02: " + hiscore_etr[key] + " Played The Eternium Man challenge.")
+
+def loc_changed(filename):
+   print "got " + filename + "\n"
+   pid = filename.split("/")[-1]
+   print pid + " is pid\n"
+   player = os.popen("ps --no-headers -o user " + pid).readlines()[0];
+   if not player:
+      return
+
+   with open(filename) as f:
+      location = f.readlines()[0]
+
+   c.privmsg(target, player + " has just entered the " + location + "!")
+   
 
 def import_hiscore(file):
     f = open(file, "r")
@@ -220,16 +237,27 @@ c.add_global_handler("welcome", on_connect)
 c.add_global_handler("disconnect", on_disconnect)
 
 wm = WatchManager()
-class ModHandler(ProcessEvent):
+class ScoreHandler(ProcessEvent):
     def process_IN_CLOSE_WRITE(self, evt):
         poll_hiscore()
 
-handler = ModHandler()
+class LocHandler(ProcessEvent):
+    def process_IN_CLOSE_WRITE(self, evt):
+        loc_changed(evt.pathname)
+
+handler = ScoreHandler()
+handlerloc = LocHandler()
+
 notifier = ThreadedNotifier(wm, handler)
+notifierloc = ThreadedNotifier(wm, handlerloc)
+
 wm.add_watch(FILE100, IN_CLOSE_WRITE)
 wm.add_watch(FILE111, IN_CLOSE_WRITE)
 wm.add_watch(FILEETR, IN_CLOSE_WRITE)
 
+wm.add_watch(LOCDIR, IN_CLOSE_WRITE)
+
 notifier.start()
+notifierloc.start()
 
 irc.process_forever()

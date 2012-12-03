@@ -222,9 +222,8 @@ int main(int argc, char **argv)
       if(WIFSTOPPED(wait_val) && !is_fatal_sig(WSTOPSIG(wait_val))) {
 	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
 	
-	/*
+	
 	#ifdef ADOM_111
-	else {
 	  long level_val1, level_val2;
           getdata(pid, LEVELID, (char*)&level_val1, 1);
           getdata(pid, LEVELID+4, (char*)&level_val2, 1);
@@ -235,16 +234,18 @@ int main(int argc, char **argv)
 
 	  if(level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) {
 	    snprintf(fname, 1024, "%s/%d-toef", STATUSDIR_PATH, pid);
-	    do_open = 1;
-	  }
-
-	  if(do_open) {
 	    tmpf = fopen(fname, "w");
 	    if(tmpf) fclose(tmpf);
 	  }
-	}
+          else if (level_val1 == SMC) {
+	    snprintf(fname, 1024, "%s/%d", STATUSDIR_PATH, pid);
+	    tmpf = fopen(fname, "w");
+	    if(tmpf) {
+              fprintf(tmpf,"Small Cave\n");
+              fclose(tmpf);
+            }
+          }
 	#endif
-	*/
       }
       else if (WIFSTOPPED(wait_val)) {
 	ptrace(PTRACE_CONT, pid, 0, WSTOPSIG(wait_val));
