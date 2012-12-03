@@ -1,0 +1,319 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <syscall.h>
+#include <sys/ptrace.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/user.h>
+#include <sys/reg.h>
+#include <termios.h>
+#include <ctype.h>
+#include <time.h>
+
+#define ADOM_111
+//#define ADOM_100
+
+//#define LEAGUE
+
+#ifdef ADOM_111
+#define WILDERNESS 0x04
+#define SMC 0x1C
+
+#define TOEF_VAL1 0x1A
+#define TOEF_VAL2 0x01
+
+#define CURSES_INITSCR 0x081245ab
+#define CURSES_COLS 0x0829e5d0
+#define CURSES_LINES 0x0829e5dc
+
+#endif
+
+#define STATUSDIR_PATH "/var/lib/adom/player_locations"
+
+#ifdef ADOM_111
+#define TURNCOUNTER 0x082b16e0
+#define LEVELID 0x082add1c
+#endif
+
+#ifdef ADOM_111
+#define BIRTHSIGN_ADDR 0x0813EE03 // 1.1.1
+#else
+#define BIRTHSIGN_ADDR 0x0813AC63 // 1.0.0
+#endif
+
+struct termios old_stdin_tio, old_stdout_tio;
+
+int return_wrapper(int retval) {
+  tcsetattr(STDIN_FILENO, TCSANOW, &old_stdin_tio);
+  tcsetattr(STDOUT_FILENO, TCSANOW, &old_stdout_tio);
+  return retval;
+}
+
+void exit_wrapper(int exitval) {
+  exit(return_wrapper(exitval));
+}
+
+typedef union {
+  char bytes[4];
+  long w;
+} word;
+
+void getdata(pid_t child, long addr, char *buf, int words)
+{ 
+  int i;
+  word w;
+
+  for(i=0; i<words; i++) {
+    w.w = ptrace(PTRACE_PEEKDATA, child, addr + i*4, NULL);
+    memcpy(buf + i*4, w.bytes, 4);
+  }
+}
+
+void putdata(pid_t child, long addr, char *buf, int words)
+{
+  int i;
+  word w;
+
+  for(i=0; i<words; i++) {
+    memcpy(w.bytes, buf + i*4, 4);
+    ptrace(PTRACE_POKEDATA, child, addr + i*4, w.w);
+  }
+}
+
+void handle_sig(int pid, int status) {
+  if(WIFEXITED(status)) {
+    exit_wrapper(0);
+  }
+
+  else if(WIFSIGNALED(status)) {
+    kill(pid, 9);
+    exit_wrapper(1);
+  }
+}
+
+int select_month(void) {
+  int month;
+
+  do {
+    printf("\033[2J\033[f");
+
+    printf("Select the month of your birth:\r\n"
+	   "\r\n"
+	   "  ? - random\r\n"
+	   "\r\n"
+	   "  A - Raven\r\n"
+	   "  B - Book\r\n"
+	   "  C - Wand\r\n"
+	   "  D - Unicorn\r\n"
+	   "  E - Salamander\r\n"
+	   "  F - Dragon\r\n"
+	   "  G - Sword\r\n"
+	   "  H - Falcon\r\n"
+	   "  I - Cup\r\n"
+	   "  J - Candle\r\n"
+	   "  K - Wolf\r\n"
+	   "  L - Tree\r\n"
+	   "\r\n"
+	   "> ");
+
+    fflush(stdout);
+    month = toupper(fgetc(stdin));
+  } while(month != '?' && (month < 'A' || month > 'L'));
+
+  printf("\033[2J");
+  fflush(stdout);
+
+  return month == '?' ? 0 : month-'A'+1;
+}
+
+int is_fatal_sig(int sig) {
+  char buf[512];
+  FILE *f;
+
+  switch(sig) {
+
+  case SIGTRAP:
+  case SIGWINCH:
+
+    return 0;
+
+  default:
+    snprintf(buf, 512, "/tmp/fatal_sig_UID%u", getuid());
+    f = fopen(buf, "w");
+    
+    if(f) {
+      fprintf(f, "Received fatal signal %d\n", sig);
+      fclose(f);
+    }
+
+    return 1;
+  }
+}
+
+int main(int argc, char **argv)
+{
+  int wait_val;
+  int pid;
+  char sage=0;
+  sigset_t mask;
+  long orig_eax;
+  unsigned long breakpoint;
+  struct user_regs_struct regs;
+  int month;
+
+  word code, backup;
+  word initscr_backup;
+
+  if(argc > 1 && !strcmp(argv[1], "--enable-sage"))
+     sage = 1;
+
+  sigemptyset(&mask);
+  sigaddset(&mask, SIGINT);
+  sigaddset(&mask, SIGTSTP);
+  sigaddset(&mask, SIGQUIT);
+  sigprocmask(SIG_BLOCK, &mask, NULL);
+
+  tcgetattr(STDIN_FILENO, &old_stdin_tio);
+  tcgetattr(STDOUT_FILENO, &old_stdout_tio);
+
+  srand(time(NULL));
+  breakpoint = BIRTHSIGN_ADDR;
+
+  if(argc > 1 && !strcmp(argv[1], "--enable-sage"))
+     sage = 1;
+  
+  switch(pid = fork()) {
+    
+  case -1:
+    perror("fork");
+    break;
+    
+  case 0: /*  child process */
+    ptrace(PTRACE_TRACEME, 0, 0, 0);
+
+    if(!sage) {
+#ifdef ADOM_111
+#ifndef LEAGUE
+      execl("/usr/games/adom-111-bin", "/usr/games/adom-111-bin", NULL);
+#else
+      execl("/usr/games/adom-lea-bin", "/usr/games/adom-lea-bin", NULL);
+#endif
+#else
+      execl("/usr/games/adom-100-bin", "/usr/games/adom-100-bin", NULL);
+#endif
+    }
+
+    else {
+#ifdef ADOM_111
+#ifndef LEAGUE
+      execl("/var/lib/adom/server/adom-sage", "/var/lib/adom/server/adom-sage", "-a", "/usr/games/adom-111-bin", "-s", "/var/lib/adom/server/adom-sage-jaakkos.so", NULL);
+#else
+      execl("/var/lib/adom/server/adom-sage", "/var/lib/adom/server/adom-sage", "-a", "/usr/games/adom-lea-bin", "-s", "/var/lib/adom/server/adom-sage-jaakkos.so", NULL);
+#endif
+#else
+      execl("/var/lib/adom/server/adom-sage", "/var/lib/adom/server/adom-sage", "-a", "/usr/games/adom-100-bin", "-s", "/var/lib/adom/server/adom-sage-jaakkos.so", NULL);
+#endif
+    }
+
+    break;
+    
+  default: /* parent process */
+    wait(&wait_val);
+    handle_sig(pid, wait_val);
+
+    do {
+      ptrace(PTRACE_SYSCALL, pid, 0, 0);
+      wait(&wait_val);
+
+      /*
+      #ifdef ADOM_111
+      ptrace(PTRACE_GETREGS, pid, NULL, &regs);
+      
+      if(regs.eip == (CURSES_INITSCR + 3)) {
+        word forced_cols, forced_lines;
+        forced_cols.w = 80;
+        forced_lines.w = 25;
+        putdata(pid, CURSES_COLS, forced_cols.bytes, 1);
+        putdata(pid, CURSES_LINES, forced_lines.bytes, 1);
+        putdata(pid, CURSES_INITSCR, initscr_backup, 1);
+        regs.eip = CURSES_INITSCR;
+        ptrace(PTRACE_SETREGS, pid, NULL, &regs);
+        continue;
+      }
+      #endif
+      */
+
+      handle_sig(pid, wait_val);
+      orig_eax = ptrace(PTRACE_PEEKUSER, pid, 4*ORIG_EAX, NULL);
+    } while(orig_eax != SYS_time);
+
+    getdata(pid, breakpoint, backup.bytes, 1);
+    code = backup;
+    code.bytes[0] = 0xCC;
+    // putdata(pid, breakpoint, code.bytes, 1);
+    
+    while(1) {
+      if(ptrace(PTRACE_SYSCALL, pid, 0, 0) == -1) {
+
+      }
+      
+      wait(&wait_val);
+      handle_sig(pid, wait_val);
+      
+      if(WIFSTOPPED(wait_val) && !is_fatal_sig(WSTOPSIG(wait_val))) {
+	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
+	
+	if(regs.eip == (breakpoint + 1)) {
+	  month = select_month();
+	  if(!month) month = rand() % 12;
+	  else month--;
+	  
+	  regs.eip = breakpoint;
+	  regs.eax &= 0xFFFF0000;
+	  regs.eax |= (unsigned int)(30*month + (rand()%30));
+	  
+	  ptrace(PTRACE_SETREGS, pid, NULL, &regs);
+	  putdata(pid, breakpoint, backup.bytes, 1);
+	}
+
+	/*
+	#ifdef ADOM_111
+	else {
+	  long level_val1, level_val2;
+          getdata(pid, LEVELID, (char*)&level_val1, 1);
+          getdata(pid, LEVELID+4, (char*)&level_val2, 1);
+
+	  char fname[1024];
+	  FILE *tmpf;
+	  char do_open = 0;
+
+	  if(level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) {
+	    snprintf(fname, 1024, "%s/%d-toef", STATUSDIR_PATH, pid);
+	    do_open = 1;
+	  }
+
+	  if(do_open) {
+	    tmpf = fopen(fname, "w");
+	    if(tmpf) fclose(tmpf);
+	  }
+	}
+	#endif
+	*/
+      }
+      else if (WIFSTOPPED(wait_val)) {
+	ptrace(PTRACE_CONT, pid, 0, WSTOPSIG(wait_val));
+      }
+      else {
+	kill(pid, 9);
+	return return_wrapper(1);
+      }
+      
+    }
+  }
+  
+  return return_wrapper(0);
+}
