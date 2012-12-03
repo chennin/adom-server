@@ -2,7 +2,7 @@ Public ADOM Server install directions
 See LICENSE for copyright and licensing details
 
 Table of contents:
-	I. Install and Configuration
+	I. Setup
 		i. Install required tools
 		ii. Local users
 		iii. passwd.py
@@ -10,11 +10,13 @@ Table of contents:
 		v. sudo
 		vi. quota
 		vii. su to adomown
+	II. Install
 		viii. Check out code
 		ix. Add other ADOM versions
 		x. Patch and install ADOM versions
 		xi. SSH key for spectating
 		xii. crontab
+	III. Configuration
 		xiii. etc/config
 		xiv. Back to root
 		xv. Permissions
@@ -22,9 +24,9 @@ Table of contents:
 		xvii. Admin SSH key
 		xviii. ldconfig
 		xix. Web server
-	II. ADOM Sage
+	IV. ADOM Sage
 	
-I. Install and Configuration
+I. Setup
 ----------------------------
 
 These instructions are written with a Debian or Ubuntu-based system in mind.
@@ -48,12 +50,14 @@ The following software is required for all pieces to work:
 * ttyrec
 * termrec
 * Python 2.6+
+For the score announcing bot:
 ** IRCLib
 ** Pyinotify
 ** ConfigObj
 ** OAuth
 ** Tweepy
 * Perl
+For the database bot:
 ** Bot::BasicBot
 ** Try::Tiny 
 ** String::Approx
@@ -173,6 +177,12 @@ su - adomown
 or
 sudo -u adomown bash
 
+II. Install
+-----------
+
+This section should be done as the non-root user you set up for this, e.g.
+adomown.
+
 viii. Check out code
 ====================
 Pick a directory (default: /var/lib/adom) and finally, check out the code:
@@ -278,6 +288,9 @@ Command:
 
 crontab etc/crontab
 
+III. Configure
+--------------
+
 xiii. etc/config 
 ================
 
@@ -376,7 +389,7 @@ with the name and other details of your server, and remove index.html.
 
 Alternately, edit the static index.html and remove index.php.
 
-II. ADOM Sage
+IV. ADOM Sage
 --------------
 
 ADOM Sage is included, but new versions of ADOM Sage can be found at
