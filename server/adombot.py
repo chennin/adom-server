@@ -124,8 +124,7 @@ def poll_hiscore():
             c.privmsg(target, "\x02New high score\x02: " + hiscore_etr[key] + " Played The Eternium Man challenge.")
 
 def loc_changed(filename):
-   pid = filename.split("/")[-1]
-   player = os.popen("ps --no-headers -o user " + pid).readlines()[0].strip();
+   player = filename.split("/")[-1]
 
    if not player:
       return
