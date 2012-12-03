@@ -228,9 +228,9 @@ int main(int argc, char **argv)
           getdata(pid, LEVELID, (char*)&level_val1, 1);
           getdata(pid, LEVELID+4, (char*)&level_val2, 1);
 
+	  // use shared memory?
 	  char fname[1024];
 	  FILE *tmpf;
-	  char do_open = 0;
 	   
   	  //what is level_val2? always 1?
 	  if(level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) {
