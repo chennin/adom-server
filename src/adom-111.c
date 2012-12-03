@@ -21,6 +21,13 @@
 
 //#define LEAGUE
 
+// Minimum seconds between announcing a new player location
+#define SEC_BET_ANC 1800
+// Minimum loop count before announcing a new player location
+//  so as to not announce on the load menu, and to wait a few turns.
+//  1000 seems to be about 4 actions.
+#define COUNT_BEF_ANC 1000
+
 #ifdef ADOM_111
 #define WILDERNESS 0x04
 #define SMC 0x1C
@@ -28,18 +35,6 @@
 #define TOEF_VAL1 0x1A
 #define TOEF_VAL2 0x01
 
-#define SEC_BET_ANC 3600
-#define COUNT_BEF_ANC 500
-
-#define CURSES_INITSCR 0x081245ab
-#define CURSES_COLS 0x0829e5d0
-#define CURSES_LINES 0x0829e5dc
-
-#endif
-
-
-
-#ifdef ADOM_111
 #define TURNCOUNTER 0x082b16e0
 #define LEVELID 0x082add1c
 #endif
@@ -194,24 +189,6 @@ int main(int argc, char **argv)
     do {
       ptrace(PTRACE_SYSCALL, pid, 0, 0);
       wait(&wait_val);
-
-      /*
-      #ifdef ADOM_111
-      ptrace(PTRACE_GETREGS, pid, NULL, &regs);
-      
-      if(regs.eip == (CURSES_INITSCR + 3)) {
-        word forced_cols, forced_lines;
-        forced_cols.w = 80;
-        forced_lines.w = 25;
-        putdata(pid, CURSES_COLS, forced_cols.bytes, 1);
-        putdata(pid, CURSES_LINES, forced_lines.bytes, 1);
-        putdata(pid, CURSES_INITSCR, initscr_backup, 1);
-        regs.eip = CURSES_INITSCR;
-        ptrace(PTRACE_SETREGS, pid, NULL, &regs);
-        continue;
-      }
-      #endif
-      */
 
       handle_sig(pid, wait_val);
       orig_eax = ptrace(PTRACE_PEEKUSER, pid, 4*ORIG_EAX, NULL);
