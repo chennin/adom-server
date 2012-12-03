@@ -34,9 +34,14 @@ except OSError, e:
 
 idlelistf = open("/var/lib/adom/tmp/idletimes", "w")
 
+f_loggedin = subprocess.Popen([ "bash", "-c", "comm -1 -2 <(ls /var/lib/adom/sockets)  <(who | sed 's/ .*//' | sort -u)"],stdout=subprocess.PIPE)
+
+loggedin = f_loggedin.communicate()[0]
+
 for player in players:
     if len(os.popen("ps -u " + player).readlines()) < 2:
         os.system("rm -f /var/lib/adom/sockets/" + player)
+	os.system("rm -f /var/lib/adom/tmp/" + player + ".idleinfo")
         continue
 
     ps_lines = os.popen("ps -fu " + player + " |grep /var/lib/adom/bin/adom-| grep -E -- '-bin'").readlines()
@@ -61,25 +66,25 @@ for player in players:
 
 
     try:
-        last = open("/var/lib/adom/users/" + player + "/idle_info", "r")
+        last = open("/var/lib/adom/tmp/" + player + ".idle_info", "r")
         last_hash = last.readline().strip()
         idletime = int(last.readline().strip())
 
     except:
-        idleinfo = open("/var/lib/adom/users/" + player + "/idle_info", "w")
+        idleinfo = open("/var/lib/adom/tmp/" + player + ".idle_info", "w")
         idleinfo.write(cur_hash + "\n")
         idleinfo.write("0" + "\n")
         idlelistf.write(player + ": 0 minutes idle (v" + version + ")\n")
         continue
     
     if cur_hash != last_hash:
-        idleinfo = open("/var/lib/adom/users/" + player + "/idle_info", "w")
+        idleinfo = open("/var/lib/adom/tmp/" + player + ".idle_info", "w")
         idleinfo.write(cur_hash + "\n")
         idleinfo.write("0" + "\n")
         idlelistf.write(player + ": 0 minutes idle (v" + version + ")\n")
 
     else:
-        idleinfo = open("/var/lib/adom/users/" + player + "/idle_info", "w")
+        idleinfo = open("/var/lib/adom/tmp/" + player + ".idle_info", "w")
         idleinfo.write(cur_hash + "\n")
         idleinfo.write(str(idletime+idletime_inc) + "\n")
 
