@@ -1,6 +1,6 @@
 import sys, os
 
-f = open("/var/lib/adom/server/registered_ips")
+f = open("/var/lib/adom/tmp/registered_ips")
 
 lines = f.readlines()
 
@@ -28,6 +28,6 @@ if len(sys.argv) == 2 and sys.argv[1] == "--checkonly":
     sys.exit(0)
 
 else:
-    os.system("echo \"" + cur_ip + "\" >> /var/lib/adom/server/registered_ips")
+    os.system("echo \"" + cur_ip + "\" >> /var/lib/adom/tmp/registered_ips")
 
 sys.exit(0)
