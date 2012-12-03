@@ -1,3 +1,4 @@
+#define _BSD_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -10,6 +11,7 @@
 #include <string.h>
 #include <sys/user.h>
 #include <sys/reg.h>
+#include <sys/stat.h>
 #include <termios.h>
 #include <ctype.h>
 #include <time.h>
@@ -25,6 +27,9 @@
 
 #define TOEF_VAL1 0x1A
 #define TOEF_VAL2 0x01
+
+#define SEC_BET_ANC 3600
+#define COUNT_BEF_ANC 500
 
 #define CURSES_INITSCR 0x081245ab
 #define CURSES_COLS 0x0829e5d0
@@ -184,7 +189,7 @@ int main(int argc, char **argv)
   default: /* parent process */
     wait(&wait_val);
     handle_sig(pid, wait_val);
-
+  
     do {
       ptrace(PTRACE_SYSCALL, pid, 0, 0);
       wait(&wait_val);
@@ -210,7 +215,10 @@ int main(int argc, char **argv)
       handle_sig(pid, wait_val);
       orig_eax = ptrace(PTRACE_PEEKUSER, pid, 4*ORIG_EAX, NULL);
     } while(orig_eax != SYS_time);
-
+    
+    //ADOM seems to load the location into memory on the save screen!
+    //HACK
+    int counter = 0;
     while(1) {
       if(ptrace(PTRACE_SYSCALL, pid, 0, 0) == -1) {
 
@@ -231,6 +239,8 @@ int main(int argc, char **argv)
 	  // use shared memory?
 	  char fname[1024];
 	  FILE *tmpf;
+
+	  struct stat locfinfo;
 	   
   	  //what is level_val2? always 1?
 	  if(level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) {
@@ -239,12 +249,27 @@ int main(int argc, char **argv)
 	    if(tmpf) fclose(tmpf);
 	  }
           else if (level_val1 == SMC && level_val2 == 0x01) {
-	    snprintf(fname, 1024, "%s/%d", STATUSDIR_PATH, pid);
-	    tmpf = fopen(fname, "w");
-	    if(tmpf) {
-              fprintf(tmpf,"Small Cave\n");
-              fclose(tmpf);
-            }
+            counter++;
+            if (counter >= COUNT_BEF_ANC) {
+  	      snprintf(fname, 1024, "%s/%d", STATUSDIR_PATH, pid);
+	    
+	      time_t now = time(0);
+	      time_t mtime = 11;
+              time_t mtimen = 11;
+	    
+	      if (stat(fname, &locfinfo) >= 0) {
+  	        mtime = locfinfo.st_mtim.tv_sec;
+	        mtimen = locfinfo.st_mtim.tv_nsec;
+              }
+	      if (now > mtime + SEC_BET_ANC) {
+	        tmpf = fopen(fname, "w");
+	        if(tmpf) {
+                  fprintf(tmpf,"Small Cave\n");
+                  fclose(tmpf);
+                  counter = 0;
+                }
+              }
+	    }
           }
 	#endif
       }
