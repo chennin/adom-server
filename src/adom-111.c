@@ -127,6 +127,7 @@ int main(int argc, char **argv)
   long orig_eax;
   struct user_regs_struct regs;
   int month;
+  char *me = getlogin();
 
   char *BINLOC = "/var/lib/adom/bin/";
 
@@ -251,11 +252,11 @@ int main(int argc, char **argv)
           else if (level_val1 == SMC && level_val2 == 0x01) {
             counter++;
             if (counter >= COUNT_BEF_ANC) {
-  	      snprintf(fname, 1024, "%s/%d", STATUSDIR_PATH, pid);
+  	      snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
 	    
 	      time_t now = time(0);
-	      time_t mtime = 11;
-              time_t mtimen = 11;
+	      time_t mtime = 0;
+              time_t mtimen = 0;
 	    
 	      if (stat(fname, &locfinfo) >= 0) {
   	        mtime = locfinfo.st_mtim.tv_sec;

@@ -3,4 +3,5 @@
 0,5,10,15,20,25,30,35,40,45,50,55 * * * * python /var/lib/adom/server/update_idletimes.py 5
 
 0 0,4,8,12,16,20  *   *   *     python /var/lib/adom/server/ttyreclister.py
+0 0 * * * find /var/lib/adom/player_locations -type f -mmin +29 -delete
 @reboot sleep 60; $HOME/etc/adom-bots-tmux
