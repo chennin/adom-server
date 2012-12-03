@@ -39,12 +39,6 @@
 #define LEVELID 0x082add1c
 #endif
 
-#ifdef ADOM_111
-#define BIRTHSIGN_ADDR 0x0813EE03 // 1.1.1
-#else
-#define BIRTHSIGN_ADDR 0x0813AC63 // 1.0.0
-#endif
-
 struct termios old_stdin_tio, old_stdout_tio;
 
 int return_wrapper(int retval) {
@@ -95,41 +89,6 @@ void handle_sig(int pid, int status) {
   }
 }
 
-int select_month(void) {
-  int month;
-
-  do {
-    printf("\033[2J\033[f");
-
-    printf("Select the month of your birth:\r\n"
-	   "\r\n"
-	   "  ? - random\r\n"
-	   "\r\n"
-	   "  A - Raven\r\n"
-	   "  B - Book\r\n"
-	   "  C - Wand\r\n"
-	   "  D - Unicorn\r\n"
-	   "  E - Salamander\r\n"
-	   "  F - Dragon\r\n"
-	   "  G - Sword\r\n"
-	   "  H - Falcon\r\n"
-	   "  I - Cup\r\n"
-	   "  J - Candle\r\n"
-	   "  K - Wolf\r\n"
-	   "  L - Tree\r\n"
-	   "\r\n"
-	   "> ");
-
-    fflush(stdout);
-    month = toupper(fgetc(stdin));
-  } while(month != '?' && (month < 'A' || month > 'L'));
-
-  printf("\033[2J");
-  fflush(stdout);
-
-  return month == '?' ? 0 : month-'A'+1;
-}
-
 int is_fatal_sig(int sig) {
   char buf[512];
   FILE *f;
@@ -161,7 +120,6 @@ int main(int argc, char **argv)
   char sage=0;
   sigset_t mask;
   long orig_eax;
-  unsigned long breakpoint;
   struct user_regs_struct regs;
   int month;
 
@@ -200,7 +158,6 @@ int main(int argc, char **argv)
   tcgetattr(STDOUT_FILENO, &old_stdout_tio);
 
   srand(time(NULL));
-  breakpoint = BIRTHSIGN_ADDR;
 
   if(argc > 1 && !strcmp(argv[1], "--enable-sage"))
      sage = 1;
@@ -254,11 +211,6 @@ int main(int argc, char **argv)
       orig_eax = ptrace(PTRACE_PEEKUSER, pid, 4*ORIG_EAX, NULL);
     } while(orig_eax != SYS_time);
 
-    getdata(pid, breakpoint, backup.bytes, 1);
-    code = backup;
-    code.bytes[0] = 0xCC;
-    // putdata(pid, breakpoint, code.bytes, 1);
-    
     while(1) {
       if(ptrace(PTRACE_SYSCALL, pid, 0, 0) == -1) {
 
@@ -270,19 +222,6 @@ int main(int argc, char **argv)
       if(WIFSTOPPED(wait_val) && !is_fatal_sig(WSTOPSIG(wait_val))) {
 	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
 	
-	if(regs.eip == (breakpoint + 1)) {
-	  month = select_month();
-	  if(!month) month = rand() % 12;
-	  else month--;
-	  
-	  regs.eip = breakpoint;
-	  regs.eax &= 0xFFFF0000;
-	  regs.eax |= (unsigned int)(30*month + (rand()%30));
-	  
-	  ptrace(PTRACE_SETREGS, pid, NULL, &regs);
-	  putdata(pid, breakpoint, backup.bytes, 1);
-	}
-
 	/*
 	#ifdef ADOM_111
 	else {
