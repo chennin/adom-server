@@ -1,3 +1,10 @@
+#Server script home
+SERVHOME=/var/lib/adom
+
+#Prerelease versions supported
+MIN_PRE=3
+MAX_PRE=5
+
 #For Twitter announcing
 CONSUMER_KEY=
 CONSUMER_SECRET=
@@ -9,6 +16,3 @@ URL=
 DONUSER=
 PASSWORD=
 
-#Prerelease versions supported
-MIN_PRE=3
-MAX_PRE=5
