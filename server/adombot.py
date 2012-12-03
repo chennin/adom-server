@@ -124,18 +124,17 @@ def poll_hiscore():
             c.privmsg(target, "\x02New high score\x02: " + hiscore_etr[key] + " Played The Eternium Man challenge.")
 
 def loc_changed(filename):
-   print "got " + filename + "\n"
    pid = filename.split("/")[-1]
-   print pid + " is pid\n"
-   player = os.popen("ps --no-headers -o user " + pid).readlines()[0];
+   player = os.popen("ps --no-headers -o user " + pid).readlines()[0].strip();
+
    if not player:
       return
-
-   with open(filename) as f:
-      location = f.readlines()[0]
-
-   c.privmsg(target, player + " has just entered the " + location + "!")
    
+   location = ""
+   with open(filename) as f:
+      location = f.readlines()[0].strip()
+
+   c.privmsg(target,player + " has just entered the " + location + "!")
 
 def import_hiscore(file):
     f = open(file, "r")
@@ -237,6 +236,8 @@ c.add_global_handler("welcome", on_connect)
 c.add_global_handler("disconnect", on_disconnect)
 
 wm = WatchManager()
+wmloc = WatchManager()
+
 class ScoreHandler(ProcessEvent):
     def process_IN_CLOSE_WRITE(self, evt):
         poll_hiscore()
@@ -249,13 +250,13 @@ handler = ScoreHandler()
 handlerloc = LocHandler()
 
 notifier = ThreadedNotifier(wm, handler)
-notifierloc = ThreadedNotifier(wm, handlerloc)
+notifierloc = ThreadedNotifier(wmloc, handlerloc)
 
 wm.add_watch(FILE100, IN_CLOSE_WRITE)
 wm.add_watch(FILE111, IN_CLOSE_WRITE)
 wm.add_watch(FILEETR, IN_CLOSE_WRITE)
 
-wm.add_watch(LOCDIR, IN_CLOSE_WRITE)
+wmloc.add_watch(LOCDIR, IN_CLOSE_WRITE)
 
 notifier.start()
 notifierloc.start()

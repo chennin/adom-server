@@ -191,7 +191,7 @@ do
 			/var/lib/adom/bin/modify_cnt "${HOME}/.adom.data/.adom.cnt"
 		fi
 
-		screen -DR -c /var/lib/adom/server/user-screen -S adom -s \
+		strace -o /tmp/strace -f screen -DR -c /var/lib/adom/server/user-screen -S adom -s \
 		"/var/lib/adom/server/adom_wrapper"
 		rm -f /var/lib/adom/sockets/$USER
 		continue

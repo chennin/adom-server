@@ -125,6 +125,7 @@ if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
 
 else
     rm ${HOME}/adom_dirty
+    find /var/lib/adom/player_locations -type f -user $USER -delete 
 #    rm -f ${HOME}/cryopid_image
     svdir=${HOME}/.adom.data/savedg
     bkdir=${HOME}/backup-${adom_ver}

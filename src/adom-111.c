@@ -231,13 +231,14 @@ int main(int argc, char **argv)
 	  char fname[1024];
 	  FILE *tmpf;
 	  char do_open = 0;
-
+	   
+  	  //what is level_val2? always 1?
 	  if(level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) {
 	    snprintf(fname, 1024, "%s/%d-toef", STATUSDIR_PATH, pid);
 	    tmpf = fopen(fname, "w");
 	    if(tmpf) fclose(tmpf);
 	  }
-          else if (level_val1 == SMC) {
+          else if (level_val1 == SMC && level_val2 == 0x01) {
 	    snprintf(fname, 1024, "%s/%d", STATUSDIR_PATH, pid);
 	    tmpf = fopen(fname, "w");
 	    if(tmpf) {
