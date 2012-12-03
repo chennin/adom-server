@@ -32,7 +32,7 @@
 
 #endif
 
-#define STATUSDIR_PATH "/var/lib/adom/player_locations"
+
 
 #ifdef ADOM_111
 #define TURNCOUNTER 0x082b16e0
@@ -165,6 +165,25 @@ int main(int argc, char **argv)
   struct user_regs_struct regs;
   int month;
 
+  char *BINLOC = "/var/lib/adom/bin/";
+
+  char *SAGEPATH = NULL, *SAGESO = NULL, *ADOMBIN = NULL;
+  asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
+  asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-jaakkos.so");
+
+#ifdef ADOM_111
+#ifndef LEAGUE
+  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-111-bin");
+#else
+  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-lea-bin");
+#endif
+#else
+  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-100-bin");
+#endif
+
+  char *STATUSDIR_PATH = NULL;
+  asprintf(&STATUSDIR_PATH, "%s%s", BINLOC, "../player_locations");
+
   word code, backup;
   word initscr_backup;
 
@@ -196,27 +215,11 @@ int main(int argc, char **argv)
     ptrace(PTRACE_TRACEME, 0, 0, 0);
 
     if(!sage) {
-#ifdef ADOM_111
-#ifndef LEAGUE
-      execl("/usr/games/adom-111-bin", "/usr/games/adom-111-bin", NULL);
-#else
-      execl("/usr/games/adom-lea-bin", "/usr/games/adom-lea-bin", NULL);
-#endif
-#else
-      execl("/usr/games/adom-100-bin", "/usr/games/adom-100-bin", NULL);
-#endif
+      execl(ADOMBIN, ADOMBIN, NULL);
     }
 
     else {
-#ifdef ADOM_111
-#ifndef LEAGUE
-      execl("/var/lib/adom/server/adom-sage", "/var/lib/adom/server/adom-sage", "-a", "/usr/games/adom-111-bin", "-s", "/var/lib/adom/server/adom-sage-jaakkos.so", NULL);
-#else
-      execl("/var/lib/adom/server/adom-sage", "/var/lib/adom/server/adom-sage", "-a", "/usr/games/adom-lea-bin", "-s", "/var/lib/adom/server/adom-sage-jaakkos.so", NULL);
-#endif
-#else
-      execl("/var/lib/adom/server/adom-sage", "/var/lib/adom/server/adom-sage", "-a", "/usr/games/adom-100-bin", "-s", "/var/lib/adom/server/adom-sage-jaakkos.so", NULL);
-#endif
+      execl(SAGEPATH, SAGEPATH, "-a", ADOMBIN, "-s", SAGESO, NULL);
     }
 
     break;
