@@ -52,12 +52,10 @@
 #define BDCBOT_2 0x02
 
 #ifdef ADOM_111
-#define TURNCOUNTER 0x082b16e0
 #define LEVELID 0x082add1c
 #endif
 
 #ifdef ADOM_120p4
-#define TURNCOUNTER 0x8280b10 //?
 #define LEVELID 0x827d0bc
 #endif
 
