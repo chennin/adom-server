@@ -403,7 +403,9 @@ Alternately, edit the static index.html and remove index.php.
 
 To serve up ADOM's text files in a browser, you may want to touch the MIME typesof some file extensions. Specifically, the following types would benefit from
 being sent by your Web server as text/plain:
-flg ssh slg kbd cfg msg vlg
+ flg ssh slg kbd cfg msg vlg
+And the following would benefit from being sent as application/octet-stream:
+ svg
 
 IV. ADOM Sage
 --------------
