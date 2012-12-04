@@ -17,13 +17,9 @@
 #include <ctype.h>
 #include <time.h>
 
-#define ADOM_111
-//#define ADOM_100
+//#define ADOM_111
+#define ADOM_100
 //#define ADOM_120p4
-
-#if defined ADOM_111 || defined ADOM_100
-  #define ADOM_LEGACY
-#endif
 
 //#define LEAGUE
 
@@ -52,11 +48,11 @@
 #define BDCBOT_2 0x02
 
 #ifdef ADOM_111
-#define LEVELID 0x082add1c
-#endif
-
-#ifdef ADOM_120p4
-#define LEVELID 0x827d0bc
+  #define LEVELID 0x082add1c
+#elif defined ADOM_100
+  #define LEVELID 0x829e21c
+#elif defined ADOM_120p4
+  #define LEVELID 0x827d0bc
 #endif
 
 struct termios old_stdin_tio, old_stdout_tio;
@@ -147,15 +143,12 @@ int main(int argc, char **argv)
 
   char *SAGEPATH = NULL, *SAGESO = NULL, *ADOMBIN = NULL;
 
-#ifdef ADOM_LEGACY
-  asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-jaakkos.so");
-  asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
-#else 
   asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-092.so");
   asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage-092");
-#endif
 
 #ifdef ADOM_111
+  asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-jaakkos.so");
+  asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
   #ifndef LEAGUE
   asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-111-bin");
   #else
@@ -239,7 +232,7 @@ int main(int argc, char **argv)
 
 	//set desc if this is a level we should announce
         if (level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) { desc = "top of the Tower of Eternal Flames"; }
-        //else if (level_val1 == SMC_1 && level_val2 == SMC_2) { desc = "Small Cave"; }
+        else if (level_val1 == SMC_1 && level_val2 == SMC_2) { desc = "Small Cave"; }
 	else if (level_val1 == D50_1 && level_val2 == D50_2) { desc = "D:50"; }
 	else if (level_val1 == MANATEMP_1 && level_val2 == MANATEMP_2) { desc = "Mana Temple"; }
 	else if (level_val1 == BDCBOT_1 && level_val2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
