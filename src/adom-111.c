@@ -18,8 +18,10 @@
 #include <time.h>
 
 //#define ADOM_111
-#define ADOM_100
+//#define ADOM_100
+//#define ADOM_120p3
 //#define ADOM_120p4
+//#define ADOM_120p5
 
 //#define LEAGUE
 
@@ -51,8 +53,12 @@
   #define LEVELID 0x082add1c
 #elif defined ADOM_100
   #define LEVELID 0x829e21c
+#elif defined ADOM_120p3
+  #define LEVELID 0x827b0bc 
 #elif defined ADOM_120p4
   #define LEVELID 0x827d0bc
+#elif defined ADOM_120p5
+  #define LEVELID 0x827dcbc 
 #endif
 
 struct termios old_stdin_tio, old_stdout_tio;
@@ -156,8 +162,12 @@ int main(int argc, char **argv)
   #endif
 #elif defined ADOM_100
   asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-100-bin");
+#elif defined ADOM_120p3
+  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p3-bin");
 #elif defined ADOM_120p4
   asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p4-bin");
+#elif defined ADOM_120p5
+  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p5-bin");
 #endif
 
   char *STATUSDIR_PATH = NULL;
@@ -177,9 +187,6 @@ int main(int argc, char **argv)
 
   srand(time(NULL));
 
-  if(argc > 1 && !strcmp(argv[1], "--enable-sage"))
-     sage = 1;
-  
   switch(pid = fork()) {
     
   case -1:
