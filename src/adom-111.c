@@ -34,25 +34,6 @@
 
 #include "adom-locs.h"
 
-/* 
-  LEVELID is where the code for the current level is stores in memory.
-  To find it yourself, start ADOM, then start a memory trainer (such as
-  scanmem).  Search for '4' for the wilderness, then go to the small cave
-  and search for 28. There's usually only one result.  This address is the one
-  that should go in LEVELID. (If you need another, Terinyo is 5).
-*/
-#ifdef ADOM_111
-  #define LEVELID 0x082add1c
-#elif defined ADOM_100
-  #define LEVELID 0x829e21c
-#elif defined ADOM_120p3
-  #define LEVELID 0x827b0bc 
-#elif defined ADOM_120p4
-  #define LEVELID 0x827d0bc
-#elif defined ADOM_120p5
-  #define LEVELID 0x827dcbc 
-#endif
-
 struct termios old_stdin_tio, old_stdout_tio;
 
 int return_wrapper(int retval) {
