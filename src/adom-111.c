@@ -28,15 +28,31 @@
 //  1000 seems to be about 4 actions.
 #define COUNT_BEF_ANC 1000
 
-#ifdef ADOM_111
 #define WILDERNESS 0x04
-#define SMC 0x1C
-
+#define WILDERNESS_2 0x01
+#define SMC_1 0x1C
+#define SMC_2 0x01
 #define TOEF_VAL1 0x1A
 #define TOEF_VAL2 0x01
+#define D48_1 0x30
+#define D48_2 0x00
+#define D49_1 0x31 //?
+#define D49_2 0x00 //??
+#define D50_1 0x32 //?
+#define D50_2 0x00 //??
+#define MANATEMP_1 0x23
+#define MANATEMP_2 0x02
+#define BDCBOT_1 0x28
+#define BDCBOT_2 0x02
 
+#ifdef ADOM_111
 #define TURNCOUNTER 0x082b16e0
 #define LEVELID 0x082add1c
+#endif
+
+#ifdef ADOM_120p4
+#define TURNCOUNTER 0x8280b10 //?
+#define LEVELID 0x827d0bc
 #endif
 
 struct termios old_stdin_tio, old_stdout_tio;
@@ -197,6 +213,7 @@ int main(int argc, char **argv)
     //ADOM seems to load the location into memory on the save screen!
     //HACK
     int counter = 0;
+    char *desc = NULL;
     while(1) {
       if(ptrace(PTRACE_SYSCALL, pid, 0, 0) == -1) {
 
@@ -208,45 +225,45 @@ int main(int argc, char **argv)
       if(WIFSTOPPED(wait_val) && !is_fatal_sig(WSTOPSIG(wait_val))) {
 	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
 	
-	
 	#ifdef ADOM_111
 	  long level_val1, level_val2;
           getdata(pid, LEVELID, (char*)&level_val1, 1);
           getdata(pid, LEVELID+4, (char*)&level_val2, 1);
 
-	  // use shared memory?
-	  char fname[1024];
-	  FILE *tmpf;
+	  //set desc if this is a level we should announce
+          if (level_val1 == SMC_1 && level_val2 == SMC_2) { desc = "Small Cave"; }
+          else if (level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) { desc = "top of the Tower of Eternal Flames"; }
+	  else if (level_val1 == D50_1 && level_val2 == D50_2) { desc = "D:50"; }
+	  else if (level_val1 == MANATEMP_1 && level_val2 == MANATEMP_2) { desc = "Mana Temple"; }
+	  else if (level_val1 == BDCBOT_1 && level_val2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
+	  else { counter = 0; desc = NULL; } // unset if if it's not
 
-	  struct stat locfinfo;
-	   
-  	  //what is level_val2? always 1?
-	  if(level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) {
-	    snprintf(fname, 1024, "%s/%d-toef", STATUSDIR_PATH, pid);
-	    tmpf = fopen(fname, "w");
-	    if(tmpf) fclose(tmpf);
-	  }
-          else if (level_val1 == SMC && level_val2 == 0x01) {
-            counter++;
-            if (counter >= COUNT_BEF_ANC) {
-  	      snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
-	    
+	  // if desc is set, announce it
+	  if (strlen(desc) > 0) {
+	    // use shared memory?
+	    struct stat locfinfo;
+	    counter++;
+	    if (counter >= COUNT_BEF_ANC) {
+	      char fname[1024];
+	      FILE *tmpf;
+	      snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
+	
 	      time_t now = time(0);
 	      time_t mtime = 0;
-              time_t mtimen = 0;
-	    
+	      time_t mtimen = 0;
+
 	      if (stat(fname, &locfinfo) >= 0) {
-  	        mtime = locfinfo.st_mtim.tv_sec;
+	        mtime = locfinfo.st_mtim.tv_sec;
 	        mtimen = locfinfo.st_mtim.tv_nsec;
-              }
+	      }
 	      if (now > mtime + SEC_BET_ANC) {
 	        tmpf = fopen(fname, "w");
 	        if(tmpf) {
-                  fprintf(tmpf,"Small Cave\n");
-                  fclose(tmpf);
-                  counter = 0;
-                }
-              }
+	          fprintf(tmpf,desc);
+	          fclose(tmpf);
+	          counter = 0;
+	        }
+	      }
 	    }
           }
 	#endif
