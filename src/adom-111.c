@@ -1,4 +1,5 @@
 #define _BSD_SOURCE
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -137,7 +138,6 @@ int main(int argc, char **argv)
   sigset_t mask;
   long orig_eax;
   struct user_regs_struct regs;
-  int month;
   char *me = getlogin();
 
   char *BINLOC = "/var/lib/adom/bin/";
@@ -158,9 +158,6 @@ int main(int argc, char **argv)
 
   char *STATUSDIR_PATH = NULL;
   asprintf(&STATUSDIR_PATH, "%s%s", BINLOC, "../player_locations");
-
-  word code, backup;
-  word initscr_backup;
 
   if(argc > 1 && !strcmp(argv[1], "--enable-sage"))
      sage = 1;
