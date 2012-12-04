@@ -307,6 +307,12 @@ xiii. etc/config
 
 Edit etc/config and fill in the values.
 
+The SERVNAME field is the domain name of your server, through which HTTP access
+will be available, like adom.example.com or ancardia.us.to.
+
+The prerelease section defines the minimum and maximum 1.2.0p versions 
+supported. 
+
 The twitter section is for announcing scores on Twitter. Sign up for a Twitter
 account then enable API access and generate and find your access and consumer
 tokens.
@@ -314,10 +320,7 @@ See https://dev.twitter.com/docs/auth/tokens-devtwittercom for help generating.
 
 The donation section is for enabling 1.2.0 prerelease 4-last for people who 
 donated to the ADOM Resurrection IndieGoGo campaign.  Obviously, you have to
-have donated to fill them in, but I can't give them to you.
-
-The prerelease section defines the minimum and maximum 1.2.0p versions 
-supported. 
+have donated to fill them in, but they cannot be provided or distributed.
 
 xiv. Back to root
 =================
