@@ -50,14 +50,15 @@ The following software is required for all pieces to work:
 * ttyrec
 * termrec
 * Python 2.6+
-For the score announcing bot:
+* Perl
+Perl modules for the score announcing bot:
 ** IRCLib
 ** Pyinotify
 ** ConfigObj
 ** OAuth
 ** Tweepy
-* Perl
-For the database bot:
+** Passwd (included)
+iPython modules for the database bot:
 ** Bot::BasicBot
 ** Try::Tiny 
 ** String::Approx
