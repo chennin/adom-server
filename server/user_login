@@ -366,6 +366,7 @@ do
 		else
 			ln -s "${HOME}" "/var/lib/adom/public_html/adom_users/${USER}"
 			echo "Directory link created."
+			find $HOME -type d -name savedg -exec chmod 755 '{}' \;
 		fi
 
 		sleep 1

@@ -188,7 +188,8 @@ adomown.
 
 viii. Check out code
 ====================
-Pick a directory (default: /var/lib/adom) and finally, check out the code:
+Pick a directory (for now, this must be /var/lib/adom) and finally, check out 
+the code:
 
 git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
 

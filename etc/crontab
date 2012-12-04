@@ -4,4 +4,6 @@
 
 0 0,4,8,12,16,20  *   *   *     python /var/lib/adom/server/ttyreclister.py
 0 0 * * * find /var/lib/adom/player_locations -type f -mmin +29 -delete
+0 1 * * * find /var/lib/adom/users -name savedg -exec chmod 755 '{}' \;
 @reboot sleep 60; $HOME/etc/adom-bots-tmux
+
