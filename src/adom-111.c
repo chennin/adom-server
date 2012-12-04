@@ -19,6 +19,11 @@
 
 #define ADOM_111
 //#define ADOM_100
+//#define ADOM_120p4
+
+#if defined ADOM_111 || defined ADOM_100
+  #define ADOM_LEGACY
+#endif
 
 //#define LEAGUE
 
@@ -143,17 +148,25 @@ int main(int argc, char **argv)
   char *BINLOC = "/var/lib/adom/bin/";
 
   char *SAGEPATH = NULL, *SAGESO = NULL, *ADOMBIN = NULL;
-  asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
+
+#ifdef ADOM_LEGACY
   asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-jaakkos.so");
+  asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
+#else 
+  asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-092.so");
+  asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage-092");
+#endif
 
 #ifdef ADOM_111
-#ifndef LEAGUE
+  #ifndef LEAGUE
   asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-111-bin");
-#else
+  #else
   asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-lea-bin");
-#endif
-#else
+  #endif
+#elif defined ADOM_100
   asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-100-bin");
+#elif defined ADOM_120p4
+  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p4-bin");
 #endif
 
   char *STATUSDIR_PATH = NULL;
@@ -222,48 +235,46 @@ int main(int argc, char **argv)
       if(WIFSTOPPED(wait_val) && !is_fatal_sig(WSTOPSIG(wait_val))) {
 	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
 	
-	#ifdef ADOM_111
-	  long level_val1, level_val2;
-          getdata(pid, LEVELID, (char*)&level_val1, 1);
-          getdata(pid, LEVELID+4, (char*)&level_val2, 1);
+	long level_val1, level_val2;
+        getdata(pid, LEVELID, (char*)&level_val1, 1);
+        getdata(pid, LEVELID+4, (char*)&level_val2, 1);
 
-	  //set desc if this is a level we should announce
-          if (level_val1 == SMC_1 && level_val2 == SMC_2) { desc = "Small Cave"; }
-          else if (level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) { desc = "top of the Tower of Eternal Flames"; }
-	  else if (level_val1 == D50_1 && level_val2 == D50_2) { desc = "D:50"; }
-	  else if (level_val1 == MANATEMP_1 && level_val2 == MANATEMP_2) { desc = "Mana Temple"; }
-	  else if (level_val1 == BDCBOT_1 && level_val2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
-	  else { counter = 0; desc = NULL; } // unset if if it's not
+	//set desc if this is a level we should announce
+        if (level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) { desc = "top of the Tower of Eternal Flames"; }
+        //else if (level_val1 == SMC_1 && level_val2 == SMC_2) { desc = "Small Cave"; }
+	else if (level_val1 == D50_1 && level_val2 == D50_2) { desc = "D:50"; }
+	else if (level_val1 == MANATEMP_1 && level_val2 == MANATEMP_2) { desc = "Mana Temple"; }
+	else if (level_val1 == BDCBOT_1 && level_val2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
+	else { counter = 0; desc = NULL; } // unset if if it's not
 
-	  // if desc is set, announce it
-	  if (strlen(desc) > 0) {
-	    // use shared memory?
-	    struct stat locfinfo;
-	    counter++;
-	    if (counter >= COUNT_BEF_ANC) {
-	      char fname[1024];
-	      FILE *tmpf;
-	      snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
-	
-	      time_t now = time(0);
-	      time_t mtime = 0;
-	      time_t mtimen = 0;
+	// if desc is set, announce it
+	if (desc != NULL) {
+	  // use shared memory?
+	  struct stat locfinfo;
+	  counter++;
+	  if (counter >= COUNT_BEF_ANC) {
+	    char fname[1024];
+	    FILE *tmpf;
+	    snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
 
-	      if (stat(fname, &locfinfo) >= 0) {
-	        mtime = locfinfo.st_mtim.tv_sec;
-	        mtimen = locfinfo.st_mtim.tv_nsec;
-	      }
-	      if (now > mtime + SEC_BET_ANC) {
-	        tmpf = fopen(fname, "w");
-	        if(tmpf) {
-	          fprintf(tmpf,desc);
-	          fclose(tmpf);
-	          counter = 0;
-	        }
+            time_t now = time(0);
+	    time_t mtime = 0;
+	    time_t mtimen = 0;
+
+	    if (stat(fname, &locfinfo) >= 0) {
+	      mtime = locfinfo.st_mtim.tv_sec;
+	      mtimen = locfinfo.st_mtim.tv_nsec;
+	    }
+	    if (now > mtime + SEC_BET_ANC) {
+	      tmpf = fopen(fname, "w");
+	      if(tmpf) {
+	        fprintf(tmpf,desc);
+	        fclose(tmpf);
+	        counter = 0;
 	      }
 	    }
-          }
-	#endif
+	  }
+        }
       }
       else if (WIFSTOPPED(wait_val)) {
 	ptrace(PTRACE_CONT, pid, 0, WSTOPSIG(wait_val));
