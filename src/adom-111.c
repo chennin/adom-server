@@ -161,27 +161,35 @@ int main(int argc, char **argv)
   char *BINLOC = "/var/lib/adom/bin/";
 
   char *SAGEPATH = NULL, *SAGESO = NULL, *ADOMBIN = NULL;
+  int e = 0, f = 0, g = 0;
 
-  asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-092.so");
-  asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage-092");
+  e = asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-092.so");
+  f = asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage-092"); 
 
 #ifdef ADOM_111
-  asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-jaakkos.so");
-  asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
+  e = asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-jaakkos.so");
+  f = asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
+
   #ifndef LEAGUE
-  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-111-bin");
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-111-bin");
   #else
-  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-lea-bin");
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-lea-bin");
   #endif
 #elif defined ADOM_100
-  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-100-bin");
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-100-bin");
 #elif defined ADOM_120p3
-  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p3-bin");
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p3-bin");
 #elif defined ADOM_120p4
-  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p4-bin");
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p4-bin");
 #elif defined ADOM_120p5
-  asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p5-bin");
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p5-bin");
 #endif
+
+  if (e < 0 || f < 0 || g < 0)
+  {
+    perror("Failed to asprintf");
+    exit_wrapper(1);
+  }
 
   char *STATUSDIR_PATH = NULL;
   asprintf(&STATUSDIR_PATH, "%s%s", BINLOC, "../player_locations");
