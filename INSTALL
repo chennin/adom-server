@@ -14,6 +14,8 @@ Table of contents:
 		viii. Check out code
 		ix. Add other ADOM versions
 		x. Patch and install ADOM versions
+			a. Patch ADOM
+			b. Compile wrappers
 		xi. SSH key for spectating
 		xii. crontab
 	III. Configuration
@@ -208,10 +210,12 @@ x. Patch and install ADOM versions
 straight in /var/lib/adom/software/ , just as you downloaded them (tar.gz), as
 the following patch commands expect them that way.
 
-Small Binary changes are required to separate HISCORE files. I have provided
-binary patch files for several versions. But to do yourself, edit the adom 
-binary in a hex editor (like hexcurse) and change both mentions of adom_ds.cfg 
-to something unique.
+A wrapper binary is used to make some decisions and add some features.
+
+Small changes to the distributed ADOM binaries are required to separate HISCORE
+files. Binary patch files for several versions are provided. But if you want to
+do it yourself, edit the adom binary in a hex editor (like hexcurse) and change
+both mentions of adom_ds.cfg to something unique.
 
 I have used:
 
@@ -224,7 +228,21 @@ Swapgame:       adom_ds.swp
 1.2.0p4-5:      adom_ds.12b
 1.2.0p6-?:      adom_ds.12c
 
-Patch the binaries with the following commands:
+a. Patch ADOM
++++++++++++++
+
+Patch the binaries with the following commands. These are the md5sums of the 
+resulting binaries:
+
+2e870f9207c08e736d2e2a81ae1f7098  adom-100-bin
+c7d6813e48cf19c163ac1a6eba8122ee  adom-111-bin
+d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
+43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
+11d27e4466b94e1667916296178785d9  adom-120p5-bin
+a2dc057b464a6ac6922772c705043346  adom-etr-bin
+979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
+3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
+
 
 mkdir /tmp/adom && cd $_
 
@@ -249,23 +267,14 @@ bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin\
 rm -rf ./adom
 done
 
-These are the md5sums of the resulting binaries:
-2e870f9207c08e736d2e2a81ae1f7098  adom-100-bin
-c7d6813e48cf19c163ac1a6eba8122ee  adom-111-bin
-d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
-43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
-11d27e4466b94e1667916296178785d9  adom-120p5-bin
-a2dc057b464a6ac6922772c705043346  adom-etr-bin
-979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
-3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
+b. Compile wrappers
++++++++++++++++++++
+(also temp?)
+The wrapper binaries decide whether to use Sage or not, and help announce
+when players enter significant locations.
 
-
-(temp) link in /usr/games
-for i in 100 111 120p3 120p4 120p5 120p6 lea etr swp; do
-  ln -s /var/lib/adom/bin/adom-$i-bin /usr/games/adom-$i-bin
-done
-for i in 120p3 120p4 120p5 120p6; do
-  ln -s /var/lib/adom/bin/adom-120pX /usr/games/adom-$i
+for i in 100 111 120p3 120p4 120p5; do
+  gcc -DADOM_$i -Wall src/adom-111.c -o bin/adom-$i
 done
 
 xi. SSH key for spectating
