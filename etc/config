@@ -12,7 +12,7 @@ ACCESS_KEY=
 ACCESS_SECRET=
 
 #For playing donator-only prereleases
-URL=
-DONUSER=
-PASSWORD=
+URL=replace
+DONUSER=mewith
+PASSWORD=therealstuff
 
