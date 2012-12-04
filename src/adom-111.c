@@ -252,7 +252,9 @@ int main(int argc, char **argv)
 
 	//set desc if this is a level we should announce
         if (level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) { desc = "top of the Tower of Eternal Flames"; }
+#ifdef SMC_TEST
         else if (level_val1 == SMC_1 && level_val2 == SMC_2) { desc = "Small Cave"; }
+#endif
 	else if (level_val1 == D50_1 && level_val2 == D50_2) { desc = "D:50"; }
 	else if (level_val1 == MANATEMP_1 && level_val2 == MANATEMP_2) { desc = "Mana Temple"; }
 	else if (level_val1 == BDCBOT_1 && level_val2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
@@ -270,11 +272,9 @@ int main(int argc, char **argv)
 
             time_t now = time(0);
 	    time_t mtime = 0;
-	    time_t mtimen = 0;
 
 	    if (stat(fname, &locfinfo) >= 0) {
 	      mtime = locfinfo.st_mtim.tv_sec;
-	      mtimen = locfinfo.st_mtim.tv_nsec;
 	    }
 	    if (now > mtime + SEC_BET_ANC) {
 	      tmpf = fopen(fname, "w");
