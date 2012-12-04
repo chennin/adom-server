@@ -279,7 +279,7 @@ int main(int argc, char **argv)
 	    if (now > mtime + SEC_BET_ANC) {
 	      tmpf = fopen(fname, "w");
 	      if(tmpf) {
-	        fprintf(tmpf,desc);
+	        fprintf(tmpf, "%s", desc);
 	        fclose(tmpf);
 	        counter = 0;
 	      }

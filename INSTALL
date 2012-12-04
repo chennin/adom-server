@@ -79,10 +79,10 @@ apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
  python-oauth git openssh-server openssh-client\
  libtext-levenshteinxs-perl tmux python-tweepy
 
-For compiling some binaries from source, or related tools, a compiler and
+For compiling binaries from source, or related tools, a compiler and
 some development libraries are required:
 
-apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc g++ make autoconf
+apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc make autoconf
 
 Notes:
 Debian Squeeze users will have to build libtext-levenshteinxs-perl tmux and
@@ -274,7 +274,7 @@ The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
 
 for i in 100 111 120p3 120p4 120p5; do
-  gcc -DADOM_$i -Wall src/adom-111.c -o bin/adom-$i
+  gcc -m32 -DADOM_$i -Wall src/adom-111.c -o bin/adom-$i
 done
 
 xi. SSH key for spectating
