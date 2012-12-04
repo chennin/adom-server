@@ -131,7 +131,7 @@ do
         else
                 echo -ne "\e[1m[ d ]\e[0m enable"
         fi
-        echo " user dir access at http://ancardia.us.to/adom_users/${USER}"
+        echo " user dir access at http://${SERVNAME}/adom_users/${USER}"
         echo -e "\e[1m[ c ]\e[0m edit ADoM, ADoM Sage, and SSH key (RSA/DSA) configurations"
         echo ""
         echo -ne "\e[1m[ g ]\e[0m browse ADoM Guidebook (SPOILERS)  "
