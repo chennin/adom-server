@@ -192,7 +192,11 @@ int main(int argc, char **argv)
   }
 
   char *STATUSDIR_PATH = NULL;
-  asprintf(&STATUSDIR_PATH, "%s%s", BINLOC, "../player_locations");
+  if (asprintf(&STATUSDIR_PATH, "%s%s", BINLOC, "../player_locations") < 0) 
+  {
+    perror("Failed to asprintf");
+    exit_wrapper(1);
+  }
 
   if(argc > 1 && !strcmp(argv[1], "--enable-sage"))
      sage = 1;
