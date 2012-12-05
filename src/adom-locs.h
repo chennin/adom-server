@@ -4,20 +4,39 @@
   below; this is the first value.  Then add 4 to LEVELID and print it; this
   address is the second value.
 */
-#define WILDERNESS 0x04
+#define WILDERNESS_1 0x04
 #define WILDERNESS_2 0x01
+#define WILDENT_1 0x2d
+#define WILDENT_2 0x01
+
 #define SMC_1 0x1C
 #define SMC_2 0x01
-#define TOEF_VAL1 0x1A
-#define TOEF_VAL2 0x01
+
+#define ID_1 0x2c
+#define ID_2 0x01
+
+#define UD1_1 0x8
+#define UD1_2 0x2
+
+#define TF1_1 0x17
+#define TF1_2 0x01
+#define TF2_1 0x18
+#define TF2_2 0x01
+#define TF3_1 0x19
+#define TF3_2 0x01
+#define TF4_1 0x1A
+#define TF4_2 0x01
+
 #define D48_1 0x30
 #define D48_2 0x00
 #define D49_1 0x31 //?
 #define D49_2 0x00 //??
 #define D50_1 0x32 //?
 #define D50_2 0x00 //??
+
 #define MANATEMP_1 0x23
 #define MANATEMP_2 0x02
+
 #define BDCBOT_1 0x28
 #define BDCBOT_2 0x02
 
@@ -29,6 +48,10 @@
 */
 #ifdef ADOM_111
   #define LEVELID 0x082add1c
+  #define EXPLVL 0x082b16dc
+  #define TURNCOUNTER 0x082b16e0
+  #define IDCOUNT 0x82b55cc
+  /*#define IDCOUNT 0x82b621c //stored in two places?*/
 #elif defined ADOM_100
   #define LEVELID 0x829e21c
 #elif defined ADOM_120p3

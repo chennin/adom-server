@@ -223,7 +223,7 @@ int main(int argc, char **argv)
         getdata(pid, LEVELID+4, (char*)&level_val2, 1);
 
 	//set desc if this is a level we should announce
-        if (level_val1 == TOEF_VAL1 && level_val2 == TOEF_VAL2) { desc = "top of the Tower of Eternal Flames"; }
+        if (level_val1 == TF4_1 && level_val2 == TF4_2) { desc = "top of the Tower of Eternal Flames"; }
 #ifdef SMC_TEST
         else if (level_val1 == SMC_1 && level_val2 == SMC_2) { desc = "Small Cave"; }
 #endif
