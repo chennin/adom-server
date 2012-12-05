@@ -27,10 +27,6 @@
 
 // Minimum seconds between announcing a new player location
 #define SEC_BET_ANC 1800
-// Minimum loop count before announcing a new player location
-//  so as to not announce on the load menu, and to wait a few turns.
-//  1000 seems to be about 4 actions.
-#define COUNT_BEF_ANC 1000
 
 #include "adom-locs.h"
 
@@ -117,6 +113,8 @@ int main(int argc, char **argv)
   long orig_eax;
   struct user_regs_struct regs;
   char *me = getlogin();
+  long prev_turn = 2147483647;
+  int prevloc_v1 = 0, prevloc_v2 = 0;
 
   char *BINLOC = "/var/lib/adom/bin/";
 
@@ -203,10 +201,9 @@ int main(int argc, char **argv)
       orig_eax = ptrace(PTRACE_PEEKUSER, pid, 4*ORIG_EAX, NULL);
     } while(orig_eax != SYS_time);
     
-    //ADOM seems to load the location into memory on the save screen!
-    //HACK
     int counter = 0;
     char *desc = NULL;
+
     while(1) {
       if(ptrace(PTRACE_SYSCALL, pid, 0, 0) == -1) {
 
@@ -218,46 +215,52 @@ int main(int argc, char **argv)
       if(WIFSTOPPED(wait_val) && !is_fatal_sig(WSTOPSIG(wait_val))) {
 	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
 	
-	long level_val1, level_val2;
-        getdata(pid, LEVELID, (char*)&level_val1, 1);
-        getdata(pid, LEVELID+4, (char*)&level_val2, 1);
+	int curloc_v1 = 0, curloc_v2 = 0;
+        getdata(pid, LEVELID, (char*)&curloc_v1, 1);
+        getdata(pid, LEVELID+4, (char*)&curloc_v2, 1);
+	long cur_turn = 0;	
+	getdata(pid, TURNCOUNTER, (char*)&cur_turn, 1);
 
 	//set desc if this is a level we should announce
-        if (level_val1 == TF4_1 && level_val2 == TF4_2) { desc = "top of the Tower of Eternal Flames"; }
-#ifdef SMC_TEST
-        else if (level_val1 == SMC_1 && level_val2 == SMC_2) { desc = "Small Cave"; }
-#endif
-	else if (level_val1 == D50_1 && level_val2 == D50_2) { desc = "D:50"; }
-	else if (level_val1 == MANATEMP_1 && level_val2 == MANATEMP_2) { desc = "Mana Temple"; }
-	else if (level_val1 == BDCBOT_1 && level_val2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
-	else { counter = 0; desc = NULL; } // unset if if it's not
+	//Comparing the loc in this manner ..
+	if (cur_turn > prev_turn && curloc_v1 == prevloc_v1 && curloc_v2 == prevloc_v2) {
+          if (prevloc_v1 == TF4_1 && curloc_v2 == TF4_2) { desc = "top of the Tower of Eternal Flames"; }
+	  #ifdef SMC_TEST
+          else if (prevloc_v1 == SMC_1 && curloc_v2 == SMC_2) { desc = "Small Cave"; }
+	  #endif
+  	  else if (prevloc_v1 == D50_1 && curloc_v2 == D50_2) { desc = "D:50"; }
+  	  else if (prevloc_v1 == MANATEMP_1 && curloc_v2 == MANATEMP_2) { desc = "Mana Temple"; }
+	  else if (prevloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
+	  else { counter = 0; desc = NULL; } // unset if if it's not
+	}
 
 	// if desc is set, announce it
 	if (desc != NULL) {
 	  // use shared memory?
 	  struct stat locfinfo;
 	  counter++;
-	  if (counter >= COUNT_BEF_ANC) {
-	    char fname[1024];
-	    FILE *tmpf;
-	    snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
+	  char fname[1024];
+	  FILE *tmpf;
+	  snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
 
-            time_t now = time(0);
-	    time_t mtime = 0;
+          time_t now = time(0);
+	  time_t mtime = 0;
 
-	    if (stat(fname, &locfinfo) >= 0) {
-	      mtime = locfinfo.st_mtim.tv_sec;
-	    }
-	    if (now > mtime + SEC_BET_ANC) {
-	      tmpf = fopen(fname, "w");
-	      if(tmpf) {
-	        fprintf(tmpf, "%s", desc);
-	        fclose(tmpf);
-	        counter = 0;
-	      }
+	  if (stat(fname, &locfinfo) >= 0) {
+	    mtime = locfinfo.st_mtim.tv_sec;
+	  }
+	  if (now > mtime + SEC_BET_ANC) {
+	    tmpf = fopen(fname, "w");
+	    if(tmpf) {
+	      fprintf(tmpf, "%s", desc);
+	      fclose(tmpf);
+	      counter = 0;
 	    }
 	  }
         }
+	prev_turn = cur_turn;
+	prevloc_v1 = curloc_v1;
+	prevloc_v2 = curloc_v2;
       }
       else if (WIFSTOPPED(wait_val)) {
 	ptrace(PTRACE_CONT, pid, 0, WSTOPSIG(wait_val));
