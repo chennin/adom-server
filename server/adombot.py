@@ -11,7 +11,7 @@ import random
 
 #irclib.DEBUG = True
 
-MIN_IRC_ANC = 200
+MIN_IRC_ANC = 2000
 MIN_TWIT_ANC = 8000
 
 FILE111 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt"
