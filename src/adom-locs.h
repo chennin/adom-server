@@ -72,5 +72,9 @@
   #define TURNCOUNTER 0x8281710
   #define IDCOUNT 0x8285ba0 /* and 0x8286978 */
   #define CHARNAME 0x827dca0
+#elif defined ADOM_120p6
+  #define LEVELID 0x828201c  
+  #define TURNCOUNTER 0x8285a78
+  #define CHARNAME 0x8282000
 #endif
 

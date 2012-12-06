@@ -22,6 +22,7 @@
 //#define ADOM_120p3
 //#define ADOM_120p4
 //#define ADOM_120p5
+//#define ADOM_120p6
 
 //#define LEAGUE
 
@@ -114,8 +115,8 @@ int main(int argc, char **argv)
   char *SAGEPATH = NULL, *SAGESO = NULL, *ADOMBIN = NULL;
   int e = 0, f = 0, g = 0;
 
-  e = asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-0.9.2.so");
-  f = asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage-0.9.2"); 
+  e = asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-0.9.3.so");
+  f = asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage-0.9.3"); 
 
 #ifdef ADOM_111
   e = asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-jaakkos.so");
@@ -134,6 +135,8 @@ int main(int argc, char **argv)
   g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p4-bin");
 #elif defined ADOM_120p5
   g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p5-bin");
+#elif defined ADOM_120p6
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p6-bin");
 #endif
 
   if (e < 0 || f < 0 || g < 0)
