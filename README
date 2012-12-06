@@ -25,7 +25,7 @@ Why?
 - Mods add neat features like a starsign selector and autoswap with friendlies.
 - Database dumps provide invaluable information to the optimal player.
 - It is a single player game, but watching other players and seeing their wins
-  (or deaths) is social, and having your win be recorded publicly is a great
+  (or deaths) is social, and having a win be recorded publicly is a great
   ego boost.
 
 ADOM can be found at http://adom.de or http://ancardia.com . 
@@ -45,22 +45,25 @@ before checking out or unpacking the code.
 III. Usage
 ---------
 
-The full usage readme is at public_html/readme.php.
+Once set up, the full usage readme is at public_html/readme.php.
 
-SSH in with user adom and password adom, and follow prompts to create a new 
+The short version:
+
+* SSH in with user adom and password adom, and follow prompts to create a new 
 user.
-Then SSH in as your new user.
+
+* Then SSH in as the new user.
 
 IV. Administration
 -------------------
 
 To edit the banner on the top of the main menu, edit etc/motd in the server 
-homedir. Bash color codes can be used (but double-escape your \s).
+homedir. Bash color codes can be used (but double-escape any \s).
 
 To add support for new 1.2.0 prereleases, just edit etc/config and change 
 MAX_PRE.
 
-Setting up your web server and domain is out of scope for this document, but
+Setting up a web server and domain is out of scope for this document, but
 is recommended to do. See section III.xix of the INSTALL for more.
 
 New ADOM versions require small edits to the binary to enable sharing of
