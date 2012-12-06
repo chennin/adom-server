@@ -15,7 +15,7 @@ trap 'exit' INT
 
 while :; do
 
-	if ! comm -1 -2 <(ls /var/lib/adom/sockets) \
+	if ! comm -1 -2 <(ls /var/lib/adom/tmp/sockets) \
 			<(who | sed 's/ .*//' | sort) | grep -q -F -x -e "$TARGET"; then
 		echo "$TARGET does not seem to be playing now."
 		sleep 3
@@ -31,6 +31,6 @@ while :; do
 	echo -n "--> "
         read PHRASE
 
-	echo "`date` `whoami` $TARGET $PHRASE" >> /var/lib/adom/log/messages_sent
+	echo "`date` `whoami` $TARGET $PHRASE" >> /var/lib/adom/var/log/messages_sent
 	/var/lib/adom/bin/message_dispatch "$TARGET" "$PHRASE"
 done

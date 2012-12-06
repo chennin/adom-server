@@ -18,7 +18,7 @@ mkdir -p ${HOME}/backup-$adom_ver
 mkdir -p ${HOME}/adom.data-$adom_ver
 
 python /var/lib/adom/server/check_term.py
-touch /var/lib/adom/sockets/$USER
+touch /var/lib/adom/tmp/sockets/$USER
 umask 013
 
 if [ -e ${HOME}/adom_dirty ]; then
@@ -125,7 +125,7 @@ if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
 
 else
     rm ${HOME}/adom_dirty
-    find /var/lib/adom/player_locations -type f -user $USER -mmin +29 -delete 
+    find /var/lib/adom/tmp/player_locations -type f -user $USER -mmin +29 -delete 
 #    rm -f ${HOME}/cryopid_image
     svdir=${HOME}/.adom.data/savedg
     bkdir=${HOME}/backup-${adom_ver}
@@ -141,6 +141,6 @@ else
     done
 fi
 
-rm -f /var/lib/adom/sockets/$USER
+rm -f /var/lib/adom/tmp/sockets/$USER
 rm -f /var/lib/adom/${adom_ver}/ADOM_HS.LCK /var/lib/adom/${adom_ver}/adom.err
 rm -f $HOME/.adom.data/.adom.prc

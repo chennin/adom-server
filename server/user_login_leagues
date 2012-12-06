@@ -67,7 +67,7 @@ do
 		    continue
 		fi
 		
-		touch /var/lib/adom/sockets/$USER
+		touch /var/lib/adom/tmp/sockets/$USER
 
 		if [ -e "${HOME}/.adom.data/.adom.cnt" ]; then
 		    /var/lib/adom/bin/modify_cnt "${HOME}/.adom.data/.adom.cnt"
@@ -75,7 +75,7 @@ do
 
 		screen -DR -c /var/lib/adom/server/user-screen -S adom -s \
 		"/var/lib/adom/server/adom_wrapper_leagues"
-		rm -f /var/lib/adom/sockets/$USER
+		rm -f /var/lib/adom/tmp/sockets/$USER
 
 		continue
 		;;

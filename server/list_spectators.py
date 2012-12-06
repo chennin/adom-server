@@ -3,7 +3,7 @@ import sys, os
 f = os.popen("ps aux|grep \"screen -x -c /var/lib/adom/server/spectator-screen -r\"")
 output = f.readlines()
 
-f_players = os.popen("ls /var/lib/adom/sockets/")
+f_players = os.popen("ls /var/lib/adom/tmp/sockets/")
 players_raw = f_players.readlines()
 players = []
 

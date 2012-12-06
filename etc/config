@@ -1,8 +1,8 @@
 #Your server domain name
 SERVNAME=adom.example.com
 
-#Server script home
-SERVHOME=/var/lib/adom
+#Server script home - currently unused
+#SERVHOME=/var/lib/adom
 
 #Prerelease versions supported
 MIN_PRE=3

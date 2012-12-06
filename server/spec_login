@@ -6,7 +6,7 @@ while true
 do
 
 # Only show people who have a login session and are playing
-PLAYERS=$(comm -1 -2 <(ls /var/lib/adom/sockets) \
+PLAYERS=$(comm -1 -2 <(ls /var/lib/adom/tmp/sockets) \
                      <(who | sed 's/ .*//' | sort -u))
 clear
 

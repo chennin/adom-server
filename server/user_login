@@ -185,7 +185,7 @@ do
 		export sage
 		export adom_ver
 		export ttyq
-		echo $adom_ver > /var/lib/adom/sockets/$USER
+		echo $adom_ver > /var/lib/adom/tmp/sockets/$USER
 
 		if [ -e "${HOME}/.adom.data/.adom.cnt" ]; then
 			/var/lib/adom/bin/modify_cnt "${HOME}/.adom.data/.adom.cnt"
@@ -193,7 +193,7 @@ do
 
 		screen -DR -c /var/lib/adom/server/user-screen -S adom -s \
 		"/var/lib/adom/server/adom_wrapper"
-		rm -f /var/lib/adom/sockets/$USER
+		rm -f /var/lib/adom/tmp/sockets/$USER
 		continue
 		;;
 
@@ -354,7 +354,7 @@ do
 
 	'kp')
 		clear
-		rm -f /var/lib/adom/sockets/$USER
+		rm -f /var/lib/adom/tmp/sockets/$USER
 		python -u /var/lib/adom/server/irc_msg_kill.py
 		continue
 		;;

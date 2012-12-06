@@ -9,7 +9,7 @@ fi
 
 mkdir -p ${HOME}/backup-lea
 
-touch /var/lib/adom/sockets/$USER
+touch /var/lib/adom/tmp/sockets/$USER
 umask 013
 
 res="0"
@@ -114,6 +114,6 @@ else
     python /var/lib/adom/server/save_league_backups.py
 fi
 
-rm -f /var/lib/adom/sockets/$USER
+rm -f /var/lib/adom/tmp/sockets/$USER
 rm -f /var/lib/adom/league/ADOM_HS.LCK /var/lib/adom/league/adom.err
 rm -f $HOME/.adom.data/.adom.prc

@@ -19,7 +19,7 @@ if len(sys.argv) != 2:
 
 idletime_inc = int(sys.argv[1])
 
-f_players = os.popen("ls /var/lib/adom/sockets/")
+f_players = os.popen("ls /var/lib/adom/tmp/sockets/")
 players_raw = f_players.readlines()
 players = []
 
@@ -34,13 +34,13 @@ except OSError, e:
 
 idlelistf = open("/var/lib/adom/tmp/idletimes", "w")
 
-f_loggedin = subprocess.Popen([ "bash", "-c", "comm -1 -2 <(ls /var/lib/adom/sockets)  <(who | sed 's/ .*//' | sort -u)"],stdout=subprocess.PIPE)
+f_loggedin = subprocess.Popen([ "bash", "-c", "comm -1 -2 <(ls /var/lib/adom/tmp/sockets)  <(who | sed 's/ .*//' | sort -u)"],stdout=subprocess.PIPE)
 
 loggedin = f_loggedin.communicate()[0]
 
 for player in players:
     if len(os.popen("ps -u " + player).readlines()) < 2:
-        os.system("rm -f /var/lib/adom/sockets/" + player)
+        os.system("rm -f /var/lib/adom/tmp/sockets/" + player)
 	os.system("rm -f /var/lib/adom/tmp/" + player + ".idleinfo")
         continue
 
@@ -57,7 +57,7 @@ for player in players:
     version = "UNK"
 
     try:
-        with open("/var/lib/adom/sockets/" + player) as f:
+        with open("/var/lib/adom/tmp/sockets/" + player) as f:
             lines = f.readlines()
             version = lines[0]
             version = version.strip()

@@ -18,7 +18,7 @@ FILE111 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt"
 FILE100 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt"
 FILEETR = "/var/lib/adom/public_html/adom_hiscore/hiscore_vetr.txt"
 
-LOCDIR = "/var/lib/adom/player_locations"
+LOCDIR = "/var/lib/adom/tmp/player_locations"
 
 config = ConfigObj('/var/lib/adom/etc/config')
 
@@ -135,7 +135,7 @@ def loc_changed(filename):
       location = f.readlines()[0].strip()
 
    starters = [ "Attention! ", "Caution! ", "Alert! ", "Breaking news! ", "Newsflash! ", "Look! ", "Citizens! ", "", "", "", ]
-   enders = [ "Spectate today!", "Spectate now!", "Care to watch?", "This could be good...." "", "", "", ]
+   enders = [ "Spectate today!", "Spectate now!", "Care to watch?", "This could be good....", "", "", "", ]
    c.privmsg(target,random.choice(starters) + player + " has just entered the " + location + "! " + random.choice(enders))
 
 def import_hiscore(file):
