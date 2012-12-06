@@ -54,18 +54,8 @@ void getdata(pid_t child, long addr, char *buf, int words)
 
   for(i=0; i<words; i++) {
     w.w = ptrace(PTRACE_PEEKDATA, child, addr + i*4, NULL);
+    if (errno != 0) { perror("PEEKDATA failed"); exit(1); }
     memcpy(buf + i*4, w.bytes, 4);
-  }
-}
-
-void putdata(pid_t child, long addr, char *buf, int words)
-{
-  int i;
-  word w;
-
-  for(i=0; i<words; i++) {
-    memcpy(w.bytes, buf + i*4, 4);
-    ptrace(PTRACE_POKEDATA, child, addr + i*4, w.w);
   }
 }
 
@@ -115,6 +105,7 @@ int main(int argc, char **argv)
   char *me = getlogin();
   long prev_turn = 2147483647;
   int prevloc_v1 = 0, prevloc_v2 = 0;
+  int loaded = 0, announced = 0;
 
   char *BINLOC = "/var/lib/adom/bin/";
 
@@ -201,9 +192,7 @@ int main(int argc, char **argv)
         orig_eax = ptrace(PTRACE_PEEKUSER, pid, 4*ORIG_EAX, NULL);
       } while(orig_eax != SYS_time);
 
-      int counter = 0;
       char *desc = NULL;
-
       while(1) {
         if(ptrace(PTRACE_SYSCALL, pid, 0, 0) == -1) {
 
@@ -221,46 +210,69 @@ int main(int argc, char **argv)
           long cur_turn = 0;	
           getdata(pid, TURNCOUNTER, (char*)&cur_turn, 1);
 
-          //set desc if this is a level we should announce
-          //Comparing the loc in this manner ..
-          if (cur_turn > prev_turn && curloc_v1 == prevloc_v1 && curloc_v2 == prevloc_v2) {
-            if (prevloc_v1 == TF4_1 && curloc_v2 == TF4_2) { desc = "top of the Tower of Eternal Flames"; }
-#ifdef SMC_TEST
-            else if (prevloc_v1 == SMC_1 && curloc_v2 == SMC_2) { desc = "Small Cave"; }
-#endif
-            else if (prevloc_v1 == D50_1 && curloc_v2 == D50_2) { desc = "D:50"; }
-            else if (prevloc_v1 == MANATEMP_1 && curloc_v2 == MANATEMP_2) { desc = "Mana Temple"; }
-            else if (prevloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
-            else { counter = 0; desc = NULL; } // unset if if it's not
-          }
-
-          // if desc is set, announce it
-          if (desc != NULL) {
-            // use shared memory?
-            struct stat locfinfo;
-            counter++;
-            char fname[1024];
-            FILE *tmpf;
-            snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
-
-            time_t now = time(0);
-            time_t mtime = 0;
-
-            if (stat(fname, &locfinfo) >= 0) {
-              mtime = locfinfo.st_mtim.tv_sec;
-            }
-            if (now > mtime + SEC_BET_ANC) {
-              tmpf = fopen(fname, "w");
-              if(tmpf) {
-                fprintf(tmpf, "%s", desc);
-                fclose(tmpf);
-                counter = 0;
+          if (!loaded) {
+            // player names can be up to 12 characters long, but the first 8
+            // chars have to be unique among your saves. The first 8 are used
+            // for the save game name, .svg.
+            // If the .svg doesn't exist, we have loaded a game.
+            char *player = malloc(13); player[0] = '\0';
+            getdata(pid, CHARNAME, player, 2);
+            if (strlen(player) > 0) {
+              char savename[1024] = "";
+              snprintf(savename, 1024, ".adom.data/savedg/%s.svg", player);
+              struct stat saveinfo;
+              if (stat(savename, &saveinfo) < 0) {
+                loaded = 1;
               }
+            }
+            free(player);
+          }
+          
+          // set desc if this is a level we should announce
+          // if a game has been loaded and at least one turn has been spent
+          if (loaded == 1) {
+            // Only reannounce if the location has changed
+            if (announced == 1 && (curloc_v1 != prevloc_v1 || curloc_v2 != prevloc_v2)) {
+              announced = 0;
+            }
+            // Announce if we haven't announced this one already
+            // and if it's been at least one turn on the level
+            if (announced == 0 && cur_turn > prev_turn) { 
+              if (curloc_v1 == TF4_1 && curloc_v2 == TF4_2) { desc = "top of the Tower of Eternal Flames"; }
+#ifdef SMC_TEST
+              else if (curloc_v1 == SMC_1 && curloc_v2 == SMC_2) { desc = "Small Cave"; }
+#endif
+              else if (curloc_v1 == D50_1 && curloc_v2 == D50_2) { desc = "D:50"; }
+              else if (curloc_v1 == MANATEMP_1 && curloc_v2 == MANATEMP_2) { desc = "Mana Temple"; }
+              else if (curloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
+            }
+            if (desc != NULL) {
+              // use shared memory?
+              struct stat locfinfo;
+              char fname[1024];
+              FILE *tmpf;
+              snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
+
+              time_t now = time(0);
+              time_t mtime = 0;
+
+              if (stat(fname, &locfinfo) >= 0) {
+                mtime = locfinfo.st_mtim.tv_sec;
+              }
+              if (now > mtime + SEC_BET_ANC) {
+                tmpf = fopen(fname, "w");
+                if(tmpf) {
+                  fprintf(tmpf, "%s", desc);
+                  fclose(tmpf);
+                }
+              }
+              announced = 1;
             }
           }
           prev_turn = cur_turn;
           prevloc_v1 = curloc_v1;
           prevloc_v2 = curloc_v2;
+          desc = NULL;
         }
         else if (WIFSTOPPED(wait_val)) {
           ptrace(PTRACE_CONT, pid, 0, WSTOPSIG(wait_val));

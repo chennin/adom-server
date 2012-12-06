@@ -51,6 +51,7 @@
   #define EXPLVL 0x082b16dc
   #define TURNCOUNTER 0x082b16e0
   #define IDCOUNT 0x82b55cc
+  #define CHARNAME 0x82add00
   /*#define IDCOUNT 0x82b621c //stored in two places?*/
 #elif defined ADOM_100
   #define LEVELID 0x829e21c
