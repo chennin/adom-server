@@ -27,6 +27,7 @@
 
 // Minimum seconds between announcing a new player location
 #define SEC_BET_ANC 1800
+#define TURNS_BEF_ANC 3
 #define NAMELEN 13
 
 #include "adom-locs.h"
@@ -106,7 +107,7 @@ int main(int argc, char **argv)
   char *me = getlogin();
   long prev_turn = 2147483647;
   int prevloc_v1 = 0, prevloc_v2 = 0;
-  int loaded = 0, announced = 0;
+  int loaded = 0, announced = 0, delaycounter = 0;
 
   char *BINLOC = "/var/lib/adom/bin/";
 
@@ -178,10 +179,12 @@ int main(int argc, char **argv)
       else {
         execl(SAGEPATH, SAGEPATH, "-a", ADOMBIN, "-s", SAGESO, NULL);
       }
+      free(ADOMBIN); free(SAGEPATH); free(SAGESO);
 
       break;
 
     default: /* parent process */
+      free(ADOMBIN); free(SAGEPATH); free(SAGESO);
       wait(&wait_val);
       handle_sig(pid, wait_val);
 
@@ -211,7 +214,7 @@ int main(int argc, char **argv)
           long cur_turn = 0;	
           getdata(pid, TURNCOUNTER, (char*)&cur_turn, 1);
 
-          //only check once per turn count change
+          //only check file once per turn count change
           if (!loaded && cur_turn != prev_turn) {
             // player names can be up to 12 characters long, but the first 8
             // chars have to be unique among your saves. The first 8 are used
@@ -238,6 +241,7 @@ int main(int argc, char **argv)
             // Only reannounce if the location has changed
             if (announced == 1 && (curloc_v1 != prevloc_v1 || curloc_v2 != prevloc_v2)) {
               announced = 0;
+              delaycounter = 0;
             }
             // Announce if we haven't announced this one already
             // and if it's been at least one turn on the level
@@ -251,28 +255,32 @@ int main(int argc, char **argv)
               else if (curloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
             }
             if (desc != NULL) {
-              // use shared memory?
-              struct stat locfinfo;
-              char fname[1024];
-              FILE *tmpf;
-              snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
+              delaycounter++;
+              if (delaycounter >= TURNS_BEF_ANC) {
+                // use shared memory?
+                struct stat locfinfo;
+                char fname[1024];
+                FILE *tmpf;
+                snprintf(fname, 1024, "%s/%s", STATUSDIR_PATH, me);
 
-              time_t now = time(0);
-              time_t mtime = 0;
+                time_t now = time(0);
+                time_t mtime = 0;
 
-              if (stat(fname, &locfinfo) >= 0) {
-                mtime = locfinfo.st_mtim.tv_sec;
-              }
-              if (now > mtime + SEC_BET_ANC) {
-                tmpf = fopen(fname, "w");
-                if(tmpf) {
-                  fprintf(tmpf, "%s", desc);
-                  fclose(tmpf);
+                if (stat(fname, &locfinfo) >= 0) {
+                  mtime = locfinfo.st_mtim.tv_sec;
                 }
+                if (now > mtime + SEC_BET_ANC) {
+                  tmpf = fopen(fname, "w");
+                  if(tmpf) {
+                    fprintf(tmpf, "%s", desc);
+                    fclose(tmpf);
+                  }
+                }
+                announced = 1;
               }
-              announced = 1;
             }
           }
+
           prev_turn = cur_turn;
           prevloc_v1 = curloc_v1;
           prevloc_v2 = curloc_v2;
