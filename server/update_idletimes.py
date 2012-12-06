@@ -44,7 +44,7 @@ for player in players:
 	os.system("rm -f /var/lib/adom/tmp/" + player + ".idleinfo")
         continue
 
-    ps_lines = os.popen("ps -fu " + player + " |grep /var/lib/adom/bin/adom-| grep -E -- '-bin'").readlines()
+    ps_lines = os.popen("ps -fu " + player + " |grep 'adom-.*-bin'").readlines()
 
     if len(ps_lines) < 1:
         continue

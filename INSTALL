@@ -314,10 +314,19 @@ Generate an ssh key for spectating from the user menu. Don't add a passphrase.
 
 ssh-keygen -t rsa -b 2048 -C "Pubkey for ADOMers to spectate" -f\
  /var/lib/adom/etc/adomusers_key
+
 cat /var/lib/adom/etc/adomusers_key.pub >>\
  /var/lib/adom/server/spectator/.ssh/authorized_keys
 cat /var/lib/adom/etc/adomusers_key.pub >>\
  /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
+
+chmod 600 /var/lib/adom/server/spectator/.ssh/authorized_keys\
+ /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
+chmod 700 /var/lib/adom/server/spectator/.ssh\
+ /var/lib/adom/server/ttyrecplay/.ssh
+chown -R spectator /var/lib/adom/server/spectator
+chown -R ttyrecplay /var/lib/adom/server/ttyrecplay
+chmod 660 /var/lib/adom/etc/adomusers_key
 
 xii. crontab
 ============
