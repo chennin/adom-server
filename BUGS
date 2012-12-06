@@ -1,2 +1,5 @@
 Users can run over their quota by turning on ttyrecs and playing for a long
-session and then lose their saves.
+session and then lose their saves. Workaround: don't enable quotas
+
+Users can use large amounts of space with ttyrecs and fill up the users' 
+partition, causing all players to lose saves.  Workaround: enable quotas
