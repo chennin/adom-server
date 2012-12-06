@@ -246,6 +246,7 @@ c7d6813e48cf19c163ac1a6eba8122ee  adom-111-bin
 d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
 43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
 11d27e4466b94e1667916296178785d9  adom-120p5-bin
+ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
 a2dc057b464a6ac6922772c705043346  adom-etr-bin
 979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
 3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
@@ -267,7 +268,7 @@ bspatch adom/adom /var/lib/adom/bin/adom-$i-bin\
 done
 rm -rf adom
 
-for i in 3 4 5; do
+for i in 3 4 5 6; do
 tar xzf /var/lib/adom/software/adom_linux_debian_32_1.2.0_pre$i.tar.gz &&
 bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin\
  /var/lib/adom/software/adom-120p$i-ds.binpatch
@@ -281,7 +282,7 @@ The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
 
 cd /var/lib/adom
-for i in 100 111 120p3 120p4 120p5; do
+for i in 100 111 120p3 120p4 120p5 120p6; do
   gcc -m32 -DADOM_$i -Wall src/adom-wrapper.c -o bin/adom-$i
 done
 
