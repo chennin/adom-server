@@ -278,6 +278,11 @@ for i in 100 111 120p3 120p4 120p5; do
   gcc -m32 -DADOM_$i -Wall src/adom-wrapper.c -o bin/adom-$i
 done
 
+Compile message dispatcher:
+gcc -m32 src/message_dispatch.c -o bin/message_dispatch
+Compile the bug temple entrance:
+gcc -m32 src/modify_cnt.c -o bin/modify_cnt
+
 xi. SSH key for spectating
 ==========================
 

@@ -11,7 +11,7 @@ done
 file=()
 
 for v in ${versions[@]}; do
-    file=("${file[@]}" "/var/lib/adom/${v}/.HISCORE")
+    file=("${file[@]}" "/var/lib/adom/var/${v}/.HISCORE")
 done
 
 update()
