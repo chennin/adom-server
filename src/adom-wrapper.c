@@ -143,7 +143,7 @@ int main(int argc, char **argv)
   }
 
   char *STATUSDIR_PATH = NULL;
-  if (asprintf(&STATUSDIR_PATH, "%s%s", BINLOC, "../player_locations") < 0) 
+  if (asprintf(&STATUSDIR_PATH, "%s%s", BINLOC, "../tmp/player_locations") < 0) 
   {
     perror("Failed to asprintf");
     exit_wrapper(1);
