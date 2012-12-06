@@ -58,17 +58,17 @@ To edit the banner on the top of the main menu, edit etc/motd in the server
 homedir. Bash color codes can be used (but double-escape your \s).
 
 To add support for new 1.2.0 prereleases, just edit etc/config and change 
-MAX_PRE
+MAX_PRE.
 
 Setting up your web server and domain is out of scope for this document, but
-is recommended to do.
+is recommended to do. See section III.xix of the INSTALL for more.
 
 New ADOM versions require small edits to the binary to enable sharing of
-HISCORES and not clobbering other versions. To do this yourself, edit the 
-adom binary in a hex editor (like hexcurse) and change both mentions of 
-adom_ds.cfg to something unique like adom_ds.900. Then create this file in
-/etc and put as its contents the folder you want the .HISCORE to go to.
+HISCORES and avoid clobbering other versions. See section II.x of the INSTALL
+for more details.
 
+New versions of Sage may be released.  To use them, see the install directions
+in section II.x.c in the INSTALL file.
 
 V. Contributing
 ---------------
@@ -81,7 +81,7 @@ VI. Contact
 http://www.adom.de/forums/showthread.php/493
 
 Alucard on #adom on irc.FreeNode.net
-Other netizens there can also answer usage questions
+Other netizens there can also answer usage questions.
 
 Alucard <saturos@gmail.com>
 

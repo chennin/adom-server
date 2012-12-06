@@ -217,9 +217,9 @@ Also, a binary that facilitates message sending, and opens the door to the Bug
 Temple, must be compiled.
 
 Small changes to the distributed ADOM binaries are required to separate HISCORE
-files. Binary patch files for several versions are provided. But if you want to
-do it yourself, edit the adom binary in a hex editor (like hexcurse) and change
-both mentions of adom_ds.cfg to something unique.
+files. Binary patch files for several versions are provided. To do manually, 
+edit the adom binary in a hex editor (like hexcurse) and change both mentions 
+of adom_ds.cfg to something unique. Then create this file in /etc with contents the directory the .HISCORE file should be.
 
 I have used:
 
