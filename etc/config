@@ -6,7 +6,7 @@ SERVNAME=adom.example.com
 
 #Prerelease versions supported
 MIN_PRE=3
-MAX_PRE=5
+MAX_PRE=6
 
 #For Twitter announcing
 CONSUMER_KEY=
