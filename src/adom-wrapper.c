@@ -27,6 +27,7 @@
 
 // Minimum seconds between announcing a new player location
 #define SEC_BET_ANC 1800
+#define NAMELEN 13
 
 #include "adom-locs.h"
 
@@ -210,12 +211,15 @@ int main(int argc, char **argv)
           long cur_turn = 0;	
           getdata(pid, TURNCOUNTER, (char*)&cur_turn, 1);
 
-          if (!loaded) {
+          //only check once per turn count change
+          if (!loaded && cur_turn != prev_turn) {
             // player names can be up to 12 characters long, but the first 8
             // chars have to be unique among your saves. The first 8 are used
             // for the save game name, .svg.
             // If the .svg doesn't exist, we have loaded a game.
-            char *player = malloc(13); player[0] = '\0';
+            char *player = malloc(NAMELEN); 
+            if (player == NULL) { perror("malloc failed"); exit(1); }
+            memset(player,'\0',NAMELEN);
             getdata(pid, CHARNAME, player, 2);
             if (strlen(player) > 0) {
               char savename[1024] = "";
