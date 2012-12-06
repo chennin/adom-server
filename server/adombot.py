@@ -134,9 +134,7 @@ def loc_changed(filename):
    with open(filename) as f:
       location = f.readlines()[0].strip()
 
-   starters = [ "Attention! ", "Caution! ", "Alert! ", "Breaking news! ", "Newsflash! ", "Look! ", "Citizens! ", "", "", "", ]
-   enders = [ "Spectate today!", "Spectate now!", "Care to watch?", "This could be good....", "", "", "", ]
-   c.privmsg(target,random.choice(starters) + player + " has just entered the " + location + "! " + random.choice(enders))
+   c.privmsg(target,player + " has just entered the \x1F" + location + "\x1F! "
 
 def import_hiscore(file):
     f = open(file, "r")
