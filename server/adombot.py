@@ -7,6 +7,7 @@ import os
 from tweepy import OAuthHandler, API, TweepError, debug
 from configobj import ConfigObj
 import re
+import random
 
 #irclib.DEBUG = True
 
@@ -133,7 +134,9 @@ def loc_changed(filename):
    with open(filename) as f:
       location = f.readlines()[0].strip()
 
-   c.privmsg(target,player + " has just entered the " + location + "!")
+   starters = [ "Attention! ", "Caution! ", "Alert! ", "Breaking news! ", "Newsflash! ", "Look! ", "Citizens! ", "", "", "", ]
+   enders = [ "Spectate today!", "Spectate now!", "Care to watch?", "This could be good...." "", "", "", ]
+   c.privmsg(target,random.choice(starters) + player + " has just entered the " + location + "! " + random.choice(enders))
 
 def import_hiscore(file):
     f = open(file, "r")
