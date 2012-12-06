@@ -13,9 +13,10 @@ Table of contents:
 	II. Install
 		viii. Check out code
 		ix. Add other ADOM versions
-		x. Patch and install ADOM versions
+		x. Patch and install ADOM versions; compile wrappers
 			a. Patch ADOM
 			b. Compile wrappers
+			c. Compile Sage
 		xi. SSH key for spectating
 		xii. crontab
 	III. Configuration
@@ -26,7 +27,6 @@ Table of contents:
 		xvii. Admin SSH key
 		xviii. ldconfig
 		xix. Web server
-	IV. ADOM Sage
 	
 I. Setup
 ----------------------------
@@ -188,6 +188,7 @@ adomown.
 
 viii. Check out code
 ====================
+
 Pick a directory (for now, this must be /var/lib/adom) and finally, check out 
 the code:
 
@@ -204,14 +205,16 @@ donated to the ADOM Resurrection IndieGoGo campaign to download and play them.
 Where you have a choice, get the Debian 32-bit version, as that is what Sage 
 supports.
 
+Place the archivces, just as you downloaded them, in /var/lib/adom/software/ .
+
 x. Patch and install ADOM versions
 ==================================
 
-1.0.0, 1.1.1, and 1.2.0p3 are provided.  Place other versions (32-bit Debian!)
-straight in /var/lib/adom/software/ , just as you downloaded them (tar.gz), as
-the following patch commands expect them that way.
+A wrapper binary is used to make some decisions and add some features and must
+be compiled.
 
-A wrapper binary is used to make some decisions and add some features.
+Also, a binary that facilitates message sending, and opens the door to the Bug
+Temple, must be compiled.
 
 Small changes to the distributed ADOM binaries are required to separate HISCORE
 files. Binary patch files for several versions are provided. But if you want to
@@ -228,6 +231,8 @@ Swapgame:       adom_ds.swp
 1.2.0p1-3:      adom_ds.12a
 1.2.0p4-5:      adom_ds.12b
 1.2.0p6-?:      adom_ds.12c
+
+Finally, Sage should be checked out and compiled.
 
 a. Patch ADOM
 +++++++++++++
@@ -274,6 +279,7 @@ b. Compile wrappers
 The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
 
+cd /var/lib/adom
 for i in 100 111 120p3 120p4 120p5; do
   gcc -m32 -DADOM_$i -Wall src/adom-wrapper.c -o bin/adom-$i
 done
@@ -282,6 +288,23 @@ Compile message dispatcher:
 gcc -m32 src/message_dispatch.c -o bin/message_dispatch
 Compile the bug temple entrance:
 gcc -m32 src/modify_cnt.c -o bin/modify_cnt
+
+c. Compile Sage
++++++++++++++++
+
+Run the following commands to compile and install Sage.  Replace the value for 
+TAG if there is a newer released version.
+
+TAG="0.9.2"
+git submodule init
+git submodule update
+cd sage
+git fetch --tags
+git pull
+git checkout ${TAG}
+make
+cp adom-sage ../bin/adom-sage-${TAG}
+cp adom-sage.so ../bin/adom-sage-${TAG}.so
 
 xi. SSH key for spectating
 ==========================
@@ -351,26 +374,28 @@ Commands:
 
 cd /var/lib/adom
 # for playing
-chgrp adomusers public_html/adom_users/ sockets
-chmod 1775 public_html/adom_users/ sockets
+chgrp adomusers public_html/adom_users/ tmp/sockets
+chmod 1775 public_html/adom_users/ tmp/sockets
 # for running, be sure
 chmod ugo+x bin/*
 # for scoring
+cd var
 chgrp adomusers 1* etr lea swapgame 1*/.HISCORE etr/.HISCORE lea/.HISCORE\
  swapgame/.HISCORE
 chmod 775 1* etr lea swapgame
 chmod 664 */.HISCORE
+cd ..
 # for announcing locs
-chmod 1775 /var/lib/adom/player_locations
+chmod 1775 /var/lib/adom/tmp/player_locations
 # for registering
-chown adom /var/lib/adom/server/registered_ips
-chmod 640 /var/lib/adom/server/registered_ips
+chown adom /var/lib/adom/tmp/registered_ips
+chmod 640 /var/lib/adom/tmp/registered_ips
 # for spectating
 chmod u+s `which screen`
 chmod 755 /var/run/screen/
 # for messaging
-chgrp adomusers /var/lib/adom/log/messages_sent
-chmod 664 /var/lib/adom/log/messages_sent
+chgrp adomusers /var/lib/adom/var/log/messages_sent
+chmod 664 /var/lib/adom/var/log/messages_sent
 chown root:adomusers /var/lib/adom/bin/message_dispatch
 chmod 4710 /var/lib/adom/bin/message_dispatch
 
@@ -380,53 +405,40 @@ xvi. HISCORES
 To tell ADOM where to put its .HISCORE files for all, copy server/etc/adom_ds* 
 to /etc/:
 
-cp /var/lib/adom/etc/adom_ds* /etc/
+cp etc/adom_ds* /etc/
 
 xvii. Admin SSH key
 ===================
 
-Add your SSH public key to /var/lib/adom/etc/skel/.ssh/authorized_keys to
-let you SSH in as any created user, to see their issues or shut down their
-games (say when you want to reboot).
+(Optional) Add the administrator's SSH public key to 
+/var/lib/adom/etc/skel/.ssh/authorized_keys to let him or her SSH in as any 
+created user, to see their issues or shut down their games (say when you want 
+to reboot).
 
 xviii. ldconfig
 ===============
 
-You may need to run "ldconfig" if you've installed a package from source
+"ldconfig" may need to be run if a package was installed from source
 (I did when I installed tmux)
 
 xix. Web server
 ===============
 
-You will want to set up a Web server to provide the readme and display hi
+A Web server should be set up to provide the readme and display hi
 scores and allow users to (optionally) download their files.  Setting up the
 server itself is out of scope for this document.
 
-You will want to set the provided public_html folder as your Web server's
-document root, or link it in.
+A public_html folder is provided, and should be set as the Web server's
+document root, or linked in to its tree.
 
-You should enable PHP on your server, edit the top of public_html/index.php
-with the name and other details of your server, and remove index.html.
+If PHP is enabled on the Web server, edit the top of public_html/index.php
+with the name and other details of the server, and remove index.html.
 
 Alternately, edit the static index.html and remove index.php.
 
-To serve up ADOM's text files in a browser, you may want to touch the MIME typesof some file extensions. Specifically, the following types would benefit from
-being sent by your Web server as text/plain:
+To serve up ADOM's text files in a browser, the MIME types of some file 
+extensions should be touched. Specifically, the following types would benefit 
+from being sent as text/plain:
  flg ssh slg kbd cfg msg vlg
 And the following would benefit from being sent as application/octet-stream:
  svg
-
-IV. ADOM Sage
---------------
-
-ADOM Sage is included, but new versions of ADOM Sage can be found at
-https://github.com/AlucardZero/adom-sage 
-
-To add, check out and compile the code, then move adom-sage and adom-sage.so
-to the bin/ directory of the server homedir, with an extenstion like -092.
-
-E.g.:
-bin/adom-sage-092
-bin/adom-sage-092.so
-
-Then edit the SAGE variable in bin/adom-120pX to your new suffix.
