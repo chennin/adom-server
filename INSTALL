@@ -109,10 +109,11 @@ useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s\
  /var/lib/adom/server/ttyrecplay_login ttyrecplay
 
 For adom, spectator, and ttyrecplay, set passwords the same as their username.
-adomown can be given a password, or locked, your choice, but the install will
-require you to run a lot of commands as adomown.
+adomown can be given a password or remain locked but the install will require 
+a lot of commands to be run as adomown.
 
 Commands:
+
 passwd adom
 passwd spectator
 passwd ttyrecplay
@@ -321,7 +322,7 @@ cat /var/lib/adom/etc/adomusers_key.pub >>\
 xii. crontab
 ============
 
-Add the contents of etc/crontab to your crontab 
+Add the contents of etc/crontab to adomown's crontab.
 
 Command:
 
@@ -335,14 +336,14 @@ xiii. etc/config
 
 Edit etc/config and fill in the values.
 
-The SERVNAME field is the domain name of your server, through which HTTP access
+The SERVNAME field is the domain name of the server, through which HTTP access
 will be available, like adom.example.com or ancardia.us.to.
 
 The prerelease section defines the minimum and maximum 1.2.0p versions 
 supported. 
 
 The twitter section is for announcing scores on Twitter. Sign up for a Twitter
-account then enable API access and generate and find your access and consumer
+account then enable API access and generate and find the access and consumer
 tokens.
 See https://dev.twitter.com/docs/auth/tokens-devtwittercom for help generating.
 
