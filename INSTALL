@@ -396,11 +396,9 @@ chgrp adomusers 1* etr lea swapgame 1*/.HISCORE etr/.HISCORE lea/.HISCORE\
 chmod 775 1* etr lea swapgame
 chmod 664 */.HISCORE
 cd ..
+chmod 1775 /var/lib/adom/tmp/
 # for announcing locs
 chmod 1775 /var/lib/adom/tmp/player_locations
-# for registering
-chown adom /var/lib/adom/tmp/registered_ips
-chmod 640 /var/lib/adom/tmp/registered_ips
 # for spectating
 chmod u+s `which screen`
 chmod 755 /var/run/screen/
