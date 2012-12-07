@@ -6,9 +6,10 @@ Table of contents:
 	II. Install
 	III. Usage
 	IV. Administration
-	V. Contributing
-	VI. Contact
-	VII. Authors
+  V. Changelog
+	VI. Contributing
+	VII. Contact
+	VIII. Authors
 	
 I. About
 --------
@@ -73,12 +74,17 @@ for more details.
 New versions of Sage may be released.  To use them, see the install directions
 in section II.x.c in the INSTALL file.
 
-V. Contributing
+V. Changelog
+------------
+
+See CHANGELOG file.
+
+VI. Contributing
 ---------------
 
 Submit a pull request on GitHub and I'll figure it out.
 
-VI. Contact
+VII. Contact
 -----------
 
 http://www.adom.de/forums/showthread.php/493
@@ -88,8 +94,8 @@ Other netizens there can also answer usage questions.
 
 Alucard <saturos@gmail.com>
 
-VII. Authors
+VIII. Authors
 ------------
-Christopher Henning aka Alucard(Zero), author of the vast majority of the rest
+Christopher Henning aka Alucard(Zero), author of the rest
 Jaakko Salo aka jaakkos, author of the vast majority of 1.0
 Sampsa "Tuplanolla" Kiiskinen
