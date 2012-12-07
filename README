@@ -62,7 +62,9 @@ To edit the banner on the top of the main menu, edit etc/motd in the server
 homedir. Bash color codes can be used (but double-escape any \s).
 
 To add support for new 1.2.0 prereleases, just edit etc/config and change 
-MAX_PRE.
+MAX_PRE. This will 'just work', but it will be vanilla with none of the servers'
+binary modifications.  Sage will need to be recompiled once it supports the new 
+version, and the same for the binary wrapper (INSTALL section II.x.b).
 
 Setting up a web server and domain is out of scope for this document, but
 is recommended to do. See section III.xix of the INSTALL for more.
