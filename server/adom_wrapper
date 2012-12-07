@@ -111,7 +111,9 @@ fi
 
 res="0"
 > ${HOME}/adom_dirty
-if [ "$sage" = "enabled" ]; then
+if [ -f ${HOME}/debug ]; then
+  /usr/games/adom-$adom_ver-bin 
+elif [ "$sage" = "enabled" ]; then
 	/var/lib/adom/bin/adom-$adom_ver --enable-sage
 else
 	/var/lib/adom/bin/adom-$adom_ver

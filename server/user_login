@@ -105,8 +105,9 @@ do
                 echo -e "     \e[4mNOTE\e[0m: It's New Year's Eve."
         fi
 
+  if [ -f ${HOME}/debug ]; then echo -e "\e[1mYou have ADOM DEBUG mode enabled. No binary server enhancements will be used.\e[0m"; fi 
 	echo ""
-	 echo -ne "\e[1;33m[ a ]\e[0m launch ADoM (start or resume)	"
+  echo -ne "\e[1;33m[ a ]\e[0m launch ADoM (start or resume)	"
         echo -e "\e[1m[ h ]\e[0m view readme"
         echo -ne "\e[1m[ j ]\e[0m join this user's session (co-op)	"
         echo -e "\e[1m[ s ]\e[0m spectate other users' games"
@@ -402,6 +403,13 @@ do
 		ssh -o "StrictHostKeyChecking no" -i /var/lib/adom/etc/adomusers_key spectator@localhost
 		continue
 		;;
+   'debug')
+     set -x
+     if [ -f ${HOME}/debug ]; then rm -f ${HOME}/debug
+     else touch ${HOME}/debug
+     fi
+     set +x
+     ;;
 
 	't')
 		trap - INT
