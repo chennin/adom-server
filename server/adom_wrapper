@@ -121,6 +121,8 @@ fi
 
 res="$?"
 
+find ${HOME} -name core -exec chmod 644 '{}' \;
+
 if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
     echo "Damnit! It seems ADOM has exited with an abnormal exit code $res"
     echo "Backups may exist; re-launch for details"
