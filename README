@@ -35,12 +35,13 @@ ADOM is Copyright (c) 1994-2013 by Thomas Biskup.
 II. Install
 ------------
 
-A basic Linux system is required.  The distribution should be relatively
+A basic x86 or x86_64 Linux system is required (ARM may also work, but this 
+product does not entirely support that).  The distribution should be relatively
 modern; Debian 6+ or Ubuntu 12.04+ are recommended, but almost any will work.
 
 Please read the included INSTALL file, as there are many moving parts to touch.
 
-At the very least, you should create a non-root user to own the server scripts,
+At the very least, a non-root user should be created to own the server scripts,
 before checking out or unpacking the code.
 Also, for now, /var/lib/adom must be used as the server base dir, and be empty.
 
