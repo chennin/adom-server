@@ -10,7 +10,7 @@ echo "If you provide an e-mail address, password recovery will be possible."
 
 read -e -p "Enter email address (optional): " email
 
-sudo adduser --conf $CONF --gecos "${email}" --ingroup adomusers "$1" 
+sudo adduser --conf $CONF --gecos ",${email},," --ingroup adomusers "$1" 
 if [ $? != "0" ]; then echo "There was an error. Please try again."; sleep 5; exit 1; fi
 sudo setquota -u "$1" "$SOFT" "$HARD" 0 0 /
 

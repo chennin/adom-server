@@ -19,6 +19,7 @@ echo ""
 echo "Please enter your desired username or press control-C to abort."
 echo "-- ONLY LOWERCASE LETTERS ALLOWED! --"
 echo ""
+echo "Desired username: "
 
 NAME=""
 USERS=`wc -l < /etc/passwd`
