@@ -58,23 +58,33 @@ user.
 IV. Administration
 -------------------
 
-To edit the banner on the top of the main menu, edit etc/motd in the server 
+* To edit the banner on the top of the main menu, edit etc/motd in the server 
 homedir. Bash color codes can be used (but double-escape any \s).
 
-To add support for new 1.2.0 prereleases, just edit etc/config and change 
-MAX_PRE. This will 'just work', but it will be vanilla with none of the servers'
-binary modifications.  Sage will need to be recompiled once it supports the new 
-version, and the same for the binary wrapper (INSTALL section II.x.b).
+* To add support for new 1.2.0 prereleases, just edit etc/config and change
+  MAX_PRE. This will 'just work', but it will be vanilla with none of the 
+  servers' binary modifications.  Sage will need to be recompiled once it 
+  supports the new version, and the same for the binary wrapper (INSTALL 
+  section II.x.b).
 
-Setting up a web server and domain is out of scope for this document, but
-is recommended to do. See section III.xix of the INSTALL for more.
+* Setting up a web server and domain is out of scope for this document, but
+  is recommended to do. See section III.xix of the INSTALL for more.
 
-New ADOM versions require small edits to the binary to enable sharing of
-HISCORES and avoid clobbering other versions. See section II.x of the INSTALL
-for more details.
+* New ADOM versions require small edits to the binary to enable sharing of
+  HISCORES and avoid clobbering other versions. See section II.x of the INSTALL
+  for more details.
 
-New versions of Sage may be released.  To use them, see the install directions
-in section II.x.c in the INSTALL file.
+* New versions of Sage may be released.  To use them, see the install directions
+  in section II.x.c in the INSTALL file.
+
+* When a user signs up, he is asked for his e-mail address. The address is stored
+  in the user's GECOS field in /etc/passwd. If he needs a password reset, the 
+  admin can extract his e-mail address with command:
+
+  getent passwd "USERNAMEHERE" | cut -d ':' -f 5 | cut -d ',' -f 2
+
+  then set a new password for him and e-mail it to him. If he didn't set an email
+  (the previous command returns nothing), it's up to the admin what to do.
 
 V. Changelog
 ------------
