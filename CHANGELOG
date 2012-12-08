@@ -17,4 +17,6 @@ Version 2.0:
     * Add version display on spectator menu
     * Ask for user's e-mail & menu option to change (in case of lost password)
     * Bug fixes
-    * And many many improvements for the admins
+    * Make the ecosystem almost entirely self-contained
+    * Don't require root for anything
+    * Many organizational changes
