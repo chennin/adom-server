@@ -6,6 +6,7 @@
 ulimit -c unlimited
 
 if [ "$ttyq" = "enabled" ]; then
+	echo ""
 	python /var/lib/adom/server/ttyrecord.py
 	res="$?"
 
