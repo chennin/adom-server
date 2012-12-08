@@ -50,7 +50,7 @@ The following software is required for all pieces to work:
 * nano
 * ELinks
 * ttyrec
-* termrec
+* termrec (included)
 * Python 2.6+
 * Perl
 Perl modules for the score announcing bot:
@@ -82,10 +82,14 @@ apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
 For compiling binaries from source, or related tools, a compiler and
 some development libraries are required:
 
-apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc make autoconf
+apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc g++ make autoconf
+
+If running on a 64-bit system, you will need the 32-bit development libraries
+of all the above and libc6 and libstdc++.
 
 Notes:
-Debian Squeeze users will have to build libtext-levenshteinxs-perl tmux and
+
+- Debian Squeeze users will have to build libtext-levenshteinxs-perl tmux and
 python-tweepy from source or another source (like Wheezy).
 
 ii. Local Users
@@ -97,6 +101,7 @@ Group adomusers
 Users adomown, adom, spectator, and ttyrecplay
 
 Commands:
+
 groupadd adomusers
 useradd -d /var/lib/adom -c "ADOM owner" -s /bin/bash -g adomusers adomown
 mkdir /var/lib/adom
@@ -105,7 +110,7 @@ useradd -d /var/lib/adom -c "ADOM public login" -s\
  /var/lib/adom/server/public_login adom
 useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s\
  /var/lib/adom/server/spec_login spectator
-useradd -d/var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s\
+useradd -d /var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s\
  /var/lib/adom/server/ttyrecplay_login ttyrecplay
 
 For adom, spectator, and ttyrecplay, set passwords the same as their username.
@@ -151,7 +156,13 @@ The adom user requires permission to add new users and set their quotas.
 Add the following line to /etc/sudoers or /etc/sudoers.d/50-adom
 (must be chmod 0440):
 
-adomown    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
+adom    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota
+
+Commands:
+
+echo "adom    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota"\
+ > /etc/sudoers.d/50-adom
+chmod 0440 /etc/sudoers.d/50-adom
 
 vi. quota
 =========
@@ -206,7 +217,7 @@ donated to the ADOM Resurrection IndieGoGo campaign to download and play them.
 Where you have a choice, get the Debian 32-bit version, as that is what Sage 
 supports.
 
-Place the archivces, just as you downloaded them, in /var/lib/adom/software/ .
+Place the archives, just as you downloaded them, in /var/lib/adom/software/ .
 
 x. Patch and install ADOM versions
 ==================================
@@ -238,19 +249,7 @@ Finally, Sage should be checked out and compiled.
 a. Patch ADOM
 +++++++++++++
 
-Patch the binaries with the following commands. These are the md5sums of the 
-resulting binaries:
-
-2e870f9207c08e736d2e2a81ae1f7098  adom-100-bin
-c7d6813e48cf19c163ac1a6eba8122ee  adom-111-bin
-d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
-43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
-11d27e4466b94e1667916296178785d9  adom-120p5-bin
-ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
-a2dc057b464a6ac6922772c705043346  adom-etr-bin
-979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
-3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
-
+Patch the binaries with the following commands:
 
 mkdir /tmp/adom && cd $_
 
@@ -275,9 +274,21 @@ bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin\
 rm -rf ./adom
 done
 
+These are the md5sums of the resulting binaries:
+
+2e870f9207c08e736d2e2a81ae1f7098  adom-100-bin
+c7d6813e48cf19c163ac1a6eba8122ee  adom-111-bin
+d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
+43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
+11d27e4466b94e1667916296178785d9  adom-120p5-bin
+ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
+a2dc057b464a6ac6922772c705043346  adom-etr-bin
+979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
+3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
+
 b. Compile wrappers
 +++++++++++++++++++
-(also temp?)
+
 The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
 
@@ -297,16 +308,18 @@ c. Compile Sage
 Run the following commands to compile and install Sage.  Replace the value for 
 TAG if there is a newer released version.
 
-TAG="0.9.2"
+TAG="0.9.3"
 git submodule init
 git submodule update
 cd sage
 git fetch --tags
+git checkout master
 git pull
 git checkout ${TAG}
 make
 cp adom-sage ../bin/adom-sage-${TAG}
 cp adom-sage.so ../bin/adom-sage-${TAG}.so
+cd ..
 
 xi. SSH key for spectating
 ==========================
@@ -320,14 +333,6 @@ cat /var/lib/adom/etc/adomusers_key.pub >>\
  /var/lib/adom/server/spectator/.ssh/authorized_keys
 cat /var/lib/adom/etc/adomusers_key.pub >>\
  /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
-
-chmod 600 /var/lib/adom/server/spectator/.ssh/authorized_keys\
- /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
-chmod 700 /var/lib/adom/server/spectator/.ssh\
- /var/lib/adom/server/ttyrecplay/.ssh
-chown -R spectator /var/lib/adom/server/spectator
-chown -R ttyrecplay /var/lib/adom/server/ttyrecplay
-chmod 660 /var/lib/adom/etc/adomusers_key
 
 xii. crontab
 ============
@@ -407,6 +412,14 @@ chgrp adomusers /var/lib/adom/var/log/messages_sent
 chmod 664 /var/lib/adom/var/log/messages_sent
 chown root:adomusers /var/lib/adom/bin/message_dispatch
 chmod 4710 /var/lib/adom/bin/message_dispatch
+# for keys
+chmod 600 /var/lib/adom/server/spectator/.ssh/authorized_keys\
+ /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
+chmod 700 /var/lib/adom/server/spectator/.ssh\
+ /var/lib/adom/server/ttyrecplay/.ssh
+chown -R spectator /var/lib/adom/server/spectator
+chown -R ttyrecplay /var/lib/adom/server/ttyrecplay
+chmod 660 /var/lib/adom/etc/adomusers_key
 
 xvi. HISCORES
 ============
@@ -428,7 +441,7 @@ xviii. ldconfig
 ===============
 
 "ldconfig" may need to be run if a package was installed from source
-(I did when I installed tmux)
+(I had to when I installed tmux)
 
 xix. Web server
 ===============
@@ -448,6 +461,6 @@ Alternately, edit the static index.html and remove index.php.
 To serve up ADOM's text files in a browser, the MIME types of some file 
 extensions should be touched. Specifically, the following types would benefit 
 from being sent as text/plain:
- flg ssh slg kbd cfg msg vlg
+  flg ssh slg kbd cfg msg vlg
 And the following would benefit from being sent as application/octet-stream:
- svg
+  svg
