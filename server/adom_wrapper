@@ -113,15 +113,15 @@ res="0"
 > ${HOME}/adom_dirty
 # If DEBUG, or missing wrapper, run ADOM straight
 if [ -f ${HOME}/debug ]  || [ ! -f /var/lib/adom/bin/adom-$adom_ver ]; then
-  /usr/games/adom-$adom_ver-bin 
+  /var/lib/adom/bin/adom-$adom_ver-bin 
 else 
   if [ "$sage" = "enabled" ]; then
-   	/var/lib/adom/bin/adom-$adom_ver --enable-sage
+    /var/lib/adom/bin/adom-$adom_ver --enable-sage
   else
-	  /var/lib/adom/bin/adom-$adom_ver
+    /var/lib/adom/bin/adom-$adom_ver
   fi
 fi
-if [[ $? > 1 ]]; then
+if [[ $? > 0 ]]; then
   echo "Can't find any way to run ADOM $adom_ver."
   sleep 10
 fi
