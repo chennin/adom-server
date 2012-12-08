@@ -121,19 +121,15 @@ else
     /var/lib/adom/bin/adom-$adom_ver
   fi
 fi
-if [[ $? > 0 ]]; then
-  echo "Can't find any way to run ADOM $adom_ver."
-  sleep 10
-fi
-
 res="$?"
 
 find ${HOME} -name core -exec chmod 644 '{}' \;
+find ${HOME} -name savedg -exec chmod 755 '{}' \;
 
 if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
     echo "Damnit! It seems ADOM has exited with an abnormal exit code $res"
     echo "Backups may exist; re-launch for details"
-
+    sleep 10
 else
     rm ${HOME}/adom_dirty
     find /var/lib/adom/tmp/player_locations -type f -user $USER -mmin +29 -delete 
