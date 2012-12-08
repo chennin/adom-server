@@ -341,6 +341,7 @@ do
                 ;;
 
 	'c')
+		export adom_ver
 		/var/lib/adom/server/conf_adom
 		echo
 		sleep 1

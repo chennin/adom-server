@@ -6,12 +6,14 @@ while true
 do
     clear
 
-    echo "Welcome to the ADOM configuration editor menu. Here you can edit"
-    echo "your ADOM configuration with the nano editor."
+    echo "Welcome to the ADOM configuration editor menu. Here you can edit your ADOM"
+    echo "configuration with the nano editor."
 
-    echo "Please note that you will need to switch the ADOM version in the"
-    echo "main-menu in order to edit configurations for other versions."
-    echo "This, surprisingly, does not apply to the SSH authorized_keys file."
+    echo "Please note that you will need to switch the ADOM version in the main menu in"
+    echo "order to edit configurations for other versions (this does not apply to the SSH"
+    echo "SSH authorized_keys file)."
+    echo
+    echo "Press Ctrl+O to save your new config.  Press Ctrl+X to exit nano."
     echo
     echo "Select the config you wish to edit:"
     echo
@@ -21,48 +23,50 @@ do
     echo "  4 - sage.msg, ADOM Sage message configuration file"
     echo "  5 - sage.kbd, ADOM Sage keymap configuration file"
     echo
-    echo "  6 - ~/.ssh/authorized_keys, authorized SSH RSA/DSA public keys"
+    echo "  6 - Copy config files between ADOM versions"
     echo
-    echo "  7 - quit"
-    printf "> "
+    echo "  7 - ~/.ssh/authorized_keys, authorized SSH RSA/DSA public keys"
+    echo
+    echo "  8 - quit"
 
-    read command
+    read -e -p "> " command
     case $command in
 	
 	1)
-	    pico --restricted "${HOME}/.adom.data/.adom.cfg"
+	    nano --restricted "${HOME}/.adom.data/.adom.cfg"
 	    continue
 	    ;;
 	
 	2)
-	    pico --restricted "${HOME}/.adom.data/.adom.kbd"
+	    nano --restricted "${HOME}/.adom.data/.adom.kbd"
 	    continue
 	    ;;
 	
 	3)
-	    pico --restricted "${HOME}/.adom.data/sage.cfg"
+	    nano --restricted "${HOME}/.adom.data/sage.cfg"
 	    continue
 	    ;;
 	
 	4)
-	    pico --restricted "${HOME}/.adom.data/sage.msg"
+	    nano --restricted "${HOME}/.adom.data/sage.msg"
 	    continue
 	    ;;
 	
         5)
-            pico --restricted "${HOME}/.adom.data/sage.kbd"
+            nano --restricted "${HOME}/.adom.data/sage.kbd"
             continue
             ;;
-
 	6)
-	    pico --restricted "${HOME}/.ssh/authorized_keys"
+	    /var/lib/adom/server/copy_conf	
+	    continue
+	    ;;
+	7)
+	    nano --restricted "${HOME}/.ssh/authorized_keys"
 	    continue;
 	    ;;
-
-	7)
+	[8q])
 	    exit
 	    ;;
-
 	*)
 	    echo "Erroneous selection!"
 	    sleep 2

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+. /var/lib/adom/etc/config
+
+CFGBASE="${HOME}/adom.data-"
+
+VERSIONS="100 111 etr lea swp"
+for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
+    VERSIONS+=" 120p${i}"
+done
+VERSIONS+=" quit"
+echo "Which version to copy FROM?"
+select FROM in $VERSIONS; do 
+    if [[ ${REPLY} == "quit" ]] || [[ ${FROM} == "quit" ]]; then break; 
+    elif [[ -z ${FROM} ]]; then continue; 
+    fi
+    echo "Copying FROM ${FROM}"
+    echo "Which version to copy TO (default: ${adom_ver})?"
+    select TO in $VERSIONS; do
+        if [[ ${REPLY} == "quit" ]] || [[ ${TO} == "quit" ]]; then break; fi
+        CTO=${TO:-$adom_ver} 
+        echo "Copying TO ${CTO}"
+        mkdir -p ${CFGBASE}${FROM}/${FILE} ${CFGBASE}${CTO}/${FILE}
+        for FILE in .adom.kbd .adom.cfg sage.cfg sage.kbd sage.msg; do
+            if [ -f ${CFGBASE}${FROM}/${FILE} ]; then
+                cp -pi ${CFGBASE}${FROM}/${FILE} ${CFGBASE}${CTO}/${FILE}
+            else
+                echo "Warning: ${FILE} not found in ${FROM} cfg dir!"
+            fi
+        done
+        break
+    done
+    break
+done
+
+echo "Done."
+sleep 2
