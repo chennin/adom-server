@@ -51,7 +51,6 @@ do
         if [ $? == 1 ]; then
 		echo -e " ** \e[1;31mWARNING: You are over your disk quota. Please type 'del'. \e[0m**"
         fi
-
 	echo -ne "You're about to play \e[1mADoM\e[0m"
         case $adom_ver in
                 "111")
@@ -139,7 +138,6 @@ do
         echo -e "\e[1m[ kp ]\e[0m kill your processes (if stuck)"
         echo -e "\e[1m[ del ]\e[0m delete all your ttyrecs, slgs, vlgs, & sshs, (with confirmation)"
         echo -e "\e[1m[ pw ]\e[0m change your password		\e[1m[ em ]\e[0m change/set your email"
-        echo ""
 
 	read -e -p "> " command
 	case $command in
