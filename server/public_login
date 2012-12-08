@@ -10,7 +10,7 @@ if [ "$ret" == "1" ]; then
   exit
 fi
 
-echo "Welcome to the ADOM player account creation script on the Ancardia"
+echo "Welcome to the ADOM player account creation script on this Ancardia"
 echo "ADOM server. Follow the instructions to create your account, then"
 echo "use your SSH client again and log in with your newly created account!"
 echo ""
@@ -19,14 +19,13 @@ echo ""
 echo "Please enter your desired username or press control-C to abort."
 echo "-- ONLY LOWERCASE LETTERS ALLOWED! --"
 echo ""
-printf "> "
 
 NAME=""
 USERS=`wc -l < /etc/passwd`
 
-if (( $USERS < 5000 )); then
+if (( $USERS < 1000 )); then
     until [ ! $NAME == "" ]; do
-            read NAME
+            read -e -p "> " NAME
             id "$NAME" > /dev/null 2>&1 && echo "Username already taken, choose another one." && NAME=""
     done
     
