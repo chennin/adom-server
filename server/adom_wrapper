@@ -126,7 +126,7 @@ res="$?"
 find ${HOME} -name core -exec chmod 644 '{}' \;
 chmod 755 ${HOME}/.adom.data/savedg
 chmod 775 ${HOME}/ttyrecs
-chmod 664 ${HOME}/ttyrecs/ttyrec-*
+find ${HOME}/ttyrecs/ -type f -name "ttyrec-*" -exec chmod 664 '{}' \;
 
 if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
     echo "Damnit! It seems ADOM has exited with an abnormal exit code $res"
