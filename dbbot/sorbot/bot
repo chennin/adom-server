@@ -20,7 +20,7 @@ my $usage = "Usage: \@[mi] name fragment | \@[mi] /regex/";
 
 my $bot = Bot->new(
   server => "irc.freenode.net",
-  channels => [ '#adom2' ],
+  channels => [ '#adom' ],
   nick => 'dbbot',
   ssl => 1,
   port => 6697,
