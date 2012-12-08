@@ -60,7 +60,7 @@ Perl modules for the score announcing bot:
 ** OAuth
 ** Tweepy
 ** Passwd (included)
-iPython modules for the database bot:
+Python modules for the database bot:
 ** Bot::BasicBot
 ** Try::Tiny 
 ** String::Approx
