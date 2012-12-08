@@ -12,7 +12,7 @@ Table of contents:
 	VIII. Authors
 	
 I. About
---------
+---------
 
 These are scripts to support running a multi-user, multi-version ADOM server,
 with useful mods for the game, IRC bots useful for ADOM players, and social
@@ -33,7 +33,7 @@ ADOM can be found at http://adom.de or http://ancardia.com .
 ADOM is Copyright (c) 1994-2013 by Thomas Biskup.
 
 II. Install
------------
+------------
 
 A basic Linux system is required.  The distribution should be relatively
 modern; Debian 6+ or Ubuntu 12.04+ are recommended, but almost any will work.
@@ -45,7 +45,7 @@ before checking out or unpacking the code.
 Also, for now, /var/lib/adom must be used as the server base dir, and be empty.
 
 III. Usage
----------
+-----------
 
 Once set up, the full usage readme is at public_html/readme.php.
 
@@ -88,17 +88,17 @@ homedir. Bash color codes can be used (but double-escape any \s).
   (the previous command returns nothing), it's up to the admin what to do.
 
 V. Changelog
-------------
+-------------
 
 See CHANGELOG file.
 
 VI. Contributing
----------------
+-----------------
 
 Submit a pull request on GitHub and I'll figure it out.
 
 VII. Contact
------------
+-------------
 
 http://www.adom.de/forums/showthread.php/493
 
@@ -108,7 +108,7 @@ Other netizens there can also answer usage questions.
 Alucard <saturos@gmail.com>
 
 VIII. Authors
-------------
+--------------
 Christopher Henning aka Alucard(Zero), author of the rest
 Jaakko Salo aka jaakkos, author of the vast majority of 1.0
 Sampsa "Tuplanolla" Kiiskinen

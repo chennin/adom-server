@@ -29,14 +29,14 @@ Table of contents:
 		xix. Web server
 	
 I. Setup
-----------------------------
+---------
 
 These instructions are written with a Debian or Ubuntu-based system in mind.
 Any relatively modern Linux distribution will work, but Debian 6+ or Ubuntu
 12.04+ are recommended.
 
 i. Install required tools
-=========================
+==========================
 
 The following software is required for all pieces to work:
 
@@ -94,7 +94,7 @@ Notes:
 python-tweepy from source or another source (like Wheezy).
 
 ii. Local Users
-==============
+================
 
 The following users and group must be set up for full funcationality:
 
@@ -125,7 +125,7 @@ passwd spectator
 passwd ttyrecplay
 
 iii. passwd.py
-==============
+===============
 
 Install passwd.py (latest can be found at
 http://newcenturycomputers.net/projects/passwd.html ).
@@ -150,7 +150,7 @@ cd termrec-0.16/
 ./configure && make && make install
 
 v. sudo
-=======
+========
 
 The adom user requires permission to add new users and set their quotas.
 
@@ -166,7 +166,7 @@ echo "adom    ALL = NOPASSWD: /usr/sbin/adduser, /usr/sbin/setquota"\
 chmod 0440 /etc/sudoers.d/50-adom
 
 vi. quota
-=========
+==========
 
 Quota support should be added to prevent a user from filling up the disk.
 ttyrecs take a LOT of space.
@@ -182,7 +182,7 @@ quotacheck -avugm
 quotaon -a
 
 vii. su to adomown
-==================
+===================
 
 The next steps should be done as the adomown user.  You'll be told when
 it's time to return to root.
@@ -194,13 +194,13 @@ or
 sudo -u adomown bash
 
 II. Install
------------
+------------
 
 This section should be done as the non-root user you set up for this, e.g.
 adomown.
 
 viii. Check out code
-====================
+=====================
 
 Pick a directory (for now, this must be /var/lib/adom) and finally, check out 
 the code:
@@ -208,7 +208,7 @@ the code:
 git clone https://github.com/AlucardZero/adom-server.git .
 
 ix. Add other ADOM versions
-===========================
+============================
 
 Download any desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and
 1.2.0p3 are included, in the same way as from ancardia.com (due to the license),
@@ -221,7 +221,7 @@ supports.
 Place the archives, just as you downloaded them, in /var/lib/adom/software/ .
 
 x. Patch and install ADOM versions
-==================================
+===================================
 
 A wrapper binary is used to make some decisions and add some features and must
 be compiled.
@@ -248,7 +248,7 @@ Swapgame:       adom_ds.swp
 Finally, Sage should be checked out and compiled.
 
 a. Patch ADOM
-+++++++++++++
+++++++++++++++
 
 Patch the binaries with the following commands:
 
@@ -288,7 +288,7 @@ a2dc057b464a6ac6922772c705043346  adom-etr-bin
 3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
 
 b. Compile wrappers
-+++++++++++++++++++
+++++++++++++++++++++
 
 The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
@@ -323,7 +323,7 @@ cp adom-sage.so ../bin/adom-sage-${TAG}.so
 cd ..
 
 xi. SSH key for spectating
-==========================
+===========================
 
 Generate an ssh key for spectating from the user menu. Don't add a passphrase.
 
@@ -336,19 +336,19 @@ cat /var/lib/adom/etc/adomusers_key.pub >>\
  /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
 
 xii. crontab
-============
+=============
 
 Add the contents of etc/crontab to adomown's crontab.
 
 Command:
 
-crontab etc/crontab
+crontab -u adomown etc/crontab
 
 III. Configure
---------------
+---------------
 
 xiii. etc/config 
-================
+=================
 
 Edit etc/config and fill in the values.
 
@@ -368,12 +368,12 @@ donated to the ADOM Resurrection IndieGoGo campaign.  Obviously, you have to
 have donated to fill them in, but they cannot be provided or distributed.
 
 xiv. Back to root
-=================
+==================
 
 The rest of the steps should be done as root.
 
 xv. Permissions
-===============
+================
 
 Git does not store permissions besides the executable bit, so some work is
 needed to allow multiple users to play on the server.
@@ -423,7 +423,7 @@ chown -R ttyrecplay /var/lib/adom/server/ttyrecplay
 chmod 660 /var/lib/adom/etc/adomusers_key
 
 xvi. HISCORES
-============
+==============
 
 To tell ADOM where to put its .HISCORE files for all, copy server/etc/adom_ds* 
 to /etc/:
@@ -431,7 +431,7 @@ to /etc/:
 cp etc/adom_ds* /etc/
 
 xvii. Admin SSH key
-===================
+====================
 
 (Optional) Add the administrator's SSH public key to 
 /var/lib/adom/etc/skel/.ssh/authorized_keys to let him or her SSH in as any 
@@ -439,13 +439,13 @@ created user, to see their issues or shut down their games (say when you want
 to reboot).
 
 xviii. ldconfig
-===============
+================
 
 "ldconfig" may need to be run if a package was installed from source
 (I had to when I installed tmux)
 
 xix. Web server
-===============
+================
 
 A Web server should be set up to provide the readme and display hi
 scores and allow users to (optionally) download their files.  Setting up the
