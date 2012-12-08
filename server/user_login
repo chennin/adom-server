@@ -419,11 +419,9 @@ do
 		continue
 		;;
    'debug')
-     set -x
      if [ -f ${HOME}/debug ]; then rm -f ${HOME}/debug
      else touch ${HOME}/debug
      fi
-     set +x
      ;;
 
 	't')
