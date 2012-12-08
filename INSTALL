@@ -54,14 +54,14 @@ The following software is required for all pieces to work:
 * Python 2.6+
 * Perl (for the database bot)
 * PHP (optional, for minor Web page uses)
-Perl modules for the database bot:
+Python modules for the score announcing bot:
 ** IRCLib
 ** Pyinotify
 ** ConfigObj
 ** OAuth
 ** Tweepy
 ** Passwd (included)
-Python modules for the score announcing bot:
+Perl modules for the database bot:
 ** Bot::BasicBot
 ** Try::Tiny 
 ** String::Approx
