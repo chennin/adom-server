@@ -354,7 +354,7 @@ do
 		;;
 
 	'em')
-		curmail=$(getent passwd "test7" | cut -d ':' -f 5 | cut -d ',' -f 2)
+		curmail=$(getent passwd "$USER" | cut -d ':' -f 5 | cut -d ',' -f 2)
 		echo "If you provide an e-mail address, password recovery will be possible"
 		echo "(by the admin sending you a new one)."
 		echo "Enter nothing to blank it. Fail the password prompt to discard changes."
@@ -362,8 +362,8 @@ do
 		read -e -p "Email address (optional): " email
 
 		chfn -r "${email}"
-		curmail=$(getent passwd "test7" | cut -d ':' -f 5 | cut -d ',' -f 2)
-		echo "Your email is now set to '${curmail}'"
+		curmail=$(getent passwd "$USER" | cut -d ':' -f 5 | cut -d ',' -f 2)
+		echo "Your email is set to '${curmail}'"
 		sleep 3
 		continue
 		;;
