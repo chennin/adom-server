@@ -139,7 +139,7 @@ python passwd.py install
 iv. termrec 
 ============
 
-Install termrec & termplay ( latest at http://angband.pl/termrec.html ).
+Install termrec & termplay (latest at http://angband.pl/termrec.html ).
 
 Commands:
 
@@ -205,6 +205,7 @@ viii. Check out code
 Pick a directory (for now, this must be /var/lib/adom) and finally, check out 
 the code:
 
+cd /var/lib/adom
 git clone https://github.com/AlucardZero/adom-server.git .
 
 ix. Add other ADOM versions
@@ -232,7 +233,8 @@ Temple, must be compiled.
 Small changes to the distributed ADOM binaries are required to separate HISCORE
 files. Binary patch files for several versions are provided. To do manually, 
 edit the adom binary in a hex editor (like hexcurse) and change both mentions 
-of adom_ds.cfg to something unique. Then create this file in /etc with contents the directory the .HISCORE file should be.
+of adom_ds.cfg to something unique. Then create this file in /etc with contents
+being the directory the .HISCORE file should be.
 
 I have used:
 
@@ -300,11 +302,12 @@ done
 
 Compile message dispatcher:
 gcc -m32 src/message_dispatch.c -o bin/message_dispatch
+
 Compile the bug temple entrance:
 gcc -m32 src/modify_cnt.c -o bin/modify_cnt
 
 c. Compile Sage
-+++++++++++++++
+++++++++++++++++
 
 Run the following commands to compile and install Sage.  Replace the value for 
 TAG if there is a newer released version.
@@ -435,8 +438,8 @@ xvii. Admin SSH key
 
 (Optional) Add the administrator's SSH public key to 
 /var/lib/adom/etc/skel/.ssh/authorized_keys to let him or her SSH in as any 
-created user, to see their issues or shut down their games (say when you want 
-to reboot).
+created user, to see their issues or shut down their games (say to prepare for 
+a reboot).
 
 xviii. ldconfig
 ================
