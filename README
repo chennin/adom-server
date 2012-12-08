@@ -42,6 +42,7 @@ Please read the included INSTALL file, as there are many moving parts to touch.
 
 At the very least, you should create a non-root user to own the server scripts,
 before checking out or unpacking the code.
+Also, for now, /var/lib/adom must be used as the server base dir, and be empty.
 
 III. Usage
 ---------
