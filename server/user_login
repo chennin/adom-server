@@ -138,7 +138,7 @@ do
         echo -ne "\e[1m[ g ]\e[0m browse ADoM Guidebook (SPOILERS)  "
         echo -e "\e[1m[ kp ]\e[0m kill your processes (if stuck)"
         echo -e "\e[1m[ del ]\e[0m delete all your ttyrecs, slgs, vlgs, & sshs, (with confirmation)"
-        echo -e "\e[1m[ pw ]\e[0m change your password"
+        echo -e "\e[1m[ pw ]\e[0m change your password		\e[1m[ em ]\e[0m change/set your email"
         echo ""
 
 	read -e -p "> " command
@@ -350,6 +350,21 @@ do
 	'pw')
 		passwd
 		sleep 1
+		continue
+		;;
+
+	'em')
+		curmail=$(getent passwd "test7" | cut -d ':' -f 5 | cut -d ',' -f 2)
+		echo "If you provide an e-mail address, password recovery will be possible"
+		echo "(by the admin sending you a new one)."
+		echo "Enter nothing to blank it. Fail the password prompt to discard changes."
+		echo -e "Current setting is: '${curmail}'\n"
+		read -e -p "Email address (optional): " email
+
+		chfn -r "${email}"
+		curmail=$(getent passwd "test7" | cut -d ':' -f 5 | cut -d ',' -f 2)
+		echo "Your email is now set to '${curmail}'"
+		sleep 3
 		continue
 		;;
 
