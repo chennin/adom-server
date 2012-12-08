@@ -1,6 +1,6 @@
 Version 2.0:
-    * Add quota support
-    * Add 'del' command to menu to reduce disk usage
+    * Disk quota support
+    * 'del' command to menu to clean up files
     * Enable passwordless (but not blank password) spectating from menu
     * Instant HISCORE announcing
     * Inform of ADOM date effects on main menu
@@ -11,9 +11,10 @@ Version 2.0:
     * MOTD functionality on main menu
     * Add Guidebook and menu option to view
     * Add support for announcing scores to Twitter
-    * Enable 1.2.0p4+ for donators
+    * Enable 1.2.0p4+ for donators (to the ADOM Resurrection campaign)
     * Add announcement to IRC when a player enters an interesting location
     * (Via Sage) Star sign selector support for ALL versions
     * Add version display on spectator menu
+    * Ask for user's e-mail & menu option to change (in case of lost password)
     * Bug fixes
     * And many many improvements for the admins
