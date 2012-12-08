@@ -39,11 +39,14 @@ A basic x86 or x86_64 Linux system is required (ARM may also work, but this
 product does not entirely support that).  The distribution should be relatively
 modern; Debian 6+ or Ubuntu 12.04+ are recommended, but almost any will work.
 
-Please read the included INSTALL file, as there are many moving parts to touch.
+Before doing anything else:
 
-At the very least, a non-root user should be created to own the server scripts,
-before checking out or unpacking the code.
-Also, for now, /var/lib/adom must be used as the server base dir, and be empty.
+ * Create (or empty) /var/lib/adom, as for now it must be used as the server's
+   base dir, and be empty.
+ * Create a non-root user (see INSTALL section I.ii) to own the files.
+
+Please carefully read the included INSTALL file, as there are many moving parts
+to touch.
 
 III. Usage
 -----------
