@@ -150,7 +150,7 @@ do
                 echo "External browsing is disabled. Press q to quit the readme."
                 echo ""
                 read
-                TERM=screen elinks -localhost 1 /var/www/index.php
+                TERM=screen elinks -localhost 1 http://localhost/index.php
 		continue
 		;;
 
@@ -166,7 +166,7 @@ do
                 echo ""
                 echo "External browsing is disabled. Press q to quit."
                 read
-                TERM=screen elinks -localhost 1 /var/www/guidebook/index.html
+                TERM=screen elinks -localhost 1 http://localhost/guidebook/index.html
                 continue
                 ;;
 
