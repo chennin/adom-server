@@ -18,6 +18,8 @@ FILE111 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt"
 FILE100 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v100.txt"
 FILEETR = "/var/lib/adom/public_html/adom_hiscore/hiscore_vetr.txt"
 FILE120p3 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v120p3.txt"
+FILE120p4 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v120p4.txt"
+FILE120p6 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v120p6.txt"
 
 LOCDIR = "/var/lib/adom/tmp/player_locations"
 
@@ -98,21 +100,29 @@ def poll_hiscore():
     global hiscore_111
     global hiscore_etr
     global hiscore_120p3
+    global hiscore_120p4
+    global hiscore_120p6
 
     new_100 = import_hiscore(FILE100)
     new_111 = import_hiscore(FILE111)
     new_etr = import_hiscore(FILEETR)
     new_120p3 = import_hiscore(FILE120p3)
+    new_120p4 = import_hiscore(FILE120p4)
+    new_120p6 = import_hiscore(FILE120p6)
 
     diff_100 = set(new_100.keys()).difference(hiscore_100.keys())
     diff_111 = set(new_111.keys()).difference(hiscore_111.keys())
     diff_etr = set(new_etr.keys()).difference(hiscore_etr.keys())
     diff_120p3 = set(new_120p3.keys()).difference(hiscore_120p3.keys())
+    diff_120p4 = set(new_120p4.keys()).difference(hiscore_120p4.keys())
+    diff_120p6 = set(new_120p6.keys()).difference(hiscore_120p6.keys())
 
     hiscore_100 = new_100
     hiscore_111 = new_111
     hiscore_etr = new_etr
     hiscore_120p3 = new_120p3
+    hiscore_120p4 = new_120p4
+    hiscore_120p6 = new_120p6
 
     if c.is_connected() == True:
         for key in diff_100:
@@ -130,8 +140,16 @@ def poll_hiscore():
             c.privmsg(target, "\x02New high score\x02: " + hiscore_etr[key] + " Played The Eternium Man challenge.")
 
         for key in diff_120p3:
-            print hiscore_120p3[key] + " Version 1.2.0p3."
-            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p3[key] + " Version 1.2.0p3.")
+            print hiscore_120p3[key] + " Version 1.2.0p1/2/3."
+            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p3[key] + " Version 1.2.0p1/2/3.")
+
+        for key in diff_120p4:
+            print hiscore_120p4[key] + " Version 1.2.0p4/5."
+            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p4[key] + " Version 1.2.0p4/5.")
+
+        for key in diff_120p6:
+            print hiscore_120p6[key] + " Version 1.2.0p6."
+            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p6[key] + " Version 1.2.0p6.")
 
 def loc_changed(filename):
    player = filename.split("/")[-1]
@@ -232,6 +250,8 @@ hiscore_111 = import_hiscore(FILE111)
 hiscore_100 = import_hiscore(FILE100)
 hiscore_etr = import_hiscore(FILEETR)
 hiscore_120p3 = import_hiscore(FILE120p3)
+hiscore_120p4 = import_hiscore(FILE120p4)
+hiscore_120p6 = import_hiscore(FILE120p6)
 
 print "Connecting announce bot...\n"
 irc = irclib.IRC()
@@ -266,6 +286,8 @@ wm.add_watch(FILE100, IN_CLOSE_WRITE)
 wm.add_watch(FILE111, IN_CLOSE_WRITE)
 wm.add_watch(FILEETR, IN_CLOSE_WRITE)
 wm.add_watch(FILE120p3, IN_CLOSE_WRITE)
+wm.add_watch(FILE120p4, IN_CLOSE_WRITE)
+wm.add_watch(FILE120p6, IN_CLOSE_WRITE)
 
 wmloc.add_watch(LOCDIR, IN_CLOSE_WRITE)
 

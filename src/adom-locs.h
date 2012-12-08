@@ -14,6 +14,8 @@
 
 #define ID_1 0x2c
 #define ID_2 0x01
+#define SIL_1 0x30
+#define SIL_2 0x01
 
 #define UD1_1 0x8
 #define UD1_2 0x2
