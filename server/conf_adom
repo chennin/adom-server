@@ -74,28 +74,3 @@ do
 	    ;;
     esac
 done
-      
-#CONFIGS=".adom.cfg .adom.kbd sage.cfg sage.kbd sage.msg"
-
-#echo "Please note that you will need to upload the config files separately for" 
-#echo "each version!"
-#echo
-
-#for file in $CONFIGS
-#do
-#clear
-#	echo "Please type the URL that contains your $file file"
-#	echo "or press enter to skip and keep the original"
-#	echo
-#	echo "The old file will not be overwritten if the download fails"
-#	read INPUT
-	
-#	if [ ! "$INPUT" = "" ]; then
-#		wget "$INPUT" -O ${HOME}/tmp.file && \
-#		rm -f "${HOME}/${file}" && \
-#		cp "${HOME}/tmp.file" "${HOME}/.adom.data/${file}"
-
-#		rm -f ${HOME}/tmp.file
-#	fi
-#clear
-#done
