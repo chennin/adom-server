@@ -204,7 +204,7 @@ viii. Check out code
 Pick a directory (for now, this must be /var/lib/adom) and finally, check out 
 the code:
 
-git clone https://AlucardZero@bitbucket.org/AlucardZero/adom-server.git .
+git clone https://github.com/AlucardZero/adom-server.git .
 
 ix. Add other ADOM versions
 ===========================
