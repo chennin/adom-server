@@ -64,7 +64,7 @@ void getdata(pid_t child, long addr, char *buf, int words)
 
 void handle_sig(int pid, int status) {
   if(WIFEXITED(status)) {
-    exit_wrapper(0);
+    exit_wrapper(WEXITSTATUS(status));
   }
 
   else if(WIFSIGNALED(status)) {
