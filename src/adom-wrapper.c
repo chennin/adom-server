@@ -8,13 +8,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <pwd.h>
 #include <errno.h>
 #include <string.h>
 #include <sys/user.h>
 #include <sys/reg.h>
 #include <sys/stat.h>
 #include <termios.h>
-#include <ctype.h>
 #include <time.h>
 
 //#define ADOM_111
@@ -105,7 +105,11 @@ int main(int argc, char **argv)
   sigset_t mask;
   long orig_eax;
   struct user_regs_struct regs;
-  char *me = getlogin();
+  struct passwd *p;
+  if ((p = getpwuid(getuid())) == NULL) {
+    perror("getpwuid() error");
+  }
+  char *me = p->pw_name;
   long prev_turn = 2147483647;
   int prevloc_v1 = 0, prevloc_v2 = 0;
   int loaded = 0, announced = 0, delaycounter = 0;
