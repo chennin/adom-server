@@ -42,7 +42,8 @@
 #define BDCBOT_1 0x28
 #define BDCBOT_2 0x02
 
-/*                                                                                LEVELID is where the code for the current level is stores in memory.
+/*
+  LEVELID is where the code for the current level is stores in memory.
   To find it yourself, start ADOM, then start a memory trainer (such as
   scanmem).  Search for '4' for the wilderness, then go to the small cave
   and search for 28. There's usually only one result.  This address is the one

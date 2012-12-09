@@ -28,7 +28,7 @@
 
 // Minimum seconds between announcing a new player location
 #define SEC_BET_ANC 1800
-#define TURNS_BEF_ANC 3
+#define TURNS_BEF_ANC 5
 #define NAMELEN 13
 
 #include "adom-locs.h"
@@ -255,7 +255,8 @@ int main(int argc, char **argv)
 #endif
               else if (curloc_v1 == D50_1 && curloc_v2 == D50_2) { desc = "D:50"; }
               else if (curloc_v1 == MANATEMP_1 && curloc_v2 == MANATEMP_2) { desc = "Mana Temple"; }
-              else if (curloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
+              else if (curloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "bottom of the Blue Dragon Caves"; }
+              else if (curloc_v1 == SIL_1 && curloc_v2 == SIL_2) { desc = "SIL"; }
             }
             if (desc != NULL) {
               delaycounter++;
