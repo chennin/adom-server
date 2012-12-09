@@ -26,66 +26,22 @@ if [ -e ${HOME}/adom_dirty ]; then
     echo "Your last ADOM run ended abnormally."
     
     FILES=`ls ${HOME}/backup-$adom_ver/`
-#    if [ -e "/var/lib/adom/users/${USER}/cryopid_image" ]; then
-#	clear
-#	
-#	echo "IMPORTANT - READ CAREFULLY!"
-#	echo
-#	echo "It looks like ADOM just crashed. However, a cryopid image has been"
-#	echo "taken of your ADOM process in the previous 10 minutes. This image"
-#	echo "will now be restored."
-#	echo
-#	echo "NOTE: when your game is restored, SAVE it and reload the game"
-#	echo "from the saved file. It is likely that the restored ADOM image"
-#	echo "is already corrupted, and will crash again any time soon!"
-#	echo
-#	echo "This is also required for snapping further backups from your"
-#	echo "game."
-#	echo
-#	echo "When the game is restored, the screen will likely display"
-#	echo "something weird. Issue some safe commands (try ctrl-r first, which"
-#	echo "is supposed to redraw the screen) and it should be"
-#	echo "normal once again (hopefully the snapsot wasn't taken when"
-#	echo "you were telling what to wish for, for instance!)"
-#	echo
-#	echo "Press enter to continue."
-#	read
-#	
-#	${HOME}/cryopid_image
-#	
-#	rm -f ${HOME}/cryopid_image
-#
-#	rm -f ${HOME}/backup-${adom_ver}/*
-#	FILES=`ls ${HOME}/.adom.data/savedg/`
-#	for file in $FILES
-#	do
-#           cp ${HOME}/.adom.data/savedg/$file ${HOME}/backup-${adom_ver}/
-#	done
-#
-#	clear
-#	echo "Your backed-up ADOM image just exited and was removed. Hopefully you"
-#	echo "just saved the game for further playing!"
-#	echo "Press enter to continue."
-#	read
-#	
-#   else
-	if [ "$FILES" = "" ]; then
-	    echo "You don't have backups to restore."
-	    sleep 2
-	else
-	    echo "You have backups of the following files:"
-	    for save in $FILES
-	    do
-		echo "$save"
-	    done
+    if [ "$FILES" = "" ]; then
+        echo "You don't have backups to restore."
+        sleep 2
+    else
+        echo "You have backups of the following files:"
+        for save in $FILES
+        do
+    	    echo "$save"
+        done
 	    
-	    echo	
+        echo	
 	    
-	    while true
-	    do
-		read -p "Do you wish to restore last backups (Y/N)? " ANS
+        while true; do
+    	    read -p "Do you wish to restore last backups (Y/N)? " ANS
 	    
-		case $ANS in
+	    case $ANS in
 		    Y | y) 
 			echo "Restoring backup."
 			cp ${HOME}/backup-${adom_ver}/* ${HOME}/.adom.data/savedg/
@@ -105,8 +61,7 @@ if [ -e ${HOME}/adom_dirty ]; then
 			;;
 		    
 		esac
-	    done
-#	fi
+        done
     fi
 fi
 
