@@ -249,14 +249,14 @@ int main(int argc, char **argv)
             // Announce if we haven't announced this one already
             // and if it's been at least one turn on the level
             if (announced == 0 && cur_turn > prev_turn) { 
-              if (curloc_v1 == TF4_1 && curloc_v2 == TF4_2) { desc = "top of the Tower of Eternal Flames"; }
+              if (curloc_v1 == TF4_1 && curloc_v2 == TF4_2) { desc = "the top of the Tower of Eternal Flames"; }
 #ifdef SMC_TEST
-              else if (curloc_v1 == SMC_1 && curloc_v2 == SMC_2) { desc = "Small Cave"; }
+              else if (curloc_v1 == SMC_1 && curloc_v2 == SMC_2) { desc = "the Small Cave"; }
 #endif
               else if (curloc_v1 == D50_1 && curloc_v2 == D50_2) { desc = "D:50"; }
-              else if (curloc_v1 == MANATEMP_1 && curloc_v2 == MANATEMP_2) { desc = "Mana Temple"; }
-              else if (curloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "bottom of the Blue Dragon Caves"; }
-              else if (curloc_v1 == SIL_1 && curloc_v2 == SIL_2) { desc = "SIL"; }
+              else if (curloc_v1 == MANATEMP_1 && curloc_v2 == MANATEMP_2) { desc = "the Mana Temple"; }
+              else if (curloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
+              else if (curloc_v1 == SIL_1 && curloc_v2 == SIL_2) { desc = "the SIL"; }
             }
             if (desc != NULL) {
               delaycounter++;

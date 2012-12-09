@@ -179,7 +179,7 @@ def loc_changed(filename):
    with open(filename) as f:
       location = f.readlines()[0].strip()
 
-   c.privmsg(target,player + " has just entered the \x1F" + location + "\x1F! ")
+   c.privmsg(target,player + " has just entered \x1F" + location + "\x1F! ")
 
 def check_rss():
   if ANCRSS != True or c.is_connected() == False:
