@@ -4,6 +4,17 @@ SERVNAME=adom.example.com
 #Server script home - currently unused
 #SERVHOME=/var/lib/adom
 
+##Python bot options
+#announce scores on IRC
+ANNOUNCE_TO_IRC=True
+#announce scores on twitter
+ANNOUNCE_TO_TWITTER=True
+#relay TB's tweets
+READ_TWEETS=True
+#relay TB's blog posts
+READ_RSS=True
+RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
+
 #Prerelease versions supported
 MIN_PRE=3
 MAX_PRE=6

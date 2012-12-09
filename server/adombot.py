@@ -8,6 +8,7 @@ from tweepy import OAuthHandler, API, TweepError, debug
 from configobj import ConfigObj
 import re
 import random
+import feedparser
 
 #irclib.DEBUG = True
 
@@ -30,13 +31,26 @@ CONSUMER_SECRET = config.get("CONSUMER_SECRET")
 ACCESS_KEY = config.get("ACCESS_KEY")
 ACCESS_SECRET = config.get("ACCESS_SECRET")
 
+ANCTOIRC = config.as_bool('ANNOUNCE_TO_IRC')
+ANCTOTWIT = config.as_bool("ANNOUNCE_TO_TWITTER")
+READTWIT = config.as_bool("READ_TWEETS")
+ANCRSS = config.as_bool("READ_RSS")
+URL = config.get("RSSURL")
+
 #try to set up twitter
-try:
-    auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
-    api = API(auth)
-except TweepError as e:
-    print "Error: could not set up OAuth. {0}".format(e)
+if ANCTOTWIT == True or READTWIT == True:
+  try:
+      auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+      auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+      api = API(auth)
+  except TweepError as e:
+      print "Error: could not set up OAuth. {0}".format(e)
+
+items = None
+#set up RSS
+if ANCRSS == True:
+  feed = feedparser.parse(URL)
+  items = set(sorted(feed[ "items" ], key=lambda entry: entry["date_parsed"]))
 
 def signal_handler(signal, frame):
     print "Received signal {0}".format(signal)
@@ -49,6 +63,9 @@ signal.signal(signal.SIGTERM, signal_handler)
 signal.signal(signal.SIGINT, signal_handler)
 
 def tweet(version, text):
+    if ANCTOTWIT != 1:
+      return
+
     m = re.match('(.*?)\. (L\d{0,1}.*?) \((M|F)\)\. \d+ xps\. \d+ turns?\. (.*?)\. (Rank: #\d{0,3}), score (\d+)',text)
 
     raceclass = m.group(2)
@@ -93,8 +110,6 @@ def tweet(version, text):
     except TweepError as e:
         print "Error sending tweet. {0}".format(e)
 
-
-
 def poll_hiscore():
     global hiscore_100
     global hiscore_111
@@ -124,7 +139,7 @@ def poll_hiscore():
     hiscore_120p4 = new_120p4
     hiscore_120p6 = new_120p6
 
-    if c.is_connected() == True:
+    if ANCTOIRC == True and c.is_connected() == True:
         for key in diff_100:
             print hiscore_100[key] + " Version 1.0.0."
             c.privmsg(target, "\x02New high score\x02: " + hiscore_100[key] + " Version 1.0.0.")
@@ -152,6 +167,9 @@ def poll_hiscore():
             c.privmsg(target, "\x02New high score\x02: " + hiscore_120p6[key] + " Version 1.2.0p6.")
 
 def loc_changed(filename):
+   if ANCTOIRC != 1:
+     return
+
    player = filename.split("/")[-1]
 
    if not player:
@@ -162,6 +180,23 @@ def loc_changed(filename):
       location = f.readlines()[0].strip()
 
    c.privmsg(target,player + " has just entered the \x1F" + location + "\x1F! ")
+
+def check_rss():
+  if ANCRSS != True or c.is_connected() == False:
+    return
+  print "rssing"
+  global items 
+  newfeed = feedparser.parse(URL)
+  newitems = set(feed[ "items" ])
+
+  diff_rss = newitems - items
+  diff_rss = sorted(diff_rss, key=lambda entry: entry["date_parsed"])
+
+  for key in diff_rss:
+    c.privmsg(target, "\x02New blog post\x02: \x1F" + key["title"] + "\x1F @ " + key["link"])
+
+  items = newitems
+  c.execute_delayed(1800, check_rss)
 
 def import_hiscore(file):
     f = open(file, "r")
@@ -293,5 +328,8 @@ wmloc.add_watch(LOCDIR, IN_CLOSE_WRITE)
 
 notifier.start()
 notifierloc.start()
+
+if ANCRSS == True:
+  c.execute_delayed(60, check_rss)
 
 irc.process_forever()
