@@ -36,6 +36,9 @@
 #define D50_1 0x32 //?
 #define D50_2 0x00 //??
 
+#define CHAOS_1 0x11
+#define CHAOS_2 0x02
+
 #define MANATEMP_1 0x23
 #define MANATEMP_2 0x02
 
