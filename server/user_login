@@ -97,11 +97,13 @@ do
         fi
 
 	if [[ $(date +%m-%d) = "07-2" ]]; then
-                echo -e "     \e[4mNOTE\e[0m: It's Creator's Day."
+                echo -e "     \e[4mNOTE\e[0m: It's Creator's Day!"
 	elif [[ $(date +%m-%d) = "12-24" ]]; then
-                echo -e "     \e[4mNOTE\e[0m: It's Christmas Eve."
+                echo -e "     \e[4mNOTE\e[0m: It's Christmas Eve!"
 	elif [[ $(date +%m-%d) = "12-31" ]]; then
                 echo -e "     \e[4mNOTE\e[0m: It's New Year's Eve."
+	elif [[ $(date +%m-%d) = "10-31" ]]; then
+                echo -e "     \e[4mNOTE\e[0m: It's Halloween."
         fi
 
   if [ -f ${HOME}/debug ]; then echo -e "\e[1mYou have ADOM DEBUG mode enabled. No binary server enhancements will be used.\e[0m"; fi 
