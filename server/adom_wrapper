@@ -23,36 +23,52 @@ touch /var/lib/adom/tmp/sockets/$USER
 umask 013
 
 if [ -e ${HOME}/adom_dirty ]; then
-    echo "Your last ADOM run ended abnormally."
+    echo "Your last ADOM run ended abnormally. Checking for backups."
+    echo
     
     FILES=`ls ${HOME}/backup-$adom_ver/`
     if [ "$FILES" = "" ]; then
         echo "You don't have backups to restore."
         sleep 2
     else
-        echo "You have backups of the following files:"
+        output=""
+        restoreq=""
+        FBAK="${HOME}/backup-${adom_ver}"
+        FACT="${HOME}/adom.data-${adom_ver}/savedg"
         for save in $FILES
         do
-    	    echo "$save"
+            if [ -f ${HOME}/adom.data-${adom_ver}/savedg/${save} ]; then
+              MDB=$(md5sum ${FBAK}/${save}|awk '{print $1}')
+              MDA=$(md5sum ${FACT}/${save}|awk '{print $1}')
+              LSB=$(ls --time-style=+"%F %T" -l ${FBAK}/${save} | awk '{print "Size: "$5"b, modified "$6" "$7}')
+              LSA=$(ls --time-style=+"%F %T" -l ${FACT}/${save} | awk '{print "Size: "$5"b, modified "$6" "$7}')
+              if [ "${MDB}" != "${MDA}" ]; then
+                restoreq+=" ${save}"
+    	        output+="+ ${save} exists in both the backup and live folder and are different!\n"
+                output+="  \` ACTIVE: ${LSA}\n"
+                output+="  \` BACKUP: ${LSB}\n"
+              fi
+            else
+              restoreq+=" ${save}"
+    	      output+="+ ${save}\n"
+              output+=" \`- Is MISSING from the live folder (and likely the one you want)\n"
+            fi
         done
-	    
-        echo	
-	    
-        while true; do
-    	    read -p "Do you wish to restore last backups (Y/N)? " ANS
-	    
-	    case $ANS in
+        if [ "${restoreq}" != "" ]; then 
+          echo -e "$output"
+          for game in $restoreq; do
+	      while true; do
+      	        read -e -p "Do you wish to restore ${game} (Y/N)? " ANS
+                case $ANS in
 		    Y | y) 
-			echo "Restoring backup."
-			cp ${HOME}/backup-${adom_ver}/* ${HOME}/.adom.data/savedg/
-			echo "Done!"
-			sleep 2
+			echo -n "Restoring ${game} backup..."
+			cp ${FBAK}/${save} ${FACT}/${save}
+			echo " Done!"
 			break
 			;;
 		    
 		    N | n)
-			echo "Backups not restored!"
-			sleep 2 
+			echo "${game} backup not restored!"
 			break
 			;;
 		    
@@ -60,8 +76,12 @@ if [ -e ${HOME}/adom_dirty ]; then
 			continue
 			;;
 		    
-		esac
-        done
+	        esac
+             done
+          done
+        sleep 5
+        else echo "No differences between live and backup saves found."
+        fi
     fi
 fi
 
@@ -70,15 +90,16 @@ res="0"
 # If DEBUG, or missing wrapper, run ADOM straight
 if [ -f ${HOME}/debug ]  || [ ! -f /var/lib/adom/bin/adom-$adom_ver ]; then
   /var/lib/adom/bin/adom-$adom_ver-bin 
+  res="$?"
 else 
   if [ "$sage" = "enabled" ]; then
     /var/lib/adom/bin/adom-$adom_ver --enable-sage
+    res="$?"
   else
     /var/lib/adom/bin/adom-$adom_ver
+    res="$?"
   fi
 fi
-res="$?"
-
 find ${HOME} -name core -exec chmod 644 '{}' \;
 chmod 755 ${HOME}/.adom.data/savedg
 chmod 775 ${HOME}/ttyrecs
