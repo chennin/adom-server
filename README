@@ -56,12 +56,17 @@ II. Features
 III. Install
 ------------
 
-A basic x86 or x86_64 Linux system is required (ARM may also work, but this 
-product does not entirely support that).  The distribution should be relatively
-modern; Debian 6+ or Ubuntu 12.04+ are recommended, but almost any will work.
+A basic x86 or x86_64 Linux system is required*. The distribution should be 
+relatively modern; Debian 6+ or Ubuntu 12.04+ are recommended, but almost any 
+will work.
+
+* Linux/ARM or FreeBSD may also work, as ADOM supports those, but this product 
+  does not entirely support that.
 
 Please carefully read the included INSTALL file, as there are many moving parts
 to touch.
+
+IMPORTANT:
 
 The INSTALL file provides details and the process, but in particular:
 
