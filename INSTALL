@@ -2,31 +2,32 @@ Public ADOM Server install directions
 See LICENSE for copyright and licensing details
 
 Table of contents:
-	I. Setup
-		i. Install required tools
-		ii. Local users
-		iii. passwd.py
-		iv. termrec
-		v. sudo
-		vi. quota
-		vii. su to adomown
-	II. Install
-		viii. Check out code
-		ix. Add other ADOM versions
-		x. Patch and install ADOM versions; compile wrappers
-			a. Patch ADOM
-			b. Compile wrappers
-			c. Compile Sage
-		xi. SSH key for spectating
-		xii. crontab
-	III. Configuration
-		xiii. etc/config
-		xiv. Back to root
-		xv. Permissions
-		xvi. HISCORES
-		xvii. Admin SSH key
-		xviii. ldconfig
-		xix. Web server
+        I. Setup
+                i. Install required tools
+               ii. Local users
+              iii. passwd.py
+               iv. termrec
+                v. sudo
+               vi. quota
+              vii. su to adomown
+       II. Install
+             viii. Check out code
+               ix. Add other ADOM versions
+                x. Patch and install ADOM versions; compile wrappers
+                    a. Patch ADOM
+                    b. Compile wrappers
+                    c. Compile Sage
+               xi. SSH key for spectating
+              xii. crontab
+      III. Configuration
+             xiii. etc/config
+              xiv. Back to root
+               xv. Permissions
+              xvi. HISCORES
+             xvii. Admin SSH key
+            xviii. ldconfig
+              xix. Web server
+               xx. SSHd settings
 	
 I. Setup
 ---------
@@ -468,3 +469,16 @@ from being sent as text/plain:
   flg ssh slg kbd cfg msg vlg
 And the following would benefit from being sent as application/octet-stream:
   svg
+
+xx. SSHd settings
+==================
+
+The following unusual SSH daemon settings are recommended (the config file is
+usually at /etc/ssh/sshd_config):
+
+  * TCPKeepAlive yes
+  * X11Forwarding no
+  * AllowAgentForwarding no
+  * AllowTcpForwarding no
+  * PrintMotd no
+
