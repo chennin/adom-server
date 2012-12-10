@@ -35,6 +35,24 @@ ADOM can be found at http://adom.de or http://ancardia.com .
 II. Features
 -------------
 
+  1. Play multiple versions of ADOM on the same system without overlap
+  2. Allow any number of users to play on the same system
+  3. Automatic save backup and restore in case of an ADOM crash
+  4. Via ADoM Sage, convenience features and starsign selector
+  5. Never lose play time if your Internet dies or battery runs out
+  6. Play co-op mode (multiple users controlling the same game)
+  7. Spectate other users' games
+  8. Send messages to other playing users
+  9. Record games and play them back
+ 10. Allow download of save games and other files via HTTP
+ 11. Guidebook built in
+ 12. Announce IRC bot:
+    a. Announce new high scores (wins and deaths) for all versions on IRC
+    b. Announce new high scores (with a different, higher threshold) on Twitter
+    c. Announce when a player enters certain locations (to attract spectators)
+ 13. Database IRC bot: relays exact item and monster details
+ 14. Almost entirely self-contained; once set up, root is no longer required
+
 III. Install
 ------------
 
