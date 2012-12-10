@@ -134,6 +134,19 @@ int main(int argc, char **argv)
   int explvl = 0;
 #endif
 
+#ifdef ETR
+  printf("%s", ETR_WARN);
+#endif
+#ifdef LOCCHA
+  printf("%s", CHAL_WARN);
+#ifndef STEEL
+  printf("%s", WILD_WARN);
+#endif
+  printf("\n[PRESS ENTER TO CONTINUE]\n");
+  getchar();
+#endif
+
+
   char *BINLOC = "/var/lib/adom/bin/";
 
   char *SAGEPATH = NULL, *SAGESO = NULL, *ADOMBIN = NULL;
