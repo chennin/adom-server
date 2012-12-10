@@ -125,10 +125,14 @@ int main(int argc, char **argv)
   int loaded = 0, announced = 0, delaycounter = 0;
 #ifdef LOCCHA
   int entered_loc = 0; // entered challenge location
+  int never_die = 0; // won
 #endif
 #ifdef IRO
   int idlvl = 0;
 #endif 
+#if defined ETR || defined STE
+  int explvl = 0;
+#endif
 
   char *BINLOC = "/var/lib/adom/bin/";
 
@@ -304,6 +308,33 @@ int main(int argc, char **argv)
                 announced = 1;
               }
             }
+
+#ifdef LOCCHA
+            int die = 0;
+            if ((curloc_v1 == WILDERNESS_1 && curloc_v2 == WILDERNESS_2) ||
+               (curloc_v1 == WILDENT_1 && curloc_v2 == WILDENT_2)) { 
+                // Allow encounters, but you should not kill anything
+                // Saving goes through the wilderness
+                if ((entered_loc == 1) && (cur_turn != prev_turn)) { die = 1; }
+            }
+#ifdef ETR
+            else if (curloc_v1 == SMC_1 && curloc_v2 == SMC_2) {
+                entered_loc = 1;
+                if (explvl >= 50) { never_die = 1; }
+            }
+#endif
+            else { // some other forbidden location
+                die = 1;
+            }
+            if(!never_die && die) { 
+                ptrace(PTRACE_KILL, pid, NULL, NULL);
+                system("setterm -reset");
+                printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) is not allowed for your challenge game.\r\nYou are being terminated ...\r\n", 
+                       (unsigned int)curloc_v1, (unsigned int)curloc_v2);
+                sleep(3);
+                return return_wrapper(0);
+            }
+#endif /*LOCCHA*/
           }
 
           prev_turn = cur_turn;

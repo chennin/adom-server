@@ -297,14 +297,18 @@ The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
 
 cd /var/lib/adom
+# normal games:
 for i in 100 111 120p3 120p4 120p5 120p6; do
   gcc -m32 -DADOM_$i -Wall src/adom-wrapper.c -o bin/adom-$i
 done
 
-Compile message dispatcher:
+#1.1.1 Eternium Man:
+gcc -m32 -DETR -DADOM_111 -Wall src/adom-wrapper.c -o bin/adom-etr
+
+#Compile message dispatcher:
 gcc -m32 src/message_dispatch.c -o bin/message_dispatch
 
-Compile the bug temple entrance:
+#Compile the bug temple entrance:
 gcc -m32 src/modify_cnt.c -o bin/modify_cnt
 
 c. Compile Sage
