@@ -258,6 +258,7 @@ int main(int argc, char **argv)
               else if (curloc_v1 == SMC_1 && curloc_v2 == SMC_2) { desc = "the Small Cave"; }
 #endif
               else if (curloc_v1 == D50_1 && curloc_v2 == D50_2) { desc = "D:50"; }
+              else if (curloc_v1 == CHAOS_1 && curloc_v2 == CHAOS_2) { desc = "the ChAoS plane"; }
               else if (curloc_v1 == MANATEMP_1 && curloc_v2 == MANATEMP_2) { desc = "the Mana Temple"; }
               else if (curloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
               else if (curloc_v1 == SIL_1 && curloc_v2 == SIL_2) { desc = "the SIL"; }
