@@ -26,6 +26,16 @@
 
 //#define LEAGUE
 
+//#define ETR /* Eternium, SMC only, til level 50 */
+//#define IRO /* Iron, ID only, always descend, retrieve art on SIL */
+//#define LTH /* Lithium, CoC and ToEF only, win */
+//#define STE /* Steel, Wilderness only, til level 50 */
+//#define BRM /* Brimstone, ToEF only, kill ACW */
+
+#if defined ETR || defined IRO || defined LTH || defined STE || defined BRM
+ #define LOCCHA /* location-based challenge game */
+#endif
+
 // Minimum seconds between announcing a new player location
 #define SEC_BET_ANC 1800
 #define TURNS_BEF_ANC 5
@@ -113,6 +123,12 @@ int main(int argc, char **argv)
   long prev_turn = 2147483647;
   int prevloc_v1 = 0, prevloc_v2 = 0;
   int loaded = 0, announced = 0, delaycounter = 0;
+#ifdef LOCCHA
+  int entered_loc = 0; // entered challenge location
+#endif
+#ifdef IRO
+  int idlvl = 0;
+#endif 
 
   char *BINLOC = "/var/lib/adom/bin/";
 
