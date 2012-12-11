@@ -49,8 +49,22 @@ if ANCTOTWIT == True or READTWIT == True:
 items = None
 #set up RSS
 if ANCRSS == True:
+  print "Checking RSS ... "
   feed = feedparser.parse(URL)
   items = set(sorted(feed[ "items" ], key=lambda entry: entry["date_parsed"]))
+
+maxseen = 0
+#Start reading tweets
+if READTWIT == True:
+  print "Reading tweets ... "
+  try:
+    tbtweets = api.user_timeline("thomas_biskup")
+    for key in tbtweets:
+      if key.id > maxseen:
+        maxseen = key.id
+
+  except TweepError as e:
+    print "Error: Could not retrieve tweets. {0}".format(e)
 
 def signal_handler(signal, frame):
     print "Received signal {0}".format(signal)
@@ -198,6 +212,27 @@ def check_rss():
   items = newitems
   c.execute_delayed(1800, check_rss)
 
+def check_tweets():
+  if READTWIT != True or c.is_connected() == False:
+    return
+
+  global maxseen
+  print "reading tweets"
+  try:
+    newtweets = api.user_timeline("thomas_biskup", since_id=maxseen)
+  except TweepError as e:
+    print "Error: Could not retrieve tweets. {0}".format(e)
+    return
+
+  for key in newtweets:
+    if key.in_reply_to_user_id == None:
+      c.privmsg(target, "\x02New tweet from the Creator\x02: " + key.text)
+    print key.id
+    if key.id > maxseen:
+        maxseen = key.id
+
+  c.execute_delayed(600, check_tweets)
+
 def import_hiscore(file):
     f = open(file, "r")
     lines = f.readlines()
@@ -331,5 +366,7 @@ notifierloc.start()
 
 if ANCRSS == True:
   c.execute_delayed(60, check_rss)
+if READTWIT == True:
+  c.execute_delayed(30, check_tweets)
 
 irc.process_forever()
