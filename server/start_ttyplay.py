@@ -7,6 +7,8 @@ print "(EXACTLY as is shown by the listing options):"
 
 raw_ttyrec = raw_input("> ");
 
+os.environ["PATH"] += os.pathsep + "/usr/local/bin"
+
 if len(sys.argv) == 2 and sys.argv[1] == "--termplay":
     player = "termplay"
 else:
@@ -46,5 +48,7 @@ if not found:
 
 if player == "termplay":
   os.system("termplay " + ttyrecdir + "/" + ttyrecname)
-else:
+elif player == "ttyplay" and ttyrecname.endswith(".gz"):
   os.system("gunzip < " + ttyrecdir + "/" + ttyrecname + " | ttyplay")
+else:
+  os.system(player + " " + ttyrecdir + "/" + ttyrecname)
