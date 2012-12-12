@@ -359,8 +359,8 @@ mv adomgb-toc.html index.html
 grep -lI adomgb-toc.html * | xargs sed -i -e 's/adomgb-toc.html/index.html/g'
 #that's lowercase L, uppercase i
 
-xii. crontab
-=============
+xiii. crontab
+==============
 
 Add the contents of etc/crontab to adomown's crontab.
 
@@ -371,8 +371,8 @@ crontab -u adomown etc/crontab
 III. Configure
 ---------------
 
-xiii. etc/config 
-=================
+xiv. etc/config 
+================
 
 Edit etc/config and fill in the values.
 
@@ -391,13 +391,13 @@ The donation section is for enabling 1.2.0 prerelease 4-last for people who
 donated to the ADOM Resurrection IndieGoGo campaign.  Obviously, you have to
 have donated to fill them in, but they cannot be provided or distributed.
 
-xiv. Back to root
-==================
+xv. Back to root
+=================
 
 The rest of the steps should be done as root.
 
-xv. Permissions
-================
+xvi. Permissions
+=================
 
 Git does not store permissions besides the executable bit, so some work is
 needed to allow multiple users to play on the server.
@@ -446,30 +446,30 @@ chown -R spectator /var/lib/adom/server/spectator
 chown -R ttyrecplay /var/lib/adom/server/ttyrecplay
 chmod 660 /var/lib/adom/etc/adomusers_key
 
-xvi. HISCORES
-==============
+xvii. HISCORES
+===============
 
 To tell ADOM where to put its .HISCORE files for all, copy server/etc/adom_ds* 
 to /etc/:
 
 cp etc/adom_ds* /etc/
 
-xvii. Admin SSH key
-====================
+xviii. Admin SSH key
+=====================
 
 (Optional) Add the administrator's SSH public key to 
 /var/lib/adom/etc/skel/.ssh/authorized_keys to let him or her SSH in as any 
 created user, to see their issues or shut down their games (say to prepare for 
 a reboot).
 
-xviii. ldconfig
-================
+xix. ldconfig
+==============
 
 "ldconfig" may need to be run if a package was installed from source
 (I had to when I installed tmux)
 
-xix. Web server
-================
+xx. Web server
+===============
 
 A Web server should be set up to provide the readme and display hi
 scores and allow users to (optionally) download their files.  Setting up the
@@ -490,8 +490,8 @@ from being sent as text/plain:
 And the following would benefit from being sent as application/octet-stream:
   svg
 
-xx. SSHd settings
-==================
+xxi. SSHd settings
+===================
 
 The following unusual SSH daemon settings are recommended (the config file is
 usually at /etc/ssh/sshd_config):
