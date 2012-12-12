@@ -159,7 +159,7 @@ int main(int argc, char **argv)
   f = asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
 #ifdef LOCCHA
   g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-cha-bin");
-#ifdef LEAGUE
+#elif LEAGUE
   g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-lea-bin");
 #else
   g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-111-bin");
