@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import ttyreclist_alphabetsort
 import ttyreclist_mtimesort
@@ -5,13 +6,7 @@ import ttyreclist_sizesort
 
 def write_list(ttyrecs, fd):
   for rec in ttyrecs:
-    bytes = rec[2]
-
-    if bytes < 1024: bytestr = str(bytes) + " bytes"
-    elif bytes < 1024*1024: bytestr = str(bytes/1024) + " kilobytes"
-    else: bytestr = str(bytes/1024/1024) + " megabytes"
-
-    fd.write(rec[0] + " - " + rec[1] + " (" + bytestr + ")\n")
+    fd.write(rec[0] + " - " + rec[1] + "\n")
 
 def list_recs():
   ttyrecs = []

@@ -3,12 +3,12 @@ import passwd
 import os
 
 print "Enter the file you desire to play in the format username - ttyrec name"
-print "(EXACTLY as is shown by the listing options, WITHOUT file size):"
+print "(EXACTLY as is shown by the listing options):"
 
 raw_ttyrec = raw_input("> ");
 
 if len(sys.argv) == 2 and sys.argv[1] == "--termplay":
-    player = "/usr/local/bin/termplay"
+    player = "termplay"
 else:
     player = "ttyplay"
 
@@ -44,4 +44,7 @@ if not found:
     print "TTY recording not found!"
     sys.exit(1)
 
-os.system(player + " " + ttyrecdir + "/" + ttyrecname)
+if player == "termplay":
+  os.system("termplay " + ttyrecdir + "/" + ttyrecname)
+else:
+  os.system("gunzip < " + ttyrecdir + "/" + ttyrecname + " | ttyplay")

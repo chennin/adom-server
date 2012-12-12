@@ -8,20 +8,17 @@ until [ "$command" = "end" ]
 do
         clear
 
-	echo "Welcome to the record player menu on the Ancardia ADOM server!"
+	echo "Welcome to the playback menu on the Ancardia ADOM server!"
 	echo ""
-	echo "You can here view any of the games played and recorded by ttyrec"
-	echo "on the server."
-	echo ""
-	echo "To play a recording, you should use one of the listing commands"
-	echo "to provide a list of available recordings. Then choose \"Start\""
-	echo "playback\" and enter the recording you wish to play."
-	echo ""
-	echo "PROTIP: Use the less-program's '/' command in the record listings"
-	echo "to perform a search (eg., for a username)!"
-	echo ""
-	echo "BROTIP: Your operating system/window manager/... probably has a"
-	echo "clipboard. Use it."
+	echo "To play a recording, you should use one of the listing commands to provide a"
+	echo "list of available recordings. Then choose \"Start\" playback\" and enter the" 
+        echo "recording you wish to play."
+        echo ""
+	echo "TIP: Use the '/' command in the record listings to perform a search"
+        echo "(eg., for a username)! Press 'q' to quit."
+	echo "TIP: Your operating system/window manager/... probably has a clipboard."
+	echo "Use it. In PuTTY, highlight to copy and right-click to paste."
+        echo "TIP: Press Ctrl+C to exit a recording at any time"
 	echo ""
 
 	python /var/lib/adom/server/check_term.py --silent
@@ -90,7 +87,7 @@ do
 		continue
 		;;
 
-	    7)
+	    7|q)
 		exit
 		;;
 
