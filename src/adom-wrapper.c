@@ -135,10 +135,12 @@ int main(int argc, char **argv)
 
 #ifdef ETR
   printf("%s", ETR_WARN);
+#elif defined STE
+  printf("%s", STE_WARN);
 #endif
 #ifdef LOCCHA
   printf("%s", CHAL_WARN);
-#ifndef STEEL
+#ifndef STE
   printf("%s", WILD_WARN);
 #endif
   printf("\n[PRESS ENTER TO CONTINUE]\n");
@@ -327,6 +329,10 @@ int main(int argc, char **argv)
                 // Allow encounters, but you should not kill anything
                 // Saving goes through the wilderness
                 if ((entered_loc == 1) && (cur_turn != prev_turn)) { die = 1; }
+#ifdef STE
+                //for steel, do not set entered_loc, as above will kill
+                if (explvl >= 50) { never_die = 1; }
+#endif
             }
 #ifdef ETR
             else if (curloc_v1 == SMC_1 && curloc_v2 == SMC_2) {
@@ -343,7 +349,7 @@ int main(int argc, char **argv)
                 if (sys < 0) { perror("setterm failed"); }
                 printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) is not allowed for your challenge game.\r\nYou are being terminated ...\r\n", 
                        (unsigned int)curloc_v1, (unsigned int)curloc_v2);
-                sleep(3);
+                sleep(8);
                 return return_wrapper(0);
             }
 #endif /*LOCCHA*/

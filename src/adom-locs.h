@@ -96,3 +96,8 @@
                 "                  @@@@@ \033[1m\033[4;37mEternium Man Challenge Game\033[0m @@@@@\n\n"\
                 "                       Location: Small Cave\n"\
                 "                       Win Condition: achieve level 50\n\n\n\n"
+
+#define STE_WARN "\n\n"\
+                "                  @@@@@ \033[1m\033[4;37mSteel Man Challenge Game\033[0m @@@@@\n\n"\
+                "                       Location: Wilderness\n"\
+                "                       Win Condition: achieve level 50\n\n\n\n"
