@@ -5,11 +5,13 @@ use base qw(Bot::BasicBot);
 use warnings;
 use strict;
 use Try::Tiny;
+use Config::Simple
 
 $SIG{'INT'} = \&cleanquit;
 $SIG{'TERM'} = \&cleanquit;
 
 use sorbot::Database;
+my $cfg = new Config::Simple('/var/lib/adom/etc/config');
 
 print "This is ADOM DB Bot\n";
 
@@ -19,8 +21,8 @@ my %help = map{$_=>1}
 my $usage = "Usage: \@[mi] name fragment | \@[mi] /regex/";
 
 my $bot = Bot->new(
-  server => "irc.freenode.net",
-  channels => [ '#adom' ],
+  server => $cfg->param('IRCSERV'),
+  channels => [ $cfg->param('IRCCHAN') ],
   nick => 'dbbot',
   ssl => 1,
   port => 6697,
@@ -43,7 +45,7 @@ sub said {
 sub cleanquit() { 
   print STDERR "Caught signal, shutting down\n";
   $bot->shutdown( $bot->quit_message() ); 
-  sleep 5;
+  sleep 3;
   exit;
 }
 $bot->run();

@@ -70,6 +70,7 @@ Perl modules for the database bot:
 ** String::Approx
 ** Sub::Exporter
 ** Term::ReadKey
+** Config::Simple
 ** POE::Component::SSLify 
 ** Text::LevenshteinXS
 
@@ -80,7 +81,7 @@ apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
  libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl\
  libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
  wget python-pyinotify libpoe-component-sslify-perl python-configobj\
- python-oauth git openssh-server openssh-client unzip\
+ python-oauth git openssh-server openssh-client unzip libconfig-simple-perl\
  libtext-levenshteinxs-perl tmux python-tweepy
 
 For compiling binaries from source, or related tools, a compiler and

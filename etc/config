@@ -4,6 +4,10 @@ SERVNAME=adom.example.com
 #Server script home - currently unused
 #SERVHOME=/var/lib/adom
 
+#IRC options
+IRCSERV=irc.example.com
+IRCCHAN=#example
+
 ##Python bot options
 #announce scores on IRC
 ANNOUNCE_TO_IRC=True
