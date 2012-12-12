@@ -85,7 +85,7 @@
 #endif
 
 // Challenge game text
-#define CHAL_WARN "WARNING: Challenge game locations are STRICTLY ENFORCED.\n"\
+#define CHAL_WARN "\033[1;31mWARNING\033[0m: Challenge game locations are STRICTLY ENFORCED.\n"\
                   "Once in the location, you MUST stay in it until the win condition is achieved.\n"\
                   "Leaving AT ALL will get your process killed!\n\n"
 
@@ -93,7 +93,6 @@
         "must evade them. If that fails, leave the encounter without killing anything.\n\n"
 
 #define ETR_WARN "\n\n"\
-                "        @@@@@ Eternium Man Challenge Game @@@@@\n\n"\
-                "            Location: Small Cave\n"\
-                "            Win Condition: achieve level 50\n\n"\
-                "        @@@@@ Eternium Man Challenge Game @@@@@\n\n"
+                "                  @@@@@ \033[1m\033[4;37mEternium Man Challenge Game\033[0m @@@@@\n\n"\
+                "                       Location: Small Cave\n"\
+                "                       Win Condition: achieve level 50\n\n\n\n"

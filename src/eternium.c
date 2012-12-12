@@ -178,9 +178,9 @@ int main(int argc, char **argv)
     ptrace(PTRACE_TRACEME, 0, 0, 0);
 
     if(!sage)
-      execl("/usr/games/adom-etr-bin", "/usr/games/adom-etr-bin", NULL);
+      execl("/var/lib/adom/bin/adom-etr-bin", "/var/lib/adom/bin/adom-etr-bin", NULL);
 
-    else execl("/var/lib/adom/server/adom-sage", "/var/lib/adom/server/adom-sage", "-a", "/usr/games/adom-etr-bin", "-s", "/var/lib/adom/server/adom-sage.so", NULL);
+    else execl("/var/lib/adom/bin/adom-sage", "/var/lib/adom/bin/adom-sage", "-a", "/var/lib/adom/bin/adom-etr-bin", "-s", "/var/lib/adom/bin/adom-sage.so", NULL);
 
     break;
     
