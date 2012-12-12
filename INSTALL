@@ -241,7 +241,7 @@ I have used:
 
 1.0.0           adom_ds.100
 1.1.1           adom_ds.111
-Eternium Man:   adom_ds.etr
+Challenge game: adom_ds.cha
 League:         adom_ds.lea
 Swapgame:       adom_ds.swp
 1.2.0p1-3:      adom_ds.12a
@@ -265,7 +265,7 @@ rm -rf ./adom
 done
 
 tar xzf /var/lib/adom/software/adom-111-elf.tar.gz
-for i in lea etr swp; do
+for i in lea cha swp; do
 bspatch adom/adom /var/lib/adom/bin/adom-$i-bin\
  /var/lib/adom/software/adom-$i-ds.binpatch
 done
@@ -286,7 +286,7 @@ d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
 43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
 11d27e4466b94e1667916296178785d9  adom-120p5-bin
 ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
-a2dc057b464a6ac6922772c705043346  adom-etr-bin
+32914e25be80829f7ce9642ca5c97e65  adom-cha-bin
 979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
 3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
 
@@ -303,7 +303,7 @@ for i in 100 111 120p3 120p4 120p5 120p6; do
 done
 
 #1.1.1 Eternium Man:
-gcc -m32 -DETR -DADOM_111 -Wall src/adom-wrapper.c -o bin/adom-etr
+gcc -m32 -DETR -DADOM_111 -Wall src/adom-wrapper.c -o bin/adom-cha
 
 #Compile message dispatcher:
 gcc -m32 src/message_dispatch.c -o bin/message_dispatch
@@ -405,9 +405,9 @@ chmod 1775 public_html/adom_users/ tmp/sockets
 chmod ugo+x bin/*
 # for scoring
 cd var
-chgrp adomusers 1* etr lea swapgame 1*/.HISCORE etr/.HISCORE lea/.HISCORE\
+chgrp adomusers 1* cha lea swapgame 1*/.HISCORE etr/.HISCORE lea/.HISCORE\
  swapgame/.HISCORE
-chmod 775 1* etr lea swapgame
+chmod 775 1* cha lea swapgame
 chmod 664 */.HISCORE
 cd ..
 chmod 1777 /var/lib/adom/tmp/

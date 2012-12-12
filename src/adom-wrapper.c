@@ -157,11 +157,12 @@ int main(int argc, char **argv)
 #ifdef ADOM_111
   e = asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-jaakkos.so");
   f = asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
-
-#ifndef LEAGUE
-  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-111-bin");
-#else
+#ifdef LOCCHA
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-cha-bin");
+#ifdef LEAGUE
   g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-lea-bin");
+#else
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-111-bin");
 #endif
 #elif defined ADOM_100
   g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-100-bin");
