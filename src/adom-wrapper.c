@@ -338,7 +338,7 @@ int main(int argc, char **argv)
             }
             if(!never_die && die) { 
                 ptrace(PTRACE_KILL, pid, NULL, NULL);
-                system("setterm -reset");
+                int sys = system("setterm -reset");
                 printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) is not allowed for your challenge game.\r\nYou are being terminated ...\r\n", 
                        (unsigned int)curloc_v1, (unsigned int)curloc_v2);
                 sleep(3);
