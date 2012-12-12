@@ -18,16 +18,17 @@ Table of contents:
                     b. Compile wrappers
                     c. Compile Sage
                xi. SSH key for spectating
-              xii. crontab
+              xii. Guidebook
+             xiii. crontab
       III. Configuration
-             xiii. etc/config
-              xiv. Back to root
-               xv. Permissions
-              xvi. HISCORES
-             xvii. Admin SSH key
-            xviii. ldconfig
-              xix. Web server
-               xx. SSHd settings
+              xiv. etc/config
+               xv. Back to root
+              xvi. Permissions
+             xvii. HISCORES
+            xviii. Admin SSH key
+              xix. ldconfig
+               xx. Web server
+              xxi. SSHd settings
 	
 I. Setup
 ---------
@@ -52,6 +53,7 @@ The following software is required for all pieces to work:
 * ELinks
 * ttyrec
 * termrec (included)
+* unzip
 * Python 2.6+
 * Perl (for the database bot)
 * PHP (optional, for minor Web page uses)
@@ -78,7 +80,7 @@ apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
  libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl\
  libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
  wget python-pyinotify libpoe-component-sslify-perl python-configobj\
- python-oauth git openssh-server openssh-client\
+ python-oauth git openssh-server openssh-client unzip\
  libtext-levenshteinxs-perl tmux python-tweepy
 
 For compiling binaries from source, or related tools, a compiler and
@@ -342,6 +344,20 @@ cat /var/lib/adom/etc/adomusers_key.pub >>\
  /var/lib/adom/server/spectator/.ssh/authorized_keys
 cat /var/lib/adom/etc/adomusers_key.pub >>\
  /var/lib/adom/server/ttyrecplay/.ssh/authorized_keys
+
+xii. Guidebook
+===============
+
+Download and install the Guidebook to public_html.
+
+Commands:
+
+cd public_html/guidebook
+wget http://www.adomgb.info/adomgb-html.zip
+unzip adomgb-html.zip
+mv adomgb-toc.html index.html
+grep -lI adomgb-toc.html * | xargs sed -i -e 's/adomgb-toc.html/index.html/g'
+#that's lowercase L, uppercase i
 
 xii. crontab
 =============
