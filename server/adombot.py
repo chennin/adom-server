@@ -217,7 +217,6 @@ def check_tweets():
     return
 
   global maxseen
-  print "reading tweets"
   try:
     newtweets = api.user_timeline("thomas_biskup", since_id=maxseen)
   except TweepError as e:
@@ -226,8 +225,7 @@ def check_tweets():
 
   for key in newtweets:
     if key.in_reply_to_user_id == None:
-      c.privmsg(target, "\x02New tweet from the Creator\x02: " + key.text)
-    print key.id
+      c.privmsg(target, "\x02New tweet from the Creator\x02: \"" + key.text + "\"")
     if key.id > maxseen:
         maxseen = key.id
 
