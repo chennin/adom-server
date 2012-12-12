@@ -93,7 +93,7 @@
         "must evade them. If that fails, leave the encounter without killing anything.\n\n"
 
 #define ETR_WARN "\n\n"\
-                " @@@@@ Eternium Man Challenge Game @@@@@\n\n"\
-                "       Location: Small Cave\n"\
-                "       Win Condition: achieve level 50\n\n"\
-                " @@@@@ Eternium Man Challenge Game @@@@@\n\n"
+                "        @@@@@ Eternium Man Challenge Game @@@@@\n\n"\
+                "            Location: Small Cave\n"\
+                "            Win Condition: achieve level 50\n\n"\
+                "        @@@@@ Eternium Man Challenge Game @@@@@\n\n"

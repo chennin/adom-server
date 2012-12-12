@@ -27,10 +27,10 @@
 //#define LEAGUE
 
 //#define ETR /* Eternium, SMC only, til level 50 */
-//#define IRO /* Iron, ID only, always descend, retrieve art on SIL */
+//#define IRO /* Iron, ID only, always descend, retrieve sceptre */
 //#define LTH /* Lithium, CoC and ToEF only, win */
 //#define STE /* Steel, Wilderness only, til level 50 */
-//#define BRM /* Brimstone, ToEF only, kill ACW */
+//#define BRM /* Brimstone, ToEF only, retrieve orb */
 
 #if defined ETR || defined IRO || defined LTH || defined STE || defined BRM
  #define LOCCHA /* location-based challenge game */
@@ -76,7 +76,6 @@ void handle_sig(int pid, int status) {
   if(WIFEXITED(status)) {
     exit_wrapper(WEXITSTATUS(status));
   }
-
   else if(WIFSIGNALED(status)) {
     kill(pid, 9);
     exit_wrapper(1);
@@ -91,6 +90,7 @@ int is_fatal_sig(int sig) {
 
     case SIGTRAP:
     case SIGWINCH:
+    case SIGCHLD:
 
       return 0;
 
@@ -114,7 +114,6 @@ int main(int argc, char **argv)
   char sage=0;
   sigset_t mask;
   long orig_eax;
-  struct user_regs_struct regs;
   struct passwd *p;
   if ((p = getpwuid(getuid())) == NULL) {
     perror("getpwuid() error");
@@ -238,16 +237,14 @@ int main(int argc, char **argv)
 
       char *desc = NULL;
       while(1) {
-        if(ptrace(PTRACE_SYSCALL, pid, 0, 0) == -1) {
-
+        if(ptrace(PTRACE_SYSCALL, pid, 0, 0) != 0) {
+                perror("ptrace_syscall");
         }
 
         wait(&wait_val);
         handle_sig(pid, wait_val);
 
         if(WIFSTOPPED(wait_val) && !is_fatal_sig(WSTOPSIG(wait_val))) {
-          ptrace(PTRACE_GETREGS, pid, NULL, &regs);
-
           int curloc_v1 = 0, curloc_v2 = 0;
           getdata(pid, LEVELID, (char*)&curloc_v1, 1);
           getdata(pid, LEVELID+4, (char*)&curloc_v2, 1);
@@ -362,7 +359,6 @@ int main(int argc, char **argv)
           kill(pid, 9);
           return return_wrapper(1);
         }
-
       }
   }
 
