@@ -408,7 +408,7 @@ int main(int argc, char **argv)
                 printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) is not allowed for an honest %s.    \r\nYou are being terminated ...                            \r\n", 
                     (unsigned int)curloc_v1, (unsigned int)curloc_v2, chalname);
                 sleep(8);
-                return return_wrapper(0);
+                return return_wrapper(1);
               }
             }
           }
