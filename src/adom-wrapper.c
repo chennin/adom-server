@@ -121,20 +121,20 @@ int main(int argc, char **argv)
   if (tmp != NULL) { // grab version
     strncpy(vers, tmp, VERSLEN);
     if ((!isdigit(vers[0])) || (!isdigit(vers[1])) || (!isdigit(vers[2]))) {
-        printf("\"%s\" doesn't look like a valid ADOM version to me\n"
-                "Name should be: adom-VER[-CHA]\n"
-                "VER should be 3 numbers then two optional chars\n", vers);
-        exit(1);
+      printf("\"%s\" doesn't look like a valid ADOM version to me\n"
+          "Name should be: adom-VER[-CHA]\n"
+          "VER should be 3 numbers then two optional chars\n", vers);
+      exit(1);
     }
     tmp = strtok(NULL, "-");
   }
   if (tmp != NULL) { // grab challenge
     strncpy(chal, tmp, CHALLEN);
     if ((!isalpha(chal[0])) || (!isalpha(chal[1])) || (!isalpha(chal[2]))) {
-        printf("\"%s\" doesn't look like a valid challenge game to me\n"
-                "Name should be: adom-VER[-CHA]\n"
-                "CHA should be 3 letters\n", chal);
-        exit(1);
+      printf("\"%s\" doesn't look like a valid challenge game to me\n"
+          "Name should be: adom-VER[-CHA]\n"
+          "CHA should be 3 letters\n", chal);
+      exit(1);
     }
   }
   if (strcmp(vers, "") == 0) {
@@ -180,7 +180,7 @@ int main(int argc, char **argv)
       printf("Unknown challenge game \"%s\"\n", chal);
       exit(1);
     }
-  
+
     if (nchal != STE) {
       printf("%s", WILD_WARN);
     }
@@ -212,13 +212,13 @@ int main(int argc, char **argv)
     strncpy(sagename, "adom-sage", SAGELEN);
     strncpy(sagesoname, "adom-sage-jaakkos.so", SOLEN);
     if (strcmp(chal, "lea") == 0) {
-        strncpy(binname, "adom-lea-bin", BINLEN);
+      strncpy(binname, "adom-lea-bin", BINLEN);
     }
     else if (nchal > 0) {
       strncpy(binname, "adom-cha-bin", BINLEN);
     }
     else {
-        strncpy(binname, "adom-111-bin", BINLEN);
+      strncpy(binname, "adom-111-bin", BINLEN);
     }
   }
   else if (strcmp(vers,"100") == 0) {
@@ -303,7 +303,7 @@ int main(int argc, char **argv)
       char *desc = NULL;
       while(1) {
         if(ptrace(PTRACE_SYSCALL, pid, 0, 0) != 0) {
-                perror("ptrace_syscall");
+          perror("ptrace_syscall");
         }
 
         wait(&wait_val);
@@ -336,7 +336,7 @@ int main(int argc, char **argv)
             }
             free(player);
           }
-          
+
           // set desc if this is a level we should announce
           // if a game has been loaded and at least one turn has been spent
           if (loaded == 1) {
@@ -387,29 +387,29 @@ int main(int argc, char **argv)
             if (nchal > 0) {
               int die = 0;
               if ((curloc_v1 == WILDERNESS_1 && curloc_v2 == WILDERNESS_2) ||
-                 (curloc_v1 == WILDENT_1 && curloc_v2 == WILDENT_2)) { 
-                  // Allow encounters, but you should not kill anything
-                  // Saving goes through the wilderness
-                  if ((entered_loc == 1) && (cur_turn != prev_turn)) { die = 1; }
-                  // for Steel, do not set entered_loc, as above will kill
-                  if ((nchal == STE) && (explvl >= 50)) { never_die = 1; }
+                  (curloc_v1 == WILDENT_1 && curloc_v2 == WILDENT_2)) { 
+                // Allow encounters, but you should not kill anything
+                // Saving goes through the wilderness
+                if ((entered_loc == 1) && (cur_turn != prev_turn)) { die = 1; }
+                // for Steel, do not set entered_loc, as above will kill
+                if ((nchal == STE) && (explvl >= 50)) { never_die = 1; }
               }
               // enforce Eternium = SMC
               else if ((nchal == ETR) && (curloc_v1 == SMC_1) && (curloc_v2 == SMC_2)) {
-                  entered_loc = 1;
-                  if (explvl >= 50) { never_die = 1; }
+                entered_loc = 1;
+                if (explvl >= 50) { never_die = 1; }
               }
               else { // some other forbidden location
-                  die = 1;
+                die = 1;
               }
               if(!never_die && die) { 
-                  ptrace(PTRACE_KILL, pid, NULL, NULL);
-                  int sys = system("setterm -reset");
-                  if (sys < 0) { perror("setterm failed"); }
-                  printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) is not allowed for an honest %s.\r\nYou are being terminated ...\r\n", 
-                         (unsigned int)curloc_v1, (unsigned int)curloc_v2, chalname);
-                  sleep(8);
-                  return return_wrapper(0);
+                ptrace(PTRACE_KILL, pid, NULL, NULL);
+                int sys = system("setterm -reset");
+                if (sys < 0) { perror("setterm failed"); }
+                printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) is not allowed for an honest %s.\r\nYou are being terminated ...\r\n", 
+                    (unsigned int)curloc_v1, (unsigned int)curloc_v2, chalname);
+                sleep(8);
+                return return_wrapper(0);
               }
             }
           }
