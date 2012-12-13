@@ -1,0 +1,52 @@
+#!/bin/bash
+clear
+
+echo "Welcome to the challenge game selection menu."
+echo ""
+echo "ADOM too easy? There are several location-restricted challenge games to make it"
+echo "even harder."
+echo ""
+echo "ETERNIUM MAN: Small Cave only.  Achieve level 50."
+echo "STEEL MAN: Wilderness only.  Achieve level 50."
+echo "IRON MAN: Infinite Dungeon only.  Never ascend.  Retrieve the sceptre."
+echo "BRIMSTONE MAN: Tower of Eternal Flames only. Retrieve the orb."
+echo "LITHIUM MAN: Caverns of Chaos and ToEF only.  Win."
+echo ""
+echo "For all but Steel Man, wilderness encounters are forbidden.  If you can't evade,"
+echo "then get away without killing anything."
+echo ""
+echo "Choose your poison:"
+echo ""
+echo "  0 - No (reset) challenge game"
+echo "  1 - ETERNIUM MAN"
+echo "  2 - STEEL MAN"
+echo "  q - Return to main menu"
+echo ""
+while [ true ] 
+do
+  read -e -p "> " command
+  case $command in
+    0)
+      > ${HOME}/chal
+      break
+      ;;
+    1)
+      echo "etr" > ${HOME}/chal
+      break
+      ;;
+    2)
+      echo "ste" > ${HOME}/chal
+      break
+      ;;
+    q|z)
+       exit
+       ;;
+    *)
+      echo "Erroneous selection!"
+      sleep 1
+      continue
+      ;;
+  esac
+done
+echo "Success!"
+sleep 3
