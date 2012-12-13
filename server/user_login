@@ -272,8 +272,6 @@ do
                 fi
 
                 adom_ver="120p${pvers}"
-                mkdir -p ${HOME}/adom.data-$adom_ver
-                mkdir -p ${HOME}/backup-$adom_ver
                 link_dir
                 if [ "$sage" = "enabled" ]; then
                         echo "Sage with 1.2.0pX may not be stable! Use at own risk! (Press enter to continue)."
