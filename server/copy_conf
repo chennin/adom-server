@@ -5,7 +5,7 @@
 CFGBASE="${HOME}/adom.data-"
 CFGTO="${HOME}/.adom.data"
 
-CHALS="etr ste quit"
+CHALS="etr ste none quit"
 VERSIONS="100 111 lea swp"
 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
     VERSIONS+=" 120p${i}"
@@ -19,22 +19,41 @@ select FROM in $VERSIONS; do
     fi
     echo "Copying FROM version ${FROM}"
     echo "Copy FROM a challenge game (default: ${chal:-"no"})?"
-    select CHALF in $CHALS; do
-        if [[ ${REPLY} == "quit" ]] || [[ ${CHALF} == "quit" ]]; then break; fi
-        CHALF=${CHALF:-""} 
-        if [ "${CHALF}" != "" ]; then
-          echo "Using challenge game ${CHALF}"
-          FROM="${FROM}/${CHALF}"
+    CHALF=""
+    i=1
+    for n in $CHALS; do
+      echo -n "$i) $n  "
+      ((i++))
+    done
+    echo ""
+    while [ 1 ]; do
+        read -e -p "#? " CHALF
+        CHALF=${CHALF:-${chal}} 
+        case $CHALF in
+          4|quit|q)
+            break
+            ;;
+          1|etr) CHALF="etr"; break;; 
+          2|ste) CHALF="ste"; break;; 
+          3|none) CHALF=""; break;; 
+          "") CHALF=${chal}; break;;
+          *)
+            echo "Invalid!"
+            continue
+            ;;
+        esac
+    done
+    if [[ "${CHALF}" != "" ]]; then
+      echo "Using challenge game ${CHALF}"
+      FROM="${FROM}/${CHALF}"
+    fi
+    mkdir -p ${CFGBASE}${FROM}/${FILE} ${CFGTO}/${FILE}
+    for FILE in .adom.kbd .adom.cfg sage.cfg sage.kbd sage.msg; do
+        if [ -f ${CFGBASE}${FROM}/${FILE} ]; then
+            cp -pi ${CFGBASE}${FROM}/${FILE} ${CFGTO}/${FILE}
+        else
+            echo "Warning: ${FILE} not found in ${FROM} cfg dir!"
         fi
-        mkdir -p ${CFGBASE}${FROM}/${FILE} ${CFGTO}/${FILE}
-        for FILE in .adom.kbd .adom.cfg sage.cfg sage.kbd sage.msg; do
-            if [ -f ${CFGBASE}${FROM}/${FILE} ]; then
-                cp -pi ${CFGBASE}${FROM}/${FILE} ${CFGTO}/${FILE}
-            else
-                echo "Warning: ${FILE} not found in ${FROM} cfg dir!"
-            fi
-        done
-        break
     done
     break
 done

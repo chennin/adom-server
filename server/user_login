@@ -273,10 +273,6 @@ do
 
                 adom_ver="120p${pvers}"
                 link_dir
-                if [ "$sage" = "enabled" ]; then
-                        echo "Sage with 1.2.0pX may not be stable! Use at own risk! (Press enter to continue)."
-                        read
-                fi
                 continue
                 ;;
 
