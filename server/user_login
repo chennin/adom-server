@@ -208,7 +208,9 @@ do
 		export adom_ver
     export chal
 		export ttyq
-		echo $adom_ver > /var/lib/adom/tmp/sockets/$USER
+    versstr=${adom_ver}
+    if [ "${chal}" != "" ]; then versstr="${adom_ver}-${chal}"; fi
+		echo ${versstr} > /var/lib/adom/tmp/sockets/$USER
 
 		if [ -e "${HOME}/.adom.data/.adom.cnt" ]; then
 			/var/lib/adom/bin/modify_cnt "${HOME}/.adom.data/.adom.cnt"
