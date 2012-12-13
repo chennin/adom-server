@@ -92,12 +92,14 @@
 #define WILD_WARN "NOTE: If you have any wilderness encounters on the way to your challenge, you\n"\
         "must evade them. If that fails, leave the encounter without killing anything.\n\n"
 
+#define ETR_NAME "Eternium Man"
 #define ETR_WARN "\n\n"\
-                "                  @@@@@ \033[1m\033[4;37mEternium Man Challenge Game\033[0m @@@@@\n\n"\
+                "                  @@@@@ \033[1m\033[4;37m" ETR_NAME " Challenge Game\033[0m @@@@@\n\n"\
                 "                       Location: Small Cave\n"\
                 "                       Win Condition: achieve level 50\n\n\n\n"
 
+#define STE_NAME "Steel Man"
 #define STE_WARN "\n\n"\
-                "                  @@@@@ \033[1m\033[4;37mSteel Man Challenge Game\033[0m @@@@@\n\n"\
+                "                  @@@@@ \033[1m\033[4;37m" STE_NAME " Challenge Game\033[0m @@@@@\n\n"\
                 "                       Location: Wilderness\n"\
                 "                       Win Condition: achieve level 50\n\n\n\n"

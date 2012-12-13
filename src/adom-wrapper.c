@@ -7,6 +7,7 @@
 #include <sys/ptrace.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <ctype.h>
 #include <unistd.h>
 #include <pwd.h>
 #include <errno.h>
@@ -26,15 +27,11 @@
 
 //#define LEAGUE
 
-//#define ETR /* Eternium, SMC only, til level 50 */
-//#define IRO /* Iron, ID only, always descend, retrieve sceptre */
-//#define LTH /* Lithium, CoC and ToEF only, win */
-//#define STE /* Steel, Wilderness only, til level 50 */
-//#define BRM /* Brimstone, ToEF only, retrieve orb */
-
-#if defined ETR || defined IRO || defined LTH || defined STE || defined BRM
- #define LOCCHA /* location-based challenge game */
-#endif
+#define ETR 0x1 /* Eternium, SMC only, til level 50 */
+#define IRO 0x2 /* Iron, ID only, always descend, retrieve sceptre */
+#define LTH 0x3 /* Lithium, CoC and ToEF only, win */
+#define STE 0x4 /* Steel, Wilderness only, til level 50 */
+#define BRM 0x5 /* Brimstone, ToEF only, retrieve orb */
 
 // Minimum seconds between announcing a new player location
 #define SEC_BET_ANC 1800
@@ -109,6 +106,42 @@ int is_fatal_sig(int sig) {
 
 int main(int argc, char **argv)
 {
+  //decide what game we're called as
+  char *calledas = basename(argv[0]);
+#define CHALLEN 4 /* eta, ste, ..., + null */
+#define VERSLEN 6 /* 111, 120p3, ..., + null */
+  char chal[CHALLEN], vers[VERSLEN];
+  memset(chal,'\0',CHALLEN);
+  memset(vers,'\0',VERSLEN);
+  char *tmp = NULL;
+
+  // examples: adom-111, adom-111-etr
+  tmp = strtok(calledas, "-");
+  if (tmp != NULL) { tmp = strtok(NULL, "-"); } // ignore "adom"
+  if (tmp != NULL) { // grab version
+    strncpy(vers, tmp, VERSLEN);
+    if ((!isdigit(vers[0])) || (!isdigit(vers[1])) || (!isdigit(vers[2]))) {
+        printf("\"%s\" doesn't look like a valid ADOM version to me\n"
+                "Name should be: adom-VER[-CHA]\n"
+                "VER should be 3 numbers then two optional chars\n", vers);
+        exit(1);
+    }
+    tmp = strtok(NULL, "-");
+  }
+  if (tmp != NULL) { // grab challenge
+    strncpy(chal, tmp, CHALLEN);
+    if ((!isalpha(chal[0])) || (!isalpha(chal[1])) || (!isalpha(chal[2]))) {
+        printf("\"%s\" doesn't look like a valid challenge game to me\n"
+                "Name should be: adom-VER[-CHA]\n"
+                "CHA should be 3 letters\n", chal);
+        exit(1);
+    }
+  }
+  if (strcmp(vers, "") == 0) {
+    perror("Unable to determine what version of ADOM to run");
+    exit(1);
+  }
+
   int wait_val;
   int pid;
   char sage=0;
@@ -122,62 +155,91 @@ int main(int argc, char **argv)
   long prev_turn = 2147483647;
   int prevloc_v1 = 0, prevloc_v2 = 0;
   int loaded = 0, announced = 0, delaycounter = 0;
-#ifdef LOCCHA
+  // Used in challenge games
   int entered_loc = 0; // entered challenge location
   int never_die = 0; // won
-#endif
-#ifdef IRO
-  int idlvl = 0;
-#endif 
-#if defined ETR || defined STE
+  int nchal = 0;
+#define CHALNALEN 64
+  char chalname[CHALNALEN];
+  // Used in ETR/STE
   int explvl = 0;
-#endif
+  // Used in IRO
+  int idlvl = 0;
 
-#ifdef ETR
-  printf("%s", ETR_WARN);
-#elif defined STE
-  printf("%s", STE_WARN);
-#endif
-#ifdef LOCCHA
-  printf("%s", CHAL_WARN);
-#ifndef STE
-  printf("%s", WILD_WARN);
-#endif
-  printf("\n[PRESS ENTER TO CONTINUE]\n");
-  getchar();
-#endif
+  // Print challenge banners
+  if (strcmp(chal, "") != 0) {
+    if (strcmp(chal,"etr") == 0) {
+      printf("%s", ETR_WARN);
+      nchal = ETR; snprintf(chalname, CHALNALEN, ETR_NAME);
+    }
+    else if (strcmp(chal,"ste") == 0) {
+      printf("%s", STE_WARN);
+      nchal = STE; snprintf(chalname, CHALNALEN, STE_NAME);
+    }
+    else {
+      printf("Unknown challenge game \"%s\"\n", chal);
+      exit(1);
+    }
+  
+    if (nchal != STE) {
+      printf("%s", WILD_WARN);
+    }
+    printf("%s", CHAL_WARN);
+    printf("\n[PRESS ENTER TO CONTINUE]\n");
+    getchar();
+  }
 
-
-  char *BINLOC = "/var/lib/adom/bin/";
+  const char *BINLOC = "/var/lib/adom/bin/";
 
   char *SAGEPATH = NULL, *SAGESO = NULL, *ADOMBIN = NULL;
   int e = 0, f = 0, g = 0;
 
-  e = asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-0.9.3.so");
-  f = asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage-0.9.3"); 
+  // Fill out what to run
+#define BINLEN 14
+#define SOLEN 21
+#define SAGELEN 19
+  char binname[BINLEN];
+  char sagesoname[SOLEN];
+  char sagename[SAGELEN];
+  memset(binname,'\0',BINLEN);
+  memset(sagesoname,'\0',SOLEN);
+  memset(sagename,'\0',SAGELEN);
 
-#ifdef ADOM_111
-  e = asprintf(&SAGESO, "%s%s", BINLOC, "adom-sage-jaakkos.so");
-  f = asprintf(&SAGEPATH, "%s%s", BINLOC, "adom-sage");
-#ifdef LOCCHA
-  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-cha-bin");
-#elif LEAGUE
-  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-lea-bin");
-#else
-  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-111-bin");
-#endif
-#elif defined ADOM_100
-  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-100-bin");
-#elif defined ADOM_120p3
-  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p3-bin");
-#elif defined ADOM_120p4
-  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p4-bin");
-#elif defined ADOM_120p5
-  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p5-bin");
-#elif defined ADOM_120p6
-  g = asprintf(&ADOMBIN, "%s%s", BINLOC, "adom-120p6-bin");
-#endif
+  strncpy(sagesoname, "adom-sage-0.9.3.so", SOLEN);
+  strncpy(sagename, "adom-sage-0.9.3", SAGELEN);
 
+  if (strcmp(vers,"111") == 0) {
+    strncpy(sagename, "adom-sage", SAGELEN);
+    strncpy(sagesoname, "adom-sage-jaakkos.so", SOLEN);
+    if (strcmp(chal, "lea") == 0) {
+        strncpy(binname, "adom-lea-bin", BINLEN);
+    }
+    else if (nchal > 0) {
+      strncpy(binname, "adom-cha-bin", BINLEN);
+    }
+    else {
+        strncpy(binname, "adom-111-bin", BINLEN);
+    }
+  }
+  else if (strcmp(vers,"100") == 0) {
+    strncpy(binname, "adom-100-bin", BINLEN);
+  }
+  if (strcmp(vers,"120p3") == 0) {
+    strncpy(binname, "adom-120p3-bin", BINLEN);
+  }
+  if (strcmp(vers,"120p4") == 0) {
+    strncpy(binname, "adom-120p4-bin", BINLEN);
+  }
+  if (strcmp(vers,"120p5") == 0) {
+    strncpy(binname, "adom-120p5-bin", BINLEN);
+  }
+  if (strcmp(vers,"120p6") == 0) {
+    strncpy(binname, "adom-120p6-bin", BINLEN);
+  }
+
+  g = asprintf(&ADOMBIN, "%s%s", BINLOC, binname);
+  e = asprintf(&SAGESO, "%s%s", BINLOC, sagesoname);
+  f = asprintf(&SAGEPATH, "%s%s", BINLOC, sagename);
   if (e < 0 || f < 0 || g < 0)
   {
     perror("Failed to asprintf");
@@ -213,7 +275,7 @@ int main(int argc, char **argv)
 
     case 0: /*  child process */
       ptrace(PTRACE_TRACEME, 0, 0, 0);
-
+      // and run.
       if(!sage) {
         execl(ADOMBIN, ADOMBIN, NULL);
       }
@@ -321,38 +383,35 @@ int main(int argc, char **argv)
                 announced = 1;
               }
             }
-
-#ifdef LOCCHA
-            int die = 0;
-            if ((curloc_v1 == WILDERNESS_1 && curloc_v2 == WILDERNESS_2) ||
-               (curloc_v1 == WILDENT_1 && curloc_v2 == WILDENT_2)) { 
-                // Allow encounters, but you should not kill anything
-                // Saving goes through the wilderness
-                if ((entered_loc == 1) && (cur_turn != prev_turn)) { die = 1; }
-#ifdef STE
-                //for steel, do not set entered_loc, as above will kill
-                if (explvl >= 50) { never_die = 1; }
-#endif
+            // Playing a challenge game?
+            if (nchal > 0) {
+              int die = 0;
+              if ((curloc_v1 == WILDERNESS_1 && curloc_v2 == WILDERNESS_2) ||
+                 (curloc_v1 == WILDENT_1 && curloc_v2 == WILDENT_2)) { 
+                  // Allow encounters, but you should not kill anything
+                  // Saving goes through the wilderness
+                  if ((entered_loc == 1) && (cur_turn != prev_turn)) { die = 1; }
+                  // for Steel, do not set entered_loc, as above will kill
+                  if ((nchal == STE) && (explvl >= 50)) { never_die = 1; }
+              }
+              // enforce Eternium = SMC
+              else if ((nchal == ETR) && (curloc_v1 == SMC_1) && (curloc_v2 == SMC_2)) {
+                  entered_loc = 1;
+                  if (explvl >= 50) { never_die = 1; }
+              }
+              else { // some other forbidden location
+                  die = 1;
+              }
+              if(!never_die && die) { 
+                  ptrace(PTRACE_KILL, pid, NULL, NULL);
+                  int sys = system("setterm -reset");
+                  if (sys < 0) { perror("setterm failed"); }
+                  printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) is not allowed for an honest %s.\r\nYou are being terminated ...\r\n", 
+                         (unsigned int)curloc_v1, (unsigned int)curloc_v2, chalname);
+                  sleep(8);
+                  return return_wrapper(0);
+              }
             }
-#ifdef ETR
-            else if (curloc_v1 == SMC_1 && curloc_v2 == SMC_2) {
-                entered_loc = 1;
-                if (explvl >= 50) { never_die = 1; }
-            }
-#endif
-            else { // some other forbidden location
-                die = 1;
-            }
-            if(!never_die && die) { 
-                ptrace(PTRACE_KILL, pid, NULL, NULL);
-                int sys = system("setterm -reset");
-                if (sys < 0) { perror("setterm failed"); }
-                printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) is not allowed for your challenge game.\r\nYou are being terminated ...\r\n", 
-                       (unsigned int)curloc_v1, (unsigned int)curloc_v2);
-                sleep(8);
-                return return_wrapper(0);
-            }
-#endif /*LOCCHA*/
           }
 
           prev_turn = cur_turn;
