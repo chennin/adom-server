@@ -121,7 +121,7 @@ int main(int argc, char **argv)
   if (tmp != NULL) { // grab version
     strncpy(vers, tmp, VERSLEN);
     if ((!isdigit(vers[0])) || (!isdigit(vers[1])) || (!isdigit(vers[2]))) {
-      printf("\"%s\" doesn't look like a valid ADOM version to me\n"
+      fprintf(stderr, "\"%s\" doesn't look like a valid ADOM version to me\n"
           "Name should be: adom-VER[-CHA]\n"
           "VER should be 3 numbers then two optional chars\n", vers);
       exit(1);
@@ -131,7 +131,7 @@ int main(int argc, char **argv)
   if (tmp != NULL) { // grab challenge
     strncpy(chal, tmp, CHALLEN);
     if ((!isalpha(chal[0])) || (!isalpha(chal[1])) || (!isalpha(chal[2]))) {
-      printf("\"%s\" doesn't look like a valid challenge game to me\n"
+      fprintf(stderr, "\"%s\" doesn't look like a valid challenge game to me\n"
           "Name should be: adom-VER[-CHA]\n"
           "CHA should be 3 letters\n", chal);
       exit(1);
@@ -177,7 +177,7 @@ int main(int argc, char **argv)
       nchal = STE; snprintf(chalname, CHALNALEN, STE_NAME);
     }
     else {
-      printf("Unknown challenge game \"%s\"\n", chal);
+      fprintf(stderr, "Unknown challenge game \"%s\"\n", chal);
       exit(1);
     }
 
@@ -195,7 +195,7 @@ int main(int argc, char **argv)
   int e = 0, f = 0, g = 0;
 
   // Fill out what to run
-#define BINLEN 14
+#define BINLEN 17
 #define SOLEN 21
 #define SAGELEN 19
   char binname[BINLEN];
@@ -208,33 +208,13 @@ int main(int argc, char **argv)
   strncpy(sagesoname, "adom-sage-0.9.3.so", SOLEN);
   strncpy(sagename, "adom-sage-0.9.3", SAGELEN);
 
+  snprintf(binname, BINLEN, "adom-%s-bin", vers);
   if (strcmp(vers,"111") == 0) {
     strncpy(sagename, "adom-sage", SAGELEN);
     strncpy(sagesoname, "adom-sage-jaakkos.so", SOLEN);
     if (strcmp(chal, "lea") == 0) {
       strncpy(binname, "adom-lea-bin", BINLEN);
     }
-    else if (nchal > 0) {
-      strncpy(binname, "adom-cha-bin", BINLEN);
-    }
-    else {
-      strncpy(binname, "adom-111-bin", BINLEN);
-    }
-  }
-  else if (strcmp(vers,"100") == 0) {
-    strncpy(binname, "adom-100-bin", BINLEN);
-  }
-  if (strcmp(vers,"120p3") == 0) {
-    strncpy(binname, "adom-120p3-bin", BINLEN);
-  }
-  if (strcmp(vers,"120p4") == 0) {
-    strncpy(binname, "adom-120p4-bin", BINLEN);
-  }
-  if (strcmp(vers,"120p5") == 0) {
-    strncpy(binname, "adom-120p5-bin", BINLEN);
-  }
-  if (strcmp(vers,"120p6") == 0) {
-    strncpy(binname, "adom-120p6-bin", BINLEN);
   }
 
   g = asprintf(&ADOMBIN, "%s%s", BINLOC, binname);
@@ -277,10 +257,28 @@ int main(int argc, char **argv)
       ptrace(PTRACE_TRACEME, 0, 0, 0);
       // and run.
       if(!sage) {
+        FILE *file = fopen(ADOMBIN, "r");
+        if (file == NULL) {
+          fprintf(stderr, "Can't find or read ADOM at %s\n", ADOMBIN);
+          exit(1);
+        }
+        fclose(file);
         execl(ADOMBIN, ADOMBIN, NULL);
       }
 
       else {
+        FILE *file = fopen(SAGEPATH, "r");
+        if (file == NULL) {
+          fprintf(stderr, "Can't find or read Sage at %s\n", SAGEPATH);
+          exit(1);
+        }
+        fclose(file);
+        file = fopen(SAGESO, "r");
+        if (file == NULL) {
+          fprintf(stderr, "Can't find or read Sage library at %s\n", SAGESO);
+          exit(1);
+        }
+        fclose(file);
         execl(SAGEPATH, SAGEPATH, "-a", ADOMBIN, "-s", SAGESO, NULL);
       }
       free(ADOMBIN); free(SAGEPATH); free(SAGESO);
