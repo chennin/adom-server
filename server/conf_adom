@@ -23,7 +23,7 @@ do
     echo "  4 - sage.msg, ADOM Sage message configuration file"
     echo "  5 - sage.kbd, ADOM Sage keymap configuration file"
     echo
-    echo "  6 - Copy config files between ADOM versions"
+    echo "  6 - Copy config files to current ADOM version"
     echo
     echo "  7 - ~/.ssh/authorized_keys, authorized SSH RSA/DSA public keys"
     echo
