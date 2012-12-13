@@ -390,7 +390,7 @@ do
 		continue
 		;;
 
-	'q')
+	q|z)
 		exit
 		;;
 

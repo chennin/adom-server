@@ -64,7 +64,7 @@ do
 	    nano --restricted "${HOME}/.ssh/authorized_keys"
 	    continue;
 	    ;;
-	[8q])
+	8|q|z)
 	    exit
 	    ;;
 	*)

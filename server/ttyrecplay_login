@@ -87,7 +87,7 @@ do
 		continue
 		;;
 
-	    7|q)
+	    7|q|z)
 		exit
 		;;
 
