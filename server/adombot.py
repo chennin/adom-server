@@ -215,7 +215,7 @@ def check_tweets():
     return
 
   for key in newtweets:
-    if key.in_reply_to_user_id == None:
+    if key.in_reply_to_user_id == None and key.retweeted_status == None:
       c.privmsg(target, "\x02New tweet from the Creator\x02: \"" + key.text + "\"")
     if key.id > maxseen:
         maxseen = key.id
@@ -342,7 +342,6 @@ notifierloc = ThreadedNotifier(wmloc, handlerloc)
 
 wm.add_watch(FILE100, IN_CLOSE_WRITE)
 wm.add_watch(FILE111, IN_CLOSE_WRITE)
-wm.add_watch(FILEETR, IN_CLOSE_WRITE)
 wm.add_watch(FILE120p3, IN_CLOSE_WRITE)
 wm.add_watch(FILE120p4, IN_CLOSE_WRITE)
 wm.add_watch(FILE120p6, IN_CLOSE_WRITE)
