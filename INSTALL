@@ -257,7 +257,7 @@ a. Patch ADOM
 
 Patch the binaries with the following commands:
 
-mkdir /tmp/adom && cd $_
+mkdir -p /tmp/adom && cd $_
 
 for i in 100 111; do
 tar xzf /var/lib/adom/software/adom-$i-elf.tar.gz &&
