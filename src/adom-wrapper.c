@@ -315,6 +315,7 @@ int main(int argc, char **argv)
           getdata(pid, LEVELID+4, (char*)&curloc_v2, 1);
           long cur_turn = 0;	
           getdata(pid, TURNCOUNTER, (char*)&cur_turn, 1);
+          getdata(pid, EXPLVL, (char*)&explvl, 1);
 
           //only check file once per turn count change
           if (!loaded && cur_turn != prev_turn) {

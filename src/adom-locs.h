@@ -60,27 +60,33 @@
   #define CHARNAME 0x82add00
 #elif defined ADOM_100
   #define LEVELID 0x829e21c
+  #define EXPLVL 0x82a1bdc
   #define TURNCOUNTER 0x82a1be0
   #define IDCOUNT 0x82a5acc /* and 0x82a6710 */
   #define CHARNAME 0x829e200
 #elif defined ADOM_120p3
   #define LEVELID 0x827b0bc
+  #define EXPLVL 0x827eb0c
   #define TURNCOUNTER 0x827eb10
   #define IDCOUNT 0x8282f9c /* and 0x8283d70 */
   #define CHARNAME 0x827b0a0
 #elif defined ADOM_120p4
   #define LEVELID 0x827d0bc
+  #define EXPLVL 0x8280b0c
   #define TURNCOUNTER 0x8280b10
   #define IDCOUNT 0x8284f9c /* and 0x8285d70 */
   #define CHARNAME 0x827d0a0
 #elif defined ADOM_120p5
   #define LEVELID 0x827dcbc
+  #define EXPLVL 0x828170c
   #define TURNCOUNTER 0x8281710
   #define IDCOUNT 0x8285ba0 /* and 0x8286978 */
   #define CHARNAME 0x827dca0
 #elif defined ADOM_120p6
   #define LEVELID 0x828201c  
+  #define EXPLVL 0x8285a74
   #define TURNCOUNTER 0x8285a78
+  #define IDCOUNT 0x8289f08 /* and 0x828acec */
   #define CHARNAME 0x8282000
 #endif
 
