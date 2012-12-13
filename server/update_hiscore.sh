@@ -4,7 +4,7 @@ cd /var/lib/adom/tmp
 
 . /var/lib/adom/etc/config
 
-versions=('100' '111'  'etr' 'lea' 'swp')
+versions=('100' '111' 'lea' 'swp')
 for i in $(seq $MIN_PRE $MAX_PRE); do
 	versions+=("120p$i")
 done
