@@ -19,10 +19,22 @@ fi
 
 . /var/lib/adom/etc/config
 
+function link_dir {
+    rm -f ${HOME}/.adom.data
+    echo "$adom_ver" > ${HOME}/adom_ver
+    echo "$chal" > ${HOME}/chal
+    chalstr=""
+    if [ ${chal} != "" ]; then chalstr="/${chal}"; fi
+    mkdir -p ${HOME}/adom.data-${adom_ver}${chalstr}
+    mkdir -p ${HOME}/adom.data-${adom_ver}${chalstr}/backup
+    ln -s ${HOME}/adom.data-${adom_ver}${chalstr} ${HOME}/.adom.data
+}
+
 command=""
 sage=$(cat ${HOME}/sage_status)
 adom_ver=$(cat ${HOME}/adom_ver)
 ttyq=$(cat ${HOME}/ttyrec_status)
+chal=$(cat ${HOME}/chal)
 
 if [ ! -e "${HOME}/.adom.data" ]; then
 	ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
@@ -33,6 +45,7 @@ do
 	sage=$(cat ${HOME}/sage_status)
 	adom_ver=$(cat ${HOME}/adom_ver)
 	ttyq=$(cat ${HOME}/ttyrec_status)
+  chal=$(cat ${HOME}/chal)
 
 	tput reset
 	clear
@@ -54,25 +67,22 @@ do
 	echo -ne "You're about to play \e[1mADoM\e[0m"
         case $adom_ver in
                 "111")
-                        echo -ne " version \e[4m1.1.1\e[0m, \e[4mnormal mode\e[0m"
+                        echo -ne " version \e[4m1.1.1\e[0m, "
                         ;;
                 "100")
-                        echo -ne " version \e[4m1.0.0\e[0m, \e[4mnormal mode\e[0m"
+                        echo -ne " version \e[4m1.0.0\e[0m, "
                         ;;
                 "120p3")
-                        echo -ne " version \e[4m1.2.0p3\e[0m, \e[4mnormal mode\e[0m"
+                        echo -ne " version \e[4m1.2.0p3\e[0m, "
                         ;;
                 "120p4")
-                        echo -ne " version \e[4m1.2.0p4\e[0m, \e[4mnormal mode\e[0m"
+                        echo -ne " version \e[4m1.2.0p4\e[0m, "
                         ;;
                 "120p5")
-                        echo -ne " version \e[4m1.2.0p5\e[0m, \e[4mnormal mode\e[0m"
+                        echo -ne " version \e[4m1.2.0p5\e[0m, "
                         ;;
                 "120p6")
-                        echo -ne " version \e[4m1.2.0p6\e[0m, \e[4mnormal mode\e[0m"
-			;;
-                "etr")
-                        echo -ne " version \e[4m1.1.1\e[0m, \e[4meternium man challenge mode\e[0m"
+                        echo -ne " version \e[4m1.2.0p6\e[0m, "
                         ;;
                 "swp")
                         echo -ne " version \e[4m1.1.1\e[0m, \e[4mswapgame mode\e[0m"
@@ -81,10 +91,21 @@ do
                         echo -ne " MISSING"
                         ;;
         esac
+        case $chal in
+          "etr")
+            echo -ne "\e[4meternium man challenge mode\e[0m, "
+            ;;
+          "ste")
+            echo -ne "\e[4msteel man challenge mode\e[0m, "
+            ;;
+          *)
+            echo -ne "\e[4mnormal mode\e[0m, "
+            ;;
+         esac
 	if [ -e ${HOME}/silence ]; then
-		printf ", \e[4mwithout\e[0m spectator messages, "
+		printf "\e[4mwithout\e[0m spectator messages, "
 	else
-		printf ", \e[4mwith\e[0m spectator messages, "
+		printf "\e[4mwith\e[0m spectator messages, "
 	fi
 
 	echo -ne "with ADoM Sage \e[4m$sage\e[0m,"
@@ -114,7 +135,7 @@ do
         echo -e "\e[1m[ s ]\e[0m spectate other users' games"
         echo -e "\e[1;31m[ q ]\e[0m quit"
         echo ""
-        echo -e "Select version:\n\e[1m[ mn ]\e[0m 1.1.1		\e[1m[ mp ]\e[0m 1.2.0pX		\e[1m[ ma ]\e[0m 1.0.0\n\e[1m[ me ]\e[0m Eternium Man				\e[1m[ ms ]\e[0m swapgame"
+        echo -e "Select version:\n\e[1m[ mn ]\e[0m 1.1.1		\e[1m[ mp ]\e[0m 1.2.0pX		\e[1m[ ma ]\e[0m 1.0.0\n\e[1m[ mc ]\e[0m Select Challenge Game			\e[1m[ ms ]\e[0m swapgame"
         echo ""
         echo -ne "\e[1m[ x ]\e[0m toggle ADoM Sage                  "
         echo -e "\e[1m[ r ]\e[0m toggle tty recording"
@@ -185,6 +206,7 @@ do
 
 		export sage
 		export adom_ver
+    export chal
 		export ttyq
 		echo $adom_ver > /var/lib/adom/tmp/sockets/$USER
 
@@ -205,10 +227,8 @@ do
 			continue
 		fi
 
-		rm -f ${HOME}/.adom.data
 		adom_ver="111"
-		echo "$adom_ver" > ${HOME}/adom_ver
-		ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+    link_dir
 		continue
 		;;
 
@@ -219,10 +239,8 @@ do
 			continue
 		fi
 
-		rm -f ${HOME}/.adom.data
 		adom_ver="100"
-		echo "$adom_ver" > ${HOME}/adom_ver
-			ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+    link_dir
 		continue
 		;;
 
@@ -255,12 +273,10 @@ do
                         if [ $? -ne 0 ]; then continue; fi
                 fi
 
-                rm -f ${HOME}/.adom.data
                 adom_ver="120p${pvers}"
-                echo "$adom_ver" > ${HOME}/adom_ver
                 mkdir -p ${HOME}/adom.data-$adom_ver
                 mkdir -p ${HOME}/backup-$adom_ver
-                ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+                link_dir
                 if [ "$sage" = "enabled" ]; then
                         echo "Sage with 1.2.0pX may not be stable! Use at own risk! (Press enter to continue)."
                         read
@@ -275,12 +291,25 @@ do
 			continue
 		fi
 
-		rm -f ${HOME}/.adom.data
-		adom_ver="etr"
-		echo "$adom_ver" > ${HOME}/adom_ver
-			ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
+		adom_ver="111"
+    chal="etr"
+    link_dir
 		continue
 		;;
+
+  "mc")
+    if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
+      echo "Cannot change version; ADoM is running!"
+      sleep 2
+      continue
+    fi
+    export adom_ver; export chal
+    /var/lib/adom/server/select_challenge
+    chal=$(cat ${HOME}/chal)
+    link_dir
+    continue
+    ;;
+
 
 	"ms")
 		if [ -e "${HOME}/.adom.data/.adom.prc" ]; then
@@ -342,6 +371,7 @@ do
 
 	'c')
 		export adom_ver
+    export chal
 		/var/lib/adom/server/conf_adom
 		echo
 		sleep 1

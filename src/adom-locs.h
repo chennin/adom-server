@@ -92,8 +92,9 @@
 
 // Challenge game text
 #define CHAL_WARN "\033[1;31mWARNING\033[0m: Challenge game locations are STRICTLY ENFORCED.\n"\
+                  "You may NOT enter any place except the wilderness and your game's requirement.\n"\
                   "Once in the location, you MUST stay in it until the win condition is achieved.\n"\
-                  "Leaving AT ALL will get your process killed!\n\n"
+                  "Entering ANY OTHER PLACE will get your process killed!\n\n"
 
 #define WILD_WARN "NOTE: If you have any wilderness encounters on the way to your challenge, you\n"\
         "must evade them. If that fails, leave the encounter without killing anything.\n\n"
