@@ -297,11 +297,21 @@ b. Compile wrappers
 The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
 
+SUPVER="100 111 120p3 120p4 120p5 120p6"
 cd /var/lib/adom
 # normal games:
-for i in 100 111 120p3 120p4 120p5 120p6; do
+for i in $SUPVER; do
   gcc -m32 -DADOM_$i -Wall src/adom-wrapper.c -o bin/adom-$i
 done
+
+#Challenge games:
+cd bin/
+for j in etr ste; do
+  for i in $SUPVER; do
+    ln -s adom-$i adom-$i-$j
+  done
+done
+cd ..
 
 #Compile message dispatcher:
 gcc -m32 src/message_dispatch.c -o bin/message_dispatch
