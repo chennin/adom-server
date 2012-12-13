@@ -209,8 +209,10 @@ viii. Check out code
 Pick a directory (for now, this must be /var/lib/adom) and finally, check out 
 the code:
 
+TAG="2.0b3"
 cd /var/lib/adom
 git clone https://github.com/AlucardZero/adom-server.git .
+git checkout ${TAG}
 
 ix. Add other ADOM versions
 ============================
@@ -218,7 +220,7 @@ ix. Add other ADOM versions
 Download any desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and
 1.2.0p3 are included, in the same way as from ancardia.com (due to the license),
 but 1.2.0 prereleases 4 to last cannot be distributed this way.  You must have
-donated to the ADOM Resurrection IndieGoGo campaign to download and play them.
+donated to the ADOM Resurrection IndieGoGo campaign to download and play pre4+.
  
 Where you have a choice, get the Debian 32-bit version, as that is what Sage 
 supports.
@@ -364,6 +366,7 @@ unzip adomgb-html.zip
 mv adomgb-toc.html index.html
 grep -lI adomgb-toc.html * | xargs sed -i -e 's/adomgb-toc.html/index.html/g'
 #that's lowercase L, uppercase i
+cd ../..
 
 xiii. crontab
 ==============

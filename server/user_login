@@ -36,10 +36,6 @@ adom_ver=$(cat ${HOME}/adom_ver)
 ttyq=$(cat ${HOME}/ttyrec_status)
 chal=$(cat ${HOME}/chal)
 
-if [ ! -e "${HOME}/.adom.data" ]; then
-	ln -s ${HOME}/adom.data-$adom_ver ${HOME}/.adom.data
-fi
-
 until [ "$command" = "end" ]
 do
 	sage=$(cat ${HOME}/sage_status)
@@ -171,7 +167,7 @@ do
                 echo "External browsing is disabled. Press q to quit the readme."
                 echo ""
                 read
-                TERM=screen elinks -localhost 1 http://localhost/index.php
+                TERM=screen elinks -localhost 1 http://localhost/
 		continue
 		;;
 
