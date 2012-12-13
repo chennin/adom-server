@@ -24,7 +24,7 @@ function link_dir {
     echo "$adom_ver" > ${HOME}/adom_ver
     echo "$chal" > ${HOME}/chal
     chalstr=""
-    if [ ${chal} != "" ]; then chalstr="/${chal}"; fi
+    if [ "${chal}" != "" ]; then chalstr="/${chal}"; fi
     mkdir -p ${HOME}/adom.data-${adom_ver}${chalstr}
     mkdir -p ${HOME}/adom.data-${adom_ver}${chalstr}/backup
     ln -s ${HOME}/adom.data-${adom_ver}${chalstr} ${HOME}/.adom.data
