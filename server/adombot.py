@@ -86,7 +86,7 @@ def tweet(version, text):
     if score <= MIN_TWIT_ANC:
         return
 
-    mapping = [ ('drakish ', 'Dr'), ('dwarven ','Dw'), ('dark elven ', 'De'), ('gray elven ', 'Ge'), ('high elven ', 'He'), ('gnomish ','Gn'), ('human ','Hm'), ('hurthling ', 'Hr'), ('orcish ','Or'), ('trollish ','Tr'), ('archer','Ar'), ('assassin','As'), ('barbarian','Bb'), ('bard','Br'), ('beastfighter','Bf'), ('druid','Dr'), ('elementalist','El'), ('farmer','Fa'), ('fighter','Fi'), ('healer','He'), ('merchant','Me'), ('mindcrafter','Mi'), ('monk','Mo'), ('necromancer','Ne'), ('paladin','Pa'), ('priest','Pr'), ('ranger','Ra'), ('thief','Th'), ('weaponsmith','We'), ('wizard','Wz') ]
+    mapping = [ ('drakish ', 'Dr'), ('dwarven ','Dw'), ('dark elven ', 'De'), ('gray elven ', 'Ge'), ('high elven ', 'He'), ('gnomish ','Gn'), ('human ','Hm'), ('hurthling ', 'Hr'), ('orcish ','Or'), ('trollish ','Tr'), ('ratling','Rt'), ('mist elven','Me'), ('archer','Ar'), ('assassin','As'), ('barbarian','Bb'), ('bard','Br'), ('beastfighter','Bf'), ('druid','Dr'), ('elementalist','El'), ('farmer','Fa'), ('fighter','Fi'), ('healer','He'), ('merchant','Me'), ('mindcrafter','Mi'), ('monk','Mo'), ('necromancer','Ne'), ('paladin','Pa'), ('priest','Pr'), ('ranger','Ra'), ('thief','Th'), ('weaponsmith','We'), ('wizard','Wz'), ('chaos Knight','Ck') ]
 
     for k, v in mapping:
         raceclass = raceclass.replace(k, v)
