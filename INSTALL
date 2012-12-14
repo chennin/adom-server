@@ -54,6 +54,7 @@ The following software is required for all pieces to work:
 * ttyrec
 * termrec (included)
 * unzip
+* sed
 * Python 2.6+
 * Perl (for the database bot)
 * PHP (optional, for minor Web page uses)
@@ -250,7 +251,7 @@ League 1.1.1:   adom_ds.lea
 Swapgame 1.1.1: adom_ds.swp
 1.2.0p1-3:      adom_ds.12a
 1.2.0p4-5:      adom_ds.12b
-1.2.0p6-?:      adom_ds.12c
+1.2.0p6,7,?:    adom_ds.12c
 
 Finally, Sage should be checked out and compiled.
 
@@ -261,26 +262,27 @@ Patch the binaries with the following commands:
 
 mkdir -p /tmp/adom && cd $_
 
-for i in 100 111; do
-tar xzf /var/lib/adom/software/adom-$i-elf.tar.gz &&
-bspatch adom/adom /var/lib/adom/bin/adom-$i-bin\
- /var/lib/adom/software/adom-$i-ds.binpatch
+tar xzf /var/lib/adom/software/adom-111-elf.tar.gz 
+for i in 111 lea swp; do
+  sed -e "s/adom_ds.cfg/adom_ds.$i/g" adom/adom > /var/lib/adom/bin/adom-$i-bin
+done
 rm -rf ./adom
-done
 
-tar xzf /var/lib/adom/software/adom-111-elf.tar.gz
-for i in lea swp; do
-bspatch adom/adom /var/lib/adom/bin/adom-$i-bin\
- /var/lib/adom/software/adom-$i-ds.binpatch
-done
-rm -rf adom
-
-for i in 3 4 5 6; do
-tar xzf /var/lib/adom/software/adom_linux_debian_32_1.2.0_pre$i.tar.gz &&
-bspatch adom/adom /var/lib/adom/bin/adom-120p$i-bin\
- /var/lib/adom/software/adom-120p$i-ds.binpatch
+tar xzf /var/lib/adom/software/adom-100-elf.tar.gz
+sed -e 's/adom_ds.cfg/adom_ds.100/g' adom/adom > /var/lib/adom/bin/adom-100-bin
 rm -rf ./adom
+
+where="a"
+for i in 1 2 3 4 5 6 7; do
+  if [ $i -gt 3 ]; then where="b"; fi
+  if [ $i -gt 5 ]; then where="c"; fi
+  if [ -f /var/lib/adom/software/adom_linux_debian_32_1.2.0_pre$i.tar.gz ]; then
+    tar xzf /var/lib/adom/software/adom_linux_debian_32_1.2.0_pre$i.tar.gz &&
+    sed -e "s/adom_ds.cfg/adom_ds.12${where}/g" adom/adom > /var/lib/adom/bin/adom-120p$i-bin
+    rm -rf ./adom
+  fi
 done
+cd -
 
 These are the md5sums of the resulting binaries:
 
@@ -290,6 +292,7 @@ d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
 43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
 11d27e4466b94e1667916296178785d9  adom-120p5-bin
 ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
+2e176b5cfa5e942b393ac8c46e574ac7  adom-120p7-bin
 979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
 3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
 
@@ -299,7 +302,7 @@ b. Compile wrappers
 The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
 
-SUPVER="100 111 120p3 120p4 120p5 120p6"
+SUPVER="100 111 120p3 120p4 120p5 120p6 120p7"
 cd /var/lib/adom
 # normal games:
 for i in $SUPVER; do
