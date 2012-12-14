@@ -61,41 +61,8 @@ do
 		echo -e " ** \e[1;31mWARNING: You are over your disk quota. Please type 'del'. \e[0m**"
         fi
 	echo -ne "You're about to play \e[1mADoM\e[0m"
-        case $adom_ver in
-                "111")
-                        echo -ne " version \e[4m1.1.1\e[0m, "
-                        ;;
-                "100")
-                        echo -ne " version \e[4m1.0.0\e[0m, "
-                        ;;
-                "120p1")
-                        echo -ne " version \e[4m1.2.0p1\e[0m, "
-                        ;;
-                "120p2")
-                        echo -ne " version \e[4m1.2.0p2\e[0m, "
-                        ;;
-                "120p3")
-                        echo -ne " version \e[4m1.2.0p3\e[0m, "
-                        ;;
-                "120p4")
-                        echo -ne " version \e[4m1.2.0p4\e[0m, "
-                        ;;
-                "120p5")
-                        echo -ne " version \e[4m1.2.0p5\e[0m, "
-                        ;;
-                "120p6")
-                        echo -ne " version \e[4m1.2.0p6\e[0m, "
-                        ;;
-                "120p7")
-                        echo -ne " version \e[4m1.2.0p7\e[0m, "
-                        ;;
-                "swp")
-                        echo -ne " version \e[4m1.1.1\e[0m, \e[4mswapgame mode\e[0m"
-                        ;;
-                *)
-                        echo -ne " MISSING "
-                        ;;
-        esac
+        fver=$(echo $adom_ver | sed -r -e 's/^([0-9])([0-9])(.*)/\1.\2.\3/')
+        echo -ne " version \e[4m${fver}\e[0m, "
         case $chal in
           "etr")
             echo -ne "\e[4meternium man challenge mode\e[0m, "
