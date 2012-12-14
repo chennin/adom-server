@@ -68,6 +68,12 @@ do
                 "100")
                         echo -ne " version \e[4m1.0.0\e[0m, "
                         ;;
+                "120p1")
+                        echo -ne " version \e[4m1.2.0p1\e[0m, "
+                        ;;
+                "120p2")
+                        echo -ne " version \e[4m1.2.0p2\e[0m, "
+                        ;;
                 "120p3")
                         echo -ne " version \e[4m1.2.0p3\e[0m, "
                         ;;
@@ -80,11 +86,14 @@ do
                 "120p6")
                         echo -ne " version \e[4m1.2.0p6\e[0m, "
                         ;;
+                "120p7")
+                        echo -ne " version \e[4m1.2.0p7\e[0m, "
+                        ;;
                 "swp")
                         echo -ne " version \e[4m1.1.1\e[0m, \e[4mswapgame mode\e[0m"
                         ;;
                 *)
-                        echo -ne " MISSING"
+                        echo -ne " MISSING "
                         ;;
         esac
         case $chal in

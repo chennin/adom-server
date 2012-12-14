@@ -21,7 +21,7 @@ RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
 
 #Prerelease versions supported
 MIN_PRE=3
-MAX_PRE=6
+MAX_PRE=7
 
 #For Twitter announcing
 CONSUMER_KEY=
