@@ -45,12 +45,14 @@ if ANCTOTWIT == True or READTWIT == True:
   except TweepError as e:
       print "Error: could not set up OAuth. {0}".format(e)
 
-items = None
 #set up RSS
+lastseen = None
 if ANCRSS == True:
   print "Checking RSS ... "
   feed = feedparser.parse(URL)
-  items = set(sorted(feed[ "items" ], key=lambda entry: entry["date_parsed"]))
+  for key in feed["items"]:
+    if key["date_parsed"] > lastseen:
+      lastseen = key["date_parsed"]
 
 maxseen = 0
 #Start reading tweets
@@ -189,18 +191,13 @@ def loc_changed(filename):
 def check_rss():
   if ANCRSS != True or c.is_connected() == False:
     return
-  print "rssing"
-  global items 
+  global lastseen
   newfeed = feedparser.parse(URL)
-  newitems = set(feed[ "items" ])
+  for key in newfeed["items"]:
+    if key["date_parsed"] > lastseen:
+      lastseen = key["date_parsed"]
+      c.privmsg(target, "\x02New blog post\x02: \x1F" + key["title"] + "\x1F @ " + key["link"])
 
-  diff_rss = newitems - items
-  diff_rss = sorted(diff_rss, key=lambda entry: entry["date_parsed"])
-
-  for key in diff_rss:
-    c.privmsg(target, "\x02New blog post\x02: \x1F" + key["title"] + "\x1F @ " + key["link"])
-
-  items = newitems
   c.execute_delayed(1800, check_rss)
 
 def check_tweets():
@@ -215,7 +212,7 @@ def check_tweets():
     return
 
   for key in newtweets:
-    if key.in_reply_to_user_id == None and key.retweeted_status == None:
+    if key.in_reply_to_user_id == None: # and key.retweeted_status == None:
       c.privmsg(target, "\x02New tweet from the Creator\x02: \"" + key.text + "\"")
     if key.id > maxseen:
         maxseen = key.id
