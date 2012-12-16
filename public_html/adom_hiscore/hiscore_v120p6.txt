@@ -1,0 +1,18 @@
+-----------------------------[ HALL OF FAME ]-----------------------------
+
+Pos   Score    The gory details...
+--- ---------- -------------------
+  1        717 A e (test7). L1 hurthling bard (M). 0 xps. 29 turns. Died on
+               12/7/2012.
+               He drowned in the wilderness.
+
+
+----------------------------------------------------------------------------
+                            Version Information
+----------------------------------------------------------------------------
+
+Ancient Domains Of Mystery
+Version 1.2.0
+Linux ELF Prerelease 6
+Build: Dec 6 2012 21:04:59
+
