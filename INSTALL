@@ -331,7 +331,7 @@ c. Compile Sage
 Run the following commands to compile and install Sage.  Replace the value for 
 TAG if there is a newer released version.
 
-TAG="0.9.3"
+TAG="0.9.4"
 git submodule init
 git submodule update
 cd sage
@@ -509,9 +509,10 @@ xxi. SSHd settings
 The following unusual SSH daemon settings are recommended (the config file is
 usually at /etc/ssh/sshd_config):
 
-  * TCPKeepAlive yes
-  * X11Forwarding no
-  * AllowAgentForwarding no
-  * AllowTcpForwarding no
-  * PrintMotd no
+  TCPKeepAlive yes
+  Compression delayed
+  X11Forwarding no
+  AllowAgentForwarding no
+  AllowTcpForwarding no
+  PrintMotd no
 
