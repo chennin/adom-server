@@ -18,7 +18,7 @@ do
         echo "(eg., for a username)! Press 'q' to quit."
 	echo "TIP: Your operating system/window manager/... probably has a clipboard."
 	echo "Use it. In PuTTY, highlight to copy and right-click to paste."
-        echo "TIP: Press Ctrl+C to exit a recording at any time"
+  echo -e "\e[1mTIP: Press Q to exit a recording at any time\e[0m"
 	echo ""
 
 	python /var/lib/adom/server/check_term.py --silent
@@ -31,26 +31,19 @@ do
 	    echo ""
 	fi
 
-	echo "What do yo wish to do?"
+	echo "What do you wish to do?"
 	echo ""
-	echo "  0 - Display ttyplay manpage (RECOMMENDED!)"
 	echo "  1 - List all demos in alphabetical order"
 	echo "  2 - List all demos sorted by file size"
 	echo "  3 - List all demos sorted by modification time"
 	echo "  4 - Start playback"
 	echo "  5 - Display termplay manpage"
-	echo "  6 - Start playback using termplay (EXPERIMENTAL)"
-	echo "  7 - Quit"
+	echo "  6 - Quit"
 
 	printf "> "
 
 	read command
 	case $command in
-	    0)
-		less /var/lib/adom/server/ttyplay_info
-		continue
-		;;
-
 	    1)
 		less /var/lib/adom/server/ttyrec_lists/alphasorted
 		continue
@@ -75,19 +68,11 @@ do
 		;;
 
 	    5)
-		less /var/lib/adom/server/termplay_info
+    man termplay
 		continue
 		;;
 
-	    6)
-		clear
-		python /var/lib/adom/server/start_ttyplay.py --termplay
-		sleep 1
-		reset
-		continue
-		;;
-
-	    7|q|z)
+	    6|q|z)
 		exit
 		;;
 

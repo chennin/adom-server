@@ -51,7 +51,6 @@ The following software is required for all pieces to work:
 * bsdiff & bspatch
 * nano
 * ELinks
-* ttyrec
 * termrec (included)
 * unzip
 * sed
@@ -79,7 +78,7 @@ Perl modules for the database bot:
 On a Debian-based system, the following command, run as root, should bring
 in all you need:
 
-apt-get install python-irclib elinks inotify-tools ttyrec quotatool quota\
+apt-get install python-irclib elinks inotify-tools quotatool quota\
  libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl\
  libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
  wget python-pyinotify libpoe-component-sslify-perl python-configobj\

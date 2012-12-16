@@ -9,10 +9,7 @@ raw_ttyrec = raw_input("> ");
 
 os.environ["PATH"] += os.pathsep + "/usr/local/bin"
 
-if len(sys.argv) == 2 and sys.argv[1] == "--termplay":
-    player = "termplay"
-else:
-    player = "ttyplay"
+player = "termplay"
 
 if len(raw_ttyrec.split(" - ")) != 2:
     print "Invalid input!"
@@ -46,9 +43,4 @@ if not found:
     print "TTY recording not found!"
     sys.exit(1)
 
-if player == "termplay":
-  os.system("termplay " + ttyrecdir + "/" + ttyrecname)
-elif player == "ttyplay" and ttyrecname.endswith(".gz"):
-  os.system("gunzip < " + ttyrecdir + "/" + ttyrecname + " | ttyplay")
-else:
-  os.system(player + " " + ttyrecdir + "/" + ttyrecname)
+os.system("termplay " + ttyrecdir + "/" + ttyrecname)
