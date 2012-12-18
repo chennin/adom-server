@@ -104,7 +104,8 @@ fi
 find ${HOME} -name core -exec chmod 644 '{}' \;
 chmod 755 ${HOME}/.adom.data/savedg
 chmod 775 ${HOME}/ttyrecs
-find ${HOME}/ttyrecs/ -type f -name "ttyrec-*" -exec chmod 664 '{}' \;
+find ${HOME} -type f -name "*.svg" -exec chmod 644 '{}' \;
+find ${HOME} -type f -name "ttyrec-*" -exec chmod 664 '{}' \;
 
 if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
     echo "Damnit! It seems ADOM has exited with an abnormal exit code $res"
@@ -124,7 +125,7 @@ else
     for file in $SAVES
     do	
         [ "${svdir}/$file" -nt "${bkdir}/$file" ] &&
-	    cp ${svdir}/$file ${bkdir}/
+	    cp -p ${svdir}/$file ${bkdir}/
     done
 fi
 
