@@ -116,3 +116,16 @@
                 "                  @@@@@ \033[1m\033[4;37m" STE_NAME " Challenge Game\033[0m @@@@@\n\n"\
                 "                       Location: Wilderness\n"\
                 "                       Win Condition: achieve level 50\n\n\n\n"
+
+#define BRM_NAME "Brimstone Man"
+#define BRM_WARN "\n\n"\
+                "                  @@@@@ \033[1m\033[4;37m" BRM_NAME " Challenge Game\033[0m @@@@@\n\n"\
+                "                     Location: The Tower of Eternal Flames\n"\
+                "                     Win Condition: Retrieve the Chaos Orb of Elemental Fire\n\n\n\n"
+
+
+#define IRO_NAME "Iron Man"
+#define IRO_WARN "\n\n"\
+                "                  @@@@@ \033[1m\033[4;37m" IRO_NAME " Challenge Game\033[0m @@@@@\n\n"\
+                "                       Location: The Infinite Dungeon\n"\
+                "                       Win Condition: Retrieve the Sceptre of Chaos\n\n\n\n"

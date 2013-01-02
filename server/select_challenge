@@ -20,6 +20,8 @@ echo ""
 echo "  0 - No (reset) challenge game"
 echo "  1 - ETERNIUM MAN"
 echo "  2 - STEEL MAN"
+echo "  3 - IRON MAN"
+echo "  4 - BRIMSTONE MAN"
 echo "  q - Return to main menu"
 echo ""
 while [ true ] 
@@ -36,6 +38,14 @@ do
       ;;
     2)
       echo "ste" > ${HOME}/chal
+      break
+      ;;
+    3)
+      echo "iro" > ${HOME}/chal
+      break
+      ;;
+    4)
+      echo "brm" > ${HOME}/chal
       break
       ;;
     q|z)

@@ -24,6 +24,7 @@
 //#define ADOM_120p4
 //#define ADOM_120p5
 //#define ADOM_120p6
+//#define ADOM_120p7
 
 //#define LEAGUE
 
@@ -164,7 +165,7 @@ int main(int argc, char **argv)
   // Used in ETR/STE
   int explvl = 0;
   // Used in IRO
-  int idlvl = 0;
+  int idlvl = 0, newid = 0, got_to_sil = 0;
 
   // Print challenge banners
   if (strcmp(chal, "") != 0) {
@@ -175,6 +176,14 @@ int main(int argc, char **argv)
     else if (strcmp(chal,"ste") == 0) {
       printf("%s", STE_WARN);
       nchal = STE; snprintf(chalname, CHALNALEN, STE_NAME);
+    }
+    else if (strcmp(chal,"brm") == 0) {
+      printf("%s", BRM_WARN);
+      nchal = BRM; snprintf(chalname, CHALNALEN, BRM_NAME);
+    }
+    else if (strcmp(chal,"iro") == 0) {
+      printf("%s", IRO_WARN);
+      nchal = IRO; snprintf(chalname, CHALNALEN, IRO_NAME);
     }
     else {
       fprintf(stderr, "Unknown challenge game \"%s\"\n", chal);
@@ -398,6 +407,27 @@ int main(int argc, char **argv)
                 entered_loc = 1;
                 if (explvl >= 50) { never_die = 1; }
               }
+              // enforce Brimstone = ToEF
+              else if ((nchal == BRM) && ( 
+                (curloc_v1 == TF1_1 && curloc_v2 == TF1_2) || 
+                (curloc_v1 == TF2_1 && curloc_v2 == TF2_2) ||
+                (curloc_v1 == TF3_1 && curloc_v2 == TF3_2) ||
+                (curloc_v1 == TF4_1 && curloc_v2 == TF4_2)                 
+                ) )  {
+                ;
+                //entered_loc = 1; // No way to determine Orb retrieval? So don't kill on wilderness entry
+              }
+              // enforce Iron = ID and always go down
+              else if ((nchal == IRO) && (
+                (curloc_v1 == ID_1 && curloc_v2 == ID_2) ||
+                (curloc_v1 == SIL_1 && curloc_v2 ==SIL_2)
+                ) ) {
+                //entered_loc = 1; // No way to determine Sceptre retrieval? So don't kill on wilderness entry
+                getdata(pid, IDCOUNT, (char*)&newid, 1);
+                // SIL == ID 66 ?
+                if ((newid == 66 || (curloc_v1 == SIL_1 && curloc_v2 ==SIL_2))) { got_to_sil = 1; }
+                if ((newid < idlvl) && (!got_to_sil)) { die = 1; } // went up before retrieving sceptre
+              }
               else { // some other forbidden location
                 die = 1;
               }
@@ -405,14 +435,15 @@ int main(int argc, char **argv)
                 ptrace(PTRACE_KILL, pid, NULL, NULL);
                 int sys = system("setterm -reset");
                 if (sys < 0) { perror("setterm failed"); }
-                printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) is not allowed for an honest %s.    \r\nYou are being terminated ...                            \r\n", 
-                    (unsigned int)curloc_v1, (unsigned int)curloc_v2, chalname);
+                printf("\r\n\r\n\r\nWhoops! This location (0x%x,0x%x) (%d, %d) is not allowed for an honest %s.    \r\nYou are being terminated ...                            \r\n", 
+                    (unsigned int)curloc_v1, (unsigned int)curloc_v2, idlvl, newid, chalname);
                 sleep(8);
                 return return_wrapper(63);
               }
             }
           }
 
+          idlvl = newid;
           prev_turn = cur_turn;
           prevloc_v1 = curloc_v1;
           prevloc_v2 = curloc_v2;
