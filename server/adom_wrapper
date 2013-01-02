@@ -35,7 +35,7 @@ if [ -e ${HOME}/adom_dirty ]; then
         FACT="${HOME}/.adom.data/savedg"
         for save in $FILES
         do
-            if [ -f ${HOME}/adom.data-${adom_ver}/savedg/${save} ]; then
+            if [ -f ${FACT}/${save} ]; then
               MDB=$(md5sum ${FBAK}/${save}|awk '{print $1}')
               MDA=$(md5sum ${FACT}/${save}|awk '{print $1}')
               LSB=$(ls --time-style=+"%F %T" -l ${FBAK}/${save} | awk '{print "Size: "$5"b, modified "$6" "$7}')
