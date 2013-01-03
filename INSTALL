@@ -85,10 +85,22 @@ apt-get install python-irclib elinks inotify-tools quotatool quota\
  python-oauth git openssh-server openssh-client unzip libconfig-simple-perl\
  python-feedparser libtext-levenshteinxs-perl tmux python-tweepy
 
+On RedHat-based systems, a command similar to the following should bring in all
+you ned (tested on Fedora 17):
+
+yum install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
+ wget git elinks openssh-client openssh-server unzip python-irclib tweepy\
+ python-oauth python-feedparser python-inotify python-configobj\
+ perl-Bot-BasicBot perl-Try-Tiny  perl-String-Approx perl-TermReadKey\
+ perl-POE-Component-SSLify perl-Config-Simple perl-Text-LevenshteinXS
+
 For compiling binaries from source, or related tools, a compiler and
 some development libraries are required:
 
 apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc g++ make autoconf
+#or
+yum groupinstall "development tools"; yum install ncurses-devel\
+  bzip2-devel zlib-devel
 
 If running on a 64-bit system, you will need the 32-bit development libraries
 of all the above and libc6 and libstdc++.
