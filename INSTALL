@@ -230,10 +230,11 @@ git checkout ${TAG}
 ix. Add other ADOM versions
 ============================
 
-Download any desired additional ADOM game versions.  Versions 1.0.0, 1.1.1, and
-1.2.0p3 are included, in the same way as from ancardia.com (due to the license),
-but 1.2.0 prereleases 4 to last cannot be distributed this way.  You must have
-donated to the ADOM Resurrection IndieGoGo campaign to download and play pre4+.
+Download any desired additional ADOM game versions.  Versions 1.0.0, 1.1.1,
+1.2.0p3, and 1.2.0p5 are included, in the same way as from ancardia.com (due to 
+the license), but 1.2.0 p4 and 6 to last cannot be distributed this way. You
+must have donated to the ADOM Resurrection IndieGoGo campaign to download and
+play p4/6+.
  
 Where you have a choice, get the Debian 32-bit version, as that is what Sage 
 supports.
