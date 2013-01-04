@@ -86,12 +86,12 @@ apt-get install python-irclib elinks inotify-tools quotatool quota\
  python-feedparser libtext-levenshteinxs-perl tmux python-tweepy
 
 On RedHat-based systems, a command similar to the following should bring in all
-you ned (tested on Fedora 17):
+you need (tested on Fedora 17):
 
 yum install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
  wget git elinks openssh-client openssh-server unzip python-irclib tweepy\
  python-oauth python-feedparser python-inotify python-configobj\
- perl-Bot-BasicBot perl-Try-Tiny  perl-String-Approx perl-TermReadKey\
+ perl-Bot-BasicBot perl-Try-Tiny perl-String-Approx perl-TermReadKey\
  perl-POE-Component-SSLify perl-Config-Simple perl-Text-LevenshteinXS
 
 For compiling binaries from source, or related tools, a compiler and
