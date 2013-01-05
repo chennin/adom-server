@@ -88,7 +88,7 @@ def tweet(version, text):
     if score <= MIN_TWIT_ANC:
         return
 
-    mapping = [ ('drakish ', 'Dr'), ('dwarven ','Dw'), ('dark elven ', 'De'), ('gray elven ', 'Ge'), ('high elven ', 'He'), ('gnomish ','Gn'), ('human ','Hm'), ('hurthling ', 'Hr'), ('orcish ','Or'), ('trollish ','Tr'), ('ratling ','Rt'), ('mist elven ','Me'), ('archer','Ar'), ('assassin','As'), ('barbarian','Bb'), ('bard','Br'), ('beastfighter','Bf'), ('druid','Dr'), ('elementalist','El'), ('farmer','Fa'), ('fighter','Fi'), ('healer','He'), ('merchant','Me'), ('mindcrafter','Mi'), ('monk','Mo'), ('necromancer','Ne'), ('paladin','Pa'), ('priest','Pr'), ('ranger','Ra'), ('thief','Th'), ('weaponsmith','We'), ('wizard','Wz'), ('chaos Knight','Ck') ]
+    mapping = [ ('drakish ', 'Dr'), ('dwarven ','Dw'), ('dark elven ', 'De'), ('gray elven ', 'Ge'), ('high elven ', 'He'), ('gnomish ','Gn'), ('human ','Hm'), ('hurthling ', 'Hr'), ('orcish ','Or'), ('trollish ','Tr'), ('ratling ','Rt'), ('mist elven ','Me'), ('archer','Ar'), ('assassin','As'), ('barbarian','Bb'), ('bard','Br'), ('beastfighter','Bf'), ('druid','Dr'), ('elementalist','El'), ('farmer','Fa'), ('fighter','Fi'), ('healer','He'), ('merchant','Me'), ('mindcrafter','Mi'), ('monk','Mo'), ('necromancer','Ne'), ('paladin','Pa'), ('priest','Pr'), ('ranger','Ra'), ('thief','Th'), ('weaponsmith','We'), ('wizard','Wz'), ('chaos Knight','Ck'), ('duelist','Du') ]
 
     for k, v in mapping:
         raceclass = raceclass.replace(k, v)
@@ -164,14 +164,17 @@ def poll_hiscore():
         for key in diff_120p3:
             print hiscore_120p3[key] + " Version 1.2.0p1/2/3."
             c.privmsg(target, "\x02New high score\x02: " + hiscore_120p3[key] + " Version 1.2.0p1/2/3.")
+            tweet("1.2.0p1/2/3", hiscore_120p3[key]);
 
         for key in diff_120p4:
             print hiscore_120p4[key] + " Version 1.2.0p4/5."
             c.privmsg(target, "\x02New high score\x02: " + hiscore_120p4[key] + " Version 1.2.0p4/5.")
+            tweet("1.2.0p4/5", hiscore_120p4[key]);
 
         for key in diff_120p6:
-            print hiscore_120p6[key] + " Version 1.2.0p6."
-            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p6[key] + " Version 1.2.0p6.")
+            print hiscore_120p6[key] + " Version 1.2.0p6/7/8."
+            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p6[key] + " Version 1.2.0p6/7/8.")
+            tweet("1.2.0p6/7/8", hiscore_120p6[key]);
 
 def loc_changed(filename):
    if ANCTOIRC != 1:
