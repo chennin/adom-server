@@ -85,8 +85,8 @@ apt-get install python-irclib elinks inotify-tools quotatool quota\
  python-oauth git openssh-server openssh-client unzip libconfig-simple-perl\
  python-feedparser libtext-levenshteinxs-perl tmux python-tweepy
 
-On RedHat-based systems, a command similar to the following should bring in all
-you need (tested on Fedora 17):
+On RedHat-based systems, the following command, run as root, should bring in
+all you need (tested on Fedora 17):
 
 yum install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
  wget git elinks openssh-client openssh-server unzip python-irclib tweepy\
@@ -186,7 +186,7 @@ vi. quota
 ==========
 
 Quota support should be added to prevent a user from filling up the disk.
-ttyrecs take a LOT of space.
+ttyrecs take a LOT of space. It is optional, however.
 
 Edit /etc/fstab and add the following to the filesystem options: 
 
@@ -247,14 +247,14 @@ x. Patch and install ADOM versions
 A wrapper binary is used to make some decisions and add some features and must
 be compiled.
 
-Also, a binary that facilitates message sending, and opens the door to the Bug
-Temple, must be compiled.
+Also, a binary that facilitates message sending, and one that opens the door to
+the Bug Temple, must be compiled.
 
 Small changes to the distributed ADOM binaries are required to separate HISCORE
-files. Binary patch files for several versions are provided. To do manually, 
-edit the adom binary in a hex editor (like hexcurse) and change both mentions 
-of adom_ds.cfg to something unique. Then create this file in /etc with contents
-being the directory the .HISCORE file should be.
+files. This can be done with sed (as below) or with a hex editor. To do
+manually, edit the adom binary in a hex editor (like hexcurse) and change both
+mentions of adom_ds.cfg to something unique. Then create this file in /etc 
+with contents being the directory the .HISCORE file should be.
 
 I have used:
 
@@ -264,7 +264,7 @@ League 1.1.1:   adom_ds.lea
 Swapgame 1.1.1: adom_ds.swp
 1.2.0p1-3:      adom_ds.12a
 1.2.0p4-5:      adom_ds.12b
-1.2.0p6,7,?:    adom_ds.12c
+1.2.0p6-8-?:    adom_ds.12c
 
 Finally, Sage should be checked out and compiled.
 
@@ -343,17 +343,17 @@ c. Compile Sage
 Run the following commands to compile and install Sage.  Replace the value for 
 TAG if there is a newer released version.
 
-TAG="0.9.4"
+STAG="0.9.5a"
 git submodule init
 git submodule update
 cd sage
 git fetch --tags
 git checkout master
 git pull
-git checkout ${TAG}
+git checkout ${STAG}
 make
-cp adom-sage ../bin/adom-sage-${TAG}
-cp adom-sage.so ../bin/adom-sage-${TAG}.so
+cp adom-sage ../bin/adom-sage-${STAG}
+cp adom-sage.so ../bin/adom-sage-${STAG}.so
 cd ..
 
 xi. SSH key for spectating
@@ -482,7 +482,7 @@ cp etc/adom_ds* /etc/
 xviii. Admin SSH key
 =====================
 
-(Optional) Add the administrator's SSH public key to 
+(Optional) Add your (the administrator's) SSH public key to 
 /var/lib/adom/etc/skel/.ssh/authorized_keys to let him or her SSH in as any 
 created user, to see their issues or shut down their games (say to prepare for 
 a reboot).
