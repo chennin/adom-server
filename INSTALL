@@ -341,7 +341,7 @@ c. Compile Sage
 ++++++++++++++++
 
 Run the following commands to compile and install Sage.  Replace the value for 
-TAG if there is a newer released version.
+STAG if there is a newer released version.
 
 STAG="0.9.5a"
 git submodule init
