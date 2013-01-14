@@ -1,16 +1,18 @@
-Public ADOM Server scripts README
-See LICENSE for copyright and licensing details
+Public ADOM Server scripts README.
+
+**See LICENSE for copyright and licensing details.**
 
 Table of contents:
-         I. About
-        II. Features
-       III. Install
-        IV. Usage
-         V. Administration
-        VI. Changelog
-       VII. Contributing
-      VIII. Contact
-        IX. Authors
+
+1. About
+2. Features
+3. Install
+4. Usage
+5. Administration
+6. Changelog
+7. Contributing
+8. Contact
+9. Authors
 	
 I. About
 =========
@@ -30,28 +32,28 @@ Why?
   (or deaths) is social, and having a win be recorded publicly is a great
   ego boost.
 
-ADOM can be found at http://adom.de or http://ancardia.com . 
+ADOM can be found at http://adom.de or http://ancardia.com. 
 
 II. Features
 =============
 
-  1. Play multiple versions of ADOM on the same system without overlap
-  2. Allow any number of users to play on the same system
-  3. Automatic save backup and restore in case of an ADOM crash
-  4. Via ADoM Sage, convenience features and starsign selector
-  5. Never lose play time if your Internet dies or battery runs out
-  6. Play co-op mode (multiple users controlling the same game)
-  7. Spectate other users' games
-  8. Send messages to other playing users
-  9. Record games and play them back
- 10. Allow download of save games and other files via HTTP
- 11. Guidebook built in
- 12. Announce IRC bot:
+1. Play multiple versions of ADOM on the same system without overlap
+2. Allow any number of users to play on the same system
+3. Automatic save backup and restore in case of an ADOM crash
+4. Via ADoM Sage, convenience features and starsign selector
+5. Never lose play time if your Internet dies or battery runs out
+6. Play co-op mode (multiple users controlling the same game)
+7. Spectate other users' games
+8. Send messages to other playing users
+9. Record games and play them back
+10. Allow download of save games and other files via HTTP
+11. Guidebook built in
+12. Announce IRC bot:
     a. Announce new high scores (wins and deaths) for all versions on IRC
     b. Announce new high scores (with a different, higher threshold) on Twitter
     c. Announce when a player enters certain locations (to attract spectators)
- 13. Database IRC bot: relays exact item and monster details
- 14. Almost entirely self-contained; once set up, root is no longer required
+13. Database IRC bot: relays exact item and monster details
+14. Almost entirely self-contained; once set up, root is no longer required
 
 III. Install
 =============
@@ -60,13 +62,13 @@ A basic x86 or x86_64 Linux system is required*. The distribution should be
 relatively modern; Debian 6+ or Ubuntu 12.04+ are recommended, but almost any 
 will work.
 
-* Linux/ARM or FreeBSD may also work, as ADOM supports those, but this product 
+\* Linux/ARM or FreeBSD may also work, as ADOM supports those, but this product 
   does not entirely support that.
 
 Please carefully read the included INSTALL file, as there are many moving parts
 to touch.
 
-IMPORTANT:
+**IMPORTANT:**
 
 The INSTALL file provides details and the process, but in particular:
 
@@ -140,11 +142,16 @@ Alucard <saturos@gmail.com>
 IX. Authors
 ============
 Christopher Henning aka Alucard(Zero), author of the rest
+
 Jaakko Salo aka jaakkos, author of the vast majority of 1.0
+
 Sampsa "Tuplanolla" Kiiskinen
 
 ADOM is Copyright (c) 1994-2012, Thomas Biskup
+
 The ADOM Guidebook is Copyright (c) 2010 Andy Williams
+
 Passwd.py is Copyright (c) 2001-2006, Chris Gonnerman
+
 Termrec is Copyright (c) 2008, Adam Borowski
 
