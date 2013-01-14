@@ -4,4 +4,6 @@ users_fusecompressed
 *bak
 *.o
 *.swp
+.*
 .gitconfig
+!.gitignore

@@ -3,5 +3,4 @@
 # Except ..
 !.gitignore
 !idletimes
-!registered_ips
 !sockets
