@@ -2,17 +2,17 @@ Public ADOM Server scripts README.
 
 **See LICENSE for copyright and licensing details.**
 
-Table of contents:
+**Table of contents:**
 
-1. About
-2. Features
-3. Install
-4. Usage
-5. Administration
-6. Changelog
-7. Contributing
-8. Contact
-9. Authors
+1. [About](#About)
+2. [Features](#Features)
+3. [Install](#Install)
+4. [Usage](#Usage)
+5. [Administration](#Administration)
+6. [Changelog](#Changelog)
+7. [Contributing](#Contributing)
+8. [Contact](#Contact)
+9. [Authors](#Authors)
 	
 About
 ======
