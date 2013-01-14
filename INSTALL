@@ -315,7 +315,7 @@ b. Compile wrappers
 The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
 
-SUPVER="100 111 120p3 120p4 120p5 120p6 120p7"
+SUPVER="100 111 120p3 120p4 120p5 120p6 120p7 120p8 120p9"
 cd /var/lib/adom
 # normal games:
 for i in $SUPVER; do
