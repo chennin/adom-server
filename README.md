@@ -134,7 +134,7 @@ Contact
 
 http://www.adom.de/forums/showthread.php/493
 
-Alucard on #adom on irc.FreeNode.net
+Alucard on #adom on irc.FreeNode.net  
 Other netizens there can also answer usage questions.
 
 Alucard <saturos@gmail.com>

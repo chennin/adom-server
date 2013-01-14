@@ -33,6 +33,7 @@ ACCESS_SECRET = config.get("ACCESS_SECRET")
 ANCTOIRC = config.as_bool('ANNOUNCE_TO_IRC')
 ANCTOTWIT = config.as_bool("ANNOUNCE_TO_TWITTER")
 READTWIT = config.as_bool("READ_TWEETS")
+TWITNAME = config.get("TWITTERNAME")
 ANCRSS = config.as_bool("READ_RSS")
 URL = config.get("RSSURL")
 
@@ -59,7 +60,7 @@ maxseen = 0
 if READTWIT == True:
   print "Reading tweets ... "
   try:
-    tbtweets = api.user_timeline("thomas_biskup")
+    tbtweets = api.user_timeline(TWITNAME)
     for key in tbtweets:
       if key.id > maxseen:
         maxseen = key.id
@@ -209,7 +210,7 @@ def check_tweets():
 
   global maxseen
   try:
-    newtweets = api.user_timeline("thomas_biskup", since_id=maxseen)
+    newtweets = api.user_timeline(TWITNAME, since_id=maxseen)
   except TweepError as e:
     print "Error: Could not retrieve tweets. {0}".format(e)
     return

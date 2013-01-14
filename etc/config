@@ -15,6 +15,7 @@ ANNOUNCE_TO_IRC=True
 ANNOUNCE_TO_TWITTER=False
 #relay TB's tweets
 READ_TWEETS=False
+TWITTERNAME=adom_dev
 #relay TB's blog posts
 READ_RSS=False
 RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
