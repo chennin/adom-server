@@ -4,15 +4,15 @@ Public ADOM Server scripts README.
 
 **Table of contents:**
 
-1. [About](#About)
-2. [Features](#Features)
-3. [Install](#Install)
-4. [Usage](#Usage)
-5. [Administration](#Administration)
-6. [Changelog](#Changelog)
-7. [Contributing](#Contributing)
-8. [Contact](#Contact)
-9. [Authors](#Authors)
+1. [About](#about)
+2. [Features](#features)
+3. [Install](#install)
+4. [Usage](#usage)
+5. [Administration](#administration)
+6. [Changelog](#changelog)
+7. [Contributing](#contributing)
+8. [Contact](#contact)
+9. [Authors](#authors)
 	
 About
 ======
