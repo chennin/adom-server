@@ -286,7 +286,7 @@ sed -e 's/adom_ds.cfg/adom_ds.100/g' adom/adom > /var/lib/adom/bin/adom-100-bin
 rm -rf ./adom
 
 where="a"
-for i in 1 2 3 4 5 6 7; do
+for i in $(seq 1 9); do
   if [ $i -gt 3 ]; then where="b"; fi
   if [ $i -gt 5 ]; then where="c"; fi
   if [ -f /var/lib/adom/software/adom_linux_debian_32_1.2.0_pre$i.tar.gz ]; then

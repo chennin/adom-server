@@ -228,7 +228,7 @@ do
 
                 DEF=${MAX_PRE}
                 if [[ ! -f $HOME/donated ]]; then
-                        DEF=5
+                        DEF=${LATEST_FREE_PRE}
                 fi
 
                 echo "Which prerelease (default: 1.2.0p${DEF})? "
@@ -243,7 +243,7 @@ do
                         sleep 3
                         continue
                 fi
-                if [ $pvers -ge 4 ]; then
+                if [[ $pvers -gt ${LATEST_FREE_PRE} ]] || [[ $pvers -eq 4 ]]; then
                         /var/lib/adom/server/donation_check.sh
                         if [ $? -ne 0 ]; then continue; fi
                 fi
