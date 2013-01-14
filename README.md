@@ -14,8 +14,8 @@ Table of contents:
 8. Contact
 9. Authors
 	
-I. About
-=========
+About
+======
 
 These are scripts to support running a multi-user, multi-version ADOM server,
 with useful mods for the game, IRC bots useful for ADOM players, and social
@@ -34,8 +34,8 @@ Why?
 
 ADOM can be found at http://adom.de or http://ancardia.com. 
 
-II. Features
-=============
+Features
+=========
 
 1. Play multiple versions of ADOM on the same system without overlap
 2. Allow any number of users to play on the same system
@@ -49,14 +49,14 @@ II. Features
 10. Allow download of save games and other files via HTTP
 11. Guidebook built in
 12. Announce IRC bot:
-    a. Announce new high scores (wins and deaths) for all versions on IRC
-    b. Announce new high scores (with a different, higher threshold) on Twitter
-    c. Announce when a player enters certain locations (to attract spectators)
+    1. Announce new high scores (wins and deaths) for all versions on IRC
+    2. Announce new high scores (with a different, higher threshold) on Twitter
+    3. Announce when a player enters certain locations (to attract spectators)
 13. Database IRC bot: relays exact item and monster details
 14. Almost entirely self-contained; once set up, root is no longer required
 
-III. Install
-=============
+Install
+========
 
 A basic x86 or x86_64 Linux system is required*. The distribution should be 
 relatively modern; Debian 6+ or Ubuntu 12.04+ are recommended, but almost any 
@@ -76,8 +76,8 @@ The INSTALL file provides details and the process, but in particular:
    server's base dir.
  * A non-root user must be created to own the server files.
 
-IV. Usage
-==========
+Usage
+======
 
 Once set up, the full usage readme is at public_html/readme.php.
 
@@ -88,8 +88,8 @@ user.
 
 * Then SSH in as the new user.
 
-V. Administration
-==================
+Administration
+===============
 
 * To edit the banner on the top of the main menu, edit etc/motd in the server 
   homedir. Bash color codes can be used (but double-escape any \s).
@@ -119,18 +119,18 @@ V. Administration
   then set a new password for him and e-mail it to him. If he didn't set an 
   email (the previous command returns nothing), it's up to the admin what to do.
 
-VI. Changelog
-==============
+Changelog
+==========
 
 See CHANGELOG file.
 
-VII. Contributing
-==================
+Contributing
+=============
 
 Submit a pull request on GitHub and I'll figure it out.
 
-VIII. Contact
-==============
+Contact
+========
 
 http://www.adom.de/forums/showthread.php/493
 
@@ -139,19 +139,14 @@ Other netizens there can also answer usage questions.
 
 Alucard <saturos@gmail.com>
 
-IX. Authors
-============
-Christopher Henning aka Alucard(Zero), author of the rest
-
-Jaakko Salo aka jaakkos, author of the vast majority of 1.0
-
+Authors
+========
+Christopher Henning aka Alucard(Zero), author of the rest  
+Jaakko Salo aka jaakkos, author of the vast majority of 1.0  
 Sampsa "Tuplanolla" Kiiskinen
 
-ADOM is Copyright (c) 1994-2012, Thomas Biskup
-
-The ADOM Guidebook is Copyright (c) 2010 Andy Williams
-
-Passwd.py is Copyright (c) 2001-2006, Chris Gonnerman
-
+ADOM is Copyright (c) 1994-2013, Thomas Biskup  
+The ADOM Guidebook is Copyright (c) 2010 Andy Williams  
+Passwd.py is Copyright (c) 2001-2006, Chris Gonnerman  
 Termrec is Copyright (c) 2008, Adam Borowski
 
