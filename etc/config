@@ -12,16 +12,16 @@ IRCCHAN=#example
 #announce scores on IRC
 ANNOUNCE_TO_IRC=True
 #announce scores on twitter
-ANNOUNCE_TO_TWITTER=True
+ANNOUNCE_TO_TWITTER=False
 #relay TB's tweets
-READ_TWEETS=True
+READ_TWEETS=False
 #relay TB's blog posts
-READ_RSS=True
+READ_RSS=False
 RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
 
 #Prerelease versions supported
 MIN_PRE=3
-MAX_PRE=8
+MAX_PRE=9
 
 #For Twitter announcing
 CONSUMER_KEY=

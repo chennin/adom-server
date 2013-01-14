@@ -61,6 +61,7 @@ do
 		echo -e " ** \e[1;31mWARNING: You are over your disk quota. Please type 'del'. \e[0m**"
         fi
 	echo -ne "You're about to play \e[1mADoM\e[0m"
+        #dotify
         fver=$(echo $adom_ver | sed -r -e 's/^([0-9])([0-9])(.*)/\1.\2.\3/')
         echo -ne " version \e[4m${fver}\e[0m, "
         case $chal in
@@ -227,13 +228,13 @@ do
 
                 DEF=${MAX_PRE}
                 if [[ ! -f $HOME/donated ]]; then
-                        DEF=3
+                        DEF=5
                 fi
 
                 echo "Which prerelease (default: 1.2.0p${DEF})? "
                 prompt=""
                 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
-                        prompt="${prompt}  (${i}) 1.2.0p${i}"
+                        prompt="${prompt}  (${i}) p${i}"
                 done
                 read -e -p "${prompt}: " pvers
                 pvers="${pvers:-$DEF}"
