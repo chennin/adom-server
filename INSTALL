@@ -127,9 +127,9 @@ mkdir /var/lib/adom
 chown adomown:adomusers /var/lib/adom
 useradd -d /var/lib/adom -c "ADOM public login" -s\
  /var/lib/adom/server/public_login adom
-useradd -d /var/lib/adom/server/spectator -c "ADOM spectator" -s\
+useradd -M -d /var/lib/adom/server/spectator -c "ADOM spectator" -s\
  /var/lib/adom/server/spec_login spectator
-useradd -d /var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s\
+useradd -M -d /var/lib/adom/server/ttyrecplay -c "ADOM TTY playback" -s\
  /var/lib/adom/server/ttyrecplay_login ttyrecplay
 
 For adom, spectator, and ttyrecplay, set passwords the same as their username.
@@ -307,6 +307,8 @@ d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
 11d27e4466b94e1667916296178785d9  adom-120p5-bin
 ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
 2e176b5cfa5e942b393ac8c46e574ac7  adom-120p7-bin
+090afcc61cff60f4cd6304fa1ef87501  adom-120p8-bin
+7ada15a894e2664c61e050439bb08d99  adom-120p9-bin
 979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
 3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
 
@@ -390,9 +392,9 @@ xiii. crontab
 
 Add the contents of etc/crontab to adomown's crontab.
 
-Command:
+Command (still as adomown):
 
-crontab -u adomown etc/crontab
+crontab etc/crontab
 
 III. Configure
 ---------------
@@ -497,9 +499,9 @@ xix. ldconfig
 xx. Web server
 ===============
 
-A Web server should be set up to provide the readme and display hi
-scores and allow users to (optionally) download their files.  Setting up the
-server itself is out of scope for this document.
+A Web server should be set up to provide the readme, display hi on the web,
+and allow users to (optionally) download their files.  Setting up the server
+itself is out of scope for this document.
 
 A public_html folder is provided, and should be set as the Web server's
 document root, or linked in to its tree.
