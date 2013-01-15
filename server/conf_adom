@@ -2,6 +2,10 @@
 
 mkdir -p ${HOME}/.adom.data/
 
+if [[ "${EDITOR}x" == "x" ]]; then
+  export EDITOR=rnano
+fi
+
 while true
 do
     clear
