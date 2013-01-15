@@ -43,19 +43,20 @@ i. Install required tools
 The following software is required for all pieces to work:
 
 * OpenSSH
+* bash
 * inotify (kernel 2.6.12+)
 * quota support and quota tools
 * sudo
 * screen
 * tmux 1.5+
-* bsdiff & bspatch
 * nano
+* vim
 * ELinks
 * termrec (included)
 * unzip
 * sed
 * Python 2.6+
-* Perl (for the database bot)
+* Perl (optional, for the database bot)
 * PHP (optional, for minor Web page uses)
 Python modules for the score announcing bot:
 ** IRCLib
@@ -79,7 +80,7 @@ On a Debian-based system, the following command, run as root, should bring
 in all you need:
 
 apt-get install python-irclib elinks inotify-tools quotatool quota\
- libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl\
+ libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl vim\
  libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
  wget python-pyinotify libpoe-component-sslify-perl python-configobj\
  python-oauth git openssh-server openssh-client unzip libconfig-simple-perl\
@@ -90,7 +91,7 @@ all you need (tested on Fedora 17):
 
 yum install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
  wget git elinks openssh-client openssh-server unzip python-irclib tweepy\
- python-oauth python-feedparser python-inotify python-configobj\
+ python-oauth python-feedparser python-inotify python-configobj vim-enhanced\
  perl-Bot-BasicBot perl-Try-Tiny perl-String-Approx perl-TermReadKey\
  perl-POE-Component-SSLify perl-Config-Simple perl-Text-LevenshteinXS
 
