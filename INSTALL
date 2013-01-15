@@ -79,7 +79,7 @@ Perl modules for the database bot:
 On a Debian-based system, the following command, run as root, should bring
 in all you need:
 
-apt-get install python-irclib elinks inotify-tools quotatool quota\
+apt-get install python-irclib elinks inotify-tools quotatool quota bash\
  libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl vim\
  libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
  wget python-pyinotify libpoe-component-sslify-perl python-configobj\
@@ -93,7 +93,7 @@ yum install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
  wget git elinks openssh-client openssh-server unzip python-irclib tweepy\
  python-oauth python-feedparser python-inotify python-configobj vim-enhanced\
  perl-Bot-BasicBot perl-Try-Tiny perl-String-Approx perl-TermReadKey\
- perl-POE-Component-SSLify perl-Config-Simple perl-Text-LevenshteinXS
+ perl-POE-Component-SSLify perl-Config-Simple perl-Text-LevenshteinXS bash
 
 For compiling binaries from source, or related tools, a compiler and
 some development libraries are required:
