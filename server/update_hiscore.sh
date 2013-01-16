@@ -16,18 +16,19 @@ done
 
 update()
 {
+    if [ ! -f /var/lib/adom/bin/adom-$1-bin ]; then return; fi
     /var/lib/adom/bin/adom-$1-bin -S >/dev/null <<EOF
 
 EOF
-
+    if [ ! -f hiscore.doc ]; then echo " hiscore.doc not found ?"; return; fi
     if ! cmp hiscore.doc /var/lib/adom/public_html/adom_hiscore/hiscore_v$1.txt
     then
         echo "Hiscore for $1 CHANGED."
 	cat hiscore.doc > /var/lib/adom/public_html/adom_hiscore/hiscore_v$1.txt
-	rm hiscore.doc
     else
         echo "Hiscore for $1 not changed."
     fi
+    rm -f hiscore.doc
 }
 inotifywait -e close_write -m ${file[@]} |
 while read filename eventlist eventfile
