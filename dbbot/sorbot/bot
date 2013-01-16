@@ -23,9 +23,9 @@ my $usage = "Usage: \@[mi] name fragment | \@[mi] /regex/";
 my $bot = Bot->new(
   server => $cfg->param('IRCSERV'),
   channels => [ $cfg->param('IRCCHAN') ],
-  nick => 'dbbot',
-  ssl => 1,
-  port => 6697,
+  nick => $cfg->param('DBNICK'),
+  ssl => $cfg->param('IRCSSL'),
+  port => $cfg->param('IRCPORT'),
   quit_message => "Aieee!",
 );
 

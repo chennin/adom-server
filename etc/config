@@ -5,8 +5,14 @@ SERVNAME=adom.example.com
 #SERVHOME=/var/lib/adom
 
 #IRC options
-IRCSERV=irc.example.com
-IRCCHAN=#example
+IRCSERV=irc.example.net
+IRCPORT=6697
+#0 for false, 1 for true
+IRCSSL=1
+#quote your channels
+IRCCHAN="#example"
+ANCNICK=AnnounceBot
+DBNICK=dbbot
 
 ##Python bot options
 #announce scores on IRC

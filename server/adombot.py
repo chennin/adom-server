@@ -271,37 +271,18 @@ def import_hiscore(file):
 def on_connect(connection, event):
     connection.join(target)
 
-if len(sys.argv) < 4:
-    print "Usage: adombot <server[:port]> <nickname> <target> [realname] [ssl]"
-    sys.exit(1)
-
 def on_disconnect(connection, event):
     time.sleep(60)
     connection.connect(server, port, nickname, ircname=ircname, ssl=dossl)
 
-s = sys.argv[1].split(":", 1)
-server = s[0]
-if len(s) == 2:
-    try:
-        port = int(s[1])
-    except ValueError:
-        print "Error: Erroneous port."
-        sys.exit(1)
-else:
-    port = 6667
-nickname = sys.argv[2]
-target = sys.argv[3]
+server = config.get("IRCSERV")
+port = config.as_int("IRCPORT")
+nickname = config.get("ANCNICK")
+target = config.get("IRCCHAN")
 
-if len(sys.argv) >= 5:
-        ircname = sys.argv[4]
-else:
-        ircname = nickname
+ircname = "Public ADOM Server bot - ancardia.uk.to"
 
-if len(sys.argv) >= 6:
-        dossl = bool(sys.argv[5])
-else:
-        dossl = False
-
+dossl = bool(config.get("IRCSSL"))
 if (dossl != False) and (dossl != True):
         print "Invalid value for SSL: must be True or False"
         exit(1) 
@@ -316,7 +297,7 @@ print "Connecting announce bot...\n"
 irc = irclib.IRC()
 try:
     s = irc.server();
-    c = s.connect(server, port, nickname, ircname=ircname, ssl=dossl)
+    c = s.connect(server, port, nickname, ssl=dossl, ircname=ircname)
 except irclib.ServerConnectionError, x:
     print x
     sys.exit(1)
