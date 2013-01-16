@@ -78,8 +78,6 @@ do
            export EDITOR=${NEWED}
            grep EDITOR ${HOME}/.profile > /dev/null 2>&1
            if [[ $? -gt 0 ]]; then
-             echo $?
-             sleep 1
              echo "export EDITOR=${NEWED}" >> ${HOME}/.profile
            else
              sed -e "s/export EDITOR=.*/export EDITOR=${NEWED}/" ${HOME}/.profile >> /tmp/profile.$$
