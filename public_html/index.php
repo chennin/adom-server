@@ -100,6 +100,7 @@ $twit = "Your Twitter handle";
  <ul><li>Window -> Rows: 25 (you NEED this to launch ADOM!)</li>
   <li>Window -> Columns: 80 (this should be the default)</li>
   <li>Window -> "Forbid resizing completely" or "Change the size of the font"</li>
+  <li>Window -> Translation -> Remote Character Set: -> UTF-8</li>
   <li>Window -> Appearance -> "Underline"</li>
   <li>Window -> Selection -> Windows (Middle extends, Right brings up menu) (prevents right-click from pasting)</li>
   <li>Terminal -> Bell -> None (bell disabled)</li>
