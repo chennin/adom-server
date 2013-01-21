@@ -385,6 +385,7 @@ unzip adomgb-html.zip
 mv adomgb-toc.html index.html
 grep -lI adomgb-toc.html * | xargs sed -i -e 's/adomgb-toc.html/index.html/g'
 #that's lowercase L, uppercase i
+wget -q http://adomgb.info/challenge.html
 cd ../..
 
 xiii. crontab
