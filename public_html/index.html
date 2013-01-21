@@ -92,21 +92,21 @@
 
 <h2><a id="putty">Recommended SSH Client Settings</a></h2>
 <h3><em>PuTTY</em></h3>
- <ul><li>Window -> Rows: 25 (you NEED this to launch ADOM!)</li>
-  <li>Window -> Columns: 80 (this should be the default)</li>
-  <li>Window -> "Forbid resizing completely" or "Change the size of the font"</li>
-  <li>Window -> Translation -> Remote Character Set: -> UTF-8</li>
-  <li>Window -> Appearance -> "Underline"</li>
-  <li>Window -> Selection -> Windows (Middle extends, Right brings up menu) (prevents right-click from pasting)</li>
-  <li>Terminal -> Bell -> None (bell disabled)</li>
-  <li>Terminal -> Features -> Disable application keypad mode (this makes the numpad work)</li>
-  <li>Terminal -> Keyboard -> xterm R6 (in order to use the function keys properly)</li>
-  <li>Connection -> SSH -> Enable Compression</li>
-  <li>Connection -> Enable TCP keepalives</li>
+ <ul><li>Window -&gt; Rows: 25 (you NEED this to launch ADOM!)</li>
+  <li>Window -&gt; Columns: 80 (this should be the default)</li>
+  <li>Window -&gt; "Forbid resizing completely" or "Change the size of the font" (so resizing the window can't happen or doesn't break anything)</li>
+  <li>Window -&gt; Translation -&gt; Remote Character Set: -&gt; UTF-8 (for nice blocks and lines with Sage)</li>
+  <li>Window -&gt; Appearance -&gt; "Underline"</li>
+  <li>Window -&gt; Selection -&gt; Windows (Middle extends, Right brings up menu) (prevents right-click from pasting)</li>
+  <li>Terminal -&gt; Bell -&gt; None (bell disabled)</li>
+  <li>Terminal -&gt; Features -&gt; Disable application keypad mode (this makes the numpad work)</li>
+  <li>Terminal -&gt; Keyboard -&gt; xterm R6 (in order to use the function keys properly)</li>
+  <li>Connection -&gt; SSH -&gt; Enable Compression</li>
+  <li>Connection -&gt; Enable TCP keepalives</li>
 </ul>
 
 
-  <p>You may want to change the default font, too. Note that you can save these settings, including username (Connection -> Auto-login username) in the main Session window.</p>
+  <p>You may want to change the default font, too. Note that you can save these settings, including username (Connection -&gt; Auto-login username) in the main Session window.</p>
 
  <p>If you are used to the DOS or Windows versions of ADOM, it's possible to configure PuTTY to look like them; thanks to rmcin329 for finding this (Windows XP only?):</p>
 
@@ -128,7 +128,7 @@
 <p>In your ~/.ssh/config:</p>
 <blockquote>
 <p>Host ancardia<br />
-HostName ancardia.us.to<br />
+HostName Your.Server.Name<br />
 User your-username<br />
 ServerAliveInterval 60<br />
 Compression yes<br /></p>
