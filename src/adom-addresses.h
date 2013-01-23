@@ -1,56 +1,21 @@
 /*
-  Each level is specified by two codes, stored right next to each other.
-  To find others, attach to ADOM with GDB, and print the address of LEVELID
-  below; this is the first value.  Then add 4 to LEVELID and print it; this
-  address is the second value.
-*/
-#define WILDERNESS_1 0x04
-#define WILDERNESS_2 0x01
-#define WILDENT_1 0x2d
-#define WILDENT_2 0x01
-
-#define SMC_1 0x1C
-#define SMC_2 0x01
-
-#define ID_1 0x2c
-#define ID_2 0x01
-#define SIL_1 0x30
-#define SIL_2 0x01
-
-#define UD1_1 0x8
-#define UD1_2 0x2
-
-#define TF1_1 0x17
-#define TF1_2 0x01
-#define TF2_1 0x18
-#define TF2_2 0x01
-#define TF3_1 0x19
-#define TF3_2 0x01
-#define TF4_1 0x1A
-#define TF4_2 0x01
-
-#define D48_1 0x30
-#define D48_2 0x00
-#define D49_1 0x31 //?
-#define D49_2 0x00 //??
-#define D50_1 0x32 //?
-#define D50_2 0x00 //??
-
-#define CHAOS_1 0x11
-#define CHAOS_2 0x02
-
-#define MANATEMP_1 0x23
-#define MANATEMP_2 0x02
-
-#define BDCBOT_1 0x28
-#define BDCBOT_2 0x02
-
-/*
   LEVELID is where the code for the current level is stores in memory.
   To find it yourself, start ADOM, then start a memory trainer (such as
   scanmem).  Search for '4' for the wilderness, then go to the small cave
   and search for 28. There's usually only one result.  This address is the one
   that should go in LEVELID. (If you need another, Terinyo is 5).
+
+  EXPLVL is the player's experience level.  Can be found with any trainer.
+
+  TURNCOUNTER is the number of elapsed game turns. Also easy to find.
+
+  IDCOUNT is the level of the ID the player is on.  Use your trainer and move
+  between ID 1/2/3/4/.. until there are only two results left.
+
+  CHARNAME is the PC's name.  To find this address, do a string search in your
+  memory trainer for the name, and take note of the addresses. Then save, quit,
+  rerun ADOM, and STOP AT THE LOAD SCREEN.  Only one of the addresses found 
+  earlier will be filled at this point.  That is the one you want.
 */
 #ifdef ADOM_111
   #define LEVELID 0x082add1c

@@ -265,7 +265,7 @@ League 1.1.1:   adom_ds.lea
 Swapgame 1.1.1: adom_ds.swp
 1.2.0p1-3:      adom_ds.12a
 1.2.0p4-5:      adom_ds.12b
-1.2.0p6-8-?:    adom_ds.12c
+1.2.0p6-10-?:   adom_ds.12c
 
 Finally, Sage should be checked out and compiled.
 
@@ -320,12 +320,12 @@ b. Compile wrappers
 The wrapper binaries decide whether to use Sage or not, and help announce
 when players enter significant locations.
 
+cd /var/lib/adom
 . etc/config
 SUPVER="100 111"
 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
   SUPVER+=" 120p${i}"  
 done
-cd /var/lib/adom
 # normal games:
 for i in $SUPVER; do
   gcc -m32 -DADOM_$i -Wall src/adom-wrapper.c -o bin/adom-$i

@@ -39,7 +39,8 @@
 #define TURNS_BEF_ANC 5
 #define NAMELEN 13
 
-#include "adom-locs.h"
+#include "adom-loc-codes.h"
+#include "adom-addresses.h"
 
 struct termios old_stdin_tio, old_stdout_tio;
 
@@ -361,9 +362,9 @@ int main(int argc, char **argv)
               else if (curloc_v1 == SMC_1 && curloc_v2 == SMC_2) { desc = "the Small Cave"; }
 #endif
               else if (curloc_v1 == D50_1 && curloc_v2 == D50_2) { desc = "D:50"; }
-              else if (curloc_v1 == CHAOS_1 && curloc_v2 == CHAOS_2) { desc = "the ChAoS plane"; }
-              else if (curloc_v1 == MANATEMP_1 && curloc_v2 == MANATEMP_2) { desc = "the Mana Temple"; }
-              else if (curloc_v1 == BDCBOT_1 && curloc_v2 == BDCBOT_2) { desc = "the bottom of the Blue Dragon Caves"; }
+              else if (curloc_v1 == ChAoS_1 && curloc_v2 == ChAoS_2) { desc = "the ChAoS plane"; }
+              else if (curloc_v1 == MT_1 && curloc_v2 == MT_2) { desc = "the Mana Temple"; }
+              else if (curloc_v1 == DL5_1 && curloc_v2 == DL5_2) { desc = "the bottom of the Blue Dragon Caves"; }
               else if (curloc_v1 == SIL_1 && curloc_v2 == SIL_2) { desc = "the SIL"; }
             }
             if (desc != NULL) {
@@ -394,8 +395,8 @@ int main(int argc, char **argv)
             // Playing a challenge game?
             if (nchal > 0) {
               int die = 0;
-              if ((curloc_v1 == WILDERNESS_1 && curloc_v2 == WILDERNESS_2) ||
-                  (curloc_v1 == WILDENT_1 && curloc_v2 == WILDENT_2)) { 
+              if ((curloc_v1 == DrCh_1 && curloc_v2 == DrCh_2) ||
+                  (curloc_v1 == WE_1 && curloc_v2 == WE_2)) { 
                 // Allow encounters, but you should not kill anything
                 // Saving goes through the wilderness
                 if ((entered_loc == 1) && (cur_turn != prev_turn)) { die = 1; }
