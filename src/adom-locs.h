@@ -106,6 +106,12 @@
   #define TURNCOUNTER 0x82a2af8
   #define IDCOUNT 0x82a6f88 /* and 0x82a7d70 */
   #define CHARNAME 0x829f080
+#elif defined ADOM_120p10
+  #define LEVELID 0x829f19c
+  #define EXPLVL 0x82a2bf4
+  #define TURNCOUNTER 0x82a2bf8
+  #define IDCOUNT 0x82a7088 /* and 0x82a7e70 */
+  #define CHARNAME 0x829f180
 #endif
 
 // Challenge game text

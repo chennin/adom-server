@@ -110,7 +110,7 @@ int main(int argc, char **argv)
   //decide what game we're called as
   char *calledas = basename(argv[0]);
 #define CHALLEN 4 /* eta, ste, ..., + null */
-#define VERSLEN 6 /* 111, 120p3, ..., + null */
+#define VERSLEN 7 /* 111, 120p3, ..., + null */
   char chal[CHALLEN], vers[VERSLEN];
   memset(chal,'\0',CHALLEN);
   memset(vers,'\0',VERSLEN);
@@ -214,8 +214,8 @@ int main(int argc, char **argv)
   memset(sagesoname,'\0',SOLEN);
   memset(sagename,'\0',SAGELEN);
 
-  strncpy(sagesoname, "adom-sage-0.9.6.so", SOLEN);
-  strncpy(sagename, "adom-sage-0.9.6", SAGELEN);
+  strncpy(sagesoname, "adom-sage-0.9.7.so", SOLEN);
+  strncpy(sagename, "adom-sage-0.9.7", SAGELEN);
 
   snprintf(binname, BINLEN, "adom-%s-bin", vers);
   if (strcmp(vers,"111") == 0) {
