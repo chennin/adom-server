@@ -68,6 +68,15 @@ do
           "etr")
             echo -ne "\e[4meternium man challenge mode\e[0m, "
             ;;
+          "brm")
+            echo -ne "\e[4mbrimstone man challenge mode\e[0m, "
+            ;;
+          "lth")
+            echo -ne "\e[4mlithium man challenge mode\e[0m, "
+            ;;
+          "iro")
+            echo -ne "\e[4miron man challenge mode\e[0m, "
+            ;;
           "ste")
             echo -ne "\e[4msteel man challenge mode\e[0m, "
             ;;

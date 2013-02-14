@@ -333,7 +333,7 @@ done
 
 #Challenge games:
 cd bin/
-for j in etr ste brm iro; do
+for j in etr ste brm iro lth; do
   for i in $SUPVER; do
     ln -s adom-$i adom-$i-$j
   done

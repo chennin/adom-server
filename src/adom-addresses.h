@@ -112,3 +112,10 @@
                 "                  @@@@@ \033[1m\033[4;37m" IRO_NAME " Challenge Game\033[0m @@@@@\n\n"\
                 "                       Location: The Infinite Dungeon\n"\
                 "                       Win Condition: Retrieve the Sceptre of Chaos\n\n\n\n"
+
+#define LTH_NAME "Lithium Man"
+#define LTH_WARN "\n\n"\
+                "                  @@@@@ \033[1m\033[4;37m" LTH_NAME " Challenge Game\033[0m @@@@@\n\n"\
+                "            Location: The Caverns of Chaos and Tower of Eternal Flames\n"\
+                "            Win Condition: Win the game.\n"\
+                "            Note: OC, DH, and DL are OK. The shortcut to the surface is not!!\n\n\n"

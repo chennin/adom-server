@@ -22,6 +22,7 @@ echo "  1 - ETERNIUM MAN"
 echo "  2 - STEEL MAN"
 echo "  3 - IRON MAN"
 echo "  4 - BRIMSTONE MAN"
+echo "  5 - LITHIUM MAN"
 echo "  q - Return to main menu"
 echo ""
 while [ true ] 
@@ -46,6 +47,10 @@ do
       ;;
     4)
       echo "brm" > ${HOME}/chal
+      break
+      ;;
+    5)
+      echo "lth" > ${HOME}/chal
       break
       ;;
     q|z)

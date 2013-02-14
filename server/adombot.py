@@ -4,7 +4,7 @@ import sys
 import time
 from pyinotify import WatchManager, ThreadedNotifier, ProcessEvent, IN_CLOSE_WRITE
 import os
-from tweepy import OAuthHandler, API, TweepError, debug
+from tweepy import OAuthHandler, API, TweepError
 from configobj import ConfigObj
 import re
 import random
@@ -240,6 +240,9 @@ def import_hiscore(file):
         if "Died on " in line:
             line = line[0:line.find("Died on ")]
             
+        if "Died " in line:
+            line = line[0:line.find("Died ")]
+
         elif "Won on " in line:
             line = line[0:line.find("Won on ")]
 

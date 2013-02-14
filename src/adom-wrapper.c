@@ -186,6 +186,10 @@ int main(int argc, char **argv)
       printf("%s", IRO_WARN);
       nchal = IRO; snprintf(chalname, CHALNALEN, IRO_NAME);
     }
+    else if (strcmp(chal,"lth") == 0) {
+      printf("%s", LTH_WARN);
+      nchal = LTH; snprintf(chalname, CHALNALEN, LTH_NAME);
+    }
     else {
       fprintf(stderr, "Unknown challenge game \"%s\"\n", chal);
       exit(1);
@@ -429,6 +433,23 @@ int main(int argc, char **argv)
                 if ((newid == 66 || (curloc_v1 == SIL_1 && curloc_v2 ==SIL_2))) { got_to_sil = 1; }
                 if ((newid < idlvl) && (!got_to_sil)) { die = 1; } // went up before retrieving sceptre
               }
+              // Enforce Lithium = D, S, TF, UL, MT, OC, and DL only
+              else if ((nchal == LTH) && (
+                (curloc_v2 == 0x00) ||  // 0x00 == D
+                ((curloc_v2 == TF1_2) && ( // 0x01
+                  (curloc_v1 == TF1_1) || (curloc_v1 == TF2_1) || (curloc_v1 == TF3_1) || (curloc_v1 == TF4_1) ||
+                  (curloc_v1 == OC_1) || (curloc_v1 == DH1_1) || (curloc_v1 == DH2_1) || (curloc_v1 == S_1)
+                )) ||
+                ((curloc_v2 == UL1_2) && ( // 0x02
+                  (curloc_v1 == UL1_1) || (curloc_v1 == UL2_1) || (curloc_v1 == UL3_1) || (curloc_v1 == UL4_1) || 
+                  (curloc_v1 == UL5_1) || (curloc_v1 == UL6_1) || (curloc_v1 == MT_1) ||
+                  (curloc_v1 == DL1_1) || (curloc_v1 == DL2_1) || (curloc_v1 == DL3_1) || (curloc_v1 == DL4_1) ||
+                  (curloc_v1 == DL5_1)
+                ))
+                )) {
+                   ; // have to leave CoC for ToEF, don't kill on wilderness entry
+                }
+
               else { // some other forbidden location
                 die = 1;
               }
