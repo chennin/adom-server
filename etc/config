@@ -5,13 +5,13 @@ SERVNAME=adom.example.com
 #SERVHOME=/var/lib/adom
 
 #IRC options
-IRCSERV=irc.example.net
+IRCSERV=irc.freenode.net
 IRCPORT=6697
 #0 for false, 1 for true
 IRCSSL=1
 #quote your channels
-IRCCHAN="#example"
-ANCNICK=AnnounceBot
+IRCCHAN="#adom2"
+ANCNICK=AnnounceBot2
 DBNICK=dbbot
 
 ##Python bot options
@@ -28,7 +28,7 @@ RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
 
 #Prerelease versions supported
 MIN_PRE=3
-MAX_PRE=10
+MAX_PRE=11
 LATEST_FREE_PRE=5
 
 #For Twitter announcing

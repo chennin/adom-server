@@ -12,7 +12,7 @@ import feedparser
 
 #irclib.DEBUG = True
 
-MIN_IRC_ANC = 2000
+MIN_IRC_ANC = 200
 MIN_TWIT_ANC = 8000
 
 FILE111 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt"
@@ -84,6 +84,7 @@ def tweet(version, text):
 
     m = re.match('(.*?)\. (L\d{0,1}.*?) \((M|F)\)\. \d+ xps\. \d+ turns?\. (.*?)\. (Rank: #\d{0,3}), score (\d+)',text)
 
+    charuser = m.group(1)
     raceclass = m.group(2)
     score = int(m.group(6))
     if score <= MIN_TWIT_ANC:
@@ -111,7 +112,7 @@ def tweet(version, text):
         reason = reason[3:]
 
 
-    newtext = "#ADOM {0} score: {1}, {2}, {3}. {4}".format(version, m.group(1), raceclass, reason, m.group(5))
+    newtext = "#ADOM {0} score: {1}, {2}, {3}. {4}".format(version, charuser, raceclass, reason, m.group(5))
     if newtext.__len__() > 140:
         makeup = newtext.__len__() - 140
         rdiff = reason.__len__() - makeup - 2
@@ -151,7 +152,10 @@ def poll_hiscore():
     hiscore_120p4 = new_120p4
     hiscore_120p6 = new_120p6
 
+    print "anc?"
+
     if ANCTOIRC == True and c.is_connected() == True:
+        print "anc."
         for key in diff_100:
             print hiscore_100[key] + " Version 1.0.0."
             c.privmsg(target, "\x02New high score\x02: " + hiscore_100[key] + " Version 1.0.0.")
@@ -173,9 +177,9 @@ def poll_hiscore():
             tweet("1.2.0p4/5", hiscore_120p4[key]);
 
         for key in diff_120p6:
-            print hiscore_120p6[key] + " Version 1.2.0p6-10."
-            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p6[key] + " Version 1.2.0p6-10.")
-            tweet("1.2.0p6-10", hiscore_120p6[key]);
+            print hiscore_120p6[key] + " Version 1.2.0p6-11."
+            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p6[key] + " Version 1.2.0p6-11.")
+            tweet("1.2.0p6-11", hiscore_120p6[key]);
 
 def loc_changed(filename):
    if ANCTOIRC != 1:
@@ -272,6 +276,7 @@ def import_hiscore(file):
     return hiscore
 
 def on_connect(connection, event):
+    print "Connected. Joining channel..."
     connection.join(target)
 
 def on_disconnect(connection, event):
@@ -283,7 +288,7 @@ port = config.as_int("IRCPORT")
 nickname = config.get("ANCNICK")
 target = config.get("IRCCHAN")
 
-ircname = "Public ADOM Server bot - ancardia.uk.to"
+ircname = "Public ADOM Server bot - " + config.get("SERVNAME")
 
 dossl = bool(config.get("IRCSSL"))
 if (dossl != False) and (dossl != True):
