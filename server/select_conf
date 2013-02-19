@@ -21,9 +21,11 @@ else
     NAME=leaguedefault
 fi
 
-for FILE in .adom.kbd .adom.cfg sage.cfg sage.kbd sage.msg; do
+for FILE in adom.kbd adom.cfg .adom.kbd .adom.cfg sage.cfg sage.kbd sage.msg; do
     rm -f $HOME/.adom.data/$FILE
-    ln -s /var/lib/adom/users/$NAME/.adom.data/$FILE $HOME/.adom.data/$FILE
+    if [ -f /var/lib/adom/users/$NAME/.adom.data/$FILE ]; then
+      ln -s /var/lib/adom/users/$NAME/.adom.data/$FILE $HOME/.adom.data/$FILE
+    fi
 done
 
 echo "Done."

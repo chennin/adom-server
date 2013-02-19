@@ -1,11 +1,10 @@
 #!/bin/bash
-
 . /var/lib/adom/etc/config
 
 CFGBASE="${HOME}/adom.data-"
 CFGTO="${HOME}/.adom.data"
 
-CHALS="etr ste none quit"
+CHALS="etr ste iro brm lth none quit"
 VERSIONS="100 111 lea swp"
 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
     VERSIONS+=" 120p${i}"
@@ -35,7 +34,10 @@ select FROM in $VERSIONS; do
             ;;
           1|etr) CHALF="etr"; break;; 
           2|ste) CHALF="ste"; break;; 
-          3|none) CHALF=""; break;; 
+          3|iro) CHALF="iro"; break;;
+          4|brm) CHALF="brm"; break;;
+          5|lth) CHALF="lth"; break;;
+          6|none) CHALF=""; break;; 
           "") CHALF=${chal}; break;;
           *)
             echo "Invalid!"
@@ -48,11 +50,14 @@ select FROM in $VERSIONS; do
       FROM="${FROM}/${CHALF}"
     fi
     mkdir -p ${CFGBASE}${FROM}/${FILE} ${CFGTO}/${FILE}
-    for FILE in .adom.kbd .adom.cfg sage.cfg sage.kbd sage.msg; do
+    for FILE in adom.kbd adom.cfg .adom.kbd .adom.cfg sage.cfg sage.kbd sage.msg; do
         if [ -f ${CFGBASE}${FROM}/${FILE} ]; then
+            echo "Copying ${FILE}..."
             cp -pi ${CFGBASE}${FROM}/${FILE} ${CFGTO}/${FILE}
-        else
-            echo "Warning: ${FILE} not found in ${FROM} cfg dir!"
+            PRER=$(echo $adom_ver | cut -f2 -d'p')
+            if (( $PRER >= 11 )) && [[ "${FILE}" == ".adom.kbd" || "${FILE}" == ".adom.cfg" ]]; then
+                mv ${CFGTO}/${FILE} ${CFGTO}/${FILE#.}
+            fi
         fi
     done
     break
