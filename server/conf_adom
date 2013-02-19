@@ -6,6 +6,11 @@ if [[ "${EDITOR}x" == "x" ]]; then
   export EDITOR=rnano
 fi
 
+function notfound {
+  echo -e "That config file doesn't (yet) exist. Please start ADOM once or Sage twice,\nthen return to this screen."
+  sleep 3
+}
+
 while true
 do
     clear
@@ -17,12 +22,12 @@ do
     echo "order to edit configurations for other versions (this does not apply to the SSH"
     echo "SSH authorized_keys file)."
     echo
-    echo "Press Ctrl+O to save your new config.  Press Ctrl+X to exit nano."
+    echo "In nano, press Ctrl+O to save your new config and press Ctrl+X to exit."
     echo
     echo "Select the config you wish to edit:"
     echo
-    echo "  1 - .adom.cfg, main ADOM configuration file"
-    echo "  2 - .adom.kbd, ADOM keymap configuration file"
+    echo "  1 - adom.cfg, main ADOM configuration file"
+    echo "  2 - adom.kbd, ADOM keymap configuration file"
     echo "  3 - sage.cfg, ADOM Sage main configuration file"
     echo "  4 - sage.msg, ADOM Sage message configuration file"
     echo "  5 - sage.kbd, ADOM Sage keymap configuration file"
@@ -39,27 +44,51 @@ do
     case $command in
 	
 	1)
-	    ${EDITOR} "${HOME}/.adom.data/.adom.cfg"
+            if [ -f ${HOME}/.adom.data/.adom.cfg ]; then
+  	      ${EDITOR} "${HOME}/.adom.data/.adom.cfg"
+            elif [ -f ${HOME}/.adom.data/adom.cfg ]; then
+              ${EDITOR} "${HOME}/.adom.data/adom.cfg"
+            else
+              notfound
+            fi
 	    continue
 	    ;;
 	
 	2)
-	    ${EDITOR} "${HOME}/.adom.data/.adom.kbd"
+            if [ -f ${HOME}/.adom.data/.adom.kbd ]; then
+               ${EDITOR} "${HOME}/.adom.data/.adom.kbd"
+            elif [ -f "${HOME}/.adom.data/adom.kbd" ]; then
+               ${EDITOR} "${HOME}/.adom.data/adom.kbd"
+            else
+              notfound
+            fi
 	    continue
 	    ;;
 	
 	3)
-	    ${EDITOR} "${HOME}/.adom.data/sage.cfg"
+            if [ -f "${HOME}/.adom.data/sage.cfg" ]; then
+  	      ${EDITOR} "${HOME}/.adom.data/sage.cfg"
+            else
+              notfound
+            fi
 	    continue
 	    ;;
 	
 	4)
-	    ${EDITOR} "${HOME}/.adom.data/sage.msg"
+            if [ -f "${HOME}/.adom.data/sage.msg" ]; then
+	      ${EDITOR} "${HOME}/.adom.data/sage.msg"
+            else
+              notfound
+            fi
 	    continue
 	    ;;
 	
         5)
-            ${EDITOR} "${HOME}/.adom.data/sage.kbd"
+            if [ -f "${HOME}/.adom.data/sage.kbd" ]; then
+              ${EDITOR} "${HOME}/.adom.data/sage.kbd"
+            else
+              notfound
+            fi
             continue
             ;;
 	6)
