@@ -361,6 +361,7 @@ git fetch --tags
 git checkout master
 git pull
 git checkout ${STAG}
+make clean
 make
 cp adom-sage ../bin/adom-sage-${STAG}
 cp adom-sage.so ../bin/adom-sage-${STAG}.so
