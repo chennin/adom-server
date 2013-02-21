@@ -1,5 +1,8 @@
 #!/bin/bash
 
+if ! $(tty -s); then echo "No TTY found. Be sure you're a real person coming from a real terminal and that you're not supplying your own command. Bailing out."; exit 1; fi
+if [ "${TERM}x" == "dumbx" ] || [ "${TERM}x" == "x" ]; then export TERM=vt100; fi
+
 clear
 
 python /var/lib/adom/server/registration_check.py --checkonly
