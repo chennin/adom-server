@@ -539,4 +539,7 @@ usually at /etc/ssh/sshd_config):
   AllowAgentForwarding no
   AllowTcpForwarding no
   PrintMotd no
+  PermitTunnel no
+  # Disable SFTP by commenting out the line:
+  Subsystem sftp /usr/lib/openssh/sftp-server
 

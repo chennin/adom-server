@@ -12,7 +12,7 @@ import feedparser
 
 #irclib.DEBUG = True
 
-MIN_IRC_ANC = 200
+MIN_IRC_ANC = 2000
 MIN_TWIT_ANC = 8000
 
 FILE111 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v111.txt"
@@ -152,10 +152,7 @@ def poll_hiscore():
     hiscore_120p4 = new_120p4
     hiscore_120p6 = new_120p6
 
-    print "anc?"
-
     if ANCTOIRC == True and c.is_connected() == True:
-        print "anc."
         for key in diff_100:
             print hiscore_100[key] + " Version 1.0.0."
             c.privmsg(target, "\x02New high score\x02: " + hiscore_100[key] + " Version 1.0.0.")
