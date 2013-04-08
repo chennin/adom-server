@@ -249,7 +249,7 @@ def import_hiscore(file):
 
         elif "Ascended on " in line:
             line = line[0:line.find("Ascended on ")]
-
+        # we've found the next one
         if "(M)" in line or "(F)" in line:
             key = " ".join((hiscore_line.split())[1:])
             parsed = " ".join((hiscore_line.split())[2:])
@@ -259,7 +259,10 @@ def import_hiscore(file):
                 hiscore[key] = parsed
 
             hiscore_line = line
-            
+        # or the end
+        if "----------------" in line:
+            break
+        # else continue constructing
         else:
             hiscore_line += line
 
