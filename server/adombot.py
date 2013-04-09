@@ -260,7 +260,7 @@ def import_hiscore(file):
 
             hiscore_line = line
         # or the end
-        if "----------------" in line:
+        elif "----------------" in line:
             break
         # else continue constructing
         else:
