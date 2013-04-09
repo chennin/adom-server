@@ -83,6 +83,12 @@
   #define TURNCOUNTER 0x82a1ad8
   #define IDCOUNT 0x82a5f68 /* and 0x82a6d50 */
   #define CHARNAME 0x829e060
+#elif defined ADOM_120p12
+  #define LEVELID 0x82aef9c
+  #define EXPLVL 0x82b29f4
+  #define TURNCOUNTER 0x82b29f8
+  #define IDCOUNT 0x82b7c5c /* and 0x82b8c60 */
+  #define CHARNAME 0x82aef80
 #elif defined ADOM_120p13
   #define LEVELID 0x82aeffc
   #define EXPLVL 0x82b2a54
