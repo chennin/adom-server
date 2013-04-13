@@ -134,7 +134,7 @@ do
         echo " receiving messages"
 
         echo ""
-        if [ -e "/var/www/adom_users/${USER}" ]; then
+        if [ -e "/var/lib/adom/public_html/adom_users/${USER}" ]; then
                 echo -ne "\e[1m[ d ]\e[0m disable"
         else
                 echo -ne "\e[1m[ d ]\e[0m enable"
