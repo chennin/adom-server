@@ -158,7 +158,7 @@ Compression yes<br /></p>
 
   <p>In #adom on Freenode, there is a bot named AdomDBbot.  Use "@m monstername" for detailed concise info about a monster, and "@i itemname" for detailed concise info about an item.</p>
 
-  <p>Also, you can enable your user directory to be accessible (read-only) at http://Your.Server.Name/<?php echo $servername?>/. You can enable or disable this access any time you wish. Useful for exporting character dumps, configs, etc.!</p>
+  <p>Also, you can enable your user directory to be accessible (read-only) at http://<?php echo $servername?>/adom_users/username. You can enable or disable this access any time you wish. Useful for exporting character dumps, configs, etc.!</p>
 
   <p>The source code for ADOM Sage, with Alucard's modifications, can be found on <a href="https://github.com/AlucardZero/adom-sage/">GitHub</a>.</p>
 
