@@ -81,8 +81,11 @@ signal.signal(signal.SIGINT, signal_handler)
 def tweet(version, text):
     if ANCTOTWIT != 1:
       return
+    m = re.match(r"(.*?)\. (L\d{0,1}.*?) \((M|F)\)\. \d+ xps\. \d+ turns?\. (.*?)\. (Rank#\d{0,3}), score (\d+)",text)
 
-    m = re.match('(.*?)\. (L\d{0,1}.*?) \((M|F)\)\. \d+ xps\. \d+ turns?\. (.*?)\. (Rank: #\d{0,3}), score (\d+)',text)
+    if not m:
+        print "Regex did not match, no tweet sent, text: " + text
+        return
 
     charuser = m.group(1)
     raceclass = m.group(2)
@@ -107,16 +110,16 @@ def tweet(version, text):
     elif "She was " in reason:
         reason = reason[8:]
     elif "He " in reason:
-        reason = reason[2:]
-    elif "She " in reason:
         reason = reason[3:]
+    elif "She " in reason:
+        reason = reason[4:]
 
 
     newtext = "#ADOM {0} score: {1}, {2}, {3}. {4}".format(version, charuser, raceclass, reason, m.group(5))
     if newtext.__len__() > 140:
         makeup = newtext.__len__() - 140
         rdiff = reason.__len__() - makeup - 2
-        if rdiff < 1:
+        if rdiff < 1: #can't get under 140?
             return
         reason = reason[0:rdiff] + ".."
 
@@ -236,42 +239,41 @@ def import_hiscore(file):
 
     hiscore = {}
     hiscore_line = lines.pop(0)
-
     for line in lines:
-        if "Died on " in line:
-            line = line[0:line.find("Died on ")]
-            
-        if "Died " in line:
-            line = line[0:line.find("Died ")]
-
-        elif "Won on " in line:
-            line = line[0:line.find("Won on ")]
-
-        elif "Ascended on " in line:
-            line = line[0:line.find("Ascended on ")]
-        # we've found the next one
-        if "(M)" in line or "(F)" in line:
-            key = " ".join((hiscore_line.split())[1:])
+        #check for the next one
+        match = re.search(r"^[ 0-9][ 0-9][0-9]", line)
+        if match:
+            rank = hiscore_line.split()[0].strip()
             parsed = " ".join((hiscore_line.split())[2:])
-            parsed += " Rank: #" + hiscore_line.split()[0].strip() + ", score " + hiscore_line.split()[1].strip() + "."
+            parsed += " Rank#" + rank + ", score " + hiscore_line.split()[1].strip() + "."
+
+            #strip date
+            dated = re.search(r"(\S+ on \d{1,2}/\d{1,2}/\d{4}. )", parsed)
+            if dated:
+                parsed = parsed.replace(dated.group(0), "")
 
             if int(hiscore_line.split()[1].strip()) >= MIN_IRC_ANC:
-                hiscore[key] = parsed
+                hiscore[rank] = parsed
 
             hiscore_line = line
-        # or the end
+
+        # reached the end (EOF also falls through)
         elif "----------------" in line:
             break
         # else continue constructing
         else:
             hiscore_line += line
 
-    key= " ".join((hiscore_line.split())[1:])
+    # do the last
+    rank = hiscore_line.split()[0].strip()
     parsed = " ".join((hiscore_line.split())[2:])
-    parsed += " Rank: #" + hiscore_line.split()[0].strip() + ", score " + hiscore_line.split()[1].strip() + "."
+    parsed += " Rank#" + rank + ", score " + hiscore_line.split()[1].strip() + "."
+    dated = re.search(r"(\S+ on \d{1,2}/\d{1,2}/\d{4}. )", parsed)
+    if dated:
+        parsed = parsed.replace(dated.group(0), "")
 
     if int(hiscore_line.split()[1].strip()) >= MIN_IRC_ANC:
-        hiscore[key] = parsed
+        hiscore[rank] = parsed
 
     return hiscore
 
