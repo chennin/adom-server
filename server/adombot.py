@@ -81,7 +81,7 @@ signal.signal(signal.SIGINT, signal_handler)
 def tweet(version, text):
     if ANCTOTWIT != 1:
       return
-    m = re.match(r"(.*?)\. (L\d{0,1}.*?) \((M|F)\)\. \d+ xps\. \d+ turns?\. (.*?)\. (Rank#\d{0,3}), score (\d+)",text)
+    m = re.match(r"(.*?)\. (L\d{0,1}.*?) \((M|F)\)\. \d+ xps\. \d+ turns?\. (.*?)\. Score (\d+)",text)
 
     if not m:
         print "Regex did not match, no tweet sent, text: " + text
@@ -89,7 +89,7 @@ def tweet(version, text):
 
     charuser = m.group(1)
     raceclass = m.group(2)
-    score = int(m.group(6))
+    score = int(m.group(5))
     if score <= MIN_TWIT_ANC:
         return
 
@@ -115,7 +115,7 @@ def tweet(version, text):
         reason = reason[4:]
 
 
-    newtext = "#ADOM {0} score: {1}, {2}, {3}. {4}".format(version, charuser, raceclass, reason, m.group(5))
+    newtext = "#ADOM {0} score: {1}, {2}, {3}.".format(version, charuser, raceclass, reason)
     if newtext.__len__() > 140:
         makeup = newtext.__len__() - 140
         rdiff = reason.__len__() - makeup - 2
@@ -123,7 +123,7 @@ def tweet(version, text):
             return
         reason = reason[0:rdiff] + ".."
 
-    newtext = "#ADOM {0} score: {1}, {2}, {3}. {4}".format(version, m.group(1), raceclass, reason, m.group(5))
+    newtext = "#ADOM {0} score: {1}, {2}, {3}.".format(version, m.group(1), raceclass, reason)
     print newtext
     try:
         api.update_status(newtext)
@@ -143,11 +143,16 @@ def poll_hiscore():
     new_120p4 = import_hiscore(FILE120p4)
     new_120p6 = import_hiscore(FILE120p6)
 
-    diff_100 = set(new_100.keys()).difference(hiscore_100.keys())
-    diff_111 = set(new_111.keys()).difference(hiscore_111.keys())
-    diff_120p3 = set(new_120p3.keys()).difference(hiscore_120p3.keys())
-    diff_120p4 = set(new_120p4.keys()).difference(hiscore_120p4.keys())
-    diff_120p6 = set(new_120p6.keys()).difference(hiscore_120p6.keys())
+    ph = set(hiscore_100)
+    diff_100 = [x for x in new_100 if x not in hiscore_100]
+    ph = set(hiscore_111)
+    diff_111 = [x for x in new_111 if x not in hiscore_111]
+    ph = set(hiscore_120p3)
+    diff_120p3 = [x for x in new_120p3 if x not in hiscore_120p3]
+    ph = set(hiscore_120p4)
+    diff_120p4 = [x for x in new_120p4 if x not in hiscore_120p4]
+    ph = set(hiscore_120p6)
+    diff_120p6 = [x for x in new_120p6 if x not in hiscore_120p6]
 
     hiscore_100 = new_100
     hiscore_111 = new_111
@@ -157,29 +162,29 @@ def poll_hiscore():
 
     if ANCTOIRC == True and c.is_connected() == True:
         for key in diff_100:
-            print hiscore_100[key] + " Version 1.0.0."
-            c.privmsg(target, "\x02New high score\x02: " + hiscore_100[key] + " Version 1.0.0.")
-            tweet("1.0.0", hiscore_100[key]);
+            print key + " Version 1.0.0."
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.0.0.")
+            tweet("1.0.0", key);
             
         for key in diff_111:
-            print hiscore_111[key] + " Version 1.1.1."
-            c.privmsg(target, "\x02New high score\x02: " + hiscore_111[key] + " Version 1.1.1.")
-            tweet("1.1.1", hiscore_111[key]);
+            print key + " Version 1.1.1."
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.1.1.")
+            tweet("1.1.1", key);
 
         for key in diff_120p3:
-            print hiscore_120p3[key] + " Version 1.2.0p1/2/3."
-            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p3[key] + " Version 1.2.0p1/2/3.")
-            tweet("1.2.0p1/2/3", hiscore_120p3[key]);
+            print key + " Version 1.2.0p1/2/3."
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.2.0p1/2/3.")
+            tweet("1.2.0p1/2/3", key);
 
         for key in diff_120p4:
-            print hiscore_120p4[key] + " Version 1.2.0p4/5."
-            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p4[key] + " Version 1.2.0p4/5.")
-            tweet("1.2.0p4/5", hiscore_120p4[key]);
+            print key + " Version 1.2.0p4/5."
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.2.0p4/5.")
+            tweet("1.2.0p4/5", key);
 
         for key in diff_120p6:
-            print hiscore_120p6[key] + " Version 1.2.0p6-13."
-            c.privmsg(target, "\x02New high score\x02: " + hiscore_120p6[key] + " Version 1.2.0p6-13.")
-            tweet("1.2.0p6-13", hiscore_120p6[key]);
+            print key + " Version 1.2.0p6-13."
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.2.0p6-13.")
+            tweet("1.2.0p6-13", key);
 
 def loc_changed(filename):
    if ANCTOIRC != 1:
@@ -232,12 +237,11 @@ def import_hiscore(file):
     lines = f.readlines()
 
     if (len(lines) <= 0):
-	return {}
-
+	return []
     for i in range(4):
         lines.pop(0)
 
-    hiscore = {}
+    hiscore = []
     hiscore_line = lines.pop(0)
     for line in lines:
         #check for the next one
@@ -245,7 +249,7 @@ def import_hiscore(file):
         if match:
             rank = hiscore_line.split()[0].strip()
             parsed = " ".join((hiscore_line.split())[2:])
-            parsed += " Rank#" + rank + ", score " + hiscore_line.split()[1].strip() + "."
+            parsed += " Score " + hiscore_line.split()[1].strip() + "."
 
             #strip date
             dated = re.search(r"(\S+ on \d{1,2}/\d{1,2}/\d{4}. )", parsed)
@@ -253,7 +257,7 @@ def import_hiscore(file):
                 parsed = parsed.replace(dated.group(0), "")
 
             if int(hiscore_line.split()[1].strip()) >= MIN_IRC_ANC:
-                hiscore[rank] = parsed
+                hiscore.append(parsed)
 
             hiscore_line = line
 
@@ -267,13 +271,13 @@ def import_hiscore(file):
     # do the last
     rank = hiscore_line.split()[0].strip()
     parsed = " ".join((hiscore_line.split())[2:])
-    parsed += " Rank#" + rank + ", score " + hiscore_line.split()[1].strip() + "."
+    parsed += " Score " + hiscore_line.split()[1].strip() + "."
     dated = re.search(r"(\S+ on \d{1,2}/\d{1,2}/\d{4}. )", parsed)
     if dated:
         parsed = parsed.replace(dated.group(0), "")
 
     if int(hiscore_line.split()[1].strip()) >= MIN_IRC_ANC:
-        hiscore[rank] = parsed
+        hiscore.append(parsed)
 
     return hiscore
 
