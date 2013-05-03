@@ -370,6 +370,10 @@ int main(int argc, char **argv)
               else if (curloc_v1 == MT_1 && curloc_v2 == MT_2) { desc = "the Mana Temple"; }
               else if (curloc_v1 == DL5_1 && curloc_v2 == DL5_2) { desc = "the bottom of the Blue Dragon Caves"; }
               else if (curloc_v1 == SIL_1 && curloc_v2 == SIL_2) { desc = "the SIL"; }
+              else if (curloc_v1 == SC9_1 && curloc_v2 == SC9_2) { desc = "the bottom of the Scintillating Cave"; }
+              else if (curloc_v1 == ChAoS_1 && curloc_v2 == ChAoS_2) { desc = "the ChAoS Plane"; }
+              else if (curloc_v1 == CDL_1 && curloc_v2 == CDL_2) { desc = "the Stone Circle"; }
+              else if (curloc_v1 == MC_1 && curloc_v2 == MC_2) { desc = "the bottom of the Minotaur Maze"; }
             }
             if (desc != NULL) {
               delaycounter++;
