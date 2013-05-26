@@ -105,6 +105,7 @@ find ${HOME} -name core -exec chmod 644 '{}' \;
 chmod 755 ${HOME}/.adom.data/savedg
 chmod 775 ${HOME}/ttyrecs
 find ${HOME} -type f -name "*.svg" -exec chmod 644 '{}' \;
+# ttyrecs group writable so adomown can delete old ones
 find ${HOME} -type f -name "ttyrec-*" -exec chmod 664 '{}' \;
 
 if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
