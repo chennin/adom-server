@@ -265,7 +265,8 @@ League 1.1.1:   adom_ds.lea
 Swapgame 1.1.1: adom_ds.swp
 1.2.0p1-3:      adom_ds.12a
 1.2.0p4-5:      adom_ds.12b
-1.2.0p6-13-?:   adom_ds.12c
+1.2.0p6-13:     adom_ds.12c
+1.2.0p14-:      adom_ds.12d
 
 Finally, Sage should be checked out and compiled.
 
