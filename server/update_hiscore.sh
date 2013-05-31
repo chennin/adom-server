@@ -17,7 +17,13 @@ done
 update()
 {
     if [ ! -f /var/lib/adom/bin/adom-$1-bin ]; then return; fi
-    /var/lib/adom/bin/adom-$1-bin -S >/dev/null <<EOF
+    vers=$1
+    if [ "$vers" == "120p14" ]; then 
+        vers="120p14-hs"
+        cp -p /var/lib/adom/var/$1/.HISCORE /var/lib/adom/var/$vers/.HISCORE
+        if [ ! -f /var/lib/adom/bin/adom-$vers-bin ]; then return; fi
+    fi
+    /var/lib/adom/bin/adom-$vers-bin -S >/dev/null <<EOF
 
 EOF
     if [ ! -f hiscore.doc ]; then echo " hiscore.doc not found ?"; return; fi

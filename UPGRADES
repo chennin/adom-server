@@ -1,0 +1,7 @@
+Upgrading:
+
+1. Recompile Sage
+2. Recompile wrappers
+3. Download new version to software/ and re-patch
+4. Redo permissions
+5. Recopy etc/adom_ds*
