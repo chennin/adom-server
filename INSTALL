@@ -63,7 +63,7 @@ Python modules for the score announcing bot:
 ** Pyinotify
 ** ConfigObj
 ** OAuth
-** Tweepy
+** Tweepy 2.0+
 ** Feedparser
 ** Passwd (included)
 Perl modules for the database bot:
@@ -84,16 +84,18 @@ apt-get install python-irclib elinks inotify-tools quotatool quota bash\
  libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
  wget python-pyinotify libpoe-component-sslify-perl python-configobj\
  python-oauth git openssh-server openssh-client unzip libconfig-simple-perl\
- python-feedparser libtext-levenshteinxs-perl tmux python-tweepy
+ python-feedparser libtext-levenshteinxs-perl tmux python-pip && pip install\
+ tweepy
 
 On RedHat-based systems, the following command, run as root, should bring in
 all you need (tested on Fedora 17):
 
-yum install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
- wget git elinks openssh-client openssh-server unzip python-irclib tweepy\
+yum -y install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
+ wget git elinks openssh-client openssh-server unzip python-irclib python-pip\
  python-oauth python-feedparser python-inotify python-configobj vim-enhanced\
  perl-Bot-BasicBot perl-Try-Tiny perl-String-Approx perl-TermReadKey\
- perl-POE-Component-SSLify perl-Config-Simple perl-Text-LevenshteinXS bash
+ perl-POE-Component-SSLify perl-Config-Simple perl-Text-LevenshteinXS bash\
+ && python-pip install tweepy
 
 For compiling binaries from source, or related tools, a compiler and
 some development libraries are required:
@@ -108,8 +110,11 @@ of all the above and libc6 and libstdc++.
 
 Notes:
 
-- Debian Squeeze users will have to build libtext-levenshteinxs-perl tmux and
-python-tweepy from source or another source (like Wheezy).
+- Debian Squeeze users will have to build libtext-levenshteinxs-perl and tmux
+  from source or another source (like Wheezy).
+- Since Twitter deprecated the 1.0 API, most users will need to install Tweepy
+  manually instead of via the package manager.  This can be done via pip as
+  above.
 
 ii. Local Users
 ================
