@@ -60,7 +60,7 @@ if [ -e ${HOME}/adom_dirty ]; then
                 case $ANS in
 		    Y | y) 
 			echo -n "Restoring ${game} backup..."
-			cp ${FBAK}/${save} ${FACT}/${save}
+			cp ${FBAK}/${game} ${FACT}/${game}
 			echo " Done!"
 			break
 			;;
