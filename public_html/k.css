@@ -14,3 +14,10 @@ h2
 {
 border-bottom: 1px solid white;
 }
+ul {
+column-count:2;
+-webkit-column-count:2;
+-moz-column-count:2;
+width:40%;
+list-style-type:none;
+}
