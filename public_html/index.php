@@ -15,8 +15,8 @@ $twit = "Your Twitter handle";
 <body>
 
 <h1><?php echo $servername?></h1>
-<p>This is a public, session-recording <a href="http://adom.de">ADOM</a> (optionally <a href="http://kiserai.net/adom/sage/">Sage</a>) 1.1.1 / 1.2.0pX / 1.0.0 / Eternium Man SSH server.</p>
-<p>It does not hurt to read through the following instructions before playing.</p>
+<p>This is a public, session-recording <a href="http://adom.de">ADOM</a> (optionally <a href="http://kiserai.net/adom/sage/">Sage</a>) 1.1.1 / 1.2.0pX / 1.0.0 / Challenge Game SSH server.</p>
+<p>Please read through the following instructions before playing.</p>
 
 <p>Follow on twitter: <a href="https://twitter.com/<?php echo $twit ?>"><?php echo $twit ?></a></p>
 
