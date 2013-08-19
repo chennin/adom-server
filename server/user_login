@@ -13,6 +13,11 @@ stty susp undef
 function intint {
 	:
 }
+function elementIn () {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
 
 EXPECTED_ARGS=0
 
@@ -245,8 +250,12 @@ do
 
                 echo "Which prerelease (default: 1.2.0p${DEF})? "
                 prompt=""
+                skips=(${SKIP_LIST});
                 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
-                        prompt="${prompt}  (${i}) p${i}"
+                        echo $i
+                        if ! elementIn "$i" "${skips[@]}"; then
+                                prompt="${prompt}  (${i}) p${i}"
+                        fi
                 done
                 read -e -p "${prompt}: " pvers
                 pvers="${pvers:-$DEF}"

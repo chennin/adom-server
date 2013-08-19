@@ -21,6 +21,7 @@ FILE120p3 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v120p3.txt"
 FILE120p4 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v120p4.txt"
 FILE120p6 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v120p6.txt"
 FILE120p14 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v120p14.txt"
+FILE120p16 = "/var/lib/adom/public_html/adom_hiscore/hiscore_v120p16.txt"
 
 LOCDIR = "/var/lib/adom/tmp/player_locations"
 
@@ -138,6 +139,7 @@ def poll_hiscore():
     global hiscore_120p4
     global hiscore_120p6
     global hiscore_120p14
+    global hiscore_120p16
 
     new_100 = import_hiscore(FILE100)
     new_111 = import_hiscore(FILE111)
@@ -145,6 +147,7 @@ def poll_hiscore():
     new_120p4 = import_hiscore(FILE120p4)
     new_120p6 = import_hiscore(FILE120p6)
     new_120p14 = import_hiscore(FILE120p14)
+    new_120p16 = import_hiscore(FILE120p16)
 
     ph = set(hiscore_100)
     diff_100 = [x for x in new_100 if x not in hiscore_100]
@@ -158,6 +161,8 @@ def poll_hiscore():
     diff_120p6 = [x for x in new_120p6 if x not in hiscore_120p6]
     ph = set(hiscore_120p14)
     diff_120p14 = [x for x in new_120p14 if x not in hiscore_120p14]
+    ph = set(hiscore_120p16)
+    diff_120p16 = [x for x in new_120p16 if x not in hiscore_120p16]
 
     hiscore_100 = new_100
     hiscore_111 = new_111
@@ -165,6 +170,7 @@ def poll_hiscore():
     hiscore_120p4 = new_120p4
     hiscore_120p6 = new_120p6
     hiscore_120p14 = new_120p14
+    hiscore_120p16 = new_120p16
 
     if ANCTOIRC == True and c.is_connected() == True:
         for key in diff_100:
@@ -196,6 +202,12 @@ def poll_hiscore():
             print key + " Version 1.2.0p14."
             c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.2.0p14.")
             tweet("1.2.0p14", key);
+        
+        for key in diff_120p16:
+            print key + " Version 1.2.0p16."
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.2.0p16.")
+            tweet("1.2.0p16", key);
+
 
 def loc_changed(filename):
    if ANCTOIRC != 1:
@@ -318,6 +330,7 @@ hiscore_120p3 = import_hiscore(FILE120p3)
 hiscore_120p4 = import_hiscore(FILE120p4)
 hiscore_120p6 = import_hiscore(FILE120p6)
 hiscore_120p14 = import_hiscore(FILE120p14)
+hiscore_120p16 = import_hiscore(FILE120p16)
 
 print "Connecting announce bot...\n"
 irc = irclib.IRC()
@@ -354,6 +367,7 @@ wm.add_watch(FILE120p3, IN_CLOSE_WRITE)
 wm.add_watch(FILE120p4, IN_CLOSE_WRITE)
 wm.add_watch(FILE120p6, IN_CLOSE_WRITE)
 wm.add_watch(FILE120p14, IN_CLOSE_WRITE)
+wm.add_watch(FILE120p16, IN_CLOSE_WRITE)
 
 wmloc.add_watch(LOCDIR, IN_CLOSE_WRITE)
 

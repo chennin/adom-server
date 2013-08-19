@@ -5,20 +5,20 @@ SERVNAME=adom.example.com
 #SERVHOME=/var/lib/adom
 
 #IRC options
-IRCSERV=irc.freenode.net
+IRCSERV=irc.example.com
 IRCPORT=6697
 #0 for false, 1 for true
 IRCSSL=1
 #quote your channels
-IRCCHAN="#adom2"
-ANCNICK=AnnounceBot2
+IRCCHAN="#example"
+ANCNICK=AnnounceBot
 DBNICK=dbbot
 
 ##Python bot options
 #announce scores on IRC
 ANNOUNCE_TO_IRC=True
 #announce scores on twitter
-ANNOUNCE_TO_TWITTER=True
+ANNOUNCE_TO_TWITTER=False
 #relay TB's tweets
 READ_TWEETS=False
 TWITTERNAME=adom_dev
@@ -28,7 +28,8 @@ RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
 
 #Prerelease versions supported
 MIN_PRE=3
-MAX_PRE=14
+SKIP_LIST="1 2 15"
+MAX_PRE=16
 LATEST_FREE_PRE=5
 
 #For Twitter announcing
