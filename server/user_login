@@ -252,7 +252,6 @@ do
                 prompt=""
                 skips=(${SKIP_LIST});
                 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
-                        echo $i
                         if ! elementIn "$i" "${skips[@]}"; then
                                 prompt="${prompt}  (${i}) p${i}"
                         fi

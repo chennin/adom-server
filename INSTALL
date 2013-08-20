@@ -344,7 +344,9 @@ cd /var/lib/adom
 . etc/config
 SUPVER="100 111"
 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
-  SUPVER+=" 120p${i}"  
+  if [ -f bin/adom-120p$i-bin ]; then
+    SUPVER+=" 120p${i}"  
+  fi
 done
 # normal games:
 for i in $SUPVER; do
@@ -477,10 +479,10 @@ chmod 1775 public_html/adom_users/ tmp/sockets
 chmod ugo+x bin/*
 # for scoring
 cd var
-chgrp adomusers 1* lea swapgame 1*/.HISCORE lea/.HISCORE\
+chgrp adomusers 1* lea swapgame 1*/*HISCORE lea/.HISCORE\
  swapgame/.HISCORE
 chmod 775 1* lea swapgame
-chmod 664 */.HISCORE
+chmod 664 */*HISCORE
 cd ..
 chmod 1777 /var/lib/adom/tmp/
 # for announcing locs

@@ -4,14 +4,26 @@ cd /var/lib/adom/tmp
 
 . /var/lib/adom/etc/config
 
+function elementIn () {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
+
 versions=('100' '111' 'lea' 'swp')
+skips=(${SKIP_LIST});
 for i in $(seq $MIN_PRE $MAX_PRE); do
-	versions+=("120p$i")
+        if ! elementIn "$i" "${skips[@]}"; then
+        	versions+=("120p$i")
+        fi
 done
 file=()
 
+name=".HISCORE"
 for v in ${versions[@]}; do
-    file=("${file[@]}" "/var/lib/adom/var/${v}/.HISCORE")
+    pv=${v:4:4}
+    if [[ ${pv} -gt 14 ]]; then name='HISCORE'; fi
+    file=("${file[@]}" "/var/lib/adom/var/${v}/${name}")
 done
 
 update()
