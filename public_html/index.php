@@ -22,7 +22,7 @@ $twit = "Your Twitter handle";
 
 
 <h1>Table of Contents</h1>
-<ul>
+<ul class='toc'>
 <li><a href="#news">News</a></li>
 <li><a href="#connect">Connecting</a></li>
 <li><a href="#play">Playing</a></li>
