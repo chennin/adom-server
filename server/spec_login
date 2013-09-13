@@ -35,7 +35,7 @@ if [ ! "$PLAYERS" = "" ]; then
 
      	echo "Please select someone to spectate, or choose an invalid option to refresh."
 	echo ""
-	echo -e "\033[1mTo escape the spectating mode, press CTRL-Q. To log out now, press\nCTRL-C.\033[0m"
+	echo -e "\033[1mTo escape the spectating mode, press CTRL-Q. To log out now, press CTRL-C.\033[0m\n"
 
 	select TGT in $PLAYERS;
 	do
