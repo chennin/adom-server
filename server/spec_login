@@ -34,7 +34,7 @@ echo
 if [ ! "$PLAYERS" = "" ]; then
 
      	echo "Please select someone to spectate, or choose an invalid option to refresh."
-	echo "refresh the list. To escape the spectating mode, press CTRL-C-D."
+	echo "refresh the list."
 	echo -e "\033[1mTo escape the spectating mode, press CTRL-C-D\033[0m. To log out now, press
 CTRL-C."
 
