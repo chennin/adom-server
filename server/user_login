@@ -206,8 +206,12 @@ do
 			/var/lib/adom/bin/modify_cnt "${HOME}/.adom.data/.adom.cnt"
 		fi
 
-		screen -DR -c /var/lib/adom/server/user-screen -S adom -s \
+		screen -qDR -c /var/lib/adom/server/user-screen -S adom -s \
 		"/var/lib/adom/server/adom_wrapper"
+                if [ $? -ne 0 ]; then
+                        echo "Screen failed to start, please ask for help. Sleeping for 10s ..."
+                        sleep 10
+                fi
 		rm -f /var/lib/adom/tmp/sockets/$USER
 		continue
 		;;

@@ -1,7 +1,8 @@
 Upgrading:
 
 1. Recompile Sage
-2. Recompile wrappers
-3. Download new version to software/ and re-patch
+2. Download new version to software/ and re-patch
+3. Recompile wrappers
 4. Redo permissions
 5. Recopy etc/adom_ds*
+6. Close all tmux windows and restart them

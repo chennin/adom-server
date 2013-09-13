@@ -4,6 +4,9 @@ multiuser on
 defwritelock on
 nonblock on
 escape "^Cc"
+startup_message off
+bind q detach # ctrl-c-q
+bindkey ^q detach # ctrl-q
 
 # try our hardest to disable XOFF; it messes with users badly
 bind s
