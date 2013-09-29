@@ -9,7 +9,7 @@ use DBI;
 
 my $cfg = new Config::Simple("/var/lib/adom/etc/config") or die "Unable to open config file $!\n";
 my $filename = $ARGV[0];
-if ($#ARGV != 0) { die "Provide a flg name"; }
+if ($#ARGV != 1) { die "Provide a flg name and version"; }
 open FLG, "<$filename"or die $!;
 
 my %races = (
@@ -22,7 +22,10 @@ my $classreg = join("|", map {quotemeta} keys %classes);
 my $WATER = 1; my $FIRE = 2; my $AIR = 4; my $EARTH = 8; my $MANA = 16; my $FISTY = 32; my $ANDY = 64;
 
 my $user = getpwuid($<); # REAL_USER_ID
-my ($name, $align, $score, $level, $race, $class, $reason, $time, $turns, $date) = undef;
+my ($name, $align, $score, $level, $race, $class, $reason, $time, $turns, $date, $version) = undef;
+$version = $ARGV[1];
+if ($version == "111") { $version = "1.1.1"; }
+elsif ($version == "100") { $version = "1.0.0"; }
 my $bs = 0; # boss bitmask
 my $catlover = 0;
 while (my $line = <FLG>) {
@@ -52,20 +55,25 @@ while (my $line = <FLG>) {
     ($race, $class) = ($1, $2);
     $reason =~ s/[\n\r]/ /g;
   }
-  # boss kill tracking
-  elsif ($line =~ /1 Snake from Beyond/) { $bs += $WATER }
-  elsif ($line =~ /1 Ancient Chaos Wyrm/) { $bs += $FIRE }
-  elsif ($line =~ /1 Master Summoner/) { $bs += $AIR }
-  elsif ($line =~ /1 Ancient Stone Beast/) { $bs += $EARTH }
-  elsif ($line =~ /1 Chaos Archmage/) { $bs += $MANA }
-  elsif ($line =~ /1 greater balor/) { $bs += $FISTY }
-  elsif ($line =~ /1 ElDeR cHaOs GoD/) { $bs += $ANDY }
   elsif ($line =~ /adhered to the principles of the Cat Lord/) { $catlover = 1; }
+  elsif ($line =~ /^Version ([0-9.]+)/) {
+        $version = $1;
+        $line = <FLG>;
+        if ($line =~ /Prerelease (\d+)/) { $version .= "p$1" }
+  }
+  # boss kill tracking
+  if ($line =~ /1 Snake from Beyond/) { $bs += $WATER }
+  if ($line =~ /1 Ancient Chaos Wyrm/) { $bs += $FIRE }
+  if ($line =~ /1 Master Summoner/) { $bs += $AIR }
+  if ($line =~ /1 Ancient Stone Beast/) { $bs += $EARTH }
+  if ($line =~ /1 Chaos Archmage/) { $bs += $MANA }
+  if ($line =~ /1 greater balor/) { $bs += $FISTY }
+  if ($line =~ /1 ElDeR cHaOs GoD/) { $bs += $ANDY }
 }
 close FLG;
 $date = stat($filename)->mtime; # modified time will have to do
 $filename = basename($filename); # store filename so we don't have to deal with special characyter replacement
-#print "$user, $name, $align, $score, $level, $race, $class, $reason, $time, $turns, $catlover, $bs, $date, $filename";
+#print "$user, $name, $align, $score, $level, $race, $class, $reason, $time, $turns, $catlover, $bs, $date, $filename, $version";
 
 # connect and record in SQL table
 my $dbh = DBI->connect("dbi:Pg:dbname=" . $cfg->param('DB_NAME') . ";host=" . $cfg->param('SQL_HOST') . ";", $cfg->param('SQL_USER'), $cfg->param('SQL_PASS'));
@@ -73,7 +81,7 @@ if (!defined $dbh) {
    die "Cannot connect to database! $!\n";
 }
 my $sth = $dbh->prepare("
-  INSERT INTO stats (username, name, align, score, level, race, class, reason, time, turns, catlover, bs, date, filename) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)") or die $dbh->errstr;
-$sth->execute($user, $name, $align, $score, $level, $race, $class, $reason, $time, $turns, $catlover, $bs, $date, $filename) or die $dbh->errstr;
+  INSERT INTO stats (username, name, align, score, level, race, class, reason, time, turns, catlover, bs, date, filename, version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)") or die $dbh->errstr;
+$sth->execute($user, $name, $align, $score, $level, $race, $class, $reason, $time, $turns, $catlover, $bs, $date, $filename, $version) or die $dbh->errstr;
 $sth->finish;
 $dbh->disconnect;

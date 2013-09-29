@@ -30,7 +30,7 @@ if (defined($user)) { # display user stats
 	print "<h2>Stats for $user</h2>\n";
         print "<p>Click any table header to sort.</p>\n";
 	print "<table class='sortable'><thead><tr>\n";
-	my @headers = ("Name", "Score", "Lvl", "R /", "C", "Align", "Game Time", "Turns", "Result", "Bosses", "Date");
+	my @headers = ("Name", "Score", "Lvl", "R /", "C", "Align", "Game Time", "Turns", "Result", "Bosses", "Date", "Version");
 	foreach my $header (@headers) {
 		print "<th>$header</th>";
 	}
@@ -39,6 +39,7 @@ if (defined($user)) { # display user stats
 	while (my $row = $sth->fetchrow_hashref()) {
 		print "<tr>";
 		print "<td class='left'>$row->{'name'}</td>";
+                $row->{'score'} =~ s/(?<=\d)(?=(?:\d\d\d)+(?!\d))/,/g; # commify
 		print "<td class='left'>$row->{'score'}</td>";
 		print "<td>$row->{'level'}</td>";
 		print "<td><span class='tooltip' title='$races{$row->{'race'}}'>$row->{'race'}</span></td>";
@@ -57,6 +58,7 @@ if (defined($user)) { # display user stats
                 if ($row->{'bs'} & $ANDY) { $bossstr .= '<span title="ElDeR cHaOs GoD">@</span>'; }
 		print "<td>$bossstr</td>";
 		print "<td sorttable_customkey='$row->{'date'}'>" . strftime "%d %b '%y", localtime $row->{'date'} . "</td>";
+		print "<td>$row->{'version'}</td>";
 		print "</tr>\n";
 	}
 
