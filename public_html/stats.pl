@@ -68,7 +68,7 @@ if (defined($user)) { # display user stats
 	$dbh->disconnect;
 }
 # ask for an(other) user
-print '<p><form name="input" action="stats.pl"><strong>Enter username:</strong><input type="text" name="user"><input type="submit" value="Submit"></form></p>';
+print '<p><form name="input" action="stats.pl"><strong>Enter username: </strong><input type="text" name="user"><input type="submit" value="Submit"></form></p>';
 
 
 print $cgi->end_html;

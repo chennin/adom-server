@@ -583,7 +583,7 @@ CREATE TABLE stats (
   catlover boolean, 
   bs smallint NOT NULL, 
   date int NOT NULL,
-  filename varchar(16) NOT NULL,
+  filename varchar(64) NOT NULL,
   version varchar(16) NOT NULL
 );
 CREATE INDEX ON stats (username);
