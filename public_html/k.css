@@ -21,3 +21,30 @@ column-count:2;
 width:40%;
 list-style-type:none;
 }
+.tooltip { 
+  border-bottom: 1px dotted; 
+  cursor:help;
+}
+table.sortable {
+  border-spacing: 10px 0px;
+}
+table.sortable tbody td {
+  text-align: center;
+}
+table.sortable tbody td.left {
+  text-align: left;
+}
+table.sortable tbody tr:nth-child(2n+1) {
+    background-color: #00002D;
+}
+table.sortable tbody tr:hover {
+    background-color: #333333;
+}
+[title="Snake from Beyond"] { color: purple; }
+[title="Ancient Chaos Wyrm"] { color: purple; }
+[title="Master Summoner"] { color: purple; }
+[title="Ancient Stone Beast"] { color: purple; }
+[title="Chaos Archmage"] { color: purple; }
+[title="Fistanarius"] { color: brown; }
+[title="ElDeR cHaOs GoD"] { color: gray; }
+

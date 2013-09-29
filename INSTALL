@@ -27,8 +27,10 @@ Table of contents:
              xvii. HISCORES
             xviii. Admin SSH key
               xix. ldconfig
-               xx. Web server
-              xxi. SSHd settings
+               xx. Stats
+                    a. PostgreSQL setup
+              xxi. Web server
+             xxii. SSHd settings
 	
 I. Setup
 ---------
@@ -58,6 +60,7 @@ The following software is required for all pieces to work:
 * Python 2.6+
 * Perl (optional, for the database bot)
 * PHP (optional, for minor Web page uses)
+* PostgreSQL (optional, for stat & history tracking)
 Python modules for the score announcing bot:
 ** IRCLib
 ** Pyinotify
@@ -66,7 +69,8 @@ Python modules for the score announcing bot:
 ** Tweepy 2.0+
 ** Feedparser
 ** Passwd (included)
-Perl modules for the database bot:
+Perl modules:
+** CGI::Compress::Gzip
 ** Bot::BasicBot
 ** Try::Tiny 
 ** String::Approx
@@ -84,8 +88,8 @@ apt-get install python-irclib elinks inotify-tools quotatool quota bash\
  libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
  wget python-pyinotify libpoe-component-sslify-perl python-configobj\
  python-oauth git openssh-server openssh-client unzip libconfig-simple-perl\
- python-feedparser libtext-levenshteinxs-perl tmux python-pip && pip install\
- tweepy
+ python-feedparser libtext-levenshteinxs-perl tmux python-pip postgresql && 
+ pip install tweepy 
 
 On RedHat-based systems, the following command, run as root, should bring in
 all you need (tested on Fedora 17):
@@ -95,7 +99,7 @@ yum -y install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
  python-oauth python-feedparser python-inotify python-configobj vim-enhanced\
  perl-Bot-BasicBot perl-Try-Tiny perl-String-Approx perl-TermReadKey\
  perl-POE-Component-SSLify perl-Config-Simple perl-Text-LevenshteinXS bash\
- && python-pip install tweepy
+ postgresql-server && python-pip install tweepy
 
 For compiling binaries from source, or related tools, a compiler and
 some development libraries are required:
@@ -526,8 +530,70 @@ xix. ldconfig
 "ldconfig" may need to be run if a package was installed from source
 (I had to when I installed tmux)
 
-xx. Web server
+xx. Stats, SQL
 ===============
+
+Game stats can be tracked via SQL and displayed via the Web. This is done via
+parsing end game logs (.flg) and storing the data in a database, so .flg files
+must be generated when prompted.  ADOM Sage will automatically answer 'Y' to
+the prompt as of version 0.9.13, but if Sage is not in use, users should
+remember to answer Y.
+
+The player stats can be found at /stats.pl?user=username.  Your Web server 
+needs to support Perl.
+
+a. PostgreSQL setup
+++++++++++++++++++++
+
+Become the psql user that was created upon PostgreSQL install:
+
+su - postgres # probably as root
+
+Start psql:
+
+psql
+
+Create a user and schema. Choose & remember a user and password:
+
+CREATE USER adomstats WITH PASSWORD 'adomstats';
+CREATE DATABASE adomstats OWNER adomstats;
+
+Exit PostgreSQL and exit the psql user.  Become the ADOM server owner:
+
+su - adomown # probably as root
+
+Start psql as the ADOM owner:
+
+psql adomstats -U adomstats -h localhost -W
+
+Create the table:
+
+CREATE TABLE stats (
+  id serial PRIMARY KEY,
+  username varchar(16) NOT NULL,
+  name varchar(16) NOT NULL, 
+  align varchar(2) NOT NULL, 
+  score bigint NOT NULL, 
+  level smallint NOT NULL, 
+  race varchar(16) NOT NULL, 
+  class varchar(16) NOT NULL, 
+  reason text NOT NULL, 
+  time varchar(16) NOT NULL, 
+  turns integer NOT NULL, 
+  catlover boolean, 
+  bs smallint NOT NULL, 
+  date int NOT NULL,
+  filename varchar(16) NOT NULL
+);
+CREATE INDEX ON stats (username);
+
+Exit PostgreSQL.
+
+Edit etc/config and fill in the database section with the username and
+password chosen earlier.
+
+xxi. Web server
+================
 
 A Web server should be set up to provide the readme, display hi on the web,
 and allow users to (optionally) download their files.  Setting up the server
@@ -541,6 +607,8 @@ with the name and other details of the server, and remove index.html.
 
 Alternately, edit the static index.html and remove index.php.
 
+Perl should also be able to be run as CGI on the Web server, for stat display.
+
 To serve up ADOM's text files in a browser, the MIME types of some file 
 extensions should be touched. Specifically, the following types would benefit 
 from being sent as text/plain:
@@ -548,8 +616,8 @@ from being sent as text/plain:
 And the following would benefit from being sent as application/octet-stream:
   svg
 
-xxi. SSHd settings
-===================
+xxii. SSHd settings
+====================
 
 The following unusual SSH daemon settings are recommended (the config file is
 usually at /etc/ssh/sshd_config):

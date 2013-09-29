@@ -114,7 +114,6 @@ if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
     sleep 10
 else
     rm ${HOME}/adom_dirty
-    find /var/lib/adom/tmp/player_locations -type f -user $USER -mmin +29 -delete 
 #    rm -f ${HOME}/cryopid_image
     svdir=${HOME}/.adom.data/savedg
     bkdir=${HOME}/.adom.data/backup
@@ -130,6 +129,11 @@ else
     done
 fi
 
+for newflg in $(find ${HOME} -maxdepth 1 -name '*.flg'); do
+  /var/lib/adom/server/record-flg.pl "${newflg}"
+done
+find ${HOME} -maxdepth 1 -name '*.flg' -exec chmod 644 '{}' \; -exec mv '{}' ${HOME}/flgs \;
+find /var/lib/adom/tmp/player_locations -type f -user $USER -mmin +29 -delete 
 rm -f /var/lib/adom/tmp/sockets/$USER
 rm -f /var/lib/adom/${adom_ver}/ADOM_HS.LCK /var/lib/adom/${adom_ver}/adom.err
 rm -f $HOME/.adom.data/.adom.prc

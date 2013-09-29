@@ -43,3 +43,8 @@ URL=replace
 DONUSER=mewith
 PASSWORD=therealstuff
 
+#SQL parameters for stats
+SQL_HOST=localhost
+SQL_USER=
+SQL_PASS=
+DB_NAME=stats
