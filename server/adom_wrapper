@@ -130,7 +130,7 @@ else
 fi
 
 for newflg in $(find ${HOME} -maxdepth 1 -name '*.flg'); do
-  /var/lib/adom/server/record-flg.pl "${newflg}" "$adom-ver"
+  /var/lib/adom/server/record-flg.pl "${newflg}" "${adom_ver}"
 done
 find ${HOME} -maxdepth 1 -name '*.flg' -exec chmod 644 '{}' \; -exec mv '{}' ${HOME}/flgs \;
 find /var/lib/adom/tmp/player_locations -type f -user $USER -mmin +29 -delete 
