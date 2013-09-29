@@ -138,7 +138,6 @@ for newflg in $(find ${HOME} -maxdepth 1 -name '*.flg'); do
   chmod 644 "${movefrom}";
   mv "${movefrom}" ${HOME}/flgs/${newname}
   /var/lib/adom/server/record-flg.pl "${HOME}/flgs/${newname}" "${adom_ver}"
-  sleep 10
 done
 find /var/lib/adom/tmp/player_locations -type f -user $USER -mmin +29 -delete 
 rm -f /var/lib/adom/tmp/sockets/$USER
