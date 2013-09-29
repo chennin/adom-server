@@ -24,8 +24,8 @@ my $WATER = 1; my $FIRE = 2; my $AIR = 4; my $EARTH = 8; my $MANA = 16; my $FIST
 my $user = getpwuid($<); # REAL_USER_ID
 my ($name, $align, $score, $level, $race, $class, $reason, $time, $turns, $date, $version) = undef;
 $version = $ARGV[1];
-if ($version == "111") { $version = "1.1.1"; }
-elsif ($version == "100") { $version = "1.0.0"; }
+if ($version eq "111") { $version = "1.1.1"; }
+elsif ($version eq "100") { $version = "1.0.0"; }
 my $bs = 0; # boss bitmask
 my $catlover = 0;
 while (my $line = <FLG>) {
