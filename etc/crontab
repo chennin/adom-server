@@ -3,7 +3,7 @@
 0,5,10,15,20,25,30,35,40,45,50,55 * * * * python /var/lib/adom/server/update_idletimes.py 5
 
 0 0,4,8,12,16,20  *   *   *     python /var/lib/adom/server/ttyreclister.py
-0 0 * * * find /var/lib/adom/player_locations -type f \! -name ".*" -mmin +29 -delete
+0 0 * * * find /var/lib/adom/tmp/player_locations -type f \! -name ".*" -mmin +29 -delete
 0 1 * * * find /var/lib/adom/users -name savedg -exec chmod 755 '{}' \;
 25 4 * * * find /var/lib/adom/users -name "ttyrec-*" -mtime +30 -type f -delete
 @reboot sleep 60; $HOME/server/adom-bots-tmux
