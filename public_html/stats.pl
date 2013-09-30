@@ -68,7 +68,7 @@ sub print_table_footer() {
 sub print_row($) {
         my $row = shift;
         print "<tr>";
-        if (!defined($user)) { $user = $row->{'username'}; }
+        if (!defined($cgi->param('user'))) { $user = $row->{'username'}; }
         print "<td class='left'>$row->{'name'}</td>";
         $row->{'score'} =~ s/(?<=\d)(?=(?:\d\d\d)+(?!\d))/,/g; # commify
         print "<td class='left'>$row->{'score'}</td>";
