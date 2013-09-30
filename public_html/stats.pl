@@ -5,7 +5,11 @@ use POSIX qw(strftime);
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);  # uncomment to spit errors at the user instead of the Web server log
 use Config::Simple;
 use DBI;
-                                                                                                                                                             my $cfg = new Config::Simple("/var/lib/adom/etc/config") or die "Unable to open config file $!\n";
+sub print_table_header();
+sub print_table_footer();
+sub print_row($);
+
+my $cfg = new Config::Simple("/var/lib/adom/etc/config") or die "Unable to open config file $!\n";
 
 my $WATER = 1; my $FIRE = 2; my $AIR = 4; my $EARTH = 8; my $MANA = 16; my $FISTY = 32; my $ANDY = 64;
 
@@ -60,7 +64,8 @@ sub print_table_header() {
         my @headers = ("Name", "Score", "Lvl", "R /", "C", "Align", "Game Time", "Turns", "Result", "Bosses", "Date", "Version");
         foreach my $header (@headers) {
                 print "<th>$header</th>";
-        }                                                                                                                                                            print "</tr></thead><tbody>\n";  
+        }
+        print "</tr></thead><tbody>\n";
 }
 sub print_table_footer() {
 	print "</tbody></table>\n";
@@ -88,7 +93,7 @@ sub print_row($) {
         if ($row->{'bs'} & $FISTY) { $bossstr .= '<span title="Fistanarius">&</span>'; }
         if ($row->{'bs'} & $ANDY) { $bossstr .= '<span title="ElDeR cHaOs GoD">@</span>'; }
         print "<td>$bossstr</td>";
-        print "<td sorttable_customkey='$row->{'date'}'>" . strftime "%d %b '%y", localtime $row->{'date'} . "</td>";
+        print "<td sorttable_customkey='$row->{'date'}'>" . (strftime "%d %b '%y", localtime $row->{'date'}) . "</td>";
         print "<td>$row->{'version'}</td>";
         print "</tr>\n";
 }
