@@ -74,8 +74,13 @@ sub print_table_footer() {
 sub print_row($) {
         my $row = shift;
         print "<tr>";
-        if (!defined($cgi->param('user'))) { $user = $row->{'username'}; }
-        print "<td class='left'>$row->{'name'}</td>";
+        if (!defined($cgi->param('user'))) { # add username to char name on top list
+                $user = $row->{'username'};
+                print "<td class='left'>$row->{'name'} (<a class='small' href='/stats.pl?user=$user'>$user</a>)</td>";
+        }
+        else { # on user page, just print name
+                print "<td class='left'>$row->{'name'}</td>";
+        }
         $row->{'score'} =~ s/(?<=\d)(?=(?:\d\d\d)+(?!\d))/,/g; # commify
         print "<td class='left'>$row->{'score'}</td>";
         print "<td>$row->{'level'}</td>";
