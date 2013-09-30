@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 use strict; use warnings;
-use CGI;  # Change to "use CGI::Compress::Gzip;" if you have this module and want to compress output
+use CGI;
 use POSIX qw(strftime);
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);  # uncomment to spit errors at the user instead of the Web server log
 use Config::Simple;
@@ -16,8 +16,9 @@ my $WATER = 1; my $FIRE = 2; my $AIR = 4; my $EARTH = 8; my $MANA = 16; my $FIST
 my %races = ( 'Dr'=>    'drakish', 'Dw'=>    'dwarven', 'De'=>    'dark elven', 'Ge'=>    'gray elven', 'He'=>    'high elven', 'Gn'=>    'gnomish', 'Hm'=>    'human', 'Hr'=>    'hurthling', 'Or'=>    'orcish', 'Tr'=>    'trollish', 'Rt'=>    'ratling', 'Me'=>    'mist elven',);
 my %classes = ( 'Ar'=>    'archer', 'As'=>    'assassin', 'Bb'=>    'barbarian', 'Br'=>    'bard', 'Bf'=>    'beastfighter', 'Dr'=>    'druid', 'El'=>    'elementalist', 'Fa'=>    'farmer', 'Fi'=>    'fighter', 'He'=>    'healer', 'Me'=>    'merchant', 'Mi'=>    'mindcrafter', 'Mo'=>    'monk', 'Ne'=>    'necromancer', 'Pa'=>    'paladin', 'Pr'=>    'priest', 'Ra'=>    'ranger', 'Th'=>    'thief', 'We'=>    'weaponsmith', 'Wz'=>    'wizard', 'Ck'=>    'chaos knight', 'Du'=>    'duelist',);
 
-my $cgi = new CGI; # Change to "... new CGI::Compress::Gzip;" if you have this module
+my $cgi = new CGI;
 print $cgi->header; # HTTP header
+#use CGI::WebGzip;
 print $cgi->start_html(
 		-title => "ADOM Server User Stats",
 		-script => { -type =>'JAVASCRIPT', -src => "sorttable.js", },
