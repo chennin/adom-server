@@ -17,7 +17,7 @@ print $cgi->header; # HTTP header
 print $cgi->start_html(
 		-title => "ADOM Server User Stats",
 		-script => { -type =>'JAVASCRIPT', -src => "sorttable.js", },
-		-style => { -src => 'k.css'},
+		-style => { -src => '/k.css'},
 		);
 my $user = undef;
 $user = $cgi->param('user');
