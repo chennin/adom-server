@@ -210,8 +210,8 @@ int main(int argc, char **argv)
 
   // Fill out what to run
 #define BINLEN 17
-#define SOLEN 21
-#define SAGELEN 19
+#define SOLEN 22
+#define SAGELEN 20
   char binname[BINLEN];
   char sagesoname[SOLEN];
   char sagename[SAGELEN];
