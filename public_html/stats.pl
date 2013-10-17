@@ -43,7 +43,7 @@ if (defined($user)) { # display user stats
 	$sth->finish;
 }
 else { # no username given, display other stats
-        my $sth = $dbh->prepare(" SELECT * from stats ORDER BY date DESC LIMIT 10 ") or die $dbh->errstr;
+        my $sth = $dbh->prepare(" SELECT * from stats WHERE reason<>'quit prematurely' AND reason<>'left the Drakalor Chain never to come back' ORDER BY date DESC LIMIT 10 ") or die $dbh->errstr;
         $sth->execute() or die $dbh->errstr;
         print "<h2>Last 10 games</h2>\n";
         print_table_header();
