@@ -64,7 +64,8 @@ sub print_table_header() {
 	print "<table class='sortable'><thead><tr>\n";
         my @headers = ("Name", "Score", "Lvl", "R /", "C", "Align", "Game Time", "Turns", "Result", "Bosses", "Date", "Version");
         foreach my $header (@headers) {
-                print "<th>$header</th>";
+                if ($header eq "Game Time") { print "<th class='sorttable_numeric'>$header</th>"; }
+                else { print "<th>$header</th>"; }
         }
         print "</tr></thead><tbody>\n";
 }
