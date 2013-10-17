@@ -219,13 +219,11 @@ int main(int argc, char **argv)
   memset(sagesoname,'\0',SOLEN);
   memset(sagename,'\0',SAGELEN);
 
-  strncpy(sagesoname, "adom-sage-0.9.13.1.so", SOLEN);
-  strncpy(sagename, "adom-sage-0.9.13.1", SAGELEN);
+  strncpy(sagesoname, "adom-sage-0.9.14.so", SOLEN);
+  strncpy(sagename, "adom-sage-0.9.14", SAGELEN);
 
   snprintf(binname, BINLEN, "adom-%s-bin", vers);
   if (strcmp(vers,"111") == 0) {
-    strncpy(sagename, "adom-sage", SAGELEN);
-    strncpy(sagesoname, "adom-sage-jaakkos.so", SOLEN);
     if (strcmp(chal, "lea") == 0) {
       strncpy(binname, "adom-lea-bin", BINLEN);
     }
