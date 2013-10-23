@@ -257,7 +257,7 @@ do
                 skips=(${SKIP_LIST});
                 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
                         if ! elementIn "$i" "${skips[@]}"; then
-                                prompt="${prompt}  (${i}) p${i}"
+                                prompt="${prompt} (${i}) p${i}"
                         fi
                 done
                 read -e -p "${prompt}: " pvers

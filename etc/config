@@ -29,7 +29,7 @@ RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
 #Prerelease versions supported
 MIN_PRE=3
 SKIP_LIST="1 2 15"
-MAX_PRE=16
+MAX_PRE=17
 LATEST_FREE_PRE=5
 
 #For Twitter announcing
