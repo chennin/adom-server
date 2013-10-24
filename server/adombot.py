@@ -83,7 +83,7 @@ signal.signal(signal.SIGINT, signal_handler)
 def tweet(version, text):
     if ANCTOTWIT != 1:
       return
-    m = re.match(r"(.*?)\. (L\d{0,1}.*?) \((M|F)\)\. \d+ xps\. \d+ turns?\. (.*?)\. Score (\d+)",text)
+    m = re.match(r"(.*?)\. L(\d{0,1}.*?) \((M|F)\)\. \d+ xps\. \d+ turns?\. (.*?)\. Score (\d+)",text)
 
     if not m:
         print "Regex did not match, no tweet sent, text: " + text
@@ -118,7 +118,7 @@ def tweet(version, text):
         reason = reason[4:]
 
 
-    newtext = "#ADOM {0} score: {1}, {2}, {3}.".format(version, charuser, raceclass, reason)
+    newtext = "#ADOM {0} score: {1}, L{2}, {3}.".format(version, charuser, raceclass, reason)
     if newtext.__len__() > 140:
         makeup = newtext.__len__() - 140
         rdiff = reason.__len__() - makeup - 2
@@ -126,7 +126,7 @@ def tweet(version, text):
             return
         reason = reason[0:rdiff] + ".."
 
-    newtext = "#ADOM {0} score: {1}, {2}, {3}.".format(version, m.group(1), raceclass, reason)
+    newtext = "#ADOM {0} score: {1}, L{2}, {3}.".format(version, m.group(1), raceclass, reason)
     print newtext
     try:
         api.update_status(newtext)
