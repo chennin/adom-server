@@ -4,6 +4,7 @@ use CGI;
 use POSIX qw(strftime);
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);  # uncomment to spit errors at the user instead of the Web server log
 use Config::Simple;
+use HTML::Entities;
 use DBI;
 sub print_table_header();
 sub print_table_footer();
@@ -32,7 +33,7 @@ if (defined($user)) { # display user stats
 	my $sth = $dbh->prepare(" SELECT * from stats WHERE username=? ORDER BY date ") or die $dbh->errstr;
 	$sth->execute($user) or die $dbh->errstr;
 
-	print "<h2>Stats for $user</h2>\n";
+	print "<h2>Stats for " . encode_entities($user) . "</h2>\n";
         print "<p>Click any table header to sort.</p>\n";
         print_table_header();
 
