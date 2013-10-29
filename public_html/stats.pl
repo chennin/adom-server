@@ -27,13 +27,20 @@ print $cgi->start_html(
 		);
 my $user = undef;
 $user = $cgi->param('user');
+my $MAX_DATE = 2147483647; # change me & schema before 2038
+my $skipts = $MAX_DATE;
+if (defined($cgi->param('skipts')) && ($cgi->param('skipts') =~ /^[0-9]+$/)) {
+  $skipts = $cgi->param('skipts');
+}
 my $dbh = DBI->connect("dbi:Pg:dbname=" . $cfg->param('DB_NAME') . ";host=" . $cfg->param('SQL_HOST') . ";", $cfg->param('SQL_USER'), $cfg->param('SQL_PASS'));
 if (!defined $dbh) { die "Cannot connect to database! $!\n"; }
 if (defined($user)) { # display user stats
-	my $sth = $dbh->prepare(" SELECT * from stats WHERE username=? ORDER BY date ") or die $dbh->errstr;
-	$sth->execute($user) or die $dbh->errstr;
+        $user = encode_entities($user);
+        my $sth = $dbh->prepare(" SELECT * from stats WHERE username=? AND date <=? ORDER BY date DESC LIMIT 25") or die $dbh->errstr;
+        $sth->execute($user, $skipts) or die $dbh->errstr;
+        my $count = $sth->rows;
 
-	print "<h2>Stats for " . encode_entities($user) . "</h2>\n";
+	print "<h2>Stats for $user</h2>\n";
         print "<p>Click any table header to sort.</p>\n";
         print_table_header();
 
@@ -41,22 +48,37 @@ if (defined($user)) { # display user stats
                 print_row($row);
 	}
         print_table_footer();
+        if ($count >= 25) {
+                print "<a href=\"stats.pl?user=$user&skipts=$skipts\">Next</a>\n";
+        }
+        print "<br />\n";
 	$sth->finish;
 }
 else { # no username given, display other stats
-        my $sth = $dbh->prepare(" SELECT * from stats WHERE reason<>'quit prematurely' AND reason<>'left the Drakalor Chain never to come back' ORDER BY date DESC LIMIT 10 ") or die $dbh->errstr;
-        $sth->execute() or die $dbh->errstr;
-        print "<h2>Last 10 games</h2>\n";
+        print "<h1>ADOM Server User Stats</h1>\n";
+        # ask for an(other) user
+        print '<p><form name="input" action="stats.pl"><strong>Enter username: </strong><input type="text" name="user"><input type="submit" value="Submit"></form></p>';
+        my $statement = "SELECT * from stats WHERE reason<>'quit prematurely' AND reason<>'left the Drakalor Chain never to come back' AND date<=? ORDER BY date DESC LIMIT 10";
+        my $sth = $dbh->prepare($statement) or die $dbh->errstr;
+        $sth->execute($skipts) or die $dbh->errstr;
+        my $count = $sth->rows;
+        if ($skipts < $MAX_DATE) {
+                print "<h2>$count interesting games ending " . (strftime "%F %T", localtime $skipts) . " or before</h2>\n";
+        }
+        else {
+                print "<h2>Last $count interesting games</h2>\n";
+        }
         print_table_header();
 	while (my $row = $sth->fetchrow_hashref()) {
                 print_row($row);
 	}
         print_table_footer();
+        if ($count >= 10) {
+                print "<a href=\"stats.pl?skipts=$skipts\">Next</a>\n";
+        }
 	$sth->finish;
 }
 $dbh->disconnect;
-# ask for an(other) user
-print '<p><form name="input" action="stats.pl"><strong>Enter username: </strong><input type="text" name="user"><input type="submit" value="Submit"></form></p>';
 
 print $cgi->end_html;
 exit;
@@ -72,6 +94,11 @@ sub print_table_header() {
 }
 sub print_table_footer() {
 	print "</tbody></table>\n";
+        print "<br />\n";
+        if (defined($cgi->param('skipts'))) {
+                print "<noscript>Back</noscript><script>document.write('<a href=\"' + document.referrer + '\">Back</a>');</script>";
+        }
+        print " <a href=\"stats.pl\">Home</a> ";
 }
 sub print_row($) {
         my $row = shift;
@@ -104,4 +131,6 @@ sub print_row($) {
         print "<td sorttable_customkey='$row->{'date'}'>" . (strftime "%d %b '%y", localtime $row->{'date'}) . "</td>";
         print "<td>$row->{'version'}</td>";
         print "</tr>\n";
+
+       $skipts = $row->{'date'};
 }
