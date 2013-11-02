@@ -113,6 +113,12 @@
   #define TURNCOUNTER 0x82db378
   #define IDCOUNT 0x82e05dc /* and 0x82e15e8 */
   #define CHARNAME 0x82c79c4 /* INGAME, not loading screen.  Still works. */
+#elif defined ADOM_120p18
+  #define LEVELID 0x82d7fbc
+  #define EXPLVL 0x82dba14
+  #define TURNCOUNTER 0x82dba18
+  #define IDCOUNT 0x82e1c88 /* and 0x82e0c7c (I64 seems to not be the master) */
+  #define CHARNAME 0x82c8064 /* INGAME, not loading screen.  Still works. */
 #endif
 
 // Challenge game text
