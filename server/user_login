@@ -249,27 +249,41 @@ do
 
                 DEF=${MAX_PRE}
                 if [[ ! -f $HOME/donated ]]; then
-                        DEF=${LATEST_FREE_PRE}
+                        DEF=${MAX_FREE_PRE}
                 fi
 
                 echo "Which prerelease (default: 1.2.0p${DEF})? "
                 prompt=""
                 skips=(${SKIP_LIST});
-                for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
-                        if ! elementIn "$i" "${skips[@]}"; then
-                                prompt="${prompt} (${i}) p${i}"
-                        fi
-                done
+                frees=(${FREE_LIST});
+
+                if [[ -f $HOME/donated ]]; then
+                        for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
+                                if ! elementIn "$i" "${skips[@]}"; then
+                                        prompt="${prompt} (${i}) p${i}"
+                                fi
+                        done
+                else
+                        prompt="(0) Enter donator details for more versions"
+                        for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
+                                if elementIn "$i" "${frees[@]}"; then
+                                        prompt="${prompt} (${i}) p${i}"
+                                fi
+                        done
+                fi
+
                 read -e -p "${prompt}: " pvers
                 pvers="${pvers:-$DEF}"
+
+                if [[ x"${pvers}" == x"0" ]] && [[ ! -f ${HOME}/donated ]]; then
+                        /var/lib/adom/server/donation_check.sh
+                        continue
+                fi
+
                 if [[ $pvers != *[[:digit:]]* ]] || [ $pvers -lt 3 ] || [ $pvers -gt $MAX_PRE ]; then
                         echo "Invalid selection"
                         sleep 3
                         continue
-                fi
-                if [[ $pvers -gt ${LATEST_FREE_PRE} ]] || [[ $pvers -eq 4 ]]; then
-                        /var/lib/adom/server/donation_check.sh
-                        if [ $? -ne 0 ]; then continue; fi
                 fi
 
                 adom_ver="120p${pvers}"

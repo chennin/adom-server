@@ -11,8 +11,8 @@ echo ""
 echo "To prove that you donated to the ADOM Resurrection campaign, please"
 echo "enter the details from the email you received."
 echo ""
-echo "If you don't have them, 1.2.0p${LATEST_FREE_PRE} is free to all, so try to change"
-echo "versions again and enter '${LATEST_FREE_PRE}'".
+echo "If you don't have them, 1.2.0p${MAX_FREE_PRE} is free to all, so try to change"
+echo "versions again and enter '${MAX_FREE_PRE}'".
 echo ""
 read -p "ADOM prerelease download URL: " -e GURL
 read -p "Username: " -e GUSER
