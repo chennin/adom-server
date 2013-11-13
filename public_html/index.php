@@ -103,6 +103,7 @@ $twit = "Your Twitter handle";
   <li>Window -&gt; Translation -&gt; Remote Character Set: -&gt; UTF-8 (for nice blocks and lines with Sage)</li>
   <li>Window -&gt; Appearance -&gt; "Underline"</li>
   <li>Window -&gt; Selection -&gt; Windows (Middle extends, Right brings up menu) (prevents right-click from pasting)</li>
+  <li>Window -&gt; Colours -&gt; check "Bolded text is a different color"</li>
   <li>Terminal -&gt; Bell -&gt; None (bell disabled)</li>
   <li>Terminal -&gt; Features -&gt; Disable application keypad mode (this makes the numpad work)</li>
   <li>Terminal -&gt; Keyboard -&gt; xterm R6 (in order to use the function keys properly)</li>
