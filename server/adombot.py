@@ -205,9 +205,9 @@ def poll_hiscore():
             tweet("1.2.0p14", key);
         
         for key in diff_120p16:
-            print key + " Version 1.2.0p16-18."
-            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.2.0p16-18.")
-            tweet("1.2.0p16-18", key);
+            print key + " Version 1.2.0p16-19."
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.2.0p16-19.")
+            tweet("1.2.0p16-19", key);
 
 
 def loc_changed(filename):
