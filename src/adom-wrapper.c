@@ -219,7 +219,7 @@ int main(int argc, char **argv)
   memset(sagesoname,'\0',SOLEN);
   memset(sagename,'\0',SAGELEN);
 
-  strncpy(sagesoname, "adom-sage-0.9.17.so", SOLEN);
+  strncpy(sagesoname, "adom-sage-0.9.17.1.so", SOLEN);
   strncpy(sagename, "adom-sage-0.9.17", SAGELEN);
 
   snprintf(binname, BINLEN, "adom-%s-bin", vers);
