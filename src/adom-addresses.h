@@ -125,6 +125,12 @@
   #define TURNCOUNTER 0x82dc5b8
   #define IDCOUNT 0x82e1820 /* and 0x82e282c (I64 seems to not be the master) */
   #define CHARNAME 0x82c8c04 /* and 0x82c8c64? INGAME. */
+#elif defined ADOM_120p20
+  #define LEVELID 0x82D8ADC
+  #define EXPLVL 0x82DC534
+  #define TURNCOUNTER 0x82DC538
+  #define IDCOUNT 0x82E17A0
+  #define CHARNAME 0x82C8B84
 #endif
 
 // Challenge game text
