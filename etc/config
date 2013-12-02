@@ -5,13 +5,13 @@ SERVNAME=adom.example.com
 #SERVHOME=/var/lib/adom
 
 #IRC options
-IRCSERV=irc.freenode.net
+IRCSERV=irc.example.com
 IRCPORT=6697
 #0 for false, 1 for true
 IRCSSL=1
 #quote your channels
-IRCCHAN="#adom2"
-ANCNICK=AnnounceBot2
+IRCCHAN="#example"
+ANCNICK=AnnounceBot
 DBNICK=dbbot
 
 ##Python bot options
@@ -20,26 +20,24 @@ ANNOUNCE_TO_IRC=True
 #announce scores on twitter
 ANNOUNCE_TO_TWITTER=False
 #relay TB's tweets
-READ_TWEETS=True
-TWITTERNAME=ancardiaus
+READ_TWEETS=False
+TWITTERNAME=adom_dev
 #relay TB's blog posts
 READ_RSS=False
 RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
 
 #Prerelease versions supported
 MIN_PRE=3
-MAX_PRE=20
 SKIP_LIST="1 2 15"
+MAX_PRE=20
 FREE_LIST="3 5 18 19 20"
 MAX_FREE_PRE=20
 
-
 #For Twitter announcing
-CONSUMER_KEY=bAZZH7aEqZbhOsNc4MLg
-CONSUMER_SECRET=iy9c3RHBjnTzhvinEVgjAkU2kQPDMgt7a8G1znxOUZ0
-ACCESS_KEY=872445073-HVyS7QFbFZrb3Y1LXJR5QjlZIyrCmBGQW8aR9HZ9
-ACCESS_SECRET=75IUmyk20EEJTg4Fbp3qIuLGslaMd1OQ2og6mwiBiBI
-
+CONSUMER_KEY=
+CONSUMER_SECRET=
+ACCESS_KEY=
+ACCESS_SECRET=
 
 #For playing donator-only prereleases
 URL=replace
@@ -48,6 +46,6 @@ PASSWORD=therealstuff
 
 #SQL parameters for stats
 SQL_HOST=localhost
-SQL_USER=adomstats
-SQL_PASS=adomstats
-DB_NAME=adomstats
+SQL_USER=
+SQL_PASS=
+DB_NAME=stats
