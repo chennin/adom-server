@@ -20,7 +20,7 @@ do
 
     echo "Please note that you will need to switch the ADOM version in the main menu in"
     echo "order to edit configurations for other versions (this does not apply to the SSH"
-    echo "SSH authorized_keys file)."
+    echo "authorized_keys file)."
     echo
     echo "In nano, press Ctrl+O to save your new config and press Ctrl+X to exit."
     echo
@@ -28,17 +28,18 @@ do
     echo
     echo "  1 - adom.cfg, main ADOM configuration file"
     echo "  2 - adom.kbd, ADOM keymap configuration file"
-    echo "  3 - sage.cfg, ADOM Sage main configuration file"
-    echo "  4 - sage.msg, ADOM Sage message configuration file"
-    echo "  5 - sage.kbd, ADOM Sage keymap configuration file"
+    echo "  3 - adom.msg, ADOM message configuration file [1.2.0p17+]"
+    echo "  4 - sage.cfg, ADOM Sage main configuration file"
+    echo "  5 - sage.msg, ADOM Sage message configuration file"
+    echo "  6 - sage.kbd, ADOM Sage keymap configuration file"
     echo
-    echo "  6 - Copy config files to current ADOM version"
+    echo "  7 - Copy config files to current ADOM version"
     echo
-    echo "  7 - ~/.ssh/authorized_keys, authorized SSH RSA/DSA public keys"
+    echo "  8 - ~/.ssh/authorized_keys, authorized SSH RSA/DSA public keys"
     echo
-    echo "  8 - toggle vim/nano for text editing"
+    echo "  9 - toggle vim/nano for text editing"
     echo
-    echo "  9 - quit"
+    echo "  0 - quit"
 
     read -e -p "> " command
     case $command in
@@ -66,6 +67,15 @@ do
 	    ;;
 	
 	3)
+            if [ -f "${HOME}/.adom.data/adom.msg" ]; then
+	      ${EDITOR} "${HOME}/.adom.data/adom.msg"
+            else
+              notfound
+            fi
+	    continue
+	    ;;
+
+	4)
             if [ -f "${HOME}/.adom.data/sage.cfg" ]; then
   	      ${EDITOR} "${HOME}/.adom.data/sage.cfg"
             else
@@ -74,7 +84,7 @@ do
 	    continue
 	    ;;
 	
-	4)
+	5)
             if [ -f "${HOME}/.adom.data/sage.msg" ]; then
 	      ${EDITOR} "${HOME}/.adom.data/sage.msg"
             else
@@ -83,7 +93,7 @@ do
 	    continue
 	    ;;
 	
-        5)
+        6)
             if [ -f "${HOME}/.adom.data/sage.kbd" ]; then
               ${EDITOR} "${HOME}/.adom.data/sage.kbd"
             else
@@ -91,15 +101,15 @@ do
             fi
             continue
             ;;
-	6)
+	7)
 	    /var/lib/adom/server/copy_conf	
 	    continue
 	    ;;
-	7)
+	8)
 	    ${EDITOR} "${HOME}/.ssh/authorized_keys"
 	    continue;
 	    ;;
-        8)
+        9)
            NEWED='rnano'
            if [ "${EDITOR}x" == "rnanox" ]; then
               NEWED='rvim'
@@ -114,7 +124,7 @@ do
            fi
            continue
            ;;            
-	9|q|z)
+	0|q|z)
 	    exit
 	    ;;
 	*)
