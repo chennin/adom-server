@@ -353,3 +353,46 @@
 #define BUGVL_2 0x03 /* Bug Infested Temple   	L2 */
 #define BUGCV_1 0x18 /* Bug Temple Cave   	L1 */
 #define BUGCV_2 0x03 /* Bug Temple Cave   	L2 */
+#define UCa_1 0x19 /* Introductory Dungeon   	L1 */
+#define UCa_2 0x03 /* Introductory Dungeon   	L2 */
+#define UCa1_1 0x1a /* Introductory Dungeon - Non-tutorial 1   	L1 */
+#define UCa1_2 0x03 /* Introductory Dungeon - Non-tutorial 1 	L2 */
+#define UCa2_1 0x1b /* Introductory Dungeon - Non-tutorial 2   	L1 */
+#define UCa2_2 0x03 /* Introductory Dungeon - Non-tutorial 2 	L2 */
+#define UCa3_1 0x1c /* Introductory Dungeon - Non-tutorial 3   	L1 */
+#define UCa3_2 0x03 /* Introductory Dungeon - Non-tutorial 3 	L2 */
+#define IC1_1 0x1d /* Ice Queen 1   	L1 */
+#define IC1_2 0x03 /* Ice Queen 1   	L2 */
+#define IC2_1 0x1e /* Ice Queen 2   	L1 */
+#define IC2_2 0x03 /* Ice Queen 2   	L2 */
+#define IC3_1 0x1f /* Ice Queen 3   	L1 */
+#define IC3_2 0x03 /* Ice Queen 3   	L2 */
+#define IC4_1 0x20 /* Ice Queen 4   	L1 */
+#define IC4_2 0x03 /* Ice Queen 4   	L2 */
+#define IC5_1 0x21 /* Ice Queen 5   	L1 */
+#define IC5_2 0x03 /* Ice Queen 5   	L2 */
+#define IC6_1 0x22 /* Ice Queen 6   	L1 */
+#define IC6_2 0x03 /* Ice Queen 6   	L2 */
+#define IC7_1 0x23 /* Ice Queen 7   	L1 */
+#define IC7_2 0x03 /* Ice Queen 7   	L2 */
+#define IC8_1 0x24 /* Ice Queen 8   	L1 */
+#define IC8_2 0x03 /* Ice Queen 8   	L2 */
+#define IC9_1 0x25 /* Ice Queen Throne   	L1 */
+#define IC9_2 0x03 /* Ice Queen Throne   	L2 */
+#define ICD_1 0x26 /* Ice Queen Danger   	L1 */
+#define ICD_2 0x03 /* Ice Queen Danger   	L2 */
+
+#define FGJC1_1 0x28 /* Front Giant Jarl Cave 1   	L1 */
+#define FGJC1_2 0x03 /* Front Giant Jarl Cave 1   	L2 */
+#define FGJC2_1 0x29 /* Front Giant Jarl Cave 2   	L1 */
+#define FGJC2_2 0x03 /* Front Giant Jarl Cave 2   	L2 */
+#define FGJC3_1 0x2a /* Front Giant Jarl Cave 3   	L1 */
+#define FGJC3_2 0x03 /* Front Giant Jarl Cave 3   	L2 */
+#define FGJC4_1 0x2b /* Front Giant Jarl Cave 4   	L1 */
+#define FGJC4_2 0x03 /* Front Giant Jarl Cave 4   	L2 */
+#define FGJC5_1 0x2c /* Front Giant Jarl Cave 5   	L1 */
+#define FGJC5_2 0x03 /* Front Giant Jarl Cave 5   	L2 */
+#define FGJC6_1 0x2d /* Front Giant Jarl Cave 6   	L1 */
+#define FGJC6_2 0x03 /* Front Giant Jarl Cave 6   	L2 */
+#define FGJCB_1 0x2e /* Front Giant Jarl Cave Bottom (????)   	L1 */
+#define FGJCB_2 0x03 /* Front Giant Jarl Cave Bottom (????)   	L2 */
