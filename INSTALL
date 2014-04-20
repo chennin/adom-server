@@ -104,7 +104,8 @@ yum -y install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
 For compiling binaries from source, or related tools, a compiler and
 some development libraries are required:
 
-apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc g++ make autoconf
+apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc-mulitlib make\
+ autoconf g++-multilib
 #or
 yum groupinstall "development tools"; yum install ncurses-devel\
   bzip2-devel zlib-devel
@@ -456,7 +457,7 @@ account then enable API access and generate and find the access and consumer
 tokens.
 See https://dev.twitter.com/docs/auth/tokens-devtwittercom for help generating.
 
-The donation section is for enabling 1.2.0 prerelease 4-last for people who 
+The donation section is for enabling private 1.2.0 prereleases for people who
 donated to the ADOM Resurrection IndieGoGo campaign.  Obviously, you have to
 have donated to fill them in, but they cannot be provided or distributed.
 
@@ -603,9 +604,9 @@ password chosen earlier.
 xxi. Web server
 ================
 
-A Web server should be set up to provide the readme, display hi on the web,
-and allow users to (optionally) download their files.  Setting up the server
-itself is out of scope for this document.
+A Web server should be set up to provide the readme, display hi scores on the
+web, and allow users to (optionally) download their files.  Setting up the
+server itself is out of scope for this document.
 
 A public_html folder is provided, and should be set as the Web server's
 document root, or linked in to its tree.
@@ -638,5 +639,5 @@ usually at /etc/ssh/sshd_config):
   PrintMotd no
   PermitTunnel no
   # Disable SFTP by commenting out the line:
-  Subsystem sftp /usr/lib/openssh/sftp-server
+  #Subsystem sftp /usr/lib/openssh/sftp-server
 
