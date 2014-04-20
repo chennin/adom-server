@@ -24,7 +24,7 @@ if [ -e ${HOME}/adom_dirty ]; then
     echo "Your last ADOM run ended abnormally. Checking for backups."
     echo
     
-    FILES=`ls ${HOME}/.adom.data/backup`
+    FILES=$(find ${HOME}/.adom.data/backup/ -name '*.svg' -exec basename '{}' \;)
     if [ "$FILES" = "" ]; then
         echo "You don't have backups to restore."
         sleep 2
@@ -117,9 +117,9 @@ else
 #    rm -f ${HOME}/cryopid_image
     svdir=${HOME}/.adom.data/savedg
     bkdir=${HOME}/.adom.data/backup
-    SAVES=`ls ${svdir}`
-    for stale in `comm -2 -3 <(ls ${bkdir}) <(ls ${svdir})`; do
-	rm ${bkdir}/${stale}
+    SAVES=$(find ${svdir} -name '*.svg' -exec basename '{}' \;)
+    for stale in $(comm -2 -3 <(ls ${bkdir}/*svg 2>/dev/null) <(ls ${svdir}/*svg 2>/dev/null)); do
+	rm ${stale}
     done
 
     for file in $SAVES
