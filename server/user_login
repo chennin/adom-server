@@ -280,7 +280,7 @@ do
                         continue
                 fi
 
-                if [[ $pvers != *[[:digit:]]* ]] || [ $pvers -lt 3 ] || [ $pvers -gt $MAX_PRE ]; then
+                if [[ $pvers != *[[:digit:]]* ]] || [ $pvers -lt 3 ] || [ $pvers -gt $MAX_PRE ] || [[ ! $prompt =~ p${pvers}( |$) ]] ; then
                         echo "Invalid selection"
                         sleep 3
                         continue
