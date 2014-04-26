@@ -104,14 +104,14 @@ yum -y install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
 For compiling binaries from source, or related tools, a compiler and
 some development libraries are required:
 
-apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc-mulitlib make\
+apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc-multilib make\
  autoconf g++-multilib
 #or
 yum groupinstall "development tools"; yum install ncurses-devel\
   bzip2-devel zlib-devel
 
 If running on a 64-bit system, you will need the 32-bit development libraries
-of all the above and libc6 and libstdc++.
+of all the above, and libc6 and libstdc++.
 
 Notes:
 
@@ -336,6 +336,7 @@ db18a7ffffbf6f7d1c1743c558a6e155  adom-120p18-bin
 76517e9574100b2eea7b1ebb419d9c5b  adom-120p19-bin
 c185ede1856d6bbcf283517bfdaf47d5  adom-120p20-bin
 2da778a43c35cb503143e48f53c8507e  adom-120p21-bin
+e28aca366e6f04308ceaf0132314158e  adom-120p22-bin
 d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
 43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
 11d27e4466b94e1667916296178785d9  adom-120p5-bin
@@ -386,7 +387,7 @@ c. Compile Sage
 Run the following commands to compile and install Sage.  Replace the value for 
 STAG if there is a newer released version.
 
-STAG="0.9.19"
+STAG="0.9.20"
 git submodule init
 git submodule update
 cd sage
