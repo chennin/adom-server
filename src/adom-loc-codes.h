@@ -381,7 +381,8 @@
 #define IC9_2 0x03 /* Ice Queen Throne   	L2 */
 #define ICD_1 0x26 /* Ice Queen Danger   	L1 */
 #define ICD_2 0x03 /* Ice Queen Danger   	L2 */
-
+#define ARENA_1 0x26 /* ARENA (?)   	L1 */
+#define ARENA_2 0x03 /* ARENA (?)   	L2 */
 #define FGJC1_1 0x28 /* Front Giant Jarl Cave 1   	L1 */
 #define FGJC1_2 0x03 /* Front Giant Jarl Cave 1   	L2 */
 #define FGJC2_1 0x29 /* Front Giant Jarl Cave 2   	L1 */
@@ -394,5 +395,3 @@
 #define FGJC5_2 0x03 /* Front Giant Jarl Cave 5   	L2 */
 #define FGJC6_1 0x2d /* Front Giant Jarl Cave 6   	L1 */
 #define FGJC6_2 0x03 /* Front Giant Jarl Cave 6   	L2 */
-#define FGJCB_1 0x2e /* Front Giant Jarl Cave Bottom (????)   	L1 */
-#define FGJCB_2 0x03 /* Front Giant Jarl Cave Bottom (????)   	L2 */
