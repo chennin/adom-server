@@ -42,27 +42,25 @@ $twit = "Your Twitter handle";
 
  <p>Connect to <?php echo $servername ?>, default SSH port (22), with your SSH client.</p>
 
-  <p>You must use the SSH2 protocol for SSH interaction! The server will not allow the use of the obsolete SSH1 version (PuTTY should use the version 2 by default).</p>
-          
- <p>If you're a Windows user and don't have a SSH client, download PuTTY from the offical download page <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">here</a>. PuTTY is a single executable and needs no installing.</p>
+ <p>If you're a Windows user and don't have a SSH client, download PuTTY from the offical download page <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">here</a>. PuTTY is a single executable and needs no installing. Enter the hostname (<?php echo $servername ?>) and the rest of the recommended configuration listed <a href="#putty">below</a> and connect.</p>
 
-<p>Telnet is not available.</p>
+ <p>You must use the SSH2 protocol for SSH interaction! The server will not allow the use of the obsolete SSH1 version (PuTTY should use the version 2 by default). Telnet is not available.</p>
 
-<p>When you get <strong>"The server's host key is not cached in the registry"</strong>: this is a normal message the first time you connect.  Accept the host key by hitting 'yes'.</p>
+ <p>When you get <strong>"The server's host key is not cached in the registry"</strong>: this is a normal message the first time you connect.  Accept the host key by hitting 'yes'.</p>
 
 <h2><a id="play">Playing</a></h2>
 
-  <p>To create a new user, give username 'adom' and password 'adom', follow directions, then log in again with your newly created account.</p>
+  <p>To create a new user, give username 'adom' and password 'adom', follow directions, then disconnect and log in again with your newly created account.</p>
 
- <p>NOTE: only 3 registrations allowed per IP every day.</p>
+  <p>NOTE: only 3 registrations allowed per IP every day.</p>
 
   <p>ADOM will not launch if your terminal size is something other than 80x25 characters!!</p>
 
   <p>The first time you launch ADOM, you may erroneously be told that your terminal is the wrong size.  This should go away upon subsequent launches if your terminal is 80x25.</p>
 
-  <p>At the menu, you may choose whether you want to play ADOM 1.1.1, a 1.2.0 prerelease, 1.0.0, or <a href="guidebook/challenge.html">Eternium Man</a> challenge and whether you want to use Sage or not. Note that 1.1.1/1.2.0pX/1.0.0/Eternium Man have separate save- and hiscore files, and also that Sage is can be used with 1.2.0pX but may still be unstable. The server automatically enforces the rules of the Eternium Man challenge; breaking the rules will get your ADOM process killed.</p>
- <p>1.2.0p4 and p6+ are available for people who donated to the <a href="http://www.indiegogo.com/resurrect-adom-development">ADOM Resurrection</a> campaign.  Simply select the menu option for 1.2.0pX and select a specific prerelease.  If you have not done this before, you will be prompted for the details from the e-mail you got entitled "ADOM 1.2.0p4 now available for ADOM: The Resurrection Donors". 1.2.0p3 and p5 are available to all players.</p>
- <p>With 1.1.1 and 1.0.0, the server allows you to select your own birth sign and to reroll your stats until you are satisfied. Please use the stat roller gently.</p>
+  <p>At the menu, you may choose whether you want to play ADOM 1.1.1, a 1.2.0 prerelease, 1.0.0, and/or a challenge game and whether you want to use Sage or not. Note that 1.1.1/1.2.0pX/1.0.0/Eternium Man have separate save- and hiscore files. The server automatically enforces the rules of challenge games; breaking the rules will get your ADOM process killed.</p>
+ <p>All 1.2.0 prereleases are available to play for people who donated to the <a href="http://www.indiegogo.com/resurrect-adom-development">ADOM Resurrection</a> campaign.  Simply select the menu option for 1.2.0pX and select a specific prerelease.  If you have not done this before, you can press '0' where you will be prompted for the details from the e-mail you got entitled "ADOM 1.2.0p4 now available for ADOM: The Resurrection Donors". Some 1.2.0 prereleases are available to all players. This list is currently: p3, 5, 18, 19, and 20.</p>
+ <p>The server (actually part of ADOM Sage) allows you to select your own birth sign upon character creation.  Certain versions also allow you to reroll your birth stats until you are satisfied (also toggleable in Sage). Supported versions include 1.1.1 and 1.2.0p20, 21, and 22. Please use the stat roller gently.</p>
 
  <p>PROTIP:</p>
 
@@ -153,8 +151,8 @@ Compression yes<br /></p>
   send it. You should disable the bell from the playing/spectating terminal.</p>
 
   <p>If the game happens to crash, there is a restore system that allows you to restore the last save game. <strong>IMPORTANT:</strong></p>
-  <ul><li>For <strong>all versions</strong>, backups are created when you save and quit (press <strong>Sy</strong>).</li>
-<li>Additionally with version <strong>1.1.1</strong>, backups are created <strong>every 1000 turns</strong> and when you press <strong>Sn</strong>. This feature may one day come to other versions too.</li>
+  <ul><li>For <strong>all versions</strong>, backups are created when you save and quit (press <strong>Sy</strong> and quit ADOM).</li>
+<li>Additionally with version <strong>1.1.1</strong>, and certain 1.2.0 prereleases, backups are created <strong>every 1000 turns</strong> and when you press <strong>Sn</strong>. Preleases where this is supported include 20, 21, and 22.</li>
 </ul>
 
   <p>In #adom on Freenode, there is a bot named AdomDBbot.  Use "@m monstername" for detailed concise info about a monster, and "@i itemname" for detailed concise info about an item.</p>
@@ -168,7 +166,7 @@ Compression yes<br /></p>
 
   <p><?php echo $servername?> is run by <?php echo $yourname?></p>
 
-  <p>Please report any trouble to #adom on Freenode.</p>
+  <p>Please report any trouble to #adom on Freenode. If you need further assistance, especially user account or password maintenance, send <?php echo $yourname?> e-mail.</p>
 
   <p>You might also want to visit the #adom channel in IRCNet, but then again you might not want to.  There is also #adom on Freenode (newer, smaller, and friendlier).</p>
   
