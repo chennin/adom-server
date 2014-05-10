@@ -216,9 +216,9 @@ def poll_hiscore():
             tweet("1.2.0p16-20", key);
 
         for key in diff_120p21:
-            print key + " Version 1.2.0p21."
-            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.2.0p21-22.")
-            tweet("1.2.0p21-22", key);
+            print key + " Version 1.2.0p21-23."
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version 1.2.0p21-23.")
+            tweet("1.2.0p21-23", key);
 
 def loc_changed(filename):
    if ANCTOIRC != 1:

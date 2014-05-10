@@ -337,6 +337,7 @@ db18a7ffffbf6f7d1c1743c558a6e155  adom-120p18-bin
 c185ede1856d6bbcf283517bfdaf47d5  adom-120p20-bin
 2da778a43c35cb503143e48f53c8507e  adom-120p21-bin
 e28aca366e6f04308ceaf0132314158e  adom-120p22-bin
+ca1195016d0c5138ed69d59b748faa7b  adom-120p23-bin
 d95a75aa104dd306833ff3207ef022ed  adom-120p3-bin
 43dd575a1196def002ee50d45cc4afa3  adom-120p4-bin
 11d27e4466b94e1667916296178785d9  adom-120p5-bin
@@ -387,7 +388,7 @@ c. Compile Sage
 Run the following commands to compile and install Sage.  Replace the value for 
 STAG if there is a newer released version.
 
-STAG="0.9.20"
+STAG="0.9.21"
 git submodule init
 git submodule update
 cd sage
