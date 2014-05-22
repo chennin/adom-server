@@ -254,25 +254,24 @@ do
 
                 echo "Which prerelease (default: 1.2.0p${DEF})? "
                 prompt=""
-                skips=(${SKIP_LIST});
-                frees=(${FREE_LIST});
+                skips=(${SKIP_LIST})
+                frees=(${FREE_LIST})
+                verslist=()
 
-                if [[ -f $HOME/donated ]]; then
-                        for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
-                                if ! elementIn "$i" "${skips[@]}"; then
-                                        prompt="${prompt} (${i}) p${i}"
-                                fi
-                        done
+
+                if [[ ! -f $HOME/donated ]]; then
+			verslist=(${frees[@]})
+                        echo "Enter \"0\" to enter donator details for more versions."
+			echo "Free list: ${verslist[@]:0}"
                 else
-                        prompt="(0) Enter donator details for more versions"
                         for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
-                                if elementIn "$i" "${frees[@]}"; then
-                                        prompt="${prompt} (${i}) p${i}"
-                                fi
+                             if ! elementIn "$i" "${skips[@]}"; then
+                                  verslist+=("${i}")
+                             fi
                         done
+			echo "Choices: ${verslist[@]:0}"
                 fi
-
-                read -e -p "${prompt}: " pvers
+                read -e -p "> " pvers
                 pvers="${pvers:-$DEF}"
 
                 if [[ x"${pvers}" == x"0" ]] && [[ ! -f ${HOME}/donated ]]; then
@@ -280,7 +279,7 @@ do
                         continue
                 fi
 
-                if [[ $pvers != *[[:digit:]]* ]] || [ $pvers -lt 3 ] || [ $pvers -gt $MAX_PRE ] || [[ ! $prompt =~ p${pvers}( |$) ]] ; then
+                if [[ ! $pvers =~ ^[[:digit:]]+$ ]] || [ $pvers -lt $MIN_PRE ] || [ $pvers -gt $MAX_PRE ] || ! elementIn "${pvers}" "${verslist[@]}" ; then
                         echo "Invalid selection"
                         sleep 3
                         continue
