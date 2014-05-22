@@ -30,8 +30,8 @@ RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
 MIN_PRE=3
 SKIP_LIST="1 2 15"
 MAX_PRE=23
-FREE_LIST="3 5 18 19 20"
-MAX_FREE_PRE=20
+FREE_LIST="3 5 18 19 20 23"
+MAX_FREE_PRE=23
 
 #For Twitter announcing
 CONSUMER_KEY=
