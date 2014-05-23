@@ -4,7 +4,7 @@ use strict;
 
 package sorbot::MonsterDb;
 
-use AdomBits qw/word str toalign word tospeech bitfield toitem/;
+use AdomBits qw/word str toalign word tospeech bitfield toitem set_vers get_vers/;
 use List::Util 'max';
 
 my %ceff;
@@ -154,7 +154,9 @@ sub opt_field {
 }
 
 sub _getentry {
-    my $B = 0x8264fc0 + 0x88*shift();
+    my $B;
+    if (get_vers() == 111) {  $B = 0x8264fc0 + 0x88*shift(); }
+    elsif (get_vers() == 120) { $B = 0x82A2400 + 0x88*shift(); }
 
     my %valhash = (
         singular      => str($B+0x00),
@@ -170,7 +172,6 @@ sub _getentry {
         damage        => str($B+0x28),
         size          => ((word($B+0x2C) * 60) || 30),
         dl            => word($B+0x38),
-        prob          => word($B+0x3C),
         color         => word($B+0x40),
         dragon        => bitfield($B+0x44, 0),
         undead        => bitfield($B+0x44, 1),
@@ -281,6 +282,9 @@ sub _getentry {
         male_descr    => str($B+0x80),
         female_descr  => str($B+0x84)
     );
+
+    if (get_vers() == 111) { $valhash{prob} = word($B+0x3C); }
+    elsif (get_vers() == 120) { $valhash{prob} = (word($B+0x3C) / 10); }
 
     return \%valhash;
 }
@@ -425,15 +429,23 @@ sub _formatentry {
         $h->{size}, join("", map { ", $_" } sort @flags);
 }
 
-my %entries;
-
+my (%entries111, %entries120);
+set_vers(111);
 for my $mob (0 .. 0x1A1) {
     my $desc = _getentry($mob);
-
-    $entries{$desc->{singular}} = _formatentry($desc);
+    $entries111{$desc->{singular}} = _formatentry($desc);
+}
+set_vers(120);
+for my $mob (0 .. 0x1AD) {
+    my $desc = _getentry($mob);
+    $entries120{$desc->{singular}} = _formatentry($desc);
 }
 
-sub entries { \%entries }
+sub entries
+{
+    if (get_vers() == 111) { \%entries111; }
+    elsif (get_vers() == 120) { \%entries120; }
+}
 sub aliases { +{} }
 
 1;

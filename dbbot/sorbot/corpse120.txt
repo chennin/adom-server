@@ -1,0 +1,173 @@
+ancient black dragon: +1Wi, +AcidResistance
+ancient blue dragon: (+1Dx), +ShockResistance
+ancient blue wyrm: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, (+6Dx), (+5Ma), (+5To), (+1Pe), +ShockImmunity, +ShockResistance
+ancient chaos wyrm: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, (+3Ma), (+3St), +FireResistance, Corrupts 2500
+ancient dwarf: +6d6PP, +Cursed
+ancient karmic dragon: Karmic
+ancient karmic wyrm: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, (+10Ma), (+10To), Restores PP to Max, Karmic
+ancient minotaur: -1Wi, 25%:(+1Pe), Confuses 10d3
+ancient red dragon: (+1St), +FireResistance
+ancient stone beast: +2St, +4To, Corrupts 5000
+ancient white dragon: +1To, +ColdResistance
+ankheg: 90%:+AcidResistance
+annis hag: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, +Cursed
+baby water dragon: +WaterBreathing
+battle bunny: Trains St 1, Trains Dx 1, Trains To 1, Train Le -2d4
+black baby dragon: +AcidResistance
+black dragon: +AcidResistance
+black druid: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, -4Wi, +3Ma, +2Le, +1To, Corrupts 999, Alignment -1000
+black unicorn: Corrupts [2d2 * 1000]
+blink dog: +TeleportControl
+blue baby dragon: +ShockResistance
+blue dragon: +ShockResistance
+cat lord: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, (+6Dx), +Doomed
+cave fisher: ![Lvl40 Assassin OR Dark Elf]:Poisons 2Da_10Fr, 90%:+PoisonResistance
+chaos archmage: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, +50PP, (+12Ma), Corrupts 6000
+chaos lizard: Corrupts 10d10
+chaos rat: Corrupts 2d5
+chaos spider: ![Lvl40 Assassin OR Dark Elf]:Poisons 2Da_10Fr, 90%:+PoisonResistance, Corrupts 20d20
+chaos viper: (+1Dx), +PoisonResistance, (+1 Speed), Poisons 8d5Da_3d3Fr, Corrupts 10d200
+claw bug: -2Wi, (+1Dx)
+cobra: Trains To 100
+cooshoo: ![SleepResistant]:Sleep 4d4
+cute dog: -FateSmiles, -Lucky, +Cursed, +Doomed
+cyclops: [[St < 8]:62.5%:(+1St); [St < 16]:60%:(+1St); [St < 20]:58.3%:(+1St); [St < 24]:16.7%:(+1St); [St = 24]:14.3%:(+1St)] {St up to 25}
+dark elven archer: -1To, (+1Dx), +PoisonResistance
+dark elven lord: -2To, (+2Dx), +PoisonResistance
+dark elven priestess: -1To, (+1Dx), +PoisonResistance
+dark elven princess: -2To, (+2Dx), +PoisonResistance
+dark elven warrior: -1To, (+1Dx), +PoisonResistance
+dark elven wizard: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, -1To, (+1Dx), +PoisonResistance 
+dark orc: (+1St)
+dark sage: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, NotCursed:DontHaveLiteracySkill:[Gain LiteracySkill = 1d20+19, Blessed:(+1Le)]; ELSE:Cursed:LiteracySkill -5d5
+displacer beast: Stuns 3d8, Confuses 3d6, LevelAllowsTeleportation:Teleports
+doppleganger king: PlayerIsATroll:50%:+1Stat(Every Stat Individually)
+dwarven child: +Cursed, +Doomed
+dwarven elite guardian: (+1Wi)
+emperor moloch: -6Dx, (+8To), (+6St), Corrupts 2500, Alignment -666
+ettin: [[St < 8]:62.5%:(+1St); [St < 16]:60%:(+1St); [St < 20]:58.3%:(+1St); [St < 24]:16.7%:(+1St); [St = 24]:14.3%:(+1St)] {St up to 25}
+fairy dragon: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, Cure Sickness, Confuses 6d10
+fire beetle: 50%:+FireResistance (No Special Message)
+fire drake: +FireResistance
+fire giant king: (+1St)
+fire giant: 5%:+FireResistance, [[St < 8]:58.3%:(+1St); [St < 16]:57.1%:(+1St); [St < 24]:56.3%:(+1St); [St < 30]:55.6%:(+1St); [St < 32]:11.1%:(+1St); [St < 40]:10%:(+1St)] {St technically up to 40}
+fire lizard: 10%:+FireResistance (Shiver Message)
+fomorian giant: 50%:-1Ap, [[St < 8]:62.5%:(+1St); [St < 16]:60%:(+1St); [St < 20]:58.3%:(+1St); [St < 24]:16.7%:(+1St); [St < 30]:14.3%:(+1St)] {St up to 30}
+frost giant berserker: 5%:+ColdResistance, [[St < 8]:62.5%:(+1St); [St < 16]:60%:(+1St); [St < 24]:58.3%:(+1St); [St = 24]:57.1%:(+1St); [St < 32]:14.3%:(+1St); [St < 35]:12.5%:(+1St)] {St technically up to 35}
+frost giant jarl: (+1St)
+frost giant: 5%:+ColdResistance, [[St < 8]:62.5%:(+1St); [St < 16]:60%:(+1St); [St < 24]:58.3%:(+1St); [St = 24]:57.1%:(+1St); [St < 32]:14.3%:(+1St); [St < 35]:12.5%:(+1St)] {St technically up to 35}
+frost salamander: -1 Dx, 10%:[+ColdImmunity, -5 Speed]
+gelatinous cube: ![ParalyzationResistant]:Paralyze 12d6
+ghul: ![ParalyzationResistant]:Paralyzes 2d8
+giant ant queen: 90%:+AcidResistance
+giant ant warrior: 90%:+AcidResistance
+giant ant worker: 90%:+AcidResistance
+giant boar: -4Wi, (+2St), (+1To)
+giant centipede: ![Lvl40 Assassin]:Poisons 2Da_10Fr, 90%:+PoisonResistance
+giant slug: +AcidImmunity
+giant spider: ![Lvl40 Assassin OR Dark Elf]:Poisons 2Da_10Fr, 90%:+PoisonResistance
+gorgon: ![PetrificationResistant]:((Mana + GoodLuck - BadLuck) / 5000):[+PetrificationResistance, (+1To)]; ELSE:Death!
+great black wyrm: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, +1To, +1Wi, +AcidResistance
+great blue wyrm: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, (+1Pe), (+1Dx) +ShockResistance
+great karmic wyrm: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, Karmic
+great red wyrm: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, (+1Ma), (+1St), +FireResistance
+great water dragon: +WaterBreathing
+great white wyrm: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, +1Ch, +1To, +ColdResistance
+greater black unicorn: Corrupts [3d3 * 1000]
+greater claw bug: -6Wi, (+3Dx), (+2 Speed)
+greater daemon: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, +Doomed
+greater moloch: -3Dx, (+2To), (+1St)
+greater titan: (+1d3St), (+1d3To)
+greater white unicorn: -FateSmiles, -Lucky, +Cursed, +Doomed, Alignment -8000
+green hag: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, +Cursed
+harpy: ![Muted]:Mutes 20d100
+hill giant chieftain: 50%:(+1St)
+hill giant: [[St < 8]:62.5%:(+1St); [St < 15]:60%:(+1St); [St = 15]:20%:(+1St); [St < 24]:16.7%:(+1St); [St = 24]:14.3%:(+1St)] {St up to 25}
+hill orc sergeant: Trains To 300
+hill orc: Trains To 150
+homunculus: ![SleepResistant]:Sleep 4d4
+hydra: ![ConfusionResistant]:Confuses 4d6
+imp: ![Lvl40 Assassin]:Poisons 2d3Da_1d4+5Fr
+invisible stalker: [10%:+Invisibility; 90%:+SeeInvisible]
+jackalwere: Sickens 6d6
+karmic baby dragon: Karmic
+karmic dragon: Karmic
+karmic lizard: Karmic
+killer bug: -12Wi, (+6Dx) (+4 Speed)
+king cobra: Trains To 100
+kobold chieftain: Sickens 20d8
+kobold shaman: +1Ma, [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], Sickens 20d8
+kobold: Sickens 20d8
+large kobold: Sickens 20d8
+large snake: 50%:+PoisonResistance
+large spider: ![Lvl40 Assassin OR Dark Elf]:Poisons 2Da_10Fr, 90%:+PoisonResistance
+least daemon: +Doomed
+lesser daemon: +Doomed
+lightning lizard: [Blessed:12.5%:+ShockImmunity; ELSE:+ShockResistance]
+master summoner: +4Le, +4Wi, +4Ma, Corrupts 3000
+minotaur emperor: -8Wi, +6Pe, +6St, +6To, Confuses 40d24+60, Corrupts 200d10
+minotaur king: -6Wi, 50%:[(+3Pe), (+2St), (+2To)], Confuses 20d12+30, Corrupts 10d100
+minotaur lord: -2Wi, 66.7%:(+1Pe), 25%:(+1St), Confuses 10d4
+minotaur mage: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, -4To, 50%:[(+3Ma), (+3Pe)], Confuses 20d10+20
+minotaur mazelord: -4Wi, 33%:[(+2Pe), (+1St), (+1To)], Confuses 10d8+10
+minotaur mazemaster: -3Wi, 33%:[(+1Pe), (+1St) (+1To)], Confuses 10d6
+minotaur: Trains Pe 800, Confuses 5d10
+mist wolf: [Blessed:+1PP], [!Uncursed:+1Ma potential]
+moloch: -1Dx, (+1To)
+multi-headed chaos dragon: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, (+10St), (+10To), (+10Ma), (+5Pe), Corrupts 8000
+mutated battle bunny: (+1St), (+1To), (+1Dx),  -2d4Le
+ogre emperor: [St < 35]:50%:+1St {St up to 35}
+ogre guardian: [St < 25]:50%:+1St {St up to 25}
+ogre king: [St < 25]:50%:+1St {St up to 25}
+ogre lord: [St < 22]:33.3%:+1St {St up to 22}
+ogre magus: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, 25%:(+1Ma), [St < 22]:33.3%:+1St {St up to 22}
+ogre: [St < 19]:25%:+1St {St up to 19}
+oracle: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, (+6Le), -FateSmiles, -Lucky, +Cursed, +Doomed
+orc butcher: (+1St)
+pit viper: 50%:+PoisonResistance
+pixie archer: 25%:+Teleportitis
+pixie: 25%:+Teleportitis
+priest: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, +Cursed, +Doomed
+quasit: ![Lvl40 Assassin]:Poisons 3d2Da_3d3Fr, Sickens 6d6, +Cursed
+quickling bard: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, (1d5+2 Speed), -25%MaxAge
+quickling king: (1d5+2 Speed), -25%MaxAge
+quickling lord: (1d4+1 Speed)
+quickling queen: (1d5+2 Speed), -25%MaxAge
+quickling: (1d3 Speed)
+rabid dog: ![WearingNecklaceOfRabiesResistance]:Sickens 30d10
+ratling guardian: Alignment +250
+ratling rebel: Alignment -1000
+ratling warlord: Alignment -1000
+rattlesnake: 50%:+PoisonResistance
+red baby dragon: +FireResistance
+red dragon: +FireResistance
+royal guardian: [![Cursed]:+Cursed; ELSE:+Doomed]
+shadow troll: -1To, -1NaturalRegen
+shadow wyrm: [Cursed:5%:+2d3PP; Uncursed:25%:+2d3PP; Blessed:50%:+2d3PP], 16.7%:+1Ma, -2To, (+4Dx)
+snake from beyond: +4Dx, +4Ma, Corrupts 3000
+spectre: (+1To), Alignment -500
+stone giant lord: (+1St)
+stone giant: [[St < 8]:62.5%:(+1St); [St < 16]:60%:(+1St); [St < 20]:58.3%:(+1St); [St < 24]:16.7%:(+1St); [St < 30]:14.3%:(+1St)] {St up to 30}
+stone snake: Trains To 500
+swamp hydra: [![Blind]:[Pe > 10]:0.1%:Sickens 10d3; ELSE:![ConfusionResistant]:[Trains To 5000, Confuses 12d6]
+tarantula: ![Lvl40 Assassin OR Dark Elf]:Poisons 2Da_10Fr, 90%:+PoisonResistance
+titan: (+1St), (+1To)
+troll berserker: [Blessed:-1NaturalRegen; ELSE:50%:-1NaturalRegen]
+troll chief: [Blessed:-1NaturalRegen; ELSE:50%:-1NaturalRegen]
+troll king: [Blessed:-1NaturalRegen; ELSE:50%:-1NaturalRegen]
+troll: [Blessed:-1NaturalRegen; ELSE:50%:-1NaturalRegen]
+vampire: (+1To), Alignment -500
+vapor rat: Corrupts 2d5
+viper: 50%:+PoisonResistance
+water snake: +PoisonResistance
+wererat: Sickens 6d6
+werewolf king: Sickens 42d6
+werewolf lord: Sickens 18d6
+werewolf: Sickens 6d6
+white baby dragon: +ColdResistance
+white dragon: +ColdResistance
+white unicorn: -FateSmiles, -Lucky, +Cursed, +Doomed, Alignment -4000
+wight: (+1To), Alignment -500
+wraith: (+1To), Alignment -500
+yeti: +ColdResistance
+zombie: ![Lvl40 Assassin]:Poisons 2Da_8Fr

@@ -7,7 +7,7 @@ package sorbot::Database;
 use List::Util 'max', 'min';
 use String::Approx 'adist';
 use Text::LevenshteinXS 'distance';
-
+use AdomBits qw/set_vers get_vers/;
 
 sub mydist {
     my ($long, $longer) = @_;
@@ -18,7 +18,8 @@ sub mydist {
 }
 
 sub lookup {
-    my ($db, $q) = @_;
+    my ($db, $q, $vers) = @_;
+    set_vers($vers);
     my @cand;
 
     my $f = $db;
@@ -46,10 +47,10 @@ sub lookup {
     if (@cand == 0) {
         return "No match.";
     } elsif (@cand == 1) {
-        return $db->entries->{$cand[0]};
+        return "\x02[$vers]\x02 " . $db->entries->{$cand[0]};
     } else {
         my $r = (join ", ", @cand);
-        return length($r) < 666 ? $r : "You are not allowed to ask that.";
+        return length($r) < 900 ? $r : "You are not allowed to ask that.";
     }
 }
 

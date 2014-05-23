@@ -11,14 +11,14 @@ $SIG{'INT'} = \&cleanquit;
 $SIG{'TERM'} = \&cleanquit;
 
 use sorbot::Database;
-my $cfg = new Config::Simple('/var/lib/adom/etc/config');
+my $cfg = new Config::Simple('../etc/config');
 
 print "This is ADOM DB Bot\n";
 
 my %help = map{$_=>1}
     qw{help h commands instructions guide manual functions info man};
 
-my $usage = "Usage: \@[mi] name fragment | \@[mi] /regex/";
+my $usage = 'Usage: @m|@i [-111] name | @m|@i [-111] /regex/';
 
 my $bot = Bot->new(
   server => $cfg->param('IRCSERV'),
@@ -34,9 +34,11 @@ sub said {
   my $message = shift;
   my $body = $message->{body};
   my $query;
+  my $vers = 120;
+  if ($body =~ /^\@[mi]\s+-111\s+/) { $vers = 111; }
   try {
-      (($query) = $body =~ /^\@m\s+(.*)/) && return $self->reply($message, sorbot::Database::lookup('sorbot::MonsterDb', $query));
-      (($query) = $body =~ /^\@i\s+(.*)/) && return $self->reply($message, sorbot::Database::lookup('sorbot::ItemDb', $query));
+      (($query) = $body =~ /^\@m\s+(?:-111\s+)?(.*)/) && return $self->reply($message, sorbot::Database::lookup('sorbot::MonsterDb', $query, $vers));
+      (($query) = $body =~ /^\@i\s+(?:-111\s+)?(.*)/) && return $self->reply($message, sorbot::Database::lookup('sorbot::ItemDb', $query, $vers));
       ($body =~ /^@(.*)/ && $help{$1}) && return $self->reply($message, $usage);
   } catch {
       return $self->reply($message, $_);
@@ -45,7 +47,6 @@ sub said {
 sub cleanquit() { 
   print STDERR "Caught signal, shutting down\n";
   $bot->shutdown( $bot->quit_message() ); 
-  sleep 3;
   exit;
 }
 $bot->run();

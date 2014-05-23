@@ -4,7 +4,7 @@ use strict;
 
 package sorbot::ItemDb;
 
-use AdomBits qw/word str bitfield tomatl/;
+use AdomBits qw/word str bitfield tomatl get_vers set_vers/;
 use List::Util 'max';
 
 my %artnames = (
@@ -47,6 +47,11 @@ my %artnames = (
     0x028e, "True Strength",
     0x02ab, "Wyrmlance",
 );
+if (get_vers() == 120) 
+{
+    $artnames{0x02c1} = "Moloch's Thorns";
+    $artnames{0x02c3} = "Foeslammer";
+}
 my %descriptions = (
 );
 
@@ -73,7 +78,9 @@ my @wsk = ( '', 'daggers & knives', 'clubs & hammers', 'maces & flails',
 
 sub _getentry {
     my $i = shift();
-    my $B = 0x8273b00 + 0x70*$i;
+    my $B;
+    if (get_vers() == 111) { $B = 0x8273b00 + 0x70*$i; }
+    elsif (get_vers() == 120) { $B = 0x82B09C0 + 0x74*$i; }
 
     my %valhash = (
         index           => $i,
@@ -102,11 +109,9 @@ sub _getentry {
         bonus           => word($B+0x4C),
         dl              => word($B+0x50),
         CHAOS           => bitfield($B+0x54, 0),
-
         luck_xxx        => bitfield($B+0x54, 3),
         searching_xxx   => bitfield($B+0x54, 4),
         luminous_xxx    => bitfield($B+0x54, 5),
-
         regen           => bitfield($B+0x54, 7),
 
         slay_dragon     => bitfield($B+0x54, 10),
@@ -168,7 +173,14 @@ sub _getentry {
         material        => word($B+0x64),
         weapon_skill    => word($B+0x68),
         nutrition       => word($B+0x6C),
+        #smth            => word($B+0x70),
     );
+
+    if (get_vers() == 120)
+    {
+        $valhash{int_rconf} = bitfield($B+0x5C, 24);
+        $valhash{terror} = bitfield($B+0x58, 13);
+    }
 
     return \%valhash;
 }
@@ -223,6 +235,7 @@ sub _formatentry {
     push @stats, "affixable" if $h->{affixable};
     push @stats, "returns" if $h->{returning};
     push @stats, "rustproof" if $h->{rustproof};
+#    push @stats, "terror" if $h->{terror};
     push @stats, "!Demo" if $h->{slay_demon};
     push @stats, "!Drag" if $h->{slay_dragon};
     push @stats, "!Gian" if $h->{slay_giant};
@@ -243,6 +256,7 @@ sub _formatentry {
     push @stats, "+TCtr" if $h->{int_tcontrol};
     push @stats, "+Tele" if $h->{int_teleport};
     push @stats, "+WBre" if $h->{int_wbre};
+#    push @stats, "-Conf" if $h->{int_rconf};
     push @stats, "-Acid" if $h->{int_racid};
     push @stats, "-Cold" if $h->{int_rcold};
     push @stats, "-Deth" if $h->{int_rdeath};
@@ -276,9 +290,9 @@ sub _formatentry {
     return "$name ($appear) " . join(" ", @stats);
 }
 
-my %entries;
-my %aliases;
-
+my (%entries111, %entries120);
+my (%aliases111, %aliases120);
+set_vers(111);
 for my $inum (0 .. 0x2B8) {
     my $desc = _getentry($inum);
 
@@ -287,23 +301,50 @@ for my $inum (0 .. 0x2B8) {
         ($desc->{artname}) ? $desc->{artname} :
         $desc->{singular};
 
-    $entries{$cname} = _formatentry($desc);
+    $entries111{$cname} = _formatentry($desc);
 
-    $aliases{$cname} = [ $desc->{singular}, $desc->{plural},
+    $aliases111{$cname} = [ $desc->{singular}, $desc->{plural},
+        $desc->{unid_singular}, $desc->{unid_plural},
+        ($desc->{artname} ? (($desc->{singular} . " \"" . $desc->{artname} . "\""),
+                             $desc->{artname}) : ()) ];
+}
+for my $k (sort keys %aliases111) 
+{
+    $aliases111{$k} = [ grep { $_ && ! exists $entries111{$_} } @{ $aliases111{$k} } ];
+}
+set_vers(120);
+for my $inum (0 .. 0x2E0) {
+    my $desc = _getentry($inum);
+
+    my $cname =
+        ($desc->{unid_singular} eq 'bloody dagger') ? 'bloody dagger' :
+        ($desc->{artname}) ? $desc->{artname} :
+        $desc->{singular};
+
+    $entries120{$cname} = _formatentry($desc);
+
+    $aliases120{$cname} = [ $desc->{singular}, $desc->{plural},
         $desc->{unid_singular}, $desc->{unid_plural},
         ($desc->{artname} ? (($desc->{singular} . " \"" . $desc->{artname} . "\""),
                              $desc->{artname}) : ()) ];
 }
 
-for my $k (sort keys %aliases) {
-    $aliases{$k} = [ grep { $_ && ! exists $entries{$_} } @{ $aliases{$k} } ];
-
+for my $k (sort keys %aliases120) {
+    $aliases120{$k} = [ grep { $_ && ! exists $entries120{$_} } @{ $aliases120{$k} } ];
     #print "$k:\n";
     #print "   ", join(", ", @{$aliases{$k}}), "\n";
     #print "   ", $entries{$k}, "\n";
 }
 
-sub entries { \%entries }
-sub aliases { \%aliases }
+sub entries 
+{ 
+    if (get_vers() == 111) { \%entries111; } 
+    elsif (get_vers() == 120) { \%entries120; }
+}
+sub aliases 
+{ 
+    if (get_vers() == 111) { \%aliases111; }
+    elsif (get_vers() == 120) { \%aliases120; }
+}
 
 1;
