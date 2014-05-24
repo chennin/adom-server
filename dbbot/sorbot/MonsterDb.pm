@@ -7,12 +7,19 @@ package sorbot::MonsterDb;
 use AdomBits qw/word str toalign word tospeech bitfield toitem set_vers get_vers/;
 use List::Util 'max';
 
-my %ceff;
-open CEFF, "sorbot/corpse.txt";
+my (%ceff111, %ceff120);
+open CEFF, "sorbot/corpse111.txt" or die "cannot open corpse file: $!\n";
 while (my ($a, $b) = ((<CEFF>) =~ /(.*?): (.*)/)) {
     $b =~ y/()/[]/;
-    $ceff{lc $a} = $b;
+    $ceff111{lc $a} = $b;
 }
+close CEFF;
+open CEFF, "sorbot/corpse120.txt"  or die "cannot open corpse file: $!\n";
+while (my ($a, $b) = ((<CEFF>) =~ /(.*?): (.*)/)) {
+    $b =~ y/()/[]/;
+    $ceff120{lc $a} = $b;
+}
+close CEFF;
 
 my %descriptions = (
     singular                => "Singular name of the monster",
@@ -278,13 +285,20 @@ sub _getentry {
         speech        => tospeech(word($B+0x74)),
         regen_turns   => word($B+0x78),
         corpse_chance => word($B+0x7c),
-        corpse_effect => ($ceff{lc(str($B))}),
         male_descr    => str($B+0x80),
         female_descr  => str($B+0x84)
     );
 
-    if (get_vers() == 111) { $valhash{prob} = word($B+0x3C); }
-    elsif (get_vers() == 120) { $valhash{prob} = (word($B+0x3C) / 10); }
+    if (get_vers() == 111)
+    {
+        $valhash{prob} = word($B+0x3C); 
+        $valhash{corpse_effect} = ($ceff111{lc(str($B))}),
+    }
+    elsif (get_vers() == 120)
+    {
+        $valhash{prob} = (word($B+0x3C) / 10);
+        $valhash{corpse_effect} = ($ceff120{lc(str($B))}),
+    }
 
     return \%valhash;
 }
