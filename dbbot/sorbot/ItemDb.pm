@@ -168,6 +168,7 @@ sub _getentry {
         int_imcold      => bitfield($B+0x5C, 20),
         int_imelec      => bitfield($B+0x5C, 21),
         int_wbre        => bitfield($B+0x5C, 22),
+        int_rconf 	=> bitfield($B+0x5C, 24),
 
         gen_weight      => word($B+0x60),
         material        => word($B+0x64),
@@ -178,7 +179,6 @@ sub _getentry {
 
     if (get_vers() == 120)
     {
-        $valhash{int_rconf} = bitfield($B+0x5C, 24);
         $valhash{terror} = bitfield($B+0x58, 13);
     }
 
@@ -235,7 +235,7 @@ sub _formatentry {
     push @stats, "affixable" if $h->{affixable};
     push @stats, "returns" if $h->{returning};
     push @stats, "rustproof" if $h->{rustproof};
-#    push @stats, "terror" if $h->{terror};
+    push @stats, "terror" if $h->{terror};
     push @stats, "!Demo" if $h->{slay_demon};
     push @stats, "!Drag" if $h->{slay_dragon};
     push @stats, "!Gian" if $h->{slay_giant};
@@ -256,7 +256,7 @@ sub _formatentry {
     push @stats, "+TCtr" if $h->{int_tcontrol};
     push @stats, "+Tele" if $h->{int_teleport};
     push @stats, "+WBre" if $h->{int_wbre};
-#    push @stats, "-Conf" if $h->{int_rconf};
+    push @stats, "-Conf" if $h->{int_rconf};
     push @stats, "-Acid" if $h->{int_racid};
     push @stats, "-Cold" if $h->{int_rcold};
     push @stats, "-Deth" if $h->{int_rdeath};
