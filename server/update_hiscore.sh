@@ -13,8 +13,10 @@ function elementIn () {
 versions=('100' '111' 'lea' 'swp')
 skips=(${SKIP_LIST});
 for i in $(seq $MIN_PRE $MAX_PRE); do
+	if [ $i -gt 23 -a $i -lt 48 ]; then continue; fi
         if ! elementIn "$i" "${skips[@]}"; then
-        	versions+=("120p$i")
+		if [ $i -le 23 ]; then versions+=("120p$i"); 
+		else versions+=("r$i"); fi
         fi
 done
 file=()
