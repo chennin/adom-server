@@ -280,7 +280,8 @@ Swapgame 1.1.1: adom_ds.swp
 1.2.0p6-13:     adom_ds.12c
 1.2.0p14:       adom_ds.12d
 1.2.0p16-20:    adom_ds.12e
-1.2.0p21-:      adom_ds.12f
+1.2.0p21-23:    adom_ds.12f
+r48-:		adom_ds.12g
 
 Finally, Sage should be checked out and compiled.
 
@@ -302,21 +303,28 @@ tar xzf /var/lib/adom/software/adom-100-elf.tar.gz
 sed -e 's/adom_ds.cfg/adom_ds.100/g' adom/adom > /var/lib/adom/bin/adom-100-bin
 rm -rf ./adom
 
+shopt -s extglob
 where="a"
 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
+  versstr="1.2.0_pre$i";
   if [ $i -gt 3 ]; then where="b"; fi
   if [ $i -gt 5 ]; then where="c"; fi
   if [ $i -gt 13 ]; then where="d"; fi
   if [ $i -gt 14 ]; then where="e"; fi
   if [ $i -gt 20 ]; then where="f"; fi
-  if [ -f /var/lib/adom/software/adom_linux_debian_32_1.2.0_pre$i.tar.gz ]; then
-    tar xzf /var/lib/adom/software/adom_linux_debian_32_1.2.0_pre$i.tar.gz &&
-    sed -e "s/adom_ds.cfg/adom_ds.12${where}/g" adom/adom > /var/lib/adom/bin/adom-120p$i-bin
+  if [ $i -gt 23 ] && [ $i -lt 48 ]; then continue; fi
+  if [ $i -ge 48 ]; then
+    versstr="r$i"
+    where="g"; 
+  fi
+  if [ -f /var/lib/adom/software/adom_linux_debian_32_${versstr}.tar.gz ]; then
+    tar xzf /var/lib/adom/software/adom_linux_debian_32_${versstr}.tar.gz &&
+    sed -e "s/adom_ds.cfg/adom_ds.12${where}/g" adom/adom > /var/lib/adom/bin/adom-${versstr//+([_.]|re)/}-bin
     if [ $i -eq 14 ]; then
         sed -e "s/adom_ds.cfg/adom_ds.14d/g" adom/adom > /var/lib/adom/bin/adom-120p14-hs-bin
     fi
-    rm -rf ./adom
   fi
+  rm -rf ./adom
 done
 cd -
 
@@ -346,6 +354,7 @@ ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
 090afcc61cff60f4cd6304fa1ef87501  adom-120p8-bin
 7ada15a894e2664c61e050439bb08d99  adom-120p9-bin
 979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
+0353c54099cfb1b1fa9ee26c5f126a0b  adom-r48-bin
 3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
 
 b. Compile wrappers
@@ -360,6 +369,8 @@ SUPVER="100 111"
 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
   if [ -f bin/adom-120p$i-bin ]; then
     SUPVER+=" 120p${i}"  
+  elif [ -f bin/adom-r$i-bin ]; then
+    SUPVER+=" r${i}"
   fi
 done
 # normal games:
@@ -388,7 +399,7 @@ c. Compile Sage
 Run the following commands to compile and install Sage.  Replace the value for 
 STAG if there is a newer released version.
 
-STAG="0.9.21"
+STAG="0.9.22"
 git submodule init
 git submodule update
 cd sage
@@ -494,8 +505,8 @@ chmod ugo+x bin/*
 # for scoring
 cd var
 chgrp adomusers 1* lea swapgame 1*/*HISCORE lea/.HISCORE\
- swapgame/.HISCORE
-chmod 775 1* lea swapgame
+ swapgame/.HISCORE r*
+chmod 775 1* lea swapgame r*
 chmod 664 */*HISCORE
 cd ..
 chmod 1777 /var/lib/adom/tmp/

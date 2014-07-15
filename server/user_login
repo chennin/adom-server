@@ -125,7 +125,7 @@ do
         echo -e "\e[1m[ s ]\e[0m spectate other users' games"
         echo -e "\e[1;31m[ q ]\e[0m quit"
         echo ""
-        echo -e "Select version:\n\e[1m[ mn ]\e[0m 1.1.1		\e[1m[ mp ]\e[0m 1.2.0pX		\e[1m[ ma ]\e[0m 1.0.0\n\e[1m[ mc ]\e[0m Select Challenge Game			\e[1m[ ms ]\e[0m swapgame"
+        echo -e "Select version:\n\e[1m[ mn ]\e[0m 1.1.1		\e[1m[ mp ]\e[0m 1.2.0pX / r48+	\e[1m[ ma ]\e[0m 1.0.0\n\e[1m[ mc ]\e[0m Select Challenge Game			\e[1m[ ms ]\e[0m swapgame"
         echo ""
         echo -ne "\e[1m[ x ]\e[0m toggle ADoM Sage                  "
         echo -e "\e[1m[ r ]\e[0m toggle tty recording"
@@ -252,7 +252,7 @@ do
                         DEF=${MAX_FREE_PRE}
                 fi
 
-                echo "Which prerelease (default: 1.2.0p${DEF})? "
+                echo "Which prerelease (default: r${DEF})? "
                 prompt=""
                 skips=(${SKIP_LIST})
                 frees=(${FREE_LIST})
@@ -265,7 +265,8 @@ do
 			echo "Free list: ${verslist[@]:0}"
                 else
                         for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
-                             if ! elementIn "$i" "${skips[@]}"; then
+                             if [ $i -gt 23 -a $i -lt 48 ]; then continue; fi 
+                             if ! elementIn "$i" "${skips[@]}" ; then
                                   verslist+=("${i}")
                              fi
                         done
@@ -286,6 +287,7 @@ do
                 fi
 
                 adom_ver="120p${pvers}"
+                if [ ${pvers} -ge 48 ]; then adom_ver="r${pvers}"; fi
                 link_dir
                 continue
                 ;;

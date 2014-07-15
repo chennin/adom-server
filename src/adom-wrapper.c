@@ -122,7 +122,7 @@ int main(int argc, char **argv)
   if (tmp != NULL) { tmp = strtok(NULL, "-"); } // ignore "adom"
   if (tmp != NULL) { // grab version
     strncpy(vers, tmp, VERSLEN);
-    if ((!isdigit(vers[0])) || (!isdigit(vers[1])) || (!isdigit(vers[2]))) {
+    if ( ((!isdigit(vers[0])) && (vers[0] != 'r')) || (!isdigit(vers[1])) || (!isdigit(vers[2]))) {
       fprintf(stderr, "\"%s\" doesn't look like a valid ADOM version to me\n"
           "Name should be: adom-VER[-CHA]\n"
           "VER should be 3 numbers then two optional chars\n", vers);
@@ -219,8 +219,8 @@ int main(int argc, char **argv)
   memset(sagesoname,'\0',SOLEN);
   memset(sagename,'\0',SAGELEN);
 
-  strncpy(sagesoname, "adom-sage-0.9.21.so", SOLEN);
-  strncpy(sagename, "adom-sage-0.9.21", SAGELEN);
+  strncpy(sagesoname, "adom-sage-0.9.22.so", SOLEN);
+  strncpy(sagename, "adom-sage-0.9.22", SAGELEN);
 
   snprintf(binname, BINLEN, "adom-%s-bin", vers);
   if (strcmp(vers,"111") == 0) {

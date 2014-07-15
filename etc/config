@@ -29,7 +29,7 @@ RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
 #Prerelease versions supported
 MIN_PRE=3
 SKIP_LIST="1 2 15"
-MAX_PRE=23
+MAX_PRE=48
 FREE_LIST="3 5 18 19 20 23"
 MAX_FREE_PRE=23
 
