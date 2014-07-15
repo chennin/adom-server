@@ -219,7 +219,7 @@ def poll_hiscore():
 
         for key in diff_r48:
             print key + " Version r48."
-            c.privmsg(target, "\x02New high score\x02: " + key + " Version r48")
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version r48.")
             tweet("r48", key);
 
 def loc_changed(filename):
@@ -245,7 +245,7 @@ def check_rss():
   for key in newfeed["items"]:
     if key["date_parsed"] > lastseen:
       lastseen = key["date_parsed"]
-      c.privmsg(target, "\x02New blog post\x02: \x1F" + key["title"] + "\x1F @ " + key["link"])
+      c.privmsg(target, "\x02New blog post\x02: \x1F" + key["title"].encode('ascii', 'replace') + "\x1F @ " + key["link"])
 
   c.execute_delayed(1800, check_rss)
 
@@ -262,7 +262,7 @@ def check_tweets():
 
   for key in newtweets:
     if key.in_reply_to_user_id == None: # and key.retweeted_status == None:
-      c.privmsg(target, "\x02New tweet from the Creator\x02: \"" + key.text + "\"")
+      c.privmsg(target, "\x02New tweet from the Creator\x02: \"" + key.text.encode('ascii', 'replace') + "\"")
     if key.id > maxseen:
         maxseen = key.id
 
