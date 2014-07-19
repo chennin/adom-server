@@ -381,7 +381,7 @@
 #define IC9_2 0x03 /* Ice Queen Throne   	L2 */
 #define ICD_1 0x26 /* Ice Queen Danger   	L1 */
 #define ICD_2 0x03 /* Ice Queen Danger   	L2 */
-#define ARENA_1 0x26 /* ARENA (?)   	L1 */
+#define ARENA_1 0x27 /* ARENA (?)   	L1 */
 #define ARENA_2 0x03 /* ARENA (?)   	L2 */
 #define FGJC1_1 0x28 /* Front Giant Jarl Cave 1   	L1 */
 #define FGJC1_2 0x03 /* Front Giant Jarl Cave 1   	L2 */
@@ -395,3 +395,93 @@
 #define FGJC5_2 0x03 /* Front Giant Jarl Cave 5   	L2 */
 #define FGJC6_1 0x2d /* Front Giant Jarl Cave 6   	L1 */
 #define FGJC6_2 0x03 /* Front Giant Jarl Cave 6   	L2 */
+#define R1_1_1 0x2e /* Random 1:1   	L1 */
+#define R1_1_2 0x03 /* Random 1:1   	L2 */
+#define R1_2_1 0x2f /* Random 1:2   	L1 */
+#define R1_2_2 0x03 /* Random 1:2   	L2 */
+#define R1_3_1 0x30 /* Random 1:3   	L1 */
+#define R1_3_2 0x03 /* Random 1:3   	L2 */
+#define R1_4_1 0x31 /* Random 1:4   	L1 */
+#define R1_4_2 0x03 /* Random 1:4   	L2 */
+#define R1_5_1 0x32 /* Random 1:5   	L1 */
+#define R1_5_2 0x03 /* Random 1:5   	L2 */
+#define R2_1_1 0x01 /* Random 2:1   	L1 */
+#define R2_1_2 0x04 /* Random 2:1   	L2 */
+#define R2_2_1 0x02 /* Random 2:2   	L1 */
+#define R2_2_2 0x04 /* Random 2:2   	L2 */
+#define R2_3_1 0x03 /* Random 2:3   	L1 */
+#define R2_3_2 0x04 /* Random 2:3   	L2 */
+#define R2_4_1 0x04 /* Random 2:4   	L1 */
+#define R2_4_2 0x04 /* Random 2:4   	L2 */
+#define R2_6_1 0x05 /* Random 2:5   	L1 */
+#define R2_5_2 0x04 /* Random 2:5   	L2 */
+#define R2_6_1 0x06 /* Random 2:6   	L1 */
+#define R2_6_2 0x04 /* Random 2:6   	L2 */
+#define R2_7_1 0x07 /* Random 2:7   	L1 */
+#define R2_7_2 0x04 /* Random 2:7   	L2 */
+#define R2_8_1 0x08 /* Random 2:8   	L1 */
+#define R2_8_2 0x04 /* Random 2:8   	L2 */
+#define R2_9_1 0x09 /* Random 2:9   	L1 */
+#define R2_9_2 0x04 /* Random 2:9   	L2 */
+#define R2_10_1 0x0a /* Random 2:10   	L1 */
+#define R2_10_2 0x04 /* Random 2:10   	L2 */
+#define R2_11_1 0x0b /* Random 2:11   	L1 */
+#define R2_11_2 0x04 /* Random 2:11   	L2 */
+#define R2_12_1 0x0c /* Random 2:12  	L1 */
+#define R2_12_2 0x04 /* Random 2:12   	L2 */
+#define R3_1_1 0x0d /* Random 3:1   	L1 */
+#define R3_1_2 0x04 /* Random 3:1   	L2 */
+#define R3_2_1 0x0e /* Random 3:2   	L1 */
+#define R3_2_2 0x04 /* Random 3:2   	L2 */
+#define R3_3_1 0x0f /* Random 3:3   	L1 */
+#define R3_3_2 0x04 /* Random 3:3   	L2 */
+#define R3_4_1 0x10 /* Random 3:4   	L1 */
+#define R3_4_2 0x04 /* Random 3:4   	L2 */
+#define R3_5_1 0x11 /* Random 3:5   	L1 */
+#define R3_5_2 0x04 /* Random 3:5   	L2 */
+#define R4_1_1 0x12 /* Random 4:1       L1 */
+#define R4_1_2 0x04 /* Random 4:1       L2 */
+#define R4_2_1 0x13 /* Random 4:2       L1 */
+#define R4_2_2 0x04 /* Random 4:2       L2 */
+#define R4_3_1 0x14 /* Random 4:3       L1 */
+#define R4_3_2 0x04 /* Random 4:3       L2 */
+#define R4_4_1 0x15 /* Random 4:4       L1 */
+#define R4_4_2 0x04 /* Random 4:4       L2 */
+#define R4_5_1 0x16 /* Random 4:5       L1 */
+#define R4_5_2 0x04 /* Random 4:5       L2 */
+#define R4_6_1 0x17 /* Random 4:6       L1 */
+#define R4_6_2 0x04 /* Random 4:6       L2 */
+#define R4_7_1 0x18 /* Random 4:7       L1 */
+#define R4_7_2 0x04 /* Random 4:7       L2 */
+#define R4_8_1 0x19 /* Random 4:8       L1 */
+#define R4_8_2 0x04 /* Random 4:8       L2 */
+#define R4_9_1 0x1a /* Random 4:9       L1 */
+#define R4_9_2 0x04 /* Random 4:9       L2 */
+#define R4_10_1 0x1b /* Random 4:10     L1 */
+#define R4_10_2 0x04 /* Random 4:10     L2 */
+#define R4_11_1 0x1c /* Random 4:11     L1 */
+#define R4_11_2 0x04 /* Random 4:11     L2 */
+#define R4_12_1 0x1d /* Random 4:12     L1 */
+#define R4_12_2 0x04 /* Random 4:12     L2 */
+#define R4_13_1 0x1e /* Random 4:13     L1 */
+#define R4_13_2 0x04 /* Random 4:13     L2 */
+#define R5_1_1 0x1f /* Random 5:1       L1 */
+#define R5_1_2 0x04 /* Random 5:1       L2 */
+#define R5_2_1 0x20 /* Random 5:2       L1 */
+#define R5_2_2 0x04 /* Random 5:2       L2 */
+#define R5_3_1 0x21 /* Random 5:3       L1 */
+#define R5_3_2 0x04 /* Random 5:3       L2 */
+#define R6_1_1 0x22 /* Random 6:1       L1 */
+#define R6_1_2 0x04 /* Random 6:1       L2 */
+#define R6_2_1 0x23 /* Random 6:2       L1 */
+#define R6_2_2 0x04 /* Random 6:2       L2 */
+#define R6_3_1 0x24 /* Random 6:3       L1 */
+#define R6_3_2 0x04 /* Random 6:3       L2 */
+#define R6_4_1 0x25 /* Random 6:4       L1 */
+#define R6_4_2 0x04 /* Random 6:4       L2 */
+#define R6_5_1 0x26 /* Random 6:5       L1 */
+#define R6_5_2 0x04 /* Random 6:5       L2 */
+#define R6_6_1 0x27 /* Random 6:6       L1 */
+#define R6_6_2 0x04 /* Random 6:6       L2 */
+#define R6_7_1 0x28 /* Random 6:7       L1 */
+#define R6_7_2 0x04 /* Random 6:7       L2 */
