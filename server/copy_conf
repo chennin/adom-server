@@ -7,7 +7,12 @@ CFGTO="${HOME}/.adom.data"
 CHALS="etr ste iro brm lth none quit"
 VERSIONS="100 111 lea swp"
 for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
-    VERSIONS+=" 120p${i}"
+    if [ $i -gt 23 ] && [ $i -lt 48 ]; then continue; fi
+    if [ $i -ge 48 ]; then
+	VERSIONS+=" r${i}";
+    else
+        VERSIONS+=" 120p${i}"
+    fi
 done
 VERSIONS+=" quit"
 echo "Copying TO active version: ${adom_ver}-${chal}"

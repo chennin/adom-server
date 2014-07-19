@@ -355,6 +355,7 @@ ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
 7ada15a894e2664c61e050439bb08d99  adom-120p9-bin
 979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
 0353c54099cfb1b1fa9ee26c5f126a0b  adom-r48-bin
+c0d583f3dcfbff579669e3e2c1ddc9c3  adom-r49-bin
 3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
 
 b. Compile wrappers
