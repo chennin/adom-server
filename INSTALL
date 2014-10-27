@@ -241,11 +241,12 @@ git checkout ${TAG}
 ix. Add other ADOM versions
 ============================
 
-Download any desired additional ADOM game versions.  Versions 1.0.0, 1.1.1,
-1.2.0p3, and 1.2.0p5 are included, in the same way as from ancardia.com (due to 
-the license), but 1.2.0 p4 and 6 to last cannot be distributed this way. You
-must have donated to the ADOM Resurrection IndieGoGo campaign to download and
-play p4/6+.
+Download any desired additional ADOM game versions.  The freely distributable
+versions, including 1.0.0, 1.1.1, and the public 1.2.0 prereleases, are 
+included in the same way as from ancardia.com (due to the license), but private
+versions cannot be distributed this way. You must have donated to the ADOM 
+Resurrection IndieGoGo campaign to download and play the private 1.2.0
+prereleases.
  
 Where you have a choice, get the Debian 32-bit version, as that is what Sage 
 supports.
@@ -356,6 +357,7 @@ ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
 979e65fce3f6f67e093d9f95c4209720  adom-lea-bin
 0353c54099cfb1b1fa9ee26c5f126a0b  adom-r48-bin
 c0d583f3dcfbff579669e3e2c1ddc9c3  adom-r49-bin
+8ebd70075cc690e3184a4364e3e9ebd5  adom-r51-bin
 3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
 
 b. Compile wrappers
@@ -400,7 +402,7 @@ c. Compile Sage
 Run the following commands to compile and install Sage.  Replace the value for 
 STAG if there is a newer released version.
 
-STAG="0.9.23"
+STAG="0.9.24"
 git submodule init
 git submodule update
 cd sage

@@ -218,8 +218,8 @@ def poll_hiscore():
             tweet("1.2.0p21-23", key);
 
         for key in diff_r48:
-            print key + " Version r48-49."
-            c.privmsg(target, "\x02New high score\x02: " + key + " Version r48-49.")
+            print key + " Version r48-51."
+            c.privmsg(target, "\x02New high score\x02: " + key + " Version r48-51.")
             tweet("r48-49", key);
 
 def loc_changed(filename):
