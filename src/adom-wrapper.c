@@ -219,8 +219,8 @@ int main(int argc, char **argv)
   memset(sagesoname,'\0',SOLEN);
   memset(sagename,'\0',SAGELEN);
 
-  strncpy(sagesoname, "adom-sage-0.9.23.so", SOLEN);
-  strncpy(sagename, "adom-sage-0.9.23", SAGELEN);
+  strncpy(sagesoname, "adom-sage-0.9.24.so", SOLEN);
+  strncpy(sagename, "adom-sage-0.9.24", SAGELEN);
 
   snprintf(binname, BINLEN, "adom-%s-bin", vers);
   if (strcmp(vers,"111") == 0) {

@@ -83,11 +83,11 @@ Perl modules:
 On a Debian-based system, the following command, run as root, should bring
 in all you need:
 
-apt-get install python-irclib elinks inotify-tools quotatool quota bash\
- libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl vim\
- libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl\
- wget python-pyinotify libpoe-component-sslify-perl python-configobj\
- python-oauth git openssh-server openssh-client unzip libconfig-simple-perl\
+apt-get install python-irclib elinks inotify-tools quotatool quota bash \
+ libbot-basicbot-perl libtry-tiny-perl libstring-approx-perl vim \
+ libsub-exporter-perl sudo screen bsdiff nano hexcurse libterm-readkey-perl \
+ wget python-pyinotify libpoe-component-sslify-perl python-configobj \
+ python-oauth git openssh-server openssh-client unzip libconfig-simple-perl \
  python-feedparser libtext-levenshteinxs-perl tmux python-pip postgresql && 
  pip install tweepy 
 
@@ -104,7 +104,7 @@ yum -y install inotify-tools elinks quota sudo screen tmux bsdiff nano hexedit\
 For compiling binaries from source, or related tools, a compiler and
 some development libraries are required:
 
-apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc-multilib make\
+apt-get install libncurses5-dev libbz2-dev zlib1g-dev gcc-multilib make \
  autoconf g++-multilib
 #or
 yum groupinstall "development tools"; yum install ncurses-devel\
@@ -314,7 +314,7 @@ for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
   if [ $i -gt 14 ]; then where="e"; fi
   if [ $i -gt 20 ]; then where="f"; fi
   if [ $i -gt 23 ] && [ $i -lt 48 ]; then continue; fi
-  if [ $i -ge 48 ]; then
+  if [ $i -ge 48 ] && [ $i -ne 50 ]; then
     versstr="r$i"
     where="g"; 
   fi

@@ -413,7 +413,7 @@
 #define R2_3_2 0x04 /* Random 2:3   	L2 */
 #define R2_4_1 0x04 /* Random 2:4   	L1 */
 #define R2_4_2 0x04 /* Random 2:4   	L2 */
-#define R2_6_1 0x05 /* Random 2:5   	L1 */
+#define R2_5_1 0x05 /* Random 2:5   	L1 */
 #define R2_5_2 0x04 /* Random 2:5   	L2 */
 #define R2_6_1 0x06 /* Random 2:6   	L1 */
 #define R2_6_2 0x04 /* Random 2:6   	L2 */

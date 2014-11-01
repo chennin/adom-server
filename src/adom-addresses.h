@@ -168,7 +168,6 @@
   #define IDCOUNT 0x84730d0 /* and 0x8471c64? */
   #define CHARNAME 0x8450ba8
 #endif
-#endif
 
 // Challenge game text
 #define CHAL_WARN "\033[1;31mWARNING\033[0m: Challenge game locations are STRICTLY ENFORCED.\n"\
