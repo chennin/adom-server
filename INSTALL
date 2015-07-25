@@ -317,11 +317,10 @@ for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
   if [ $i -gt 20 ]; then where="f"; fi
   if [ $i -gt 23 ] && [ $i -lt 48 ]; then continue; fi
   if [ $i -ge 48 ]; then versstr="r${i}"; fi
-  if [ $i -eq 59 ]; then versstr="r${i}_pub"; fi
   if [ $i -ge 48 ] && [ $i -ne 50 ]; then where="g"; fi
   if [ $i -ge 59 ]; then where="h"; fi
-  if [ -f /var/lib/adom/software/adom_linux_debian_32_${versstr}.tar.gz ]; then
-    tar xzf /var/lib/adom/software/adom_linux_debian_32_${versstr}.tar.gz &&
+  if [ -f /var/lib/adom/software/adom_linux_debian_32_${versstr}*.tar.gz ]; then
+    tar xzf /var/lib/adom/software/adom_linux_debian_32_${versstr}*.tar.gz &&
     sed -e "s/adom_ds.cfg/adom_ds.12${where}/g" adom/adom > /var/lib/adom/bin/adom-${versstr//+([_.]|re)/}-bin
     if [ $i -eq 14 ]; then
         sed -e "s/adom_ds.cfg/adom_ds.14d/g" adom/adom > /var/lib/adom/bin/adom-120p14-hs-bin
