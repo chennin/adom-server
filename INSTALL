@@ -316,7 +316,8 @@ for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
   if [ $i -gt 14 ]; then where="e"; fi
   if [ $i -gt 20 ]; then where="f"; fi
   if [ $i -gt 23 ] && [ $i -lt 48 ]; then continue; fi
-  if [ $i -ge 48 ]; then versstr="r$i"; fi
+  if [ $i -ge 48 ]; then versstr="r${i}"; fi
+  if [ $i -eq 59 ]; then versstr="r${i}_pub"; fi
   if [ $i -ge 48 ] && [ $i -ne 50 ]; then where="g"; fi
   if [ $i -ge 59 ]; then where="h"; fi
   if [ -f /var/lib/adom/software/adom_linux_debian_32_${versstr}.tar.gz ]; then
