@@ -1,4 +1,6 @@
 adom_linux_debian_32_1.2.0_pre*.tar.gz
+adom_linux_debian_32_r*.tar.gz
+!adom_linux_debian_32_r*_pub.tar.gz
 !adom_linux_debian_32_1.2.0_pre3.tar.gz
 !adom_linux_debian_32_1.2.0_pre2.tar.gz
 !adom_linux_debian_32_1.2.0_pre1.tar.gz

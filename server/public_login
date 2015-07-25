@@ -27,7 +27,7 @@ echo "Desired username: "
 NAME=""
 USERS=`wc -l < /etc/passwd`
 
-if (( $USERS < 1000 )); then
+if (( $USERS < 2000 )); then
     until [ ! $NAME == "" ]; do
             read -e -p "> " NAME
             id "$NAME" > /dev/null 2>&1 && echo "Username already taken, choose another one." && NAME=""

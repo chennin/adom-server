@@ -282,7 +282,8 @@ Swapgame 1.1.1: adom_ds.swp
 1.2.0p14:       adom_ds.12d
 1.2.0p16-20:    adom_ds.12e
 1.2.0p21-23:    adom_ds.12f
-r48-:		adom_ds.12g
+r48-51:		adom_ds.12g
+r59-:           adom_ds.12h
 
 Finally, Sage should be checked out and compiled.
 
@@ -291,6 +292,7 @@ a. Patch ADOM
 
 Patch the binaries with the following commands:
 
+cp etc/config.bak etc/config
 . etc/config
 mkdir -p /tmp/adom && cd $_
 
@@ -314,10 +316,9 @@ for i in $(seq ${MIN_PRE} ${MAX_PRE}); do
   if [ $i -gt 14 ]; then where="e"; fi
   if [ $i -gt 20 ]; then where="f"; fi
   if [ $i -gt 23 ] && [ $i -lt 48 ]; then continue; fi
-  if [ $i -ge 48 ] && [ $i -ne 50 ]; then
-    versstr="r$i"
-    where="g"; 
-  fi
+  if [ $i -ge 48 ]; then versstr="r$i"; fi
+  if [ $i -ge 48 ] && [ $i -ne 50 ]; then where="g"; fi
+  if [ $i -ge 59 ]; then where="h"; fi
   if [ -f /var/lib/adom/software/adom_linux_debian_32_${versstr}.tar.gz ]; then
     tar xzf /var/lib/adom/software/adom_linux_debian_32_${versstr}.tar.gz &&
     sed -e "s/adom_ds.cfg/adom_ds.12${where}/g" adom/adom > /var/lib/adom/bin/adom-${versstr//+([_.]|re)/}-bin
@@ -358,6 +359,7 @@ ec0100d0cf56c910916c7bdbfa2c2887  adom-120p6-bin
 0353c54099cfb1b1fa9ee26c5f126a0b  adom-r48-bin
 c0d583f3dcfbff579669e3e2c1ddc9c3  adom-r49-bin
 8ebd70075cc690e3184a4364e3e9ebd5  adom-r51-bin
+b798bf39d7bc655dadeb7343665e0039  adom-r59-bin
 3128f86a6900e99e3ba0ec40b98e31d9  adom-swp-bin
 
 b. Compile wrappers
@@ -402,7 +404,7 @@ c. Compile Sage
 Run the following commands to compile and install Sage.  Replace the value for 
 STAG if there is a newer released version.
 
-STAG="0.9.24"
+STAG="0.9.25"
 git submodule init
 git submodule update
 cd sage

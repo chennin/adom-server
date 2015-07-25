@@ -28,10 +28,10 @@ RSSURL="http://www.ancientdomainsofmystery.com/feeds/posts/default?alt=rss"
 
 #Prerelease versions supported
 MIN_PRE=3
-SKIP_LIST="1 2 15 50"
-MAX_PRE=51
-FREE_LIST="3 5 18 19 20 23"
-MAX_FREE_PRE=23
+SKIP_LIST="1 2 15 50 52 53 54 55 56 57 58"
+MAX_PRE=59
+FREE_LIST="3 5 18 19 20 23 59"
+MAX_FREE_PRE=59
 
 #For Twitter announcing
 CONSUMER_KEY=

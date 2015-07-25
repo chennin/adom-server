@@ -114,6 +114,7 @@ if (( ! ( ("$res" == "0") || ("$res" == "2") ) )); then
     sleep 10
 else
     rm ${HOME}/adom_dirty
+    rm $HOME/.adom.data/adom.log
 #    rm -f ${HOME}/cryopid_image
     svdir=${HOME}/.adom.data/savedg
     bkdir=${HOME}/.adom.data/backup
