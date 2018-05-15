@@ -27,10 +27,23 @@ echo "Desired username: "
 NAME=""
 USERS=`wc -l < /etc/passwd`
 
-if (( $USERS < 2000 )); then
+if (( $USERS < 4000 )); then
     until [ ! $NAME == "" ]; do
             read -e -p "> " NAME
-            id "$NAME" > /dev/null 2>&1 && echo "Username already taken, choose another one." && NAME=""
+            if [[ ! ${NAME} =~ ^[a-z][-a-z0-9_]{0,30}$ ]]; then
+              echo "Invalid username or name already taken, try again"
+              NAME=""
+            fi
+            grep -q "^${NAME},$" disallowedusernames.csv
+            if [ $? -eq 0 ]; then
+              echo "Invalid username or name already taken, try again"
+              NAME=""
+            fi
+            id "$NAME" > /dev/null 2>&1
+            if [ $? -eq 0 ]; then
+              echo "Invalid username or name already taken, try again"
+              NAME=""
+            fi
     done
     
     /var/lib/adom/server/adom_adduser.sh "$NAME"
