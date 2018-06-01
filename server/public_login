@@ -34,7 +34,7 @@ if (( $USERS < 4000 )); then
               echo "Invalid username or name already taken, try again"
               NAME=""
             fi
-            grep -q "^${NAME},$" disallowedusernames.csv
+            grep -q "^${NAME},$" /var/lib/adom/server/disallowedusernames.csv
             if [ $? -eq 0 ]; then
               echo "Invalid username or name already taken, try again"
               NAME=""
