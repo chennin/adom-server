@@ -19,7 +19,7 @@ my %classes = ( 'Ar'=>    'archer', 'As'=>    'assassin', 'Bb'=>    'barbarian',
 
 my $cgi = new CGI;
 print $cgi->header; # HTTP header
-#use CGI::WebGzip;
+use CGI::WebGzip;
 print $cgi->start_html(
 		-title => "ADOM Server User Stats",
 		-script => { -type =>'JAVASCRIPT', -src => "sorttable.js", },
