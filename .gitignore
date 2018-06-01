@@ -7,3 +7,6 @@ users_fusecompressed
 .*
 .gitconfig
 !.gitignore
+google*html
+mbox
+hiscore.doc
