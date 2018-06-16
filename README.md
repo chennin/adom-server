@@ -1,7 +1,3 @@
-# MOVED - UPDATE YOUR LINKS
-
-https://github.com/chennin
-
 Public ADOM Server scripts README.
 
 **See LICENSE for copyright and licensing details.**
